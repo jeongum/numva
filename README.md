@@ -4,8 +4,8 @@
 ```
 └ master
     └ develop
-        ├ feature/backend/login
-        └ feature/frontend/login
+        ├ feature/server/login
+        └ feature/android/login
 ```
 - Commit
 ``` bash
