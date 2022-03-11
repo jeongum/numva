@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginResDto {
-    private String token;
+    private String accessToken;
+    private String mesiboToken;
 }

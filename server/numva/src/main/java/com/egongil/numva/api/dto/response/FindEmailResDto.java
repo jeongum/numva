@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResDto {
+public class FindEmailResDto {
     String email;
-    String name;
 }

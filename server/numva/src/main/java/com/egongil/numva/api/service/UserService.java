@@ -1,9 +1,15 @@
 package com.egongil.numva.api.service;
 
 import com.egongil.numva.api.dto.request.JoinReqDto;
-import com.egongil.numva.api.dto.response.UserResDto;
+import com.egongil.numva.api.dto.request.UpdateUserReqDto;
+import com.egongil.numva.api.dto.response.BaseResponseEntity;
+import com.egongil.numva.api.dto.response.FindEmailResDto;
+import com.egongil.numva.api.dto.response.FindUserResDto;
 
 public interface UserService {
-    public void join(JoinReqDto reqDto);
-    public UserResDto getUserInfo(String email);
+    void join(JoinReqDto reqDto);
+    FindUserResDto findUser(String email);
+    BaseResponseEntity checkValidMail(String email);
+    FindEmailResDto findEmail(String phone, String name);
+    void modifyUser(String userEmail, UpdateUserReqDto reqDto);
 }

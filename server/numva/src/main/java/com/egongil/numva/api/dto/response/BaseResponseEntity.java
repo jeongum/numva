@@ -1,17 +1,21 @@
 package com.egongil.numva.api.dto.response;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 public class BaseResponseEntity {
-    private int status;
-    private String code;
+    private boolean isSuccess;
+    private int code;
     private String message;
 
-    public BaseResponseEntity(int status, String message) {
-        this.status = status;
-        this.message = message;
+    @Builder
+    public BaseResponseEntity(boolean isSuccess, int code) {
+        this.isSuccess = isSuccess;
+        this.code = code;
     }
+
+
 }

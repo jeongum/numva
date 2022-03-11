@@ -1,15 +1,16 @@
 package com.egongil.numva.api.service;
 
 import com.egongil.numva.api.dto.request.JoinReqDto;
-import com.egongil.numva.api.dto.response.UserResDto;
+import com.egongil.numva.api.dto.request.UpdateUserReqDto;
+import com.egongil.numva.api.dto.response.BaseResponseEntity;
+import com.egongil.numva.api.dto.response.FindEmailResDto;
+import com.egongil.numva.api.dto.response.FindUserResDto;
 import com.egongil.numva.core.entity.user.User;
 import com.egongil.numva.core.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.DuplicateFormatFlagsException;
 
 @Service
 @RequiredArgsConstructor
@@ -27,12 +28,39 @@ public class UserServiceImpl implements UserService{
 
         user.changePassword(passwordEncoder.encode(user.getPassword()));
 
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
     }
 
     @Override
-    public UserResDto getUserInfo(String email) {
+    public FindUserResDto findUser(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(IllegalStateException::new);
 
-        return null;
+        return FindUserResDto.builder()
+                .email(user.getEmail())
+                .id(user.getId())
+                .phone(user.getPhone())
+                .name(user.getName())
+                .birth(user.getBirth())
+                .build();
+    }
+
+    @Override
+    public BaseResponseEntity checkValidMail(String email) {
+        if(userRepository.findByEmail(email).isPresent()){
+            return new BaseResponseEntity(false, -102);
+        }
+        return new BaseResponseEntity(true, 200);
+    }
+
+    @Override
+    public FindEmailResDto findEmail(String phone, String name) {
+        User user = userRepository.findByPhoneAndName(phone, name).orElseThrow(IllegalStateException::new);
+        return new FindEmailResDto(user.getEmail());
+    }
+
+    @Override
+    public void modifyUser(String email, UpdateUserReqDto reqDto) {
+        User user = userRepository.findByEmail(email).orElseThrow(IllegalStateException::new);
+        user.changeInfo(reqDto.getPhone(), reqDto.getBirth(), reqDto.getNickname());
     }
 }
