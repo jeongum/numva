@@ -1,0 +1,190 @@
+<resources>
+    <string name="app_name">넘바</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="network_error">네트워크 연결이 원활하지 않습니다.</string>
+    <string name="alert_not_prepared">서비스 준비 중입니다.</string>
+    <string name="alert_invalid_token">로그인 세션이 만료되었습니다.</string>
+    <string name="alert_server_error">서버 오류가 발생했습니다.</string>
+    <string name="alert_data_not_matched_error">데이터를 확인할 수 없습니다.</string>
+
+
+    <!--    페이지 제목(Title)-->
+    <!--    CustomTitlebar에서 font태그 사용되려면 <를 &lt;로 표기해야함-->
+    <string name="carmanagement_title">차량 관리</string>
+    <string name="qrscan_title">&lt;font color="#3B476B">QR코드 &lt;/font>스캔</string>
+    <string name="qrscan_camera_title">QR 인식 카메라</string>
+    <string name="qrscan_result_title">&lt;font color="#3B476B">차주 연락처 &lt;/font>열람</string>
+    <string name="mypage_title">MY넘바</string>
+    <string name="numvatalk_title">넘바톡</string>
+    <string name="store_title">스토어</string>
+    <string name="signup_title">회원가입</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Splash Activity-->
+    <string name="splash_guide">안심하고 연락하고, 안심하고 연락받자!</string>
+    <string-array name="splash_random">
+        <item>안녕히 주무세요</item>
+        <item>불안해하지마세요</item>
+        <item>안심하고 주차하세요</item>
+    </string-array>
+    <string name="splash_numva">넘버는 넘바가 지킬테니,</string>
+
+    <!--NetWork Failure Activity-->
+    <string name="network_failguide1">네트워크가 원활하지 않습니다.</string>
+    <string name="network_failguide2">Wi-Fi 혹은 셀룰러 데이터의 연결을 확인해주세요.</string>
+
+    <!--SnsLogin-->
+    <string name="sns_exist_title">이미 계정이 있으시네요!</string>
+    <string name="sns_exist_description">동일한 이메일로 가입된 계정이 존재합니다.\n계속 진행하시면 기존 계정과 연동됩니다.</string>
+
+    <!--Signup Activity-->
+    <string name="signup_id_hint">이메일 주소</string>
+    <string name="signup_pw_hint">비밀번호</string>
+    <string name="signup_pw_check_hint">비밀번호 확인</string>
+    <string name="signup_name_hint">실명을 입력하세요</string>
+    <string name="signup_phone_hint">"'-'구분없이 입력"</string>
+    <string name="signup_birth_hint">8자리 입력</string>
+    <string name="signup_nickname_hint">최대 8자리까지 입력 가능합니다.</string>
+
+    <string name="signup_id_success_guide">사용 가능한 아이디(이메일)입니다.</string>
+    <string name="signup_id_fail_guide">중복된 아이디(이메일)입니다.</string>
+    <string name="signup_pw_check_fail_guide">비밀번호가 일치하지 않습니다.</string>
+    <string name="signup_birth_fail_guide">올바른 생년월일을 입력해주세요.</string>
+    <string name="signup_nickname_fail_guide">올바른 닉네임을 입력해주세요.(한글, 영문, 숫자 사용 가능)</string>
+
+    <string name="signup_terms_service">[필수] 넘바(회사명:이공일) 이용약관 동의</string>
+    <string name="signup_terms_privacy">[필수] 개인정보 취급방침 동의</string>
+    <string name="signup_terms_marketing">[선택] 마케팅 정보 수신 동의</string>
+    <string name="signup_moreinfo_required">*표시된 항목은 필수입력사항입니다.</string>
+
+    <string name="danal_pass_url">file:///android_asset/www/pass.html</string>
+
+    <!--Find Id Fragment-->
+    <string name="certnumber_guide">휴대폰 번호가 인증되었습니다.</string>
+    <string name="certnumber_fail_guide">인증번호가 올바르지 않습니다.</string>
+
+    <!--Find Id Exist Fragment-->
+    <string name="findid_exist_guide">입력하신 휴대전화번호 정보와 일치하는 이이디입니다.</string>
+
+    <!--Find Id Non Exist Fragment-->
+    <string name="findid_nonexist_guide">입력하신 회원정보와 일치하는 계정이 없습니다.</string>
+
+    <!--Main Activity-->
+    <string name="alert_app_exit">\'뒤로\'버튼을 한 번 더 누르시면 종료됩니다.</string>
+
+    <!--QRScan Activity-->
+    <string name="qrscan_guide">해당 아이콘을 누르면 \nQR을 스캔하기 위해 <font color="#3B476B">카메라</font>로 이동합니다.</string>
+    <string name="custom_qrscan_guide">QR코드를 스캔하세요!</string>
+    <string name="qrscan_result_guide_numvacall">넘바콜/넘바톡이 무엇인가요?</string>
+    <string name="qrscan_result_guide">넘바콜과 넘바톡 서비스는 발신자와 수신자 모두\n<b>개인 휴대전화번호 노출 없이</b> 연락이 가능한\n앱 내 서비스입니다.</string>
+    <string name="qrscan_result_guide2">넘바콜과 넘바톡 서비스는\n<font color="#3B476B">앱 내 통화/문자 서비스</font>입니다.</string>
+    <string name="qrscan_result_second_title">혹시 차주와 연락이 닿지 않으세요?\n넘바가 다른 번호를 알려 드릴게요.</string>
+    <string name="qrscan_result_second_call"><u>다른 번호로 전화하기</u></string>
+    <string name="qrscan_result_second_message"><u>다른 번호로 메세지 보내기</u></string>
+    <string name="qrscan_result_invalid_qr">유효하지 않은 QR코드입니다.</string>
+    <!--Home Fragment-->
+    <string name="home_nonlogin_greeting">지금 바로 가입하고, 내 번호 보호하자!</string>
+    <string name="home_nonlogin_gotologin">로그인/회원가입</string>
+    <string name="home_parking_memo_guide">주차메모를 입력하세요.</string>
+    <string name="home_nonlogin_guide">로그인 후 이용 가능합니다.</string>
+    <string name="home_nonregist_guide">QR코드 등록 후 이용 가능합니다.</string>
+    <string name="home_nonregist_title">QR 미등록</string>
+
+    <!--    MyPage Fragment-->
+    <string name="mypage_second_phone_guideline">회원님의 부재중을 대비하여, 함께 보여지는 번호입니다.</string>
+    <string name="delete_account_title">회원탈퇴</string>
+    <string name="delete_account_semi_title">회원 탈퇴 전에 꼭 확인하세요.</string>
+    <string name="delete_account_agree">유의사항을 모두 확인하였으며, 회원탈퇴 시 구독권 소멸에 동의합니다.</string>
+
+    <!--Login Activity-->
+    <string name="login_error_guide">아이디와 비밀번호가 일치하지 않습니다.</string>
+    <string name="login_failure_toast">알 수 없는 이유로 로그인에 실패하였습니다.</string>
+
+    <!--Find Login Activity-->
+    <string name="find_login_title">ID/비밀번호 찾기</string>
+
+    <!--ParkingMemo Activity-->
+    <string name="parking_memo_simple_guide">주차메모를 입력하세요.</string>
+    <string name="parking_memo_save_success">주차메모가 저장되었어요.</string>
+    <string name="parking_memo_quickmemo_edit_success">간편메모가 수정되었어요.</string>
+    <string name="parking_memo_quickmemo_delete_success">간편메모가 삭제되었어요.</string>
+    <string name="parking_memo_quickmemo_add_success">새로운 간편메모가 생되었어요.</string>
+    <string name="parking_memo_quickmemo_add_failure_max">최대 5개까지만 저장 가능해요.\n기존 메모를 삭제하고 생성해주세요!</string>
+    <string name="parking_memo_quickmemo_add_hint">간편하게 주차메모를 적어보세요! (최대 40자)</string>
+
+    <!--SecondPhone Activity-->
+    <string name="secondphone_empty">등록된 2차 전화번호가 없습니다.</string>
+
+    <!--Naver Login-->
+    <string name="naver_client_name">넘바</string>
+
+    <!--Customer Center-->
+    <string name="egongil_name">이공일</string>
+    <string name="egongil_address">서울특별시 광진구 능동로 209 학생회관 311A호</string>
+    <string name="egongil_email">numva.201@gmail.com</string>
+
+    <!--App Info Activity-->
+    <string name="business_infomation">상호명 : 이공일&#160;&#160;&#160;&#160;&#160;대표 : 이정음\n주소 : 서울특별시 광진구 능동로 209 311A&#160;&#160;&#160;&#160;&#160;전화번호 : 0507\-2000\-8000\n이메일 : numva.201@gmail.com&#160;&#160;&#160;&#160;&#160;사업자등록번호 : 541\-43\-00755</string>
+
+    <!--Random Nickname Resource 1 -->
+    <string-array name="nick1">
+        <item>감떨어진</item>
+        <item>귀여운</item>
+        <item>끝내주는</item>
+        <item>라면먹은</item>
+        <item>마스크쓴</item>
+        <item>멋쟁이</item>
+        <item>멍때리는</item>
+        <item>물마시는</item>
+        <item>배고픈</item>
+        <item>배부른</item>
+        <item>부끄러운</item>
+        <item>수줍은</item>
+        <item>쏘큐트</item>
+        <item>예의바른</item>
+        <item>운이좋은</item>
+        <item>잠자는</item>
+        <item>졸린</item>
+        <item>춤추는</item>
+        <item>향기로운</item>
+        <item>행복한</item>
+    </string-array>
+
+    <!--Random Nickname Resource 2 -->
+    <string-array name="nick2">
+        <item>강아지</item>
+        <item>고양이</item>
+        <item>꿀벌</item>
+        <item>나무늘보</item>
+        <item>다람쥐</item>
+        <item>도깨비</item>
+        <item>두리안</item>
+        <item>돌고래</item>
+        <item>물개</item>
+        <item>미어캣</item>
+        <item>복숭아</item>
+        <item>블루베리</item>
+        <item>수달</item>
+        <item>아보카도</item>
+        <item>알파카</item>
+        <item>오동이</item>
+        <item>오렌지</item>
+        <item>옥수수</item>
+        <item>응아쟁이</item>
+        <item>자강두천</item>
+        <item>참새</item>
+        <item>코알라</item>
+        <item>토마토</item>
+        <item>파인애플</item>
+        <item>펭귄</item>
+        <item>팬더</item>
+        <item>호랑이</item>
+    </string-array>
+
+    <!--QR Management -->
+    <string name="qr_manage_register_success">QR이 성공적으로 등록되었습니다.</string>
+    <string name="qr_manage_edit_success">별명이 설정되었습니다.</string>
+    <string name="qr_manage_delete_success">QR을 삭제했습니다.</string>
+
+</resources>

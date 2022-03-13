@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="36dp"
+    tools:context=".src.findLogin.FindPwFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+
+        android:layout_marginTop="37dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아이디(이메일)"
+            android:textSize="13dp"
+            android:fontFamily="@font/font_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorBlack"
+            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/findpw_et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="이메일 주소"
+                android:textSize="10dp"
+                android:singleLine="true"
+                android:background="@drawable/roundrect_gray_border_background"
+                android:textCursorDrawable="@drawable/theme_edittext_cursor"
+                android:fontFamily="@font/font_regular"
+                android:includeFontPadding="false"
+                android:paddingVertical="5dp"
+                android:paddingLeft="10dp"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+            <ImageView
+                android:id="@+id/findpw_Iv_email_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_crossbutton_edittext"
+                android:visibility="gone"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/findpw_et_email"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="휴대폰 번호"
+            android:textSize="13dp"
+            android:layout_marginTop="23dp"
+            android:fontFamily="@font/font_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorBlack"
+            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <Spinner
+                android:id="@+id/findpw_sp_phone_start"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundrect_gray_border_background"
+                android:entries="@array/phone_dropdown"
+                android:spinnerMode="dropdown"
+                android:textSize="13dp"
+                android:fontFamily="@font/font_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorBlack"
+                android:gravity="center"
+                android:paddingVertical="5dp"
+                android:theme="@style/SpinnerTheme"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:background="@color/colorBlack"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/findpw_sp_phone_start"
+                app:layout_constraintRight_toLeftOf="@+id/findpw_et_phone_middle"/>
+
+            <EditText
+                android:id="@+id/findpw_et_phone_middle"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_regular"
+                android:includeFontPadding="false"
+                android:textSize="13dp"
+                android:textColor="@color/colorBlack"
+                android:paddingVertical="5dp"
+
+                android:inputType="number"
+                android:singleLine="true"
+                android:nextFocusDown="@id/findpw_et_phone_final"
+                android:maxLength="4"
+                android:background="@drawable/roundrect_gray_border_background"
+                android:gravity="center"
+
+                android:layout_marginLeft="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/findpw_sp_phone_start"
+                app:layout_constraintRight_toLeftOf="@+id/findpw_et_phone_final"
+                />
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:background="@color/colorBlack"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/findpw_et_phone_middle"
+                app:layout_constraintRight_toLeftOf="@+id/findpw_et_phone_final"/>
+
+            <EditText
+                android:id="@+id/findpw_et_phone_final"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_regular"
+                android:includeFontPadding="false"
+                android:textSize="13dp"
+                android:textColor="@color/colorBlack"
+                android:paddingVertical="5dp"
+
+                android:inputType="number"
+                android:singleLine="true"
+                android:maxLength="4"
+                android:background="@drawable/roundrect_gray_border_background"
+                android:gravity="center"
+
+                android:layout_marginLeft="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/findpw_et_phone_middle"/>
+
+            <Button
+                android:id="@+id/findpw_btn_ctfnumber"
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/grey_empty_button"
+                android:text="안심본인인증"
+                android:textSize="10dp"
+                android:textColor="@color/colorPrimary"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/font_regular"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/findpw_ll_certnum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:text="인증번호"
+                android:textSize="13dp"
+                android:fontFamily="@font/font_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorBlack"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/findpw_et_certnumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="인증번호 입력"
+                    android:textSize="10dp"
+                    android:singleLine="true"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:background="@drawable/roundrect_gray_border_background"
+                    android:textCursorDrawable="@drawable/theme_edittext_cursor"
+                    android:paddingVertical="5dp"
+                    android:paddingLeft="10dp"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/findpw_btn_certconfirm"
+                    />
+                <ImageView
+                    android:id="@+id/findpw_Iv_ctfnumber_remove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_crossbutton_edittext"
+                    android:visibility="gone"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="@+id/findpw_et_certnumber"/>
+
+                <Button
+                    android:id="@+id/findpw_btn_certconfirm"
+                    android:layout_width="71dp"
+                    android:layout_height="23dp"
+                    android:text="인증번호 확인"
+                    android:textSize="10dp"
+                    android:background="@drawable/roundrect_white_background"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/findpw_et_certnumber"/>
+
+                <com.egongil.numva_android_app.src.cert_phone.TimerView
+                    android:id="@+id/findpw_tv_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:textSize="10dp"
+
+                    app:layout_constraintTop_toBottomOf="@+id/findpw_btn_certconfirm"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="@+id/findpw_et_certnumber"/>
+
+                <TextView
+                    android:id="@+id/findpw_tv_failure_ctfnumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="8dp"
+                    android:textColor="@color/colorErrorRed"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:visibility="gone"
+
+                    app:layout_constraintTop_toBottomOf="@+id/findpw_btn_certconfirm"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/findpw_btn"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:text="비밀번호 재설정"
+        android:textSize="19dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/roundrect_primary_background_23dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:elevation="10dp"
+        android:fontFamily="@font/font_bold"
+        android:includeFontPadding="false"
+        android:layout_marginVertical="10dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".src.signup.SignupDoneActivity">
+
+    <ImageView
+        android:id="@+id/signup_iv_full_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_full_check"
+        android:layout_marginTop="222dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <TextView
+        android:id="@+id/signup_tv_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="회원가입이 \n완료되었습니다!"
+        android:textSize="30dp"
+        android:fontFamily="@font/font_bold"
+        android:textColor="@color/colorBlack"
+        android:textAlignment="center"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toBottomOf="@+id/signup_iv_full_check"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    
+    <Button
+        android:id="@+id/signup_btn_done"
+        android:layout_width="244dp"
+        android:layout_height="46dp"
+        android:background="@drawable/roundrect_primary_background_23dp"
+        android:elevation="20dp"
+        android:text="로그인"
+        android:fontFamily="@font/notosans_bold"
+        android:textSize="19dp"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="97dp"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toBottomOf="@+id/signup_tv_done"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

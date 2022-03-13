@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def kakao_appkey = properties.getProperty('kakao.appkey')
+    def naver_clent_id = properties.getProperty('NAVER_CLIENT_ID')
+    def naver_clent_secret = properties.getProperty('NAVER_CLIENT_SECRET')
+
+
+    defaultConfig {
+        applicationId "com.egongil.numva_android_app"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [kakaoAppkey: kakao_appkey]
+
+        buildConfigField "String", 'NAVER_CLIENT_ID', naver_clent_id
+        buildConfigField "String", 'NAVER_CLIENT_SECRET', naver_clent_secret
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'com.google.android.material:material:1.0.0'
+
+    //QR Scan zxing Library
+    implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
+
+    //Retrofit2 Library
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+
+    //okhttp Library
+    implementation("com.squareup.okhttp3:okhttp:4.4.0")
+
+    //Gson 변환기 Library
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    //rx
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.8.1'
+
+    //loggin interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
+    //Refresh(SwipeRefreshLayout)
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //Viewpager indicator
+    implementation 'me.relex:circleindicator:1.2.2'
+
+    //Naver Login
+    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
+
+    // naveridlogin dependencies
+    def android_x_version = "1.0.0"
+    implementation "androidx.appcompat:appcompat:$android_x_version"
+    implementation "androidx.legacy:legacy-support-core-utils:$android_x_version"
+    implementation "androidx.browser:browser:$android_x_version"
+    implementation "androidx.legacy:legacy-support-v4:$android_x_version"
+
+    //iamport danal pass
+//    implementation "com.github.iamport:iamport-android:$SDK-VERSION"
+
+    //kakao login
+    implementation group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
+
+    //Tooltip Balloon
+    implementation "com.github.skydoves:balloon:1.3.4"
+
+    //mesibo
+    implementation 'com.mesibo.api:mesibo:1.9.7'
+    implementation 'com.mesibo.api:calls:1.9.7'
+    implementation 'com.mesibo.api:ui:1.9.7'
+}

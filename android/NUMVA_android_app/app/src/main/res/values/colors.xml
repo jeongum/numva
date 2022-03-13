@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3B476B</color>
+    <color name="colorPrimaryDark">#222A41</color>
+    <color name="colorPrimaryGray">#536089</color>
+    <color name="colorPrimaryLight">#94ACD0</color>
+    <color name="colorPrimaryBackground">#E2E7ED</color>
+    <color name="colorPrimaryDemiLight">#788CC9</color>
+    <color name="colorAccent">#3B476B</color>
+<!--    <color name="colorControlNormal">#6524FF</color>-->
+    <color name="colorBackground">#F5F5F5</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorSemiBlack">#656565</color>
+    <color name="colorErrorRed">#EB3323</color>
+    <color name="colorLoginGray">#F1F1F5</color>
+    <color name="colorGrayInactive">#A0A0A0</color>
+    <color name="colorGraySmallTitle">#A0A0A0</color>
+    <color name="colorGrayOutline">#DBDBDB</color>
+    <color name="colorGrayMemoBackground">#F0F0F0</color>
+    <color name="colorGrayDialogBackground">#99989C</color>
+    <color name="colorGrayGuide">#999999</color>
+    <color name="colorCursor">#3B476B</color>
+    <color name="colorSkyblue">#EDF2FF</color>
+
+    <color name="colorSemiTitle">#505050</color>
+
+    <color name="colorLightBlack">#505050</color>
+
+    <color name="colorMessageSend">#D1E0FF</color>
+    <color name="colorMessageReceived">#EFEFEF</color>
+    <color name="colorSimpleMessage">#EFEFEF</color>
+    <color name="transparent">#00000000</color>
+
+</resources>

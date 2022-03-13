@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="20dp"
+    android:orientation="vertical"
+    tools:context=".src.findLogin.FindIdNonExistFragment">
+
+   <ImageView
+       android:layout_width="45dp"
+       android:layout_height="45dp"
+       android:src="@drawable/ic_crossbtn_primary"
+       android:layout_marginTop="50dp"
+       android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/findid_nonexist_guide"
+        android:textSize="13dp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="32dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/font_regular"
+        android:includeFontPadding="false"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/findid_nonexist_btn_home"
+            android:layout_width="150dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:text="홈으로 가기"
+            android:background="@drawable/roundrect_primary_background_15dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="17dp"
+            android:fontFamily="@font/font_bold"
+            android:includeFontPadding="false"
+            android:layout_marginTop="64dp"
+            android:layout_marginLeft="32dp"/>
+
+        <Button
+            android:id="@+id/findid_nonexist_btn_signup"
+            android:layout_width="150dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:layout_marginTop="64dp"
+            android:layout_marginRight="31dp"
+            android:background="@drawable/roundrect_primary_background_15dp"
+            android:fontFamily="@font/font_bold"
+            android:includeFontPadding="false"
+            android:text="회원가입"
+            android:textColor="@color/colorWhite"
+            android:textSize="17dp" />
+    </LinearLayout>
+</LinearLayout>
