@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="20dp"
+    android:orientation="vertical"
+    tools:context=".src.findLogin.FindIdExistFragment">
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/findid_exist_guide"
+       android:layout_marginTop="45dp"
+       android:textSize="13dp"
+       android:textColor="@color/colorBlack"
+       android:layout_gravity="center"
+       android:fontFamily="@font/font_regular"
+       android:includeFontPadding="false"
+       />
+
+    <TextView
+        android:id="@+id/findid_exist_tv_email"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:fontFamily="@font/font_regular"
+        android:includeFontPadding="false"
+        android:background="@drawable/roundrect_primary_border_24dp"/>
+
+    <Button
+        android:id="@+id/findid_exist_btn"
+        android:layout_width="300dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="66dp"
+        android:text="로그인"
+        android:textSize="19dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/roundrect_primary_background_23dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:elevation="10dp"
+        android:fontFamily="@font/font_bold"
+        android:includeFontPadding="false"
+        />
+
+
+
+
+
+
+</LinearLayout>

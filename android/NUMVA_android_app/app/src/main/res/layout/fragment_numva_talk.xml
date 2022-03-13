@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".src.numvatalk.chatlist.NumvaTalkFragment">
+
+    <TextView
+        android:id="@+id/numvatalk_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/font_medium"
+        android:includeFontPadding="false"
+        android:text="넘바톡"
+        android:textColor="@color/colorBlack"
+        android:textSize="20dp"
+
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/numvatalk_iv_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_setting"
+
+        android:layout_marginRight="35dp"
+        app:layout_constraintTop_toTopOf="@id/numvatalk_tv_title"
+        app:layout_constraintBottom_toBottomOf="@id/numvatalk_tv_title"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/numvatalk_tv_guide_none"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="수신된 넘바톡이 없습니다."
+        android:fontFamily="@font/font_demilight"
+        android:includeFontPadding="false"
+        android:textSize="14dp"
+        android:textColor="@color/colorGraySmallTitle"
+        app:layout_constraintTop_toBottomOf="@id/numvatalk_tv_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/numvatalk_rv_chatlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="32dp"
+        android:focusableInTouchMode="true"
+        android:descendantFocusability="beforeDescendants"
+        app:layout_constraintTop_toBottomOf="@id/numvatalk_tv_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

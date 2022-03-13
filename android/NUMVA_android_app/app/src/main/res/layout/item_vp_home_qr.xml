@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roundrect_primarygray_background"
+    android:gravity="center_horizontal"
+    android:layout_marginVertical="5dp"
+    android:layout_marginHorizontal="24dp"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/home_tv_qr_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/home_nonregist_title"
+        android:textSize="23dp"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/font_medium"
+        android:includeFontPadding="false"
+        android:elevation="5dp"/>
+    <!--주차메모-->
+    <LinearLayout
+        android:id="@+id/home_ll_parking_memo"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="26dp"
+        android:elevation="5dp"
+        android:orientation="vertical"
+        android:background="@drawable/roundrect_white_background"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="주차메모"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            android:fontFamily="@font/font_medium"
+            android:includeFontPadding="false"
+            android:textAlignment="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingVertical="10dp">
+
+            <TextView
+                android:id="@+id/home_tv_parking_memo_context"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+
+                android:fontFamily="@font/font_demilight"
+                android:includeFontPadding="false"
+                android:text="@string/home_nonlogin_guide"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorSemiBlack"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--안심번호-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="26dp"
+        android:elevation="5dp"
+        android:orientation="vertical"
+        android:background="@drawable/roundrect_white_background"
+        >
+        <!-- 미등록 상태-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/home_cl_nonregist_safe_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+            <TextView
+                android:id="@+id/home_tv_nonregist_safe_number_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="안심번호"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                android:fontFamily="@font/font_medium"
+                android:includeFontPadding="false"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/home_tv_nonregist_safe_number_context"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:fontFamily="@font/font_demilight"
+                android:includeFontPadding="false"
+                android:text="@string/home_nonlogin_guide"
+                android:textColor="@color/colorSemiBlack"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_tv_nonregist_safe_number_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--정상 등록 상태-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/home_cl_regist_safe_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/home_tv_regist_safe_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="13dp"
+                android:fontFamily="@font/font_medium"
+                android:includeFontPadding="false"
+                android:text="050-1234-5678"
+                android:textSize="23dp"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/home_ll_regist_changetime"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/home_ll_regist_changetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp"
+                android:layout_marginBottom="6dp"
+                android:orientation="horizontal"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+                <TextView
+                    android:id="@+id/home_tv_regist_changetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/font_bold"
+                    android:includeFontPadding="false"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 변경 예정"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/font_demilight"
+                    android:includeFontPadding="false"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</LinearLayout>

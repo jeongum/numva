@@ -1,0 +1,487 @@
+[33mcommit 54ba646a8122cf8f7dce80e2387a1e56b2c29c59[m[33m ([m[1;36mHEAD -> [m[1;32mssu[m[33m, [m[1;31morigin/ssu[m[33m)[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Wed Jul 28 21:05:53 2021 +0900
+
+    Retrofit2 error body null이슈 해결
+
+[33mcommit 5ae744a8833775d987ebb3a89b7df1e191a46af2[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Wed Jul 28 16:35:02 2021 +0900
+
+    recyclerview -> customview
+
+[33mcommit c8ed863d042dde1aed773c2303f77a82f5e0bcf5[m[33m ([m[1;32mdevelop[m[33m)[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Wed Jul 28 15:54:50 2021 +0900
+
+    Main GetUser관련 Fragment 생명주기 해결 - Callback
+
+[33mcommit 90aba3a56d1dd34adefe6f8807e566cb2677384f[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Wed Jul 28 13:08:20 2021 +0900
+
+    backbtn 2번 클릭 앱 종료 구현, 마이페이지 진입 렉 완화
+
+[33mcommit 89276f6689129fc42c01da4d85c021ffb79190f1[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jul 27 04:12:44 2021 +0900
+
+    첫 진입 시 HomeFragment getUser 비동기 문제 해결
+
+[33mcommit 03abc0f69008a27aee416db65a44b034dd9c25a0[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jul 27 03:11:09 2021 +0900
+
+    주차메모, logout Dialog 생성
+
+[33mcommit aab9109b0ce9c41269916c7faf71a0935d1dc78d[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Mon Jul 26 22:41:12 2021 +0900
+
+    Login Activity 자동로그인, 아이디 저장 삭제
+
+[33mcommit 9b42cd6387ee782df451a4549c6cc08ecca79331[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sun Jul 25 22:40:28 2021 +0900
+
+    login flow
+
+[33mcommit f1d8f06d7a48c3238f20be3332543921a489b642[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sun Jul 25 18:37:54 2021 +0900
+
+    mypage recyclerview item하나로 수정, 로그아웃 버튼 red처리
+
+[33mcommit 2fc595ae33680d8d4180a96cfecd9de112c31968[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sun Jul 25 17:44:43 2021 +0900
+
+    getUser api Main으로 이관, mypageFragment에서 접근
+
+[33mcommit 9ceb51573562b8fafcc8803fa5ec736d26c774b1[m
+Merge: b711471 4d140a1
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sun Jul 25 15:29:55 2021 +0900
+
+    OHR, ssu merge
+
+[33mcommit b711471ccbf615b71ab8dd5217970f58b3302899[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sun Jul 25 15:23:56 2021 +0900
+
+    앱 아이콘, primary, logo 변경
+
+[33mcommit 4d140a19776a4de0b63fc7021fb52b5128da9f74[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Sun Jul 25 03:12:38 2021 +0900
+
+    [add] fragment_my_page2 (기존 fragment_my_page linearlayout -> constraintlayout)
+
+[33mcommit c5e188d30ef5040c89b8bd12daa914a3543074b0[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Sun Jul 25 00:50:19 2021 +0900
+
+    [update] 리사이클러뷰 아이템 white로 통일
+
+[33mcommit 807ac58ceac6f0878a60837ebefe7d90a5939553[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sat Jul 24 19:04:11 2021 +0900
+
+    app logo, primary 색상 수정
+
+[33mcommit 1ae0fc83a4ba7476947a81ca5f75dca4d141846a[m
+Merge: 49726e6 e10a42d
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Fri Jul 23 20:17:19 2021 +0900
+
+    Merge branch 'master' into OHR
+
+[33mcommit 49726e692a113d6fb9af3d86e619ef64df8ed71e[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Fri Jul 23 20:16:48 2021 +0900
+
+    [update]회원가입 edittext사이즈 조정 및 single line 조건 추가
+
+[33mcommit e10a42d5351a07884d99fb467c46422168df33d5[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m, [m[1;32mOHR2[m[33m)[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Fri Jul 23 20:10:16 2021 +0900
+
+    Revert "[update] 회원가입 페이지 xml 수정"
+    
+    This reverts commit 94a724f5e7d55d7b9f93cc6b1e78fb4109ece82c.
+
+[33mcommit 94a724f5e7d55d7b9f93cc6b1e78fb4109ece82c[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Fri Jul 23 20:09:35 2021 +0900
+
+    [update] 회원가입 페이지 xml 수정
+
+[33mcommit 525a75501ec756ebb6ddeacaa1b38bc1f3acce6c[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jul 20 21:33:39 2021 +0900
+
+    login, logout, getuser api
+
+[33mcommit c390bb883289b8734f3ed2e66c36258ff7096414[m
+Merge: df2a883 16dae2a
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Mon Jul 19 15:46:30 2021 +0900
+
+    Merge remote-tracking branch 'origin/master' into master
+
+[33mcommit 72edec47b3cb75cf5733a4da518a584157701e6d[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Mon Jul 19 15:45:43 2021 +0900
+
+    [update] push전 커밋
+
+[33mcommit 16dae2ac635fa2f83ec7699278f00d4e4897ec90[m
+Merge: fb1f0e4 719af27
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jul 13 21:08:05 2021 +0900
+
+    Merge branch 'ssu'
+
+[33mcommit 719af275de30fb3526dc0bd7149c7c35ce8bab66[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jul 13 20:40:19 2021 +0900
+
+    tokenIntercepter 주석 해제
+
+[33mcommit df2a88328a19d1d38bc9d4de2ad0d6a6885a0965[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Wed Jul 7 17:37:48 2021 +0900
+
+    코드스타일 적용
+
+[33mcommit fb1f0e4a0156ed6c21c9f39eb18fb47e46c38650[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Wed Jul 7 17:30:33 2021 +0900
+
+    [ADD] MYPAGE UI추가
+
+[33mcommit 8f7fb0b677c251bbfc11d9a78470dd98c524879d[m
+Merge: 126b21e a15a90e
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jul 6 01:05:57 2021 +0900
+
+    Merge branch 'master' into OHR
+
+[33mcommit a15a90e3f9182e30cdf3733bdaaa9bdf3d83c895[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jul 6 00:49:13 2021 +0900
+
+    token str값 변경
+
+[33mcommit 756f34342be74243806ed0b89a5b81bd47e41cf2[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Mon Jul 5 23:52:36 2021 +0900
+
+    Login api연동 완료, 토큰 저장여부 검사해 로그인or메인페이지 접근
+
+[33mcommit 126b21ec56811a5c7853ba46f6bc44c84aff8af9[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Fri Jul 2 17:07:34 2021 +0900
+
+    [Update] Login페이지에 회원가입 버튼 활성화, activity_signup.xml 수정
+
+[33mcommit 5dd4765806d9f972cff5fa1935ba8665eefaaa1c[m
+Merge: f67eab7 0f2f91d
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Fri Jul 2 14:57:38 2021 +0900
+
+    Merge remote-tracking branch 'origin/ssu' into OHR
+
+[33mcommit 0f2f91df858df4323756ff647b8ba0c7a734bc8b[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Thu Jun 24 23:55:09 2021 +0900
+
+    Login background 이미지 -> xml / 미사용 drawable 삭제 / Login 실패 시 guide 레이아웃 추가
+
+[33mcommit f67eab71e3422891e11af1bf6976ed1c50445d91[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Thu Jun 24 22:37:12 2021 +0900
+
+    FindPwFragment, FindPwResetFragment 클릭리스너 추가
+
+[33mcommit c7981e41567ad05dfcbd0eb2bc682bf774f9a9f4[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Thu Jun 24 22:24:11 2021 +0900
+
+    test fragment 삭제
+
+[33mcommit 583ddaed5dae53bff936fabe8442be9a255957be[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Thu Jun 24 22:21:22 2021 +0900
+
+    API 연동 초기작업 완료- Login api 수정완료까지 holding
+
+[33mcommit e19883f3b8901b8bf75ccc314bb2a3bcecfaaa42[m
+Merge: fbb12c9 a0b7383
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Thu Jun 24 21:11:47 2021 +0900
+
+    Merge branch 'master' into OHR
+    
+    # Conflicts:
+    #       app/src/main/res/layout/activity_find_login.xml
+
+[33mcommit fbb12c962f4daf880cdb1912f4580b8a99a5f5cf[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Thu Jun 24 19:48:23 2021 +0900
+
+    login, signup xml수정, find id, pw, pw_reset 추가
+
+[33mcommit a0b738382679e749fad420b9dc34d40ec5d88e33[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Thu Jun 24 05:50:40 2021 +0900
+
+    Login액티비티 xml 보완, Project.xml 초기화
+
+[33mcommit 731c90ff5c4966a250b9183a40def7bf6070d59b[m
+Merge: 0018800 89da695
+Author: sujin22 <aoghksj@naver.com>
+Date:   Thu Jun 24 04:04:28 2021 +0900
+
+    Merge branch 'ssu'
+
+[33mcommit 001880017a0f09b4e978250bafe5e74a6e2504c7[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Thu Jun 24 04:04:08 2021 +0900
+
+    login액티비티 xml 보완
+
+[33mcommit 89da6955cfdd39539a442fa3985ec302ab5adaee[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Wed Jun 23 23:54:48 2021 +0900
+
+    parkingmemoActivity TODO 추가
+
+[33mcommit a603556d7e93b9d5a6f87775f1d519755c40b6c9[m
+Merge: 35968b0 87613c6
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Tue Jun 22 23:45:44 2021 +0900
+
+    Merge remote-tracking branch 'origin/ssu' into OHR
+
+[33mcommit 87613c652faf638dc45e4111f0140ac74533c0f8[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jun 22 04:35:10 2021 +0900
+
+    주차메모액티비티 - 현재메모 UI 완료
+
+[33mcommit 35968b01cdbb7fff4e2755284103e4a3002dea50[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Fri Jun 18 23:11:51 2021 +0900
+
+    [add] find id 페이지 추가
+
+[33mcommit 9337e61fdde243808fd7d1b953dae218303965e7[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Fri Jun 18 21:31:38 2021 +0900
+
+    [add]Signup_done추가
+
+[33mcommit cd713d9ba69b14be91658cabc9658784ec12f773[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Fri Jun 18 21:10:27 2021 +0900
+
+    [done]회원가입페이지
+
+[33mcommit b461f5c59ff5886a98cd331f7ab5caf82f3656a7[m
+Merge: ab4e0b9 50ea999
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Wed Jun 16 22:35:27 2021 +0900
+
+    Merge branch 'OHR' of https://github.com/sujin22/NUMVA_android_app into OHR
+    
+    # Conflicts:
+    #       app/src/main/AndroidManifest.xml
+    #       app/src/main/res/layout/activity_login.xml
+
+[33mcommit ab4e0b9d94f5af7384ba2cb8d0b75fb0f3ccca3f[m
+Merge: 6403dc8 30aab2b
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Wed Jun 16 22:34:27 2021 +0900
+
+    Merge remote-tracking branch 'origin/ssu' into OHR
+    
+    # Conflicts:
+    #       app/src/main/AndroidManifest.xml
+    #       app/src/main/res/layout/fragment_home.xml
+
+[33mcommit 6403dc8f8738eb301f558fdf9b3a3ef50bf9abdc[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Wed Jun 16 22:28:33 2021 +0900
+
+    login, signup 약간수정
+
+[33mcommit 30aab2bb9946cd013a3ebeeec82945907be57038[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Wed Jun 16 19:44:02 2021 +0900
+
+    주차메모 액티비티 생성
+
+[33mcommit cdd7fcb0e51678470c590e8b1af8acf5a1c35032[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jun 15 00:53:23 2021 +0900
+
+    qrscan 후 ResultActivity에 결과 전달 & Beep sound, toast 제거
+
+[33mcommit 8b9cc9eb022fff844fd3184adc6c1c1ea77b755d[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jun 15 00:26:59 2021 +0900
+
+    home Fragment 디자인 나온 곳까지 완성
+
+[33mcommit 6ed162c09f42cb16fafd55ab12a18bbfaf854f81[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Mon Jun 14 21:32:25 2021 +0900
+
+    nav, qrscan, store icon 수정, HomeFragment greetings 추가
+
+[33mcommit d11dd43a8d159aa1f45a0ff9c184dd9ac55030b3[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sat Jun 12 05:20:46 2021 +0900
+
+    font import, 기존 페이지 font update 완료
+
+[33mcommit 50ea999b2ea5fe5b52d8db0c3674d40872d41ab7[m
+Merge: 85f6c8f 0251c80
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sat Jun 12 05:01:33 2021 +0900
+
+    conflict 해결
+
+[33mcommit 85f6c8f9eaeff8d2d3622dac7675c9c98c7a2f1f[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sat Jun 12 04:58:48 2021 +0900
+
+    login activity 레이아웃 수정
+
+[33mcommit f47d1368a1b3babd23ef618258604253d3d3ae5b[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sat Jun 12 01:19:24 2021 +0900
+
+    font 수정중 / Nav 레이아웃 수정중
+
+[33mcommit bfaf2d3f6c16b61c5369ed21783422a9abdc0414[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sat Jun 12 01:19:01 2021 +0900
+
+    font 수정중 / Nav 레이아웃 수정중
+
+[33mcommit 0251c80be79dd450bcbeaa2cc25c5630f9c8aca2[m
+Merge: 234df8e baba7cd
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Sat Jun 12 01:16:53 2021 +0900
+
+    Merge remote-tracking branch 'origin/ssu' into OHR
+    
+    # Conflicts:
+    #       app/src/main/AndroidManifest.xml
+
+[33mcommit 234df8e434c2fe672dd4e3a3827389e091418793[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Sat Jun 12 01:11:05 2021 +0900
+
+    [update] login page
+
+[33mcommit baba7cd80510575a47c04e3b45e33048275f3280[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Thu Jun 10 19:42:54 2021 +0900
+
+    Splash Activity 추가
+
+[33mcommit b7411a50490b4f085e049fe1a2cb097246faa7b4[m
+Merge: 296b8fc 5b30f3d
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Sun Jun 6 23:13:39 2021 +0900
+
+    Merge remote-tracking branch 'origin/ssu' into OHR
+    
+    merge충돌 해결중,,
+
+[33mcommit 5b30f3db8d45e44adc684870ace327fe14467fed[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sat Jun 5 04:27:44 2021 +0900
+
+    CustomView font태그 안 먹는 이슈 해결
+
+[33mcommit 9f2e87eb3ddefa2c27a886b1295a2b982b9fb085[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sat Jun 5 03:46:41 2021 +0900
+
+    qrscan시 resultActivity 실행(데이터 전달은 x)
+
+[33mcommit 5a2675ffc6460e9a42e9b3f776cf1b3ad43ffd3b[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sat Jun 5 03:43:25 2021 +0900
+
+    nav내용 수정, Titlebar CustomView 생성해 사용, 로고 클릭 시 홈으로 이동
+
+[33mcommit a933f1ccd0e0f06e112d1553a17db22aa1ebc2b7[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Fri Jun 4 20:49:08 2021 +0900
+
+    Appbar MainActivity에 한 번만 생성하도록 수정, Appbar에 QrSCan, Store Imageview 추가
+
+[33mcommit 296b8fcc501f9606debe9602fd44ffbcf263f56e[m
+Author: OhHyerin <44857166+OhHyerin@users.noreply.github.com>
+Date:   Fri Jun 4 19:23:59 2021 +0900
+
+    [add] login page xml
+
+[33mcommit 833400e510e580894b7c46b4f3234a04ab493795[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Fri Jun 4 02:06:57 2021 +0900
+
+    QRSCAN customizing 완료
+
+[33mcommit 302aa7bca0c940d9e2855ac74c914b897545e098[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Jun 1 20:24:59 2021 +0900
+
+    QR스캔기능
+
+[33mcommit 70ebaebf083094cacde0be635e482d43d71d55d8[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Fri Mar 26 23:07:24 2021 +0900
+
+    base 수정, QRScanResultActivity UI 완료, 일부 Backbtn 삭제
+
+[33mcommit 0b4d1622397588561ac5dfd71fe28ba57acab6d6[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Mon Mar 22 03:40:01 2021 +0900
+
+    QR스캔 페이지 UI 완료
+
+[33mcommit 72928fa6c1d98adc94797b0c5a874748ce06b918[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Mon Mar 22 01:46:47 2021 +0900
+
+    appbar, titlebar 추가
+
+[33mcommit 0f6febf12ae7f803119da5fef1df046fc139097d[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sun Mar 21 23:15:58 2021 +0900
+
+    store 삭제
+
+[33mcommit 43c3aa9b3a2b26e0104f81d5bce8e5b3da8cfdc3[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sat Mar 20 05:29:00 2021 +0900
+
+    네비게이션 아이콘 설정
+
+[33mcommit b837b27c52f344bf1d190ec06a49df00fe1a716f[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Tue Mar 9 01:28:50 2021 +0900
+
+    네비게이션바, 프래그먼트 생성 및 이동 구현 /타이틀바 제거
+
+[33mcommit 20a6c78a66ce2fab60513ee8064ce1f1434e367a[m
+Author: sujin22 <aoghksj@naver.com>
+Date:   Sun Mar 7 00:10:26 2021 +0900
+
+    android studio project 연결

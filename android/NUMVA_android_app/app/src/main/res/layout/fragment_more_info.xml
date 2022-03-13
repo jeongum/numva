@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".src.login.snslogin.fragments.MoreInfoFragment">
+
+    <ImageView
+        android:id="@+id/snslogin_moreinfo_iv_logo"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_app_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/snslogin_moreinfo_iv_backbtn"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="10dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_backbtn"
+        app:layout_constraintTop_toTopOf="@id/snslogin_moreinfo_tv_title"
+        app:layout_constraintBottom_toBottomOf="@id/snslogin_moreinfo_tv_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/snslogin_moreinfo_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:text="추가정보 입력"
+        android:textSize="30dp"
+        android:fontFamily="@font/notosans_bold"
+        android:includeFontPadding="false"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/snslogin_moreinfo_iv_logo"
+        />
+
+    <ScrollView
+        android:id="@+id/snslogin_moreinfo_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/snslogin_moreinfo_tv_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="70dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="37dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/snslogin_moreinfo_tv_name_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="29dp"
+                android:text="이름"
+                android:textSize="13dp"/>
+
+            <EditText
+                android:id="@+id/snslogin_moreinfo_et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/roundrect_gray_border_background"
+                android:paddingVertical="5dp"
+                android:paddingLeft="10dp"
+
+                android:textSize="13dp"
+                android:textColor="@color/colorGrayInactive"
+                android:fontFamily="@font/font_regular"
+                android:includeFontPadding="false"
+                android:singleLine="true"
+                android:lines="1"
+                android:focusableInTouchMode="false"/>
+            <TextView
+                android:id="@+id/snslogin_moreinfo_tv_phone_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="18dp"
+                android:text="휴대폰 번호"
+                android:textSize="13dp"/>
+
+            <EditText
+                android:id="@+id/snslogin_moreinfo_et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/roundrect_gray_border_background"
+                android:paddingVertical="5dp"
+                android:paddingLeft="10dp"
+
+                android:textSize="13dp"
+                android:textColor="@color/colorGrayInactive"
+                android:fontFamily="@font/font_regular"
+                android:includeFontPadding="false"
+                android:singleLine="true"
+                android:lines="1"
+                android:focusableInTouchMode="false"/>
+
+            <TextView
+                android:id="@+id/snslogin_moreinfo_tv_birth_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="18dp"
+                android:text="생년월일"
+                android:textSize="13dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <EditText
+                    android:id="@+id/snslogin_moreinfo_et_birth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/roundrect_gray_border_background"
+                    android:paddingVertical="5dp"
+                    android:paddingLeft="10dp"
+
+                    android:hint="8자리 입력"
+
+                    android:textSize="13dp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:inputType="number"
+                    android:digits="0123456789"
+                    android:maxLength="8"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/snslogin_moreinfo_Iv_birth_remove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_crossbutton_edittext"
+                    android:visibility="visible"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/snslogin_moreinfo_tv_birth_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="올바른 생년월일을 입력해주세요."
+                android:textColor="@color/colorErrorRed"
+                android:textSize="10dp"
+                android:fontFamily="@font/font_regular"
+                android:includeFontPadding="false"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/snslogin_moreinfo_tv_nickname_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="18dp"
+                android:text="닉네임"
+                android:textSize="13dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <EditText
+                    android:id="@+id/snslogin_moreinfo_et_nickname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/roundrect_gray_border_background"
+                    android:paddingVertical="5dp"
+                    android:paddingLeft="10dp"
+
+                    android:hint="최대 8자리까지 입력 가능합니다."
+
+                    android:textSize="13dp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:maxLength="8"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/snslogin_moreinfo_btn_randomnick"/>
+                <ImageView
+                    android:id="@+id/snslogin_moreinfo_Iv_nickname_remove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_crossbutton_edittext"
+                    android:visibility="gone"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="@id/snslogin_moreinfo_et_nickname"
+                    />
+                <Button
+                    android:id="@+id/snslogin_moreinfo_btn_randomnick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/grey_empty_button"
+
+                    android:text="랜덤 닉네임"
+                    android:textSize="10dp"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/snslogin_moreinfo_tv_nickname_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="올바른 닉네임을 입력해주세요. (한글, 영문, 숫자 사용 가능)"
+                android:textColor="@color/colorErrorRed"
+                android:textSize="10dp"
+                android:fontFamily="@font/font_regular"
+                android:includeFontPadding="false"
+                android:visibility="gone"
+                />
+
+
+            <CheckBox
+                android:id="@+id/snslogin_moreinfo_check_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39dp"
+
+                android:fontFamily="@font/font_regular"
+                android:includeFontPadding="false"
+                android:text="모두 동의합니다"
+                android:textColor="@color/colorBlack"
+                android:textSize="13dp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:id="@+id/snslogin_moreinfo_check_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[필수] 이용 약관 동의"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorSemiBlack"
+                    android:textSize="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+                <TextView
+                    android:id="@+id/snslogin_moreinfo_tv_service_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보기 >"
+                    android:textSize="10dp"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorBlack"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:id="@+id/snslogin_moreinfo_check_privacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[필수] 개인정보 취급방침 동의"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorSemiBlack"
+                    android:textSize="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+                <TextView
+                    android:id="@+id/snslogin_moreinfo_tv_privacy_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보기 >"
+                    android:textSize="10dp"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorBlack"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="35dp">
+                <CheckBox
+                    android:id="@+id/snslogin_moreinfo_check_marketing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[선택] 마케팅 정보 수신 동의"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorSemiBlack"
+                    android:textSize="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+                <TextView
+                    android:id="@+id/snslogin_moreinfo_tv_marketing_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보기 >"
+                    android:textSize="10dp"
+                    android:fontFamily="@font/font_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorBlack"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/snslogin_moreinfo_btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginHorizontal="38dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/roundrect_primary_background_23dp"
+        android:elevation="10dp"
+
+        android:text="회원가입"
+        android:textColor="@color/colorWhite"
+        android:textSize="19dp"
+        android:fontFamily="@font/font_bold"
+        android:includeFontPadding="false"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

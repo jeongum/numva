@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/simple_memo_ll_BG"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingVertical="10dp"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/simple_memo_rl_editbtn"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_edit_memo"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/simple_memo_rl_deletebtn"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_delete_memo"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/simple_memo_ll_FG"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/roundrect_gray_memobackground"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/simple_memo_tv_memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:fontFamily="@font/font_demilight"
+            android:includeFontPadding="false"
+            android:text="@string/parking_memo_simple_guide"
+            android:textColor="@color/colorGrayInactive"
+            android:textSize="15dp" />
+    </LinearLayout>
+</RelativeLayout>

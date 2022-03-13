@@ -1,0 +1,9 @@
+diff a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml	(rejected hunks)
+@@ -35,7 +35,6 @@
+             android:stateNotNeeded="true"
+             tools:replace="android:screenOrientation" />
+         <activity android:name=".src.qr_scan.QrScanResultActivity" />
+-        <activity android:name=".src.MainActivity">
+         <activity android:name=".src.MainActivity"></activity>
+     </application>
+ 

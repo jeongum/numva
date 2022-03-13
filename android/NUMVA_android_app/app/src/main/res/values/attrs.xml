@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomViewTitlebar">
+        <attr name="backBtn_visibility" format="reference|string">
+        <!--CustomViewTitlebar.java에서-->
+        <!--VisibilityFlags 배열의 인덱스로 사용되어, visibility속성으로 맵핑되도록 할 것입니다.-->
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr>
+        <attr name = "title_text" format="reference|string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomViewMyPageListItem">
+        <attr name="mypage_item_text" format="reference|string"/>
+        <attr name="mypage_item_text_color" format="reference|integer" />
+        <attr name="mypage_item_image_src" format="reference|integer" />
+    </declare-styleable>
+</resources>

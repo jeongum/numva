@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_nav_home"
+        android:title="홈" />
+
+    <item
+        android:id="@+id/nav_numvatalk"
+        android:icon="@drawable/ic_nav_numvatalk"
+        android:title="넘바톡"/>
+
+    <item
+        android:id="@+id/nav_car_management"
+        android:icon="@drawable/ic_nav_car_management"
+        android:title="차량관리"/>
+
+    <item
+        android:id="@+id/nav_mypage"
+        android:icon="@drawable/ic_nav_mypage"
+        android:title="MY넘바"/>
+
+    <item
+        android:id="@+id/nav_qrscan"
+        android:icon="@drawable/ic_nav_qrscan"
+        android:title="QR스캔"
+        android:visible="false"/>
+
+</menu>
