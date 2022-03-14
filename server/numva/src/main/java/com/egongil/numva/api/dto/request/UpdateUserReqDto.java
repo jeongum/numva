@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -11,6 +12,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class UpdateUserReqDto {
     String phone;
-    Date birth;
+    String birth;
     String nickname;
 }
