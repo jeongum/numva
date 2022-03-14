@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -16,7 +18,7 @@ import java.util.Date;
 public class User extends BaseEntity {
 
     @Builder
-    public User(String email, String name, String password, String nickname, String phone, Date birth, Authority authority) {
+    public User(String email, String name, String password, String nickname, String phone, LocalDate birth, Authority authority) {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -34,7 +36,7 @@ public class User extends BaseEntity {
     private String password;
     private String nickname;
     private String phone;
-    private Date birth;
+    private LocalDate birth;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
@@ -43,9 +45,10 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public void changeInfo(String phone, Date birth, String nickname) {
+    public void changeInfo(String phone, String birth, String nickname) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         this.phone = phone;
-        this.birth = birth;
+        this.birth = LocalDate.parse(birth, formatter);
         this.nickname = nickname;
     }
 }
