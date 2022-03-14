@@ -2,6 +2,7 @@ package com.egongil.numva.core.entity.user;
 
 import com.egongil.numva.api.dto.request.UpdateUserReqDto;
 import com.egongil.numva.core.entity.BaseEntity;
+import com.egongil.numva.core.entity.SafetyInfo.SafetyInfo;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,7 +11,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,6 +43,9 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<SafetyInfo> safetyInfos = new ArrayList<>();
 
     public void changePassword(String password) {
         this.password = password;
