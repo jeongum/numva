@@ -3,12 +3,14 @@ package com.egongil.numva_android_app.src.second_phone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -107,12 +109,18 @@ public class SecondPhoneRegisterActivity extends BaseActivity implements SecondP
             @Override
             public void onClick(View v) {
                 if(mStCertNum.equals(mEtCtfNumber.getText().toString())){
+                    //인증번호가 일치함
                     mTvCtfNumber.setText(R.string.certnumber_guide);
                     mTvCtfNumber.setTextColor(R.color.colorPrimary);
                     mTvCtfNumber.setVisibility(View.VISIBLE);
                     timerView.setVisibility(View.GONE);
                     REGISTER_POSSIBLE = true;
+                    //키보드 내림
+                    InputMethodManager manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
                 }else{
+                    //인증번호가 일치하지 않음
                     mTvCtfNumber.setText(R.string.certnumber_fail_guide);
                     mTvCtfNumber.setVisibility(View.VISIBLE);
                     REGISTER_POSSIBLE = false;
@@ -162,7 +170,6 @@ public class SecondPhoneRegisterActivity extends BaseActivity implements SecondP
                 if(REGISTER_POSSIBLE==true) {
                     registerSecondPhone();
                 } else{
-                    //TODO : 문구 생각,,
                     showCustomToast("휴대폰 인증을 진행해주세요.");
                 }
             }
