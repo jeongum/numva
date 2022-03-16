@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -21,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.databinding.FragmentHomeBinding;
 import com.egongil.numva_android_app.src.config.BaseFragment;
 import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
@@ -40,17 +42,11 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedP
 import me.relex.circleindicator.CircleIndicator;
 
 public class HomeFragment extends BaseFragment implements HomeFragmentView {
+    FragmentHomeBinding binding;
     Fragment fragment;
-
-    LinearLayout mLlNonLoginGreeting, mLlLoginGreeting;
-    TextView mLlQrRegister;
-    TextView mTvUserName;
-    TextView mTvFailCertNumber;
 
     ArrayList<SafetyInfo>mListQR;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    public ViewPager mVpQrList;
     HomeQrViewPagerAdapter mViewPagerAdapter;
     public Callback mGetSafetyInfoCallback;
 
@@ -58,21 +54,13 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+        View root = binding.getRoot();
+
         this.fragment = this;
 
-        mLlNonLoginGreeting = view.findViewById(R.id.home_ll_nonlogin_greeting);
-        mLlLoginGreeting = view.findViewById(R.id.home_ll_login_greeting);
-        mLlQrRegister = view.findViewById(R.id.home_tv_register_qr);
-        mTvUserName = view.findViewById(R.id.home_tv_greeting_username);
-        mTvFailCertNumber = view.findViewById(R.id.findid_tv_failure_ctfnumber);
-        mSwipeRefreshLayout = view.findViewById(R.id.home_refresh_layout);
-        mVpQrList = view.findViewById(R.id.home_vp_qr);
-
-        mSwipeRefreshLayout.setColorSchemeResources(
-                R.color.colorPrimary
-        );
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
@@ -84,11 +72,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
                     ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).getSafetyInfo(mCallback);
                 }
 
-                mSwipeRefreshLayout.setRefreshing(false);
+                binding.refreshLayout.setRefreshing(false);
             }
         });
 
-        mLlNonLoginGreeting.setOnClickListener(new OnSingleClickListener() {
+        binding.nonLoginGreeting.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -96,7 +84,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
             }
         });
 
-        mLlQrRegister.setOnClickListener(new OnSingleClickListener() {
+        binding.registerQr.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), QrManagementActivity.class);
@@ -104,9 +92,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
             }
         });
 
-
-
-        mVpQrList.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        binding.qrViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -124,7 +110,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         });
 
         //이전,다음 page 미리보기
-        mVpQrList.setClipToPadding(false);
+        binding.qrViewPager.setClipToPadding(false);
 
         float density = getResources().getDisplayMetrics().density;
 
@@ -133,8 +119,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
         int viewPagerPadding = partialWidth + pageMargin;
 
-        mVpQrList.setPageMargin(pageMargin);
-        mVpQrList.setPadding(viewPagerPadding,0, viewPagerPadding,0);
+        binding.qrViewPager.setPageMargin(pageMargin);
+        binding.qrViewPager.setPadding(viewPagerPadding,0, viewPagerPadding,0);
 
         //Transformation
         Point screen = new Point();
@@ -146,7 +132,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
                                     //Elevation of view at center = baseElevation + raisingElevation
         float smallerScale = 0.8f; //Y scale of the view when it is at position 1 or -1
 
-        mVpQrList.setPageTransformer(false, new QrViewPagerTransformer(baseElevation, rasingElevation, smallerScale, startOffset));
+        binding.qrViewPager.setPageTransformer(false, new QrViewPagerTransformer(baseElevation, rasingElevation, smallerScale, startOffset));
 
         mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), this, mListQR);
 
@@ -162,11 +148,10 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
                     mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), fragment, mListQR);
                 }
 
-                mVpQrList.setAdapter(mViewPagerAdapter);
-                CircleIndicator mIndicator = view.findViewById(R.id.home_ci_qrindicator);
-                mIndicator.setViewPager(mVpQrList);
+                binding.qrViewPager.setAdapter(mViewPagerAdapter);
+                binding.qrIndicator.setViewPager(binding.qrViewPager);
 
-                mViewPagerAdapter.registerDataSetObserver(mIndicator.getDataSetObserver());
+                mViewPagerAdapter.registerDataSetObserver(binding.qrIndicator.getDataSetObserver());
             }
         };
         getSafetyInfo(mGetSafetyInfoCallback);
@@ -175,7 +160,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
         setInitialLoginState();
 
-        return view;
+        return root;
     }
 
     @Override
@@ -188,8 +173,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     }
 
     private void enableDisableSwipeRefresh(boolean enable){
-        if(mSwipeRefreshLayout!=null){
-            mSwipeRefreshLayout.setEnabled(enable);
+        if(binding.refreshLayout!=null){
+            binding.refreshLayout.setEnabled(enable);
         }
     }
     public void setInitialLoginState(){
@@ -200,15 +185,15 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         }
     }
     public void setNonLoginState(){
-        mLlNonLoginGreeting.setVisibility(View.VISIBLE);
-        mLlLoginGreeting.setVisibility(View.GONE);
+        binding.nonLoginGreeting.setVisibility(View.VISIBLE);
+        binding.loginGreeting.setVisibility(View.GONE);
     }
     public void setLoginState(){
-        mLlNonLoginGreeting.setVisibility(View.GONE);
-        mLlLoginGreeting.setVisibility(View.VISIBLE);
+        binding.nonLoginGreeting.setVisibility(View.GONE);
+        binding.loginGreeting.setVisibility(View.VISIBLE);
 
         if(((MainActivity)getActivity()).userInfo!=null){
-            mTvUserName.setText(((MainActivity)getActivity()).userInfo.getNickname());
+            binding.userName.setText(((MainActivity)getActivity()).userInfo.getNickname());
         }
     }
     public void getSafetyInfo(Callback mCallback){
