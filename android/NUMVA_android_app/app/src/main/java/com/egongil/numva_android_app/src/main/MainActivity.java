@@ -53,13 +53,11 @@ import com.mesibo.calls.api.MesiboCall;
 public class MainActivity extends BaseActivity implements MainActivityView , ConnectionReceiver.ConnectionReceiverListener,
 Mesibo.MessageListener, Mesibo.ConnectionListener{
     public static String TAG = "MAIN_ACTIVITY";
-    public static Context mContext;
-
     private ActivityMainBinding binding;
+    public static Context mContext;
 
     private long backKeyPressedTime = 0;
     Toast exitToast;
-    private BottomNavigationView mBottomNV;
     public GetUserResponse.Result userInfo;
 
     @Override
@@ -67,16 +65,13 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        setContentView(R.layout.activity_main);
-
         checkConnection(); //네트워크 연결 확인
 
         mContext = this;
 
         this.initializeFragment();
 
-        mBottomNV = findViewById(R.id.nav_view);
-        mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        binding.navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 BottomNavigate(menuItem.getItemId());
@@ -95,18 +90,18 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
             getUser(mCallback);  //Activity에서 user정보 한 번만 받아온다.
         }
 
-        mBottomNV.setSelectedItemId(R.id.nav_home);
+        binding.navView.setSelectedItemId(R.id.nav_home);
 
         binding.appLogoImage.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                mBottomNV.setSelectedItemId(R.id.nav_home);
+                binding.navView.setSelectedItemId(R.id.nav_home);
             }
         });
         binding.qrScanImage.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                mBottomNV.setSelectedItemId(R.id.nav_qrscan);
+                binding.navView.setSelectedItemId(R.id.nav_qrscan);
                 }
         });
         binding.storeImage.setOnClickListener(new OnSingleClickListener() {
