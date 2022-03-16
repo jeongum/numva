@@ -1,6 +1,7 @@
 package com.egongil.numva_android_app.src.main;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.databinding.ActivityMainBinding;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.BaseActivity;
 import com.egongil.numva_android_app.src.car_management.CarManagementFragment;
@@ -51,32 +53,25 @@ import com.mesibo.calls.api.MesiboCall;
 public class MainActivity extends BaseActivity implements MainActivityView , ConnectionReceiver.ConnectionReceiverListener,
 Mesibo.MessageListener, Mesibo.ConnectionListener{
     public static String TAG = "MAIN_ACTIVITY";
+    private ActivityMainBinding binding;
     public static Context mContext;
+
     private long backKeyPressedTime = 0;
     Toast exitToast;
-    private BottomNavigationView mBottomNV;
     public GetUserResponse.Result userInfo;
-
-    //Mesibo
-    MesiboProfile mRemoteProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         checkConnection(); //네트워크 연결 확인
 
         mContext = this;
 
-        ImageView mIvQrScan = findViewById(R.id.main_iv_qrscan);
-        ImageView mIvStore = findViewById(R.id.main_iv_store);
-        ImageView mIvAppLogo = findViewById(R.id.main_iv_applogo);
-
         this.initializeFragment();
 
-        mBottomNV = findViewById(R.id.nav_view);
-        mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        binding.navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 BottomNavigate(menuItem.getItemId());
@@ -95,21 +90,21 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
             getUser(mCallback);  //Activity에서 user정보 한 번만 받아온다.
         }
 
-        mBottomNV.setSelectedItemId(R.id.nav_home);
+        binding.navView.setSelectedItemId(R.id.nav_home);
 
-        mIvAppLogo.setOnClickListener(new OnSingleClickListener() {
+        binding.appLogoImage.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                mBottomNV.setSelectedItemId(R.id.nav_home);
+                binding.navView.setSelectedItemId(R.id.nav_home);
             }
         });
-        mIvQrScan.setOnClickListener(new OnSingleClickListener() {
+        binding.qrScanImage.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                mBottomNV.setSelectedItemId(R.id.nav_qrscan);
+                binding.navView.setSelectedItemId(R.id.nav_qrscan);
                 }
         });
-        mIvStore.setOnClickListener(new OnSingleClickListener() {
+        binding.storeImage.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), StoreActivity.class);
@@ -239,19 +234,6 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
             //비로그인 상태로 정의
             ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setInitialLoginState();
             ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
-
-
-//            if(errorResponse.getCode()==401 && !errorResponse.isSuccess()){
-//                //token 만료된 경우
-//                //token 초기화
-//                SharedPreferences.Editor editor = sSharedPreferences.edit();
-//                editor.putString(X_ACCESS_TOKEN, null);
-//                editor.commit();
-//                startActivity(new Intent(getApplication(), LoginActivity.class));
-//                finish();
-//                showCustomToast(getResources().getString(R.string.alert_invalid_token));
-//            }
-
         }
     }
 
