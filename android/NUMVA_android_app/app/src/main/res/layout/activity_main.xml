@@ -1,66 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".src.main.MainActivity"
-    android:background="@color/colorBackground">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/custum_qrscan_cl_appbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp">
-        <ImageView
-            android:id="@+id/main_iv_applogo"
-            android:layout_width="40dp"
-            android:layout_height="36.6dp"
-            android:layout_margin="20dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:src="@drawable/ic_app_logo"
-            />
-        <ImageView
-            android:id="@+id/main_iv_store"
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:orientation="vertical"
+        tools:context=".src.main.MainActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <ImageView
+                android:id="@+id/appLogoImage"
+                android:layout_width="40dp"
+                android:layout_height="36.6dp"
+                android:layout_margin="20dp"
+                android:src="@drawable/ic_app_logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/storeImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:src="@drawable/ic_store"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/qrScanImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:src="@drawable/ic_nav_qrscan"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/storeImage"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_view"
+            style="@style/Widget.BottomNavigationView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/ic_store"/>
-        <ImageView
-            android:id="@+id/main_iv_qrscan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/main_iv_store"
-            android:src="@drawable/ic_nav_qrscan"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/roundrect_white_background"
+            android:elevation="5dp"
+            android:paddingVertical="7dp"
+            app:itemTextColor="@color/nav_selector_colors"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav" />
 
-    <FrameLayout
-        android:id="@+id/content_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginBottom="13dp"
-        android:paddingVertical="7dp"
-        android:background="@drawable/roundrect_white_background"
-        app:itemTextColor="@color/nav_selector_colors"
-        app:menu="@menu/bottom_nav"
-        app:labelVisibilityMode="labeled"
-        android:elevation="5dp"
-        style="@style/Widget.BottomNavigationView"
-        />
-
-</LinearLayout>
+    </LinearLayout>
+</layout>
