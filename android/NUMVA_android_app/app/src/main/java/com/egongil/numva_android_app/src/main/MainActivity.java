@@ -57,9 +57,6 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
     private BottomNavigationView mBottomNV;
     public GetUserResponse.Result userInfo;
 
-    //Mesibo
-    MesiboProfile mRemoteProfile;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -239,19 +236,6 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
             //비로그인 상태로 정의
             ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setInitialLoginState();
             ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
-
-
-//            if(errorResponse.getCode()==401 && !errorResponse.isSuccess()){
-//                //token 만료된 경우
-//                //token 초기화
-//                SharedPreferences.Editor editor = sSharedPreferences.edit();
-//                editor.putString(X_ACCESS_TOKEN, null);
-//                editor.commit();
-//                startActivity(new Intent(getApplication(), LoginActivity.class));
-//                finish();
-//                showCustomToast(getResources().getString(R.string.alert_invalid_token));
-//            }
-
         }
     }
 
