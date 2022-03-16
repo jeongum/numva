@@ -1,6 +1,7 @@
 package com.egongil.numva_android_app.src.main;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.databinding.ActivityMainBinding;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.BaseActivity;
 import com.egongil.numva_android_app.src.car_management.CarManagementFragment;
@@ -52,6 +54,9 @@ public class MainActivity extends BaseActivity implements MainActivityView , Con
 Mesibo.MessageListener, Mesibo.ConnectionListener{
     public static String TAG = "MAIN_ACTIVITY";
     public static Context mContext;
+
+    private ActivityMainBinding binding;
+
     private long backKeyPressedTime = 0;
     Toast exitToast;
     private BottomNavigationView mBottomNV;
@@ -60,15 +65,13 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
         setContentView(R.layout.activity_main);
 
         checkConnection(); //네트워크 연결 확인
 
         mContext = this;
-
-        ImageView mIvQrScan = findViewById(R.id.main_iv_qrscan);
-        ImageView mIvStore = findViewById(R.id.main_iv_store);
-        ImageView mIvAppLogo = findViewById(R.id.main_iv_applogo);
 
         this.initializeFragment();
 
@@ -94,19 +97,19 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
 
         mBottomNV.setSelectedItemId(R.id.nav_home);
 
-        mIvAppLogo.setOnClickListener(new OnSingleClickListener() {
+        binding.appLogoImage.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 mBottomNV.setSelectedItemId(R.id.nav_home);
             }
         });
-        mIvQrScan.setOnClickListener(new OnSingleClickListener() {
+        binding.qrScanImage.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 mBottomNV.setSelectedItemId(R.id.nav_qrscan);
                 }
         });
-        mIvStore.setOnClickListener(new OnSingleClickListener() {
+        binding.storeImage.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), StoreActivity.class);
