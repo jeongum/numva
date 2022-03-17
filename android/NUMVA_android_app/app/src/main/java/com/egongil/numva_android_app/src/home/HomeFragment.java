@@ -129,7 +129,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
         int baseElevation = 5;    //Minimum elevation of the view
         int rasingElevation = 5; //Amount of elevation to be raised when the view is at center
-                                    //Elevation of view at center = baseElevation + raisingElevation
+        //Elevation of view at center = baseElevation + raisingElevation
         float smallerScale = 0.8f; //Y scale of the view when it is at position 1 or -1
 
         binding.qrViewPager.setPageTransformer(false, new QrViewPagerTransformer(baseElevation, rasingElevation, smallerScale, startOffset));
