@@ -5,6 +5,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -30,6 +32,7 @@ import com.egongil.numva_android_app.src.config.GlobalAuthHelper;
 import com.egongil.numva_android_app.src.home.HomeFragment;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.interfaces.MainActivityView;
+import com.egongil.numva_android_app.src.main.models.MainViewModel;
 import com.egongil.numva_android_app.src.mypage.MyPageFragment;
 
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
@@ -54,6 +57,7 @@ public class MainActivity extends BaseActivity implements MainActivityView , Con
 Mesibo.MessageListener, Mesibo.ConnectionListener{
     public static String TAG = "MAIN_ACTIVITY";
     private ActivityMainBinding binding;
+    MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
     public static Context mContext;
 
     private long backKeyPressedTime = 0;
@@ -211,6 +215,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
         if(getUserResponse!=null){
             if(getUserResponse.getCode()==200 && getUserResponse.isSuccess()){
                 userInfo = getUserResponse.getUser();
+                viewModel.setUserData(getUserResponse);
             }
         }
         else if(errorResponse != null){
