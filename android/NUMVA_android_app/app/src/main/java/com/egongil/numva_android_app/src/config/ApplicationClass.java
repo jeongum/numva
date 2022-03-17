@@ -183,6 +183,7 @@ public class ApplicationClass extends Application implements MesiboCall.Incoming
     public class ActivityType{
         public static final int MAIN_ACTIVITY = 0;
         public static final int PARKING_MEMO_ACTIVITY = 1;
+        public static final int EDIT_USERINFO_ACTIVITY = 2;
     }
     public class FragmentType{
         public static final int FIND_ID_FRAGMENT = 0;
