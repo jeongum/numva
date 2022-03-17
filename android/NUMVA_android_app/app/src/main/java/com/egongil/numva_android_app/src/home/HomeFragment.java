@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -31,6 +33,7 @@ import com.egongil.numva_android_app.src.home.models.GetSafetyInfoResponse;
 import com.egongil.numva_android_app.src.home.models.SafetyInfo;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.MainActivity;
+import com.egongil.numva_android_app.src.main.models.MainViewModel;
 import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
 
 import java.util.ArrayList;
@@ -56,6 +59,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         View root = binding.getRoot();
+
+        //MainActivity의 ViewModel 가져옴
+        MainViewModel viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+        binding.setViewModel(viewModel);
+        binding.setLifecycleOwner(this);
 
         this.fragment = this;
 
@@ -192,9 +200,9 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         binding.nonLoginGreeting.setVisibility(View.GONE);
         binding.loginGreeting.setVisibility(View.VISIBLE);
 
-        if(((MainActivity)getActivity()).userInfo!=null){
-            binding.userName.setText(((MainActivity)getActivity()).userInfo.getNickname());
-        }
+//        if(((MainActivity)getActivity()).userInfo!=null){
+//            binding.userName.setText(((MainActivity)getActivity()).userInfo.getNickname());
+//        }
     }
     public void getSafetyInfo(Callback mCallback){
         HomeService homeService = new HomeService(this);

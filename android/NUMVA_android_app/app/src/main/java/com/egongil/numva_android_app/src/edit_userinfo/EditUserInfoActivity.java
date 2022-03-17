@@ -33,6 +33,7 @@ import java.util.Random;
 import static android.app.PendingIntent.getActivity;
 
 public class EditUserInfoActivity extends BaseActivity implements EditUserInfoActivityView, ConnectionReceiver.ConnectionReceiverListener {
+    Intent intent;
     TextView mTvName, mTvEmail, mTvNickGuide, mTvDeleteAccount, mTvPhone;
     EditText mEtBirth, mEtNickname;
     Button mBtnPass, mBtnRandomNickname, mBtnSave;
@@ -46,6 +47,8 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
         setContentView(R.layout.activity_edit_user_info);
 
         checkConnection(); //네트워크 확인
+
+        intent = new Intent();
 
         mTvName = findViewById(R.id.edituserinfo_tv_username);  //이름
         mTvEmail = findViewById(R.id.edituserinfo_tv_useremail);  //이메일
@@ -175,6 +178,8 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
             @Override
             public void onSingleClick(View v) {
                 edituserinfo();
+
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
@@ -236,8 +241,11 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
         editUserInfoRequest.setNickname(mEtNickname.getText().toString());
         editUserInfoService.postEditUserInfo(editUserInfoRequest);
 
-        ((MainActivity)MainActivity.mContext).callGetUser();
-//        ((MainActivity)MainActivity.context_main).getUser(mCallback);  //Activity에서 user정보 한 번만 받아온다.
+//        ((MainActivity)MainActivity.mContext).callGetUser();
+
+        intent.putExtra("phone", mStrPhone);
+        intent.putExtra("birth", mStrBirth);
+        intent.putExtra("nickname", mEtNickname.getText().toString());
     }
 
 
