@@ -5,19 +5,21 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class MainViewModel extends ViewModel {
-    private MutableLiveData<GetUserResponse> userData;
+    private MutableLiveData<UserInfo> userData;
     //data binding 시 필요
-    public LiveData<GetUserResponse> getMutableData(){
+    public LiveData<UserInfo> getMutableData(){
         if(userData == null)
-            userData = new MutableLiveData<>(new GetUserResponse());
+            userData = new MutableLiveData<>(new UserInfo());
         return userData;
     }
-    public void setUserData(GetUserResponse data){
+
+    public void setUserData(UserInfo data){
+        getMutableData();
         userData.setValue(data);
     }
 
     public void setUserNickname(String nickname){
-        GetUserResponse data = userData.getValue();
+        UserInfo data = userData.getValue();
         data.setNickname(nickname);
         userData.setValue(data);
     }

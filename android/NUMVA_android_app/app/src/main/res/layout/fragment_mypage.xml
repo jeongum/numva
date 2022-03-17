@@ -1,385 +1,391 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_gravity="center_horizontal"
-        android:text="MY넘바"
-        android:fontFamily="@font/font_medium"
-        android:includeFontPadding="false"
-        android:textSize="20dp"
-        android:textColor="@color/colorBlack"
-        />
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/mypage_refresh_layout"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name = "viewModel"
+            type = "com.egongil.numva_android_app.src.main.models.MainViewModel"/>
+    </data>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_gravity="center_horizontal"
+            android:text="MY넘바"
+            android:fontFamily="@font/font_medium"
+            android:includeFontPadding="false"
+            android:textSize="20dp"
+            android:textColor="@color/colorBlack"
+            />
 
-        <ScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
+
                 <LinearLayout
-                    android:id="@+id/mypage_ll_nonlogin_greeting"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="26dp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_nonlogin_greeting"
-                        android:fontFamily="@font/font_regular"
-                        android:includeFontPadding="false"
-                        android:textSize="12dp"
-                        android:textColor="@color/colorGraySmallTitle"
-                        />
+                    android:orientation="vertical">
                     <LinearLayout
+                        android:id="@+id/nonLogin_greeting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:layout_margin="26dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="9dp"
-                            android:text="@string/home_nonlogin_gotologin"
-                            android:fontFamily="@font/font_medium"
-                            android:includeFontPadding="false"
-                            android:textSize="27dp"
-                            android:textColor="@color/colorBlack"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_right_bracket_small_primary"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/mypage_v_nonlogin_boundary_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@color/colorGrayOutline"
-                    android:visibility="gone"/>
-
-                <LinearLayout
-                    android:id="@+id/mypage_ll_login_greeting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="36dp"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/mypage_tv_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/notosanscjkk_medium"
-                        android:includeFontPadding="false"
-                        android:text="userName"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="27dp" />
-
-                    <TextView
-                        android:id="@+id/mypage_tv_useremail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/font_regular"
-                        android:includeFontPadding="false"
-                        android:text="userEmail"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/mypage_ll_login_phone_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="36dp"
-                    android:background="@drawable/roundrect_white_background"
-                    android:elevation="3dp"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/mypage_tv_phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="전화번호"
-                            android:textSize="15dp"
-                            android:textColor="@color/colorBlack"
-                            android:layout_marginStart="13dp"
+                            android:text="@string/home_nonlogin_greeting"
                             android:fontFamily="@font/font_regular"
                             android:includeFontPadding="false"
-                            android:layout_marginVertical="10dp"
-
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"/>
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-
-                            app:layout_constraintTop_toBottomOf="@+id/mypage_tv_phone"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            />
-                        <TextView
-                            android:id="@+id/mypage_tv_phone_fir"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="7dp"
                             android:textSize="12dp"
-                            android:fontFamily="@font/font_regular"
-                            android:includeFontPadding="false"
-                            android:text="000-0000-0000"
-
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/mypage_iv_phone_edit"/>
-
-                        <ImageView
-                            android:id="@+id/mypage_iv_phone_edit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_edit_pencil"
-                            android:layout_marginRight="11dp"
-
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"/>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/colorGrayOutline"/>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/mypage_tv_secondphone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2차 전화번호"
-                            android:textSize="15dp"
-                            android:textColor="@color/colorBlack"
-                            android:layout_marginStart="13dp"
-                            android:fontFamily="@font/font_regular"
-                            android:includeFontPadding="false"
-                            android:layout_marginVertical="10dp"
-
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"/>
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-
-                            app:layout_constraintTop_toBottomOf="@+id/mypage_tv_secondphone"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
+                            android:textColor="@color/colorGraySmallTitle"
                             />
-                        <TextView
-                            android:id="@+id/mypage_tv_phone_sec"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="7dp"
-                            android:textSize="12dp"
-                            android:includeFontPadding="false"
-                            android:fontFamily="@font/font_regular"
-                            android:text="000-0000-0000"
-                            android:visibility="gone"
-
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/mypage_iv_secondphone_edit"/>
-
-                        <ImageView
-                            android:id="@+id/mypage_iv_secondphone_edit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_edit_pencil"
-                            android:layout_marginRight="11dp"
-                            android:visibility="gone"
-
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"/>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/mypage_cl_secondphone_register"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/roundrect_white_background"
-                            android:elevation="3dp"
-                            android:padding="3dp"
-                            android:layout_marginRight="40dp"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            android:visibility="visible">
-
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="9dp"
+                                android:text="@string/home_nonlogin_gotologin"
+                                android:fontFamily="@font/font_medium"
+                                android:includeFontPadding="false"
+                                android:textSize="27dp"
+                                android:textColor="@color/colorBlack"/>
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_check_primary"
-                                android:layout_marginRight="3dp"
-                                android:layout_marginLeft="6dp"
+                                android:src="@drawable/ic_right_bracket_small_primary"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/nonLoginBoundaryLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/colorGrayOutline"
+                        android:visibility="gone"/>
+
+                    <LinearLayout
+                        android:id="@+id/login_greeting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="36dp"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/userName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/notosanscjkk_medium"
+                            android:includeFontPadding="false"
+                            android:text="@{viewModel.mutableData.nickname}"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="27dp" />
+
+                        <TextView
+                            android:id="@+id/userEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/font_regular"
+                            android:includeFontPadding="false"
+                            android:text="@{viewModel.mutableData.email}"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/phoneInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="36dp"
+                        android:background="@drawable/roundrect_white_background"
+                        android:elevation="3dp"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/phoneNumberTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="전화번호"
+                                android:textSize="15dp"
+                                android:textColor="@color/colorBlack"
+                                android:layout_marginStart="13dp"
+                                android:fontFamily="@font/font_regular"
+                                android:includeFontPadding="false"
+                                android:layout_marginVertical="10dp"
 
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"/>
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+
+                                app:layout_constraintTop_toBottomOf="@+id/phoneNumberTitle"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toLeftOf="@+id/mypage_tv_secondphone_register"/>
+                                app:layout_constraintRight_toRightOf="parent"
+                                />
                             <TextView
-                                android:id="@+id/mypage_tv_secondphone_register"
+                                android:id="@+id/phoneNumberTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="등록"
+                                android:layout_marginRight="7dp"
+                                android:textSize="12dp"
                                 android:fontFamily="@font/font_regular"
                                 android:includeFontPadding="false"
+                                android:text="@{viewModel.mutableData.phone}"
+
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/editPhoneBtn"/>
+
+                            <ImageView
+                                android:id="@+id/editPhoneBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_edit_pencil"
+                                android:layout_marginRight="11dp"
+
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/colorGrayOutline"/>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/secondPhoneTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2차 전화번호"
+                                android:textSize="15dp"
+                                android:textColor="@color/colorBlack"
+                                android:layout_marginStart="13dp"
+                                android:fontFamily="@font/font_regular"
+                                android:includeFontPadding="false"
+                                android:layout_marginVertical="10dp"
+
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"/>
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+
+                                app:layout_constraintTop_toBottomOf="@+id/secondPhoneTitle"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                />
+                            <TextView
+                                android:id="@+id/secondPhoneTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="7dp"
                                 android:textSize="12dp"
-                                android:textColor="@color/colorPrimary"
-                                android:layout_marginRight="6dp"
+                                android:includeFontPadding="false"
+                                android:fontFamily="@font/font_regular"
+                                android:text="@{viewModel.mutableData.second_phone}"
+                                android:visibility="gone"
+
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/editSecondPhoneBtn"/>
+
+                            <ImageView
+                                android:id="@+id/editSecondPhoneBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_edit_pencil"
+                                android:layout_marginRight="11dp"
+                                android:visibility="gone"
 
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"/>
 
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/registerSecondphone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/roundrect_white_background"
+                                android:elevation="3dp"
+                                android:padding="3dp"
+                                android:layout_marginRight="10dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                android:visibility="visible">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_check_primary"
+                                    android:layout_marginRight="3dp"
+                                    android:layout_marginLeft="6dp"
+
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toLeftOf="@+id/mypage_tv_secondphone_register"/>
+                                <TextView
+                                    android:id="@+id/mypage_tv_secondphone_register"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="등록"
+                                    android:fontFamily="@font/font_regular"
+                                    android:includeFontPadding="false"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/colorPrimary"
+                                    android:layout_marginRight="6dp"
+
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"/>
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/colorGrayOutline"/>
 
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/colorGrayOutline"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="9.5dp"
+                                android:layout_height="9.5dp"
+                                android:src="@drawable/ic_caution_grey"
+                                android:layout_marginStart="13dp"
+                                android:layout_marginTop="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="3dp"
+                                android:text="@string/mypage_second_phone_guideline"
+                                android:textSize="8dp"
+                                android:fontFamily="@font/font_regular"
+                                android:includeFontPadding="false"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/buttonList"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="9.5dp"
-                            android:layout_height="9.5dp"
-                            android:src="@drawable/ic_caution_grey"
-                            android:layout_marginStart="13dp"
-                            android:layout_marginTop="4dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:text="@string/mypage_second_phone_guideline"
-                            android:textSize="8dp"
-                            android:fontFamily="@font/font_regular"
-                            android:includeFontPadding="false"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginTop="2dp"/>
+                        android:layout_height="0dp"
+                        android:layout_marginVertical="40dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                            android:id="@+id/registerQrBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="53dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginHorizontal="35dp"
+                            app:mypage_item_text ="내 QR전화번호판"
+                            app:mypage_item_text_color="@color/colorPrimary"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_primary"
+                            android:elevation="3dp"
+                            android:background="@drawable/roundrect_white_background"
+                           />
+                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                            android:id="@+id/editUserInfoBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="53dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginHorizontal="35dp"
+                            app:mypage_item_text ="내 정보 수정"
+                            app:mypage_item_text_color="@color/colorPrimary"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_primary"
+                            android:elevation="3dp"
+                            android:background="@drawable/roundrect_white_background"
+                            />
+                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                            android:id="@+id/notiSettingBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="53dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginHorizontal="35dp"
+                            app:mypage_item_text ="푸시알림 설정"
+                            app:mypage_item_text_color="@color/colorSemiBlack"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
+                            android:elevation="3dp"
+                            android:background="@drawable/roundrect_white_background"
+                            />
+                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                            android:id="@+id/customerServiceBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="53dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginHorizontal="35dp"
+                            app:mypage_item_text ="고객센터"
+                            app:mypage_item_text_color="@color/colorSemiBlack"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
+                            android:elevation="3dp"
+                            android:background="@drawable/roundrect_white_background"
+                            />
+                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                            android:id="@+id/appInfoBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="53dp"
+                            android:layout_marginVertical="14dp"
+                            android:layout_marginHorizontal="35dp"
+                            app:mypage_item_text ="앱 정보 확인"
+                            app:mypage_item_text_color="@color/colorSemiBlack"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
+                            android:elevation="3dp"
+                            android:background="@drawable/roundrect_white_background"
+                            />
+                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                            android:id="@+id/logoutBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="53dp"
+                            android:layout_marginBottom="14dp"
+                            android:layout_marginHorizontal="35dp"
+                            app:mypage_item_text ="로그아웃"
+                            app:mypage_item_text_color="@color/colorErrorRed"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_red"
+                            android:elevation="3dp"
+                            android:background="@drawable/roundrect_white_background"
+                            />
                     </LinearLayout>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/mypage_ll_buttonlist"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginVertical="40dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
-                        android:id="@+id/mypage_cv_register_qr_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginHorizontal="35dp"
-                        app:mypage_item_text ="내 QR전화번호판"
-                        app:mypage_item_text_color="@color/colorPrimary"
-                        app:mypage_item_image_src="@drawable/ic_right_arrow_primary"
-                        android:elevation="3dp"
-                        android:background="@drawable/roundrect_white_background"
-                       />
-                    <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
-                        android:id="@+id/mypage_cv_edit_user_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginHorizontal="35dp"
-                        app:mypage_item_text ="내 정보 수정"
-                        app:mypage_item_text_color="@color/colorPrimary"
-                        app:mypage_item_image_src="@drawable/ic_right_arrow_primary"
-                        android:elevation="3dp"
-                        android:background="@drawable/roundrect_white_background"
-                        />
-                    <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
-                        android:id="@+id/mypage_cv_noti_setting"
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginHorizontal="35dp"
-                        app:mypage_item_text ="푸시알림 설정"
-                        app:mypage_item_text_color="@color/colorSemiBlack"
-                        app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
-                        android:elevation="3dp"
-                        android:background="@drawable/roundrect_white_background"
-                        />
-                    <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
-                        android:id="@+id/mypage_cv_customer_service"
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginHorizontal="35dp"
-                        app:mypage_item_text ="고객센터"
-                        app:mypage_item_text_color="@color/colorSemiBlack"
-                        app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
-                        android:elevation="3dp"
-                        android:background="@drawable/roundrect_white_background"
-                        />
-                    <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
-                        android:id="@+id/mypage_cv_app_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
-                        android:layout_marginVertical="14dp"
-                        android:layout_marginHorizontal="35dp"
-                        app:mypage_item_text ="앱 정보 확인"
-                        app:mypage_item_text_color="@color/colorSemiBlack"
-                        app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
-                        android:elevation="3dp"
-                        android:background="@drawable/roundrect_white_background"
-                        />
-                    <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
-                        android:id="@+id/mypage_cv_logout"
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
-                        android:layout_marginBottom="14dp"
-                        android:layout_marginHorizontal="35dp"
-                        app:mypage_item_text ="로그아웃"
-                        app:mypage_item_text_color="@color/colorErrorRed"
-                        app:mypage_item_image_src="@drawable/ic_right_arrow_red"
-                        android:elevation="3dp"
-                        android:background="@drawable/roundrect_white_background"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-</LinearLayout>
-
+            </ScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
+</layout>

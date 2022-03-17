@@ -1,5 +1,7 @@
 package com.egongil.numva_android_app.src.mypage;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.telephony.PhoneNumberUtils;
@@ -18,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.databinding.FragmentMypageBinding;
 import com.egongil.numva_android_app.src.app_info.AppInfoActivity;
 import com.egongil.numva_android_app.src.config.BaseFragment;
 import com.egongil.numva_android_app.src.config.Callback;
@@ -29,6 +34,8 @@ import com.egongil.numva_android_app.src.edit_userinfo.EditUserInfoActivity;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.login.snslogin.SnsLoginActivity;
 import com.egongil.numva_android_app.src.main.MainActivity;
+import com.egongil.numva_android_app.src.main.models.MainViewModel;
+import com.egongil.numva_android_app.src.main.models.UserInfo;
 import com.egongil.numva_android_app.src.mypage.interfaces.MyPageFragmentView;
 import com.egongil.numva_android_app.src.mypage.models.LogoutResponse;
 import com.egongil.numva_android_app.src.notification_setting.NotiSettingActivity;
@@ -37,49 +44,32 @@ import com.egongil.numva_android_app.src.second_phone.SecondPhoneActivity;
 
 import java.util.Locale;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.EDIT_USERINFO_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
 
 public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
-    TextView mTvUserName, mTvUserEmail, mTvUserPhone, mTvUserSecPhone, mTvPhone;
-    LinearLayout mLlNonLoginGreeting, mLlLoginGreeting, mLlLoginPhoneInfo;
-    View mNonLoginBoundaryLine;
-    CustomViewMyPageListItem mCvRegisterQrNum, mCvEditUserInfo, mCvNotiSetting, mCvCustomerService, mCvAppInfo, mCvLogout;
-    ImageView mIvEditPhone, mIvEditSecondPhone;
-    ConstraintLayout mBtnSecPhoneRegister;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    FragmentMypageBinding binding;
+    MainViewModel viewModel;
+
     public Callback mGetPhoneInfoCallback;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mypage, container, false);
 
-        mLlNonLoginGreeting = view.findViewById(R.id.mypage_ll_nonlogin_greeting);
-        mNonLoginBoundaryLine = view.findViewById(R.id.mypage_v_nonlogin_boundary_line);
-        mLlLoginGreeting = view.findViewById(R.id.mypage_ll_login_greeting);
-        mLlLoginPhoneInfo = view.findViewById(R.id.mypage_ll_login_phone_info);
-        mTvUserName = view.findViewById(R.id.mypage_tv_username);
-        mTvUserEmail = view.findViewById(R.id.mypage_tv_useremail);
-        mTvUserPhone = view.findViewById(R.id.mypage_tv_phone_fir);
-        mTvUserSecPhone = view.findViewById(R.id.mypage_tv_phone_sec);
-        mTvPhone = view.findViewById(R.id.mypage_tv_phone);
-        mIvEditPhone = view.findViewById(R.id.mypage_iv_phone_edit);
-        mIvEditSecondPhone = view.findViewById(R.id.mypage_iv_secondphone_edit);
-        mBtnSecPhoneRegister = view.findViewById(R.id.mypage_cl_secondphone_register);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mypage, container, false);
+        View root = binding.getRoot();
 
-        mCvRegisterQrNum = view.findViewById(R.id.mypage_cv_register_qr_number);
-        mCvEditUserInfo = view.findViewById(R.id.mypage_cv_edit_user_info);
-        mCvNotiSetting = view.findViewById(R.id.mypage_cv_noti_setting);
-        mCvCustomerService = view.findViewById(R.id.mypage_cv_customer_service);
-        mCvAppInfo = view.findViewById(R.id.mypage_cv_app_info);
-        mCvLogout = view.findViewById(R.id.mypage_cv_logout);
+        //MainActivity의 ViewModel 가져옴
+        viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+        binding.setViewModel(viewModel);
+        binding.setLifecycleOwner(this);
 
-        mSwipeRefreshLayout = view.findViewById(R.id.mypage_refresh_layout);
-        mSwipeRefreshLayout.setColorSchemeResources(
+        binding.refreshLayout.setColorSchemeResources(
                 R.color.colorPrimary
         );
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 if(sSharedPreferences.getString(X_ACCESS_TOKEN,"")!=""){
@@ -88,50 +78,50 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
                 }
 
                 // 업데이트가 끝났음을 알림
-                mSwipeRefreshLayout.setRefreshing(false);
+                binding.refreshLayout.setRefreshing(false);
             }
         });
 
         setInitialLoginState();
 
         //유저정보 클릭 시 > 내 정보 수정 진입
-        mLlLoginGreeting.setOnClickListener(new View.OnClickListener() {
+        binding.loginGreeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
             }
         });
 
         //휴대전화번호 텍뷰 클릭 시 > 내 정보 수정 진입
-        mTvPhone.setOnClickListener(new View.OnClickListener(){
+        binding.phoneNumberTitle.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
             }
         });
 
         //휴대전화번호 클릭 시 > 내 정보 수정 진입
-        mTvUserPhone.setOnClickListener(new View.OnClickListener() {
+        binding.phoneNumberTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
             }
         });
 
         //휴대전화번호 옆 pencil 아이콘 클릭 시 > 내 정보 수정 진입
-        mIvEditPhone.setOnClickListener(new View.OnClickListener() {
+        binding.editPhoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
             }
         });
 
         //2차전화번호 옆 pencil 아이콘 클릭 시 > 2차전화번호 다이얼로그 진입
-        mIvEditSecondPhone.setOnClickListener(new OnSingleClickListener() {
+        binding.editSecondPhoneBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
@@ -140,7 +130,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         });
 
         //2차전화번호 클릭 시 > 2차전화번호 다이얼로그 진입
-        mTvUserSecPhone.setOnClickListener(new OnSingleClickListener() {
+        binding.secondPhoneTv.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
@@ -152,7 +142,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         });
 
         //등록 버튼 클릭 시 > 2차전화번호 다이얼로그 진입
-        mBtnSecPhoneRegister.setOnClickListener(new OnSingleClickListener() {
+        binding.registerSecondphone.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
@@ -160,7 +150,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
             }
         });
 
-        mLlNonLoginGreeting.setOnClickListener(new OnSingleClickListener() {
+        binding.nonLoginGreeting.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -169,7 +159,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         });
 
         //내 QR전화번호판
-        mCvRegisterQrNum.setOnClickListener(new OnSingleClickListener() {
+        binding.registerQrBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), QrManagementActivity.class);
@@ -178,16 +168,16 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         });
 
         //내 정보 수정
-        mCvEditUserInfo.setOnClickListener(new OnSingleClickListener() {
+        binding.editUserInfoBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
             }
         });
 
         //푸시알림 설정
-        mCvNotiSetting.setOnClickListener(new OnSingleClickListener() {
+        binding.notiSettingBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), NotiSettingActivity.class);
@@ -196,7 +186,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         });
 
         //고객센터
-        mCvCustomerService.setOnClickListener(new OnSingleClickListener() {
+        binding.customerServiceBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), CustomerCenterActivity.class);
@@ -205,7 +195,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         });
 
         //앱 정보 확인
-        mCvAppInfo.setOnClickListener(new OnSingleClickListener() {
+        binding.appInfoBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), AppInfoActivity.class);
@@ -213,7 +203,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
             }
         });
 
-        mCvLogout.setOnClickListener(new OnSingleClickListener() {
+        binding.logoutBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 TwoButtonDialog confirmLogoutDialog = new TwoButtonDialog(getActivity());
@@ -245,7 +235,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
 
         setHasOptionsMenu(true);
 
-        return view;
+        return root;
     }
     public void setInitialLoginState(){
         if(sSharedPreferences.getString(X_ACCESS_TOKEN,"")=="") {
@@ -256,42 +246,38 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
     }
 
     public void setNonLoginState(){
-        mLlNonLoginGreeting.setVisibility(View.VISIBLE);
-        mNonLoginBoundaryLine.setVisibility(View.VISIBLE);
-        mLlLoginGreeting.setVisibility(View.GONE);
-        mLlLoginPhoneInfo.setVisibility(View.GONE);
-        mCvLogout.setVisibility(View.GONE);
-        mCvRegisterQrNum.setVisibility(View.GONE);
-        mCvEditUserInfo.setVisibility(View.GONE);
-        mCvNotiSetting.setVisibility(View.GONE);
+        binding.nonLoginGreeting.setVisibility(View.VISIBLE);
+        binding.nonLoginBoundaryLine.setVisibility(View.VISIBLE);
+        binding.loginGreeting.setVisibility(View.GONE);
+        binding.phoneInfo.setVisibility(View.GONE);
+        binding.logoutBtn.setVisibility(View.GONE);
+        binding.registerQrBtn.setVisibility(View.GONE);
+        binding.editUserInfoBtn.setVisibility(View.GONE);
+        binding.notiSettingBtn.setVisibility(View.GONE);
     }
     public void setLoginState(){
-        mLlNonLoginGreeting.setVisibility(View.GONE);
-        mNonLoginBoundaryLine.setVisibility(View.GONE);
-        mLlLoginGreeting.setVisibility(View.VISIBLE);
-        mLlLoginPhoneInfo.setVisibility(View.VISIBLE);
-        mCvRegisterQrNum.setVisibility(View.VISIBLE);
-        mCvEditUserInfo.setVisibility(View.VISIBLE);
-        mCvNotiSetting.setVisibility(View.VISIBLE);
+        binding.nonLoginGreeting.setVisibility(View.GONE);
+        binding.nonLoginBoundaryLine.setVisibility(View.GONE);
+        binding.loginGreeting.setVisibility(View.VISIBLE);
+        binding.phoneInfo.setVisibility(View.VISIBLE);
+        binding.registerQrBtn.setVisibility(View.VISIBLE);
+        binding.editUserInfoBtn.setVisibility(View.VISIBLE);
+        binding.notiSettingBtn.setVisibility(View.VISIBLE);
 
         //data mapping
         if(((MainActivity)getActivity()).userInfo!=null){
-            mTvUserName.setText(((MainActivity)getActivity()).userInfo.getNickname());
-            mTvUserEmail.setText(((MainActivity)getActivity()).userInfo.getEmail());
+//            String strUserPhone = ((MainActivity)getActivity()).userInfo.getPhone();
+//            mTvUserPhone.setText((PhoneNumberUtils.formatNumber(strUserPhone, Locale.getDefault().getCountry())));
 
-            String strUserPhone = ((MainActivity)getActivity()).userInfo.getPhone();
-            String strUserSecPhone = ((MainActivity)getActivity()).userInfo.getSecond_phone();
-            mTvUserPhone.setText((PhoneNumberUtils.formatNumber(strUserPhone, Locale.getDefault().getCountry())));
-            if(strUserSecPhone != null){
-                mTvUserSecPhone.setText((PhoneNumberUtils.formatNumber(strUserSecPhone, Locale.getDefault().getCountry())));
-                mTvUserSecPhone.setVisibility(View.VISIBLE);  //2차전화번호 TextView
-                mIvEditSecondPhone.setVisibility(View.VISIBLE); //2차전화번호 연필아이콘
-                mBtnSecPhoneRegister.setVisibility(View.GONE);  //2차전화번호 등록버튼
+            if(viewModel.getMutableData().getValue().getSecond_phone().equals("")){
+                binding.secondPhoneTv.setVisibility(View.VISIBLE);  //2차전화번호 TextView
+                binding.editSecondPhoneBtn.setVisibility(View.VISIBLE); //2차전화번호 연필아이콘
+                binding.registerSecondphone.setVisibility(View.GONE);  //2차전화번호 등록버튼
             }
-            else if(strUserSecPhone == null){
-                mTvUserSecPhone.setVisibility(View.GONE);  //2차전화번호 TextView
-                mIvEditSecondPhone.setVisibility(View.GONE);  //2차전화번호 연필아이콘
-                mBtnSecPhoneRegister.setVisibility(View.VISIBLE);  //2차전화번호 등록버튼
+            else{
+                binding.secondPhoneTv.setVisibility(View.GONE);  //2차전화번호 TextView
+                binding.editSecondPhoneBtn.setVisibility(View.GONE);  //2차전화번호 연필아이콘
+                binding.registerSecondphone.setVisibility(View.VISIBLE);  //2차전화번호 등록버튼
             }
         }
     }
@@ -320,22 +306,8 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         System.out.println("SHARED_TOKEN: " + sSharedPreferences.getString(X_ACCESS_TOKEN, "NULL"));
         ((MainActivity)MainActivity.mContext).accountLogout();
 
-        showCustomToast("정상적으로 로그아웃되었습니다.");
 
-//        if(logoutResponse!=null){
-//            if(logoutResponse.getCode()==200 && logoutResponse.isSuccess()){
-//                SharedPreferences.Editor editor = sSharedPreferences.edit();
-//                editor.putString(X_ACCESS_TOKEN, null);
-//                editor.commit();
-//
-//                System.out.println("SHARED_TOKEN: " + sSharedPreferences.getString(X_ACCESS_TOKEN, "NULL"));
-//
-//                showCustomToast("정상적으로 로그아웃되었습니다.");
-//            }
-//        }
-//        else if(errorResponse != null){
-//
-//        }
+        showCustomToast("정상적으로 로그아웃되었습니다.");
     }
 
     @Override
@@ -343,5 +315,17 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         showCustomToast(getResources().getString(R.string.network_error));
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == EDIT_USERINFO_ACTIVITY){
+            if(resultCode == RESULT_OK){
+                UserInfo info = viewModel.getMutableData().getValue();
+                info.setNickname(data.getStringExtra("nickname"));
+                info.setPhone(data.getStringExtra("phone"));
+                info.setBirth(data.getStringExtra("birth"));
+                viewModel.setUserData(info);
+            }
+        }
+    }
 }
