@@ -44,6 +44,31 @@ public class GetUserResponse {
         return message;
     }
 
+    // Setter Methods
+
+    public void setName(String name) {
+        this.result.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.result.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.result.phone = phone;
+    }
+
+    public void setSecond_phone(String second_phone) {
+        this.result.second_phone = second_phone;
+    }
+
+    public void setBirth(String birth) {
+        this.result.birth = birth;
+    }
+    public void setNickname(String nickname) {
+        this.result.nickname = nickname;
+    }
+
     public class Result {
         private int id;
         private String name;
@@ -78,26 +103,6 @@ public class GetUserResponse {
             return birth;
         }
 
-        // Setter Methods
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
-
-        public void setSecond_phone(String second_phone) {
-            this.second_phone = second_phone;
-        }
-
-        public void setBirth(String birth) {
-            this.birth = birth;
-        }
     }
 }
