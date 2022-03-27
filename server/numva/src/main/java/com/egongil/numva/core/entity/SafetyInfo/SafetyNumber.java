@@ -1,7 +1,6 @@
 package com.egongil.numva.core.entity.SafetyInfo;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,19 +9,19 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class QRCode {
+public class SafetyNumber {
+    public SafetyNumber(String safetyNumber) {
+        this.safetyNumber = safetyNumber;
+    }
+
     @Id
     @GeneratedValue
-    private Long id;
-    private String code;
+    Long id;
+    String safetyNumber;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "safety_info_id")
     private SafetyInfo safetyInfo;
-
-    public QRCode(String code) {
-        this.code = code;
-    }
 
     public void setSafetyInfo(SafetyInfo safetyInfo) {
         this.safetyInfo = safetyInfo;

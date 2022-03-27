@@ -10,6 +10,9 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Memo {
+    public Memo(String content) {
+        this.content = content;
+    }
     @Id
     @GeneratedValue
     private Long id;
@@ -19,4 +22,7 @@ public class Memo {
     @JoinColumn(name = "safety_info_id")
     private SafetyInfo safetyInfo;
 
+    public void setSafetyInfo(SafetyInfo safetyInfo) {
+        this.safetyInfo = safetyInfo;
+    }
 }
