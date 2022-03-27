@@ -2,6 +2,7 @@ package com.egongil.numva.core.entity.SafetyInfo;
 
 import com.egongil.numva.core.entity.user.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SafetyInfo {
+    @Builder
     public SafetyInfo(String name) {
         this.name = name;
     }
