@@ -57,4 +57,8 @@ public class User extends BaseEntity {
         this.birth = LocalDate.parse(birth, formatter);
         this.nickname = nickname;
     }
+
+    public void addSafetyInfo(SafetyInfo safetyInfo) {
+        this.safetyInfos.add(safetyInfo);
+    }
 }
