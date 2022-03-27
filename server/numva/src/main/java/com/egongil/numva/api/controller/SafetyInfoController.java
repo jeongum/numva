@@ -4,7 +4,6 @@ import com.egongil.numva.api.dto.request.SaveQRCodeReqDto;
 import com.egongil.numva.api.dto.request.UpdateSafetyInfoReqDto;
 import com.egongil.numva.api.dto.response.BaseResponseEntity;
 import com.egongil.numva.api.dto.response.FindSafetyInfoResDto;
-import com.egongil.numva.api.dto.response.FindUserResDto;
 import com.egongil.numva.api.service.SafetyInfoService;
 import com.egongil.numva.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;
