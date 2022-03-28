@@ -5,9 +5,10 @@ import com.egongil.numva.api.dto.request.UpdateUserReqDto;
 import com.egongil.numva.api.dto.response.BaseResponseEntity;
 import com.egongil.numva.api.dto.response.FindEmailResDto;
 import com.egongil.numva.api.dto.response.FindUserResDto;
+import com.egongil.numva.core.entity.user.User;
 
 public interface UserService {
-    void join(JoinReqDto reqDto);
+    User join(JoinReqDto reqDto);
     FindUserResDto findUser(String email);
     BaseResponseEntity checkValidMail(String email);
     FindEmailResDto findEmail(String phone, String name);
