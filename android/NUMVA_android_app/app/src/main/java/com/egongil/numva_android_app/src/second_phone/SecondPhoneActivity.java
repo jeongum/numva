@@ -91,6 +91,7 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
                     if (mSecondPhoneList.size() < 5) {
                         Intent intent = new Intent(getApplicationContext(), SecondPhoneRegisterActivity.class);
                         startActivity(intent);
+                        //TODO : registerForActivityResult로 변경
                     } else {
                         showCustomToast("2차전화번호는 최대 5개까지 저장 가능합니다.");
                     }
