@@ -9,13 +9,10 @@ import com.egongil.numva.core.entity.user.User;
 import com.egongil.numva.core.queryrepository.SafetyInfoQueryRepository;
 import com.egongil.numva.core.repository.SafetyInfoRepository;
 import com.egongil.numva.core.repository.UserRepository;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;

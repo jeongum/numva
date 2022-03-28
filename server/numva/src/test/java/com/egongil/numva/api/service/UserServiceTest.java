@@ -7,41 +7,57 @@ import com.egongil.numva.api.dto.response.FindEmailResDto;
 import com.egongil.numva.api.dto.response.FindUserResDto;
 import com.egongil.numva.core.entity.user.User;
 import com.egongil.numva.core.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
-@SpringBootTest
-@Transactional
+@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
-    @Autowired
-    private UserService userService;
+    @InjectMocks
+    private UserServiceImpl userService;
 
-    @Autowired
+    @Mock
     private UserRepository userRepository;
 
-    void craeteUser(){
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    private final String userEmail = "wjddma1214@gmail.com";
+
+    void createUser(){
         User user = User.builder()
                 .email("wjddma1214@gmail.com")
                 .password("12345")
                 .name("정음")
                 .phone("01087973122")
                 .build();
-        userRepository.save(user);
+        given(userRepository.findByEmail(userEmail)).willReturn(Optional.of(user));
     }
 
 
     @Test
     void join() {
         // given
+        User user = User.builder()
+                .email("wjddma1214@gmail.com")
+                .password("12345")
+                .name("정음")
+                .phone("01087973122")
+                .build();
+
         JoinReqDto reqDto = JoinReqDto.builder()
                 .email("wjddma1214@gmail.com")
                 .password("12345")
@@ -51,21 +67,21 @@ class UserServiceTest {
                 .nickname("별명")
                 .build();
 
+        given(userRepository.save(any())).willReturn(user);
         //when
-        userService.join(reqDto);
+        User savedUser = userService.join(reqDto);
 
         //then
-        User savedUser = userRepository.findByEmail("wjddma1214@gmail.com").orElseThrow(IllegalStateException::new);
         assertThat(savedUser.getName()).isEqualTo("정음");
     }
 
     @Test
     void findUser() {
         //given
-        craeteUser();
+        createUser();
 
         //when
-        FindUserResDto resDto = userService.findUser("wjddma1214@gmail.com");
+        FindUserResDto resDto = userService.findUser(userEmail);
 
         //then
         assertThat(resDto.getName()).isEqualTo("정음");
@@ -74,11 +90,10 @@ class UserServiceTest {
     @Test
     void checkValidMail() {
         //given
-        craeteUser();
-        String email = "wjddma1214@gmail.com";
+        createUser();
 
         //when
-        BaseResponseEntity response = userService.checkValidMail(email);
+        BaseResponseEntity response = userService.checkValidMail(userEmail);
 
         //then
         assertThat(response.getCode()).isEqualTo(-102);
@@ -87,12 +102,16 @@ class UserServiceTest {
     @Test
     void findEmail() {
         //given
-        craeteUser();
-        String phone = "01087973122";
-        String name = "정음";
+        User user = User.builder()
+                .email("wjddma1214@gmail.com")
+                .password("12345")
+                .name("정음")
+                .phone("01087973122")
+                .build();
+        given(userRepository.findByPhoneAndName(any(), any())).willReturn(Optional.of(user));
 
         //when
-        FindEmailResDto resDto = userService.findEmail(phone, name);
+        FindEmailResDto resDto = userService.findEmail("01087973122", "정음");
 
         //then
         assertThat(resDto.getEmail()).isEqualTo("wjddma1214@gmail.com");
@@ -101,12 +120,11 @@ class UserServiceTest {
     @Test
     void modifyUser() {
         //given
-        craeteUser();
-        String email = "wjddma1214@gmail.com";
+        createUser();
         UpdateUserReqDto reqDto = new UpdateUserReqDto("01012341234", "19971213", "별명2");
 
         //when
-        userService.modifyUser(email, reqDto);
+        userService.modifyUser(userEmail, reqDto);
 
         //then
         User user = userRepository.findByEmail("wjddma1214@gmail.com").orElseThrow(IllegalStateException::new);

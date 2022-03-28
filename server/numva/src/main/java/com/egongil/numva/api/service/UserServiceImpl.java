@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void join(JoinReqDto reqDto) {
+    public User join(JoinReqDto reqDto) {
         userRepository.findByEmail(reqDto.getEmail()).ifPresent(
                 m->{throw new IllegalArgumentException("이미 가입되어 있는 유저입니다.");
         });
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
 
         user.changePassword(passwordEncoder.encode(user.getPassword()));
 
-        User savedUser = userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
