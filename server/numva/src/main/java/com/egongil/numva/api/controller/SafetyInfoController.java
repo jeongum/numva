@@ -8,9 +8,11 @@ import com.egongil.numva.api.service.SafetyInfoService;
 import com.egongil.numva.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -24,6 +26,12 @@ public class SafetyInfoController {
     public ResponseEntity<List<FindSafetyInfoResDto>> findAllSafetyInfo(){
         String userEmail = SecurityUtil.getCurrentUsername().orElseThrow(IllegalStateException::new);
         List<FindSafetyInfoResDto> response= safetyInfoService.findAllSafetyInfo(userEmail);
+        return ResponseEntity.status(200).body(response);
+    }
+
+    @GetMapping("/{code}")
+    public ResponseEntity<FindSafetyInfoResDto> findSafetyInfo(@PathVariable String code){
+        FindSafetyInfoResDto response = safetyInfoService.findSafetyInfo(code);
         return ResponseEntity.status(200).body(response);
     }
 

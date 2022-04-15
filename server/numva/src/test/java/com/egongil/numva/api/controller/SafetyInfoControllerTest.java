@@ -47,6 +47,17 @@ class SafetyInfoControllerTest {
     }
 
     @Test
+    void findSafetyInfo() throws Exception{
+        // given
+        // when
+        mockMvc.perform(get("/api/safety-info/{id}", "123456"))
+                // then
+                .andExpect(status().isOk());
+
+        verify(safetyInfoService, times(1)).findSafetyInfo("123456");
+    }
+
+    @Test
     void createSafetyInfo() throws Exception {
         // given
         SaveQRCodeReqDto reqDto = new SaveQRCodeReqDto("12345");

@@ -95,4 +95,18 @@ class SafetyInfoServiceTest {
         // then
         assertEquals(safetyInfo.getName(), reqDto.getName());
     }
+
+    @Test
+    void findSafetyInfo() {
+        // given
+        FindSafetyInfoResDto expected = new FindSafetyInfoResDto();
+        expected.setName("123456");
+        given(safetyInfoQueryRepository.findWithQRCode("123456")).willReturn(expected);
+
+        // when
+        FindSafetyInfoResDto response = safetyInfoService.findSafetyInfo("123456");
+
+        // then
+        assertEquals(response.getName(), "123456");
+    }
 }

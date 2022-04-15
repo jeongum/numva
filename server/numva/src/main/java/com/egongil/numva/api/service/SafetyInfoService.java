@@ -11,4 +11,5 @@ public interface SafetyInfoService {
     List<FindSafetyInfoResDto> createSafetyInfo(String userEmail, SaveQRCodeReqDto reqDto);
     void updateSafetyInfo(Long safetyInfoId, UpdateSafetyInfoReqDto reqDto);
     void deleteSafetyInfo(Long safetyInfoId);
+    FindSafetyInfoResDto findSafetyInfo(String code);
 }
