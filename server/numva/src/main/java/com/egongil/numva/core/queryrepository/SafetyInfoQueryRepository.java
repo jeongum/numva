@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SafetyInfoQueryRepository {
     List<FindSafetyInfoResDto> findAllWithUserId(Long userId);
+    FindSafetyInfoResDto findWithQRCode(String code);
 }

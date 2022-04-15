@@ -62,4 +62,9 @@ public class SafetyInfoServiceImpl implements SafetyInfoService {
         SafetyInfo safetyInfo = safetyInfoRepository.findById(safetyInfoId).orElseThrow(()->new IllegalStateException());
         safetyInfoRepository.delete(safetyInfo);
     }
+
+    @Override
+    public FindSafetyInfoResDto findSafetyInfo(String code) {
+        return safetyInfoQueryRepository.findWithQRCode(code);
+    }
 }

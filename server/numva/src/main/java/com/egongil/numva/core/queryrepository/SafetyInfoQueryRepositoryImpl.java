@@ -30,4 +30,17 @@ public class SafetyInfoQueryRepositoryImpl implements SafetyInfoQueryRepository{
                 .where(safetyInfo.user.id.eq(userId))
                 .fetch();
     }
+
+    @Override
+    public FindSafetyInfoResDto findWithQRCode(String code) {
+        return query
+                .select(Projections.constructor(FindSafetyInfoResDto.class,
+                        safetyInfo.id,
+                        safetyInfo.name,
+                        safetyInfo.memo.content,
+                        safetyInfo.safetyNumber.safetyNumber))
+                .from(safetyInfo)
+                .where(safetyInfo.qrCode.code.eq(code))
+                .fetchOne();
+    }
 }
