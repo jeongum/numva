@@ -1,14 +1,10 @@
 package com.egongil.numva_android_app.src.second_phone;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -19,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.cert_phone.SendSMS;
@@ -29,14 +24,10 @@ import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.BaseActivity;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.main.MainActivity;
+import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
-import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneActivityView;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRegisterActivityView;
-import com.egongil.numva_android_app.src.second_phone.models.DeleteSecondPhoneResponse;
-import com.egongil.numva_android_app.src.second_phone.models.GetSecondPhoneResponse;
-import com.egongil.numva_android_app.src.second_phone.models.RepSecondPhoneResponse;
 import com.egongil.numva_android_app.src.second_phone.models.SetSecondPhoneRequest;
 import com.egongil.numva_android_app.src.second_phone.models.SetSecondPhoneResponse;
 

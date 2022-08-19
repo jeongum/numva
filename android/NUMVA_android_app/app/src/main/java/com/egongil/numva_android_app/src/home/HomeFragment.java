@@ -20,29 +20,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.databinding.FragmentHomeBinding;
 import com.egongil.numva_android_app.src.config.BaseFragment;
 import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.home.interfaces.HomeFragmentView;
 import com.egongil.numva_android_app.src.home.models.GetSafetyInfoResponse;
 import com.egongil.numva_android_app.src.home.models.SafetyInfo;
 import com.egongil.numva_android_app.src.login.LoginActivity;
-import com.egongil.numva_android_app.src.main.MainActivity;
-import com.egongil.numva_android_app.src.main.models.MainViewModel;
+import com.egongil.numva_android_app.src.main.view.MainActivity;
+import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
+import com.egongil.numva_android_app.src.main.viewmodels.MainViewModelFactory;
 import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
 
 import java.util.ArrayList;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.PARKING_MEMO_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
-
-import me.relex.circleindicator.CircleIndicator;
 
 public class HomeFragment extends BaseFragment implements HomeFragmentView {
     FragmentHomeBinding binding;
@@ -61,8 +60,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         View root = binding.getRoot();
 
         //MainActivity의 ViewModel 가져옴
-        MainViewModel viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        binding.setViewModel(viewModel);
+        MainViewModel mMainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        binding.setViewModel(mMainViewModel);
         binding.setLifecycleOwner(this);
 
         this.fragment = this;

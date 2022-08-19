@@ -1,7 +1,6 @@
 package com.egongil.numva_android_app.src.qr_management;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.retrofit;
 
 import android.util.Log;
 
@@ -44,7 +43,7 @@ public class QrManagementService {
                     getSafetyInfoResponse = response.body();
                 }
                 else {
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
+                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
                     try {
                         errorResponse = errorConverter.convert(response.errorBody());
                     } catch (IOException e) {
@@ -74,7 +73,7 @@ public class QrManagementService {
                     setQrNameResponse = response.body();
                 }
                 else {
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
+                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
                     try {
                         errorResponse = errorConverter.convert(response.errorBody());
                     } catch (IOException e) {
@@ -103,7 +102,7 @@ public class QrManagementService {
                     registerQrResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
+                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
                     try {
                         errorResponse = errorConverter.convert(response.errorBody());
                     } catch (IOException e) {
@@ -131,7 +130,7 @@ public class QrManagementService {
                 if(response.body() != null){
                     deleteQrResponse = response.body();
                 }else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
+                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
                     try {
                         errorResponse = errorConverter.convert(response.errorBody());
                     } catch (IOException e) {

@@ -74,7 +74,7 @@
             android:stateNotNeeded="true"
             tools:replace="android:screenOrientation" />
         <activity android:name=".src.qr_scan.QrScanResultActivity" />
-        <activity android:name=".src.main.MainActivity" />
+        <activity android:name=".src.main.view.MainActivity" />
         <activity
             android:name=".src.parkingmemo.ParkingMemoActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />

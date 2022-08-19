@@ -18,7 +18,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
@@ -33,7 +32,7 @@ import com.egongil.numva_android_app.src.login.models.LinkSocialResponse;
 import com.egongil.numva_android_app.src.login.models.SocialRegisterRequest;
 import com.egongil.numva_android_app.src.login.snslogin.fragments.ExistEmailFragment;
 import com.egongil.numva_android_app.src.login.snslogin.fragments.MoreInfoFragment;
-import com.egongil.numva_android_app.src.main.MainActivity;
+import com.egongil.numva_android_app.src.main.view.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;

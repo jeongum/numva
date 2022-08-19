@@ -8,18 +8,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.databinding.FragmentMypageBinding;
@@ -27,22 +22,18 @@ import com.egongil.numva_android_app.src.app_info.AppInfoActivity;
 import com.egongil.numva_android_app.src.config.BaseFragment;
 import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.GlobalAuthHelper;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.customer_center.CustomerCenterActivity;
 import com.egongil.numva_android_app.src.edit_userinfo.EditUserInfoActivity;
 import com.egongil.numva_android_app.src.login.LoginActivity;
-import com.egongil.numva_android_app.src.login.snslogin.SnsLoginActivity;
-import com.egongil.numva_android_app.src.main.MainActivity;
-import com.egongil.numva_android_app.src.main.models.MainViewModel;
-import com.egongil.numva_android_app.src.main.models.UserInfo;
+import com.egongil.numva_android_app.src.main.view.MainActivity;
+import com.egongil.numva_android_app.src.main.models.MainService;
+import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.mypage.interfaces.MyPageFragmentView;
 import com.egongil.numva_android_app.src.mypage.models.LogoutResponse;
 import com.egongil.numva_android_app.src.notification_setting.NotiSettingActivity;
 import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
 import com.egongil.numva_android_app.src.second_phone.SecondPhoneActivity;
-
-import java.util.Locale;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.EDIT_USERINFO_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
@@ -320,7 +311,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == EDIT_USERINFO_ACTIVITY){
             if(resultCode == RESULT_OK){
-                UserInfo info = viewModel.getMutableData().getValue();
+                MainService.UserInfo info = viewModel.getMutableData().getValue();
                 info.setNickname(data.getStringExtra("nickname"));
                 info.setPhone(data.getStringExtra("phone"));
                 info.setBirth(data.getStringExtra("birth"));

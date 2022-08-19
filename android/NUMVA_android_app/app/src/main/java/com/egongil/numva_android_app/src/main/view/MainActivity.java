@@ -1,10 +1,11 @@
-package com.egongil.numva_android_app.src.main;
+package com.egongil.numva_android_app.src.main.view;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
@@ -26,11 +27,13 @@ import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 
 import com.egongil.numva_android_app.src.config.GlobalAuthHelper;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.home.HomeFragment;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.interfaces.MainActivityView;
-import com.egongil.numva_android_app.src.main.models.MainViewModel;
-import com.egongil.numva_android_app.src.main.models.UserInfo;
+import com.egongil.numva_android_app.src.main.models.MainService;
+import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
+import com.egongil.numva_android_app.src.main.viewmodels.MainViewModelFactory;
 import com.egongil.numva_android_app.src.mypage.MyPageFragment;
 
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
@@ -45,8 +48,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.MESIBO_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
-import com.egongil.numva_android_app.src.main.models.GetUserResponse;
 import com.mesibo.api.Mesibo;
 import com.mesibo.calls.api.MesiboCall;
 
@@ -59,14 +62,17 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
 
     private long backKeyPressedTime = 0;
     Toast exitToast;
-    public UserInfo userInfo;
+    public MainService.UserInfo userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
+        final RetrofitService retrofitService = getRetrofitService();
+        viewModel = new ViewModelProvider(this,
+                new MainViewModelFactory(this, retrofitService))
+                .get(MainViewModel.class);
         checkConnection(); //네트워크 연결 확인
 
         mContext = this;
@@ -89,7 +95,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
                     ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
                 }
             };
-            getUser(mCallback);  //Activity에서 user정보 한 번만 받아온다.
+            getUser();  //Activity에서 user정보 한 번만 받아온다.
         }
 
         binding.navView.setSelectedItemId(R.id.nav_home);
@@ -134,7 +140,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
                     ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
                 }
             };
-            getUser(mCallback);  //Activity에서 user정보 한 번만 받아온다.
+            getUser();  //Activity에서 user정보 한 번만 받아온다.
         }
         Mesibo.setAccessToken(sSharedPreferences.getString(MESIBO_TOKEN, null));
         Log.d("MESIBO_TOKEN", sSharedPreferences.getString(MESIBO_TOKEN, "null"));
@@ -142,9 +148,9 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
 
         MesiboCall.getInstance().init(this);
     }
-    public void getUser(Callback mCallback){
-        MainService mainService = new MainService(this);
-        mainService.getUser(mCallback);
+    public void getUser(){
+//        MainService mainService = new MainService(this);
+        viewModel.getUser();
     }
     private void initializeFragment(){
         BottomNavigate(R.id.nav_numvatalk);
@@ -209,7 +215,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
     }
 
     @Override
-    public void getUserSuccess(GetUserResponse getUserResponse, ErrorResponse errorResponse) {
+    public void getUserSuccess(MainService.GetUserResponse getUserResponse, ErrorResponse errorResponse) {
         if(getUserResponse!=null){
             if(getUserResponse.getCode()==200 && getUserResponse.isSuccess()){
                 userInfo = getUserResponse.getUser();
@@ -253,7 +259,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
                 ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setLoginState();
             }
         };
-        getUser(mCallback);
+        getUser();
     }
 
     @Override

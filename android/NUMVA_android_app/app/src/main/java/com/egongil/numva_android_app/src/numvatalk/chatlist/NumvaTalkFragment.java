@@ -1,20 +1,14 @@
 package com.egongil.numva_android_app.src.numvatalk.chatlist;
 
-import static android.os.Looper.getMainLooper;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.MESIBO_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
 import static com.egongil.numva_android_app.src.qr_scan.QrScanResultActivity.getRandomColor;
 import static com.mesibo.api.Mesibo.MSGSTATUS_CALLINCOMING;
 import static com.mesibo.api.Mesibo.MSGSTATUS_CALLOUTGOING;
-import static com.mesibo.messaging.MesiboConfiguration.MESIBO_INTITIAL_READ_USERLIST;
 import static com.mesibo.messaging.MesiboConfiguration.MESSAGE_DELETED_STRING;
 import static com.mesibo.messaging.MesiboConfiguration.MISSED_VIDEO_CALL;
 import static com.mesibo.messaging.MesiboConfiguration.MISSED_VOICE_CALL;
-import static com.mesibo.messaging.MesiboUserListFragment.MODE_EDITGROUP;
-import static com.mesibo.messaging.MesiboUserListFragment.MODE_MESSAGELIST;
-import static com.mesibo.messaging.MesiboUserListFragment.MODE_SELECTCONTACT_FORWARD;
-import static com.mesibo.messaging.MesiboUserListFragment.MODE_SELECTGROUP;
 
 import android.content.Context;
 import android.content.Intent;
@@ -41,23 +35,18 @@ import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.RecyclerTouchListener;
-import com.egongil.numva_android_app.src.main.MainActivity;
 import com.egongil.numva_android_app.src.numvatalk.NumvatalkActivity;
 import com.mesibo.api.Mesibo;
 import com.mesibo.api.MesiboProfile;
 import com.mesibo.messaging.MesiboUI;
-import com.mesibo.messaging.MesiboUIManager;
 import com.mesibo.messaging.MesiboUserListFragment;
 import com.mesibo.messaging.UserData;
-import com.mesibo.messaging.UserListFragment;
 import com.mesibo.messaging.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class NumvaTalkFragment extends Fragment implements Mesibo.MessageListener, Mesibo.ConnectionListener,
 Mesibo.ProfileListener, Mesibo.SyncListener{

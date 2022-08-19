@@ -15,7 +15,6 @@ import retrofit2.Converter;
 import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.retrofit;
 
 public class CustomerCenterService {
     private CustomerCenterActivityView mCustomerCenterActivityView;
@@ -37,7 +36,7 @@ public class CustomerCenterService {
                     faqResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
+                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
                     try {
                         errorResponse = errorConverter.convert(response.errorBody());
                     } catch (IOException e) {

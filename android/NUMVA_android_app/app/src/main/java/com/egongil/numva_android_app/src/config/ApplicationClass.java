@@ -41,7 +41,9 @@ public class ApplicationClass extends Application implements MesiboCall.Incoming
     public static String MESIBO_TOKEN = "Mesibo";
 
     //Retrofit 인스턴스
+    //TODO: retrofit private로 만들고, getRetrofit()으로만 불러오기
     public static Retrofit retrofit;
+    private static RetrofitService retrofitService;
 
     //kakao login
     private static volatile ApplicationClass mInstance = null;
@@ -110,9 +112,15 @@ public class ApplicationClass extends Application implements MesiboCall.Incoming
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-
         }
         return retrofit;
+    }
+
+    public static RetrofitService getRetrofitService(){
+        if(retrofitService == null){
+            retrofitService = getRetrofit().create(RetrofitService.class);
+        }
+        return retrofitService;
     }
 
     public static synchronized ApplicationClass getInstance(){

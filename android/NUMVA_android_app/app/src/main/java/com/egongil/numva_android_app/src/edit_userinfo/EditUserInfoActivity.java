@@ -1,30 +1,24 @@
 package com.egongil.numva_android_app.src.edit_userinfo;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.cert_phone.PassActivity;
-import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.BaseActivity;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.edit_userinfo.interfaces.EditUserInfoActivityView;
 import com.egongil.numva_android_app.src.edit_userinfo.models.EditUserInfoRequest;
 import com.egongil.numva_android_app.src.edit_userinfo.models.EditUserInfoResponse;
-import com.egongil.numva_android_app.src.main.MainActivity;
+import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 

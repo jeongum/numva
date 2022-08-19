@@ -1,6 +1,5 @@
 package com.egongil.numva_android_app.src.second_phone.models;
 
-import com.egongil.numva_android_app.src.main.models.GetUserResponse;
 import com.egongil.numva_android_app.src.second_phone.SecondPhoneRecyclerItem;
 import com.google.gson.annotations.SerializedName;
 

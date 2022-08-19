@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.BaseActivity;
 import com.egongil.numva_android_app.src.login.LoginActivity;
-import com.egongil.numva_android_app.src.main.MainActivity;
+import com.egongil.numva_android_app.src.main.view.MainActivity;
 
 import java.util.Random;
 

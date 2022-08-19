@@ -23,7 +23,6 @@ import retrofit2.Converter;
 import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.retrofit;
 
 public class LoginService {
     private final LoginActivityView mLoginActivityView;
@@ -44,7 +43,7 @@ public class LoginService {
                     loginResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
+                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
                     try {
                         errorResponse = errorConverter.convert(response.errorBody());
                     } catch (IOException e) {
@@ -74,7 +73,7 @@ public class LoginService {
                     validEmailResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, SocialValidEmailErrorResponse> errorConverter = retrofit.responseBodyConverter(SocialValidEmailErrorResponse.class, new Annotation[0]);
+                    Converter<ResponseBody, SocialValidEmailErrorResponse> errorConverter = getRetrofit().responseBodyConverter(SocialValidEmailErrorResponse.class, new Annotation[0]);
                     try {
                         errorResponse = errorConverter.convert(response.errorBody());
                     } catch (IOException e) {
@@ -102,7 +101,7 @@ public class LoginService {
                 if(response.body()!=null){
                   socialLoginResponse = response.body();
                 }else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
+                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
                     try {
                         errorResponse = errorConverter.convert(response.errorBody());
                     } catch (IOException e) {

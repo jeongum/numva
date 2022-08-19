@@ -1,28 +1,21 @@
 package com.egongil.numva_android_app.src.second_phone;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
-import com.egongil.numva_android_app.src.home.HomeFragment;
-import com.egongil.numva_android_app.src.main.MainActivity;
-import com.egongil.numva_android_app.src.mypage.MyPageFragment;
+import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneActivityView;
@@ -31,7 +24,6 @@ import com.egongil.numva_android_app.src.second_phone.models.DeleteSecondPhoneRe
 import com.egongil.numva_android_app.src.second_phone.models.GetSecondPhoneResponse;
 import com.egongil.numva_android_app.src.second_phone.models.RepSecondPhoneRequest;
 import com.egongil.numva_android_app.src.second_phone.models.RepSecondPhoneResponse;
-import com.egongil.numva_android_app.src.second_phone.models.SetSecondPhoneResponse;
 
 import java.util.ArrayList;
 

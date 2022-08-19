@@ -1,14 +1,6 @@
 package com.egongil.numva_android_app.src.network;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.LinkProperties;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +8,6 @@ import android.widget.Button;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.main.MainActivity;
 
 public class NetworkFailureActivity extends BaseActivity implements ConnectionReceiver.ConnectionReceiverListener{
 

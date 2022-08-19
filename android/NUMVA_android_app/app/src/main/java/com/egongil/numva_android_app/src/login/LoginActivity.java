@@ -4,14 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +31,7 @@ import com.egongil.numva_android_app.src.login.models.SocialValidEmailErrorRespo
 import com.egongil.numva_android_app.src.login.models.SocialValidEmailResponse;
 import com.egongil.numva_android_app.src.login.snslogin.SnsLoginActivity;
 import com.egongil.numva_android_app.src.login.snslogin.naverlogin.NaverLogin;
-import com.egongil.numva_android_app.src.main.MainActivity;
+import com.egongil.numva_android_app.src.main.view.MainActivity;
 
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
@@ -58,12 +53,6 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getGlobalUserLoginInfo;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
 
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

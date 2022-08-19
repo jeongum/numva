@@ -1,82 +1,45 @@
 package com.egongil.numva_android_app.src.numvatalk;
 
-import static com.egongil.numva_android_app.src.config.ApplicationClass.ViewType.CHAT_LEFT;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.ViewType.CHAT_RIGHT;
 import static com.mesibo.api.Mesibo.FLAG_DEFAULT;
-import static com.mesibo.api.Mesibo.FLAG_READRECEIPT;
 import static com.mesibo.api.Mesibo.MSGSTATUS_CALLINCOMING;
 import static com.mesibo.api.Mesibo.MSGSTATUS_CALLOUTGOING;
 import static com.mesibo.api.Mesibo.MSGSTATUS_OUTBOX;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.BaseActivity;
 import com.egongil.numva_android_app.src.config.RecyclerTouchListener;
-import com.egongil.numva_android_app.src.main.MainActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mesibo.api.Mesibo;
 import com.mesibo.api.MesiboProfile;
 import com.mesibo.calls.api.MesiboCall;
-import com.mesibo.emojiview.EmojiconEditText;
-import com.mesibo.emojiview.EmojiconGridView;
-import com.mesibo.emojiview.EmojiconTextView;
-import com.mesibo.emojiview.EmojiconsPopup;
-import com.mesibo.emojiview.emoji.Emojicon;
-import com.mesibo.messaging.AllUtils.LetterTileProvider;
-import com.mesibo.messaging.AllUtils.TextToEmoji;
-import com.mesibo.messaging.MesiboConfiguration;
 import com.mesibo.messaging.MesiboImages;
 import com.mesibo.messaging.MesiboMessagingFragment;
-import com.mesibo.messaging.MesiboUI;
-import com.mesibo.messaging.MesiboUIManager;
 import com.mesibo.messaging.MessageAdapter;
 import com.mesibo.messaging.MessageViewHolder;
 import com.mesibo.messaging.MessagingActivityListener;
-import com.mesibo.messaging.MessagingActivityNew;
-import com.mesibo.messaging.MessagingFragment;
 import com.mesibo.messaging.UserData;
 import com.mesibo.messaging.Utils;
 
 import java.lang.ref.WeakReference;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Map;
 
 public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDialog.BottomSheetListener, Mesibo.MessageListener, Mesibo.ConnectionListener, Mesibo.SyncListener, MessageViewHolder.ClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, MesiboProfile.Listener, MessageAdapter.MessagingAdapterListener, MessagingActivityListener, MesiboMessagingFragment.FragmentListener {
     private static long ACTIVITY_DISPLAY_DURATION = 10000;
