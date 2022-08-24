@@ -73,6 +73,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
                 new MainViewModelFactory(this, retrofitService))
                 .get(MainViewModel.class);
         checkConnection(); //네트워크 연결 확인
+
         //로그인 상태 확인 후 viewModel에 저장
         checkLoginState();
 
@@ -231,7 +232,6 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
 
             //비로그인 상태로 정의
             viewModel.setLoginState(false);
-            ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
         }
     }
 
