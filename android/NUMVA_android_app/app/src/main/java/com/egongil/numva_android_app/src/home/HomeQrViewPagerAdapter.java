@@ -21,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.home.models.SafetyInfo;
+import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.parkingmemo.ParkingMemoActivity;
 
 import java.text.ParseException;
@@ -30,13 +31,17 @@ import java.util.Locale;
 
 public class HomeQrViewPagerAdapter extends PagerAdapter {
     private Context mContext;
-    private Fragment fragment;
-    private ArrayList<SafetyInfo> mListQr;
+//    private ArrayList<SafetyInfo> mListQr;
+    private MainViewModel mMainViewModel;
 
-    public HomeQrViewPagerAdapter(Context mContext, Fragment mFragment, ArrayList<SafetyInfo> mListQr) {
+    public HomeQrViewPagerAdapter(Context mContext, ArrayList<SafetyInfo> mListQr) {
         this.mContext = mContext;
-        this.fragment = mFragment;
-        this.mListQr = mListQr;
+//        this.mListQr = mListQr;
+    }
+
+    public HomeQrViewPagerAdapter(Context mContext, MainViewModel mMainViewModel) {
+        this.mContext = mContext;
+        this.mMainViewModel = mMainViewModel;
     }
 
     @NonNull
@@ -72,6 +77,7 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
             mTvNonRegistSafeNumber.setText(R.string.home_nonlogin_guide);
 
         }else{
+            ArrayList<SafetyInfo> mListQr = mMainViewModel.getSafetyInfoData().getValue();
             //로그인 상태
             if(mListQr.get(0).getId()!=-1){
                 //등록된 QR이 있는 경우
@@ -145,6 +151,7 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
+        ArrayList<SafetyInfo> mListQr = mMainViewModel.getSafetyInfoData().getValue();
         if(mListQr != null){
             //Adapter가 관리하는 데이터 리스트의 총 개수
             return mListQr.size();
@@ -159,7 +166,13 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
         return (view == (View)object);
     }
 
-    //참고: PagerView에서 관리하는 데이터가 10개면, 각 데이터 항목에 해당하는 뷰(View)는 한꺼번에 생성되지 않는다.
+//    void submitList(ArrayList<SafetyInfo> list){
+//        mListQr = list;
+//        notifyDataSetChanged();
+//    }
+
+    //참고:
+    // PagerView에서 관리하는 데이터가 10개면, 각 데이터 항목에 해당하는 뷰(View)는 한꺼번에 생성되지 않는다.
     // 현재 화면에 보이는 페이지 하나, 스와이프를 통해 좌우로 전환하게 될 페이지 2개,
     // 총 3개의 페이지에 대해 생성 및 관리를 한다.
 }

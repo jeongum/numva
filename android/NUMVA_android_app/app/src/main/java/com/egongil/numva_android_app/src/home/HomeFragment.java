@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -37,6 +38,7 @@ import com.egongil.numva_android_app.src.main.viewmodels.MainViewModelFactory;
 import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.PARKING_MEMO_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
@@ -46,8 +48,7 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedP
 public class HomeFragment extends BaseFragment implements HomeFragmentView {
     FragmentHomeBinding binding;
     Fragment fragment;
-
-    ArrayList<SafetyInfo>mListQR;
+    MainViewModel mMainViewModel;
 
     HomeQrViewPagerAdapter mViewPagerAdapter;
     public Callback mGetSafetyInfoCallback;
@@ -60,7 +61,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         View root = binding.getRoot();
 
         //MainActivity의 ViewModel 가져옴
-        MainViewModel mMainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        mMainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         binding.setViewModel(mMainViewModel);
         binding.setLifecycleOwner(this);
 
@@ -141,26 +142,27 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
         binding.qrViewPager.setPageTransformer(false, new QrViewPagerTransformer(baseElevation, rasingElevation, smallerScale, startOffset));
 
-        mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), this, mListQR);
+//        mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mListQR);
 
-        mGetSafetyInfoCallback = new Callback() {
-            @Override
-            public void callback() {
-                if(mListQR!=null){
-                    mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), fragment, mListQR);
-                }else{
-                    //등록된 QR 없을 경우, QR id -1로 item 담은 list 보냄
-                    mListQR = new ArrayList<SafetyInfo>();
-                    mListQR.add(new SafetyInfo(-1));
-                    mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), fragment, mListQR);
-                }
+        //getSafetyInfo()가 끝난 후, 실행할 콜백
+        //TODO: success에서 처리해도 되는지 테스트
+        mGetSafetyInfoCallback = () -> {
+//            if (mListQR == null) {
+//                //등록된 QR 없을 경우, QR id -1로 item 담은 list 보냄
+//                mListQR = new ArrayList<>();
+//                mListQR.add(new SafetyInfo(-1));
+//            }
+//            mMainViewModel.setSafetyInfoData(mListQR);
+//            mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
+            binding.qrViewPager.setAdapter(mViewPagerAdapter);
+            binding.qrIndicator.setViewPager(binding.qrViewPager);
 
-                binding.qrViewPager.setAdapter(mViewPagerAdapter);
-                binding.qrIndicator.setViewPager(binding.qrViewPager);
-
-                mViewPagerAdapter.registerDataSetObserver(binding.qrIndicator.getDataSetObserver());
-            }
+            mViewPagerAdapter.registerDataSetObserver(binding.qrIndicator.getDataSetObserver());
         };
+
+        //viewPagerAdapter가 ViewModel의 list를 observe하도록 함
+//        mMainViewModel.mSafetyInfo.observe(this, safetyInfos -> mViewPagerAdapter.submitList(safetyInfos));
+
         getSafetyInfo(mGetSafetyInfoCallback);
 
         setHasOptionsMenu(true);
@@ -185,7 +187,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         }
     }
     public void setInitialLoginState(){
-        if(sSharedPreferences.getString(X_ACCESS_TOKEN,"")=="") {
+        if(Objects.equals(sSharedPreferences.getString(X_ACCESS_TOKEN, ""), "")) {
             setNonLoginState();
         }else{
             setLoginState();
@@ -198,10 +200,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     public void setLoginState(){
         binding.nonLoginGreeting.setVisibility(View.GONE);
         binding.loginGreeting.setVisibility(View.VISIBLE);
-
-//        if(((MainActivity)getActivity()).userInfo!=null){
-//            binding.userName.setText(((MainActivity)getActivity()).userInfo.getNickname());
-//        }
     }
     public void getSafetyInfo(Callback mCallback){
         HomeService homeService = new HomeService(this);
@@ -213,27 +211,22 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         if(getSafetyInfoResponse!=null) {
             if (getSafetyInfoResponse.getCode() == 200 && getSafetyInfoResponse.isSuccess()) {
                 //성공 시 동작
-                mListQR = getSafetyInfoResponse.getResult();
+                ArrayList<SafetyInfo>mListQR = getSafetyInfoResponse.getResult();
 
-                if(mListQR.size()!=0){
-                    mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), this, mListQR);
-                }
-                else{
-//                    //등록된 QR 없을 경우, QR id -1인 item 하나 담은 list 보냄(guide 출력할 아이템 하나 필요해서)
-                    mListQR = new ArrayList<SafetyInfo>();
-                    mListQR.add(new SafetyInfo(-1));
-                    mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), this, mListQR);
+                if (mListQR.size() == 0) {
+//                    //등록된 QR 없을 경우, 가이드아이템 추가
+                    setViewPagerSafetyGuideItem();
+                }else{
+                    mMainViewModel.setSafetyInfoData(mListQR);
+                    mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
                 }
             }
         }
         else if(errorResponse != null){
             //에러 시 동작
             if(errorResponse.getCode() == -401){
-                //비로그인 상태일 경우, QR id -1로 item 담은 list 보냄(guide 출력할 아이템 하나 필요해서)
-                mListQR = new ArrayList<SafetyInfo>();
-                mListQR.add(new SafetyInfo(-1));
-                mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), this, mListQR);
-
+                //비로그인 상태일 경우 가이드아이템 추가
+                setViewPagerSafetyGuideItem();
             }
         }
     }
@@ -241,5 +234,14 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     @Override
     public void getSafetyInfoFailure() {
         showCustomToast(getResources().getString(R.string.network_error));
+    }
+
+    //등록된 QR 없거나, 비로그인 상태일 경우
+    //QR id -1로 item 담은 list를 ViewPager에 보낸다.(guide 출력할 아이템 하나)
+    private void setViewPagerSafetyGuideItem(){
+        ArrayList<SafetyInfo>mListQR = new ArrayList<SafetyInfo>();
+        mListQR.add(new SafetyInfo(-1));
+        mMainViewModel.setSafetyInfoData(mListQR);
+        mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
     }
 }

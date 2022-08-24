@@ -4,32 +4,34 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.MutableListLiveData;
 import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.home.models.SafetyInfo;
 import com.egongil.numva_android_app.src.main.interfaces.MainActivityView;
-import com.egongil.numva_android_app.src.main.interfaces.MainRetrofitInterface;
 import com.egongil.numva_android_app.src.main.models.MainService;
 import com.egongil.numva_android_app.src.main.models.MainService.UserInfo;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 
 public class MainViewModel extends ViewModel {
-    private MutableLiveData<MainService.UserInfo> userData;
+    private MutableLiveData<Boolean> mLoginState; //TODO: 로그인 상태 저장
+    private MutableLiveData<MainService.UserInfo> mUserData;
+    public MutableListLiveData<SafetyInfo> mSafetyInfo;
+
     private final MainActivityView mMainActivityView;
     private final RetrofitService mRetrofitService;
 
@@ -40,20 +42,34 @@ public class MainViewModel extends ViewModel {
 
     //data binding 시 필요
     public LiveData<MainService.UserInfo> getMutableData(){
-        if(userData == null)
-            userData = new MutableLiveData<>(new UserInfo());
-        return userData;
+        if(mUserData == null)
+            mUserData = new MutableLiveData<>(new UserInfo());
+        return mUserData;
     }
+    public LiveData<MainService.UserInfo> getUserData(){
+        if(mUserData == null)
+            mUserData = new MutableLiveData<>(new UserInfo());
+        return mUserData;
+    }
+    //TODO: getMutable -> getUserData로 변경 후, 다른 데이터들도 각각 getter 만들기
 
     public void setUserData(UserInfo data){
-        getMutableData();
-        userData.setValue(data);
+        getUserData();
+        mUserData.setValue(data);
     }
 
-    public void setUserNickname(String nickname){
-        UserInfo data = userData.getValue();
-        data.setNickname(nickname);
-        userData.setValue(data);
+    public MutableListLiveData<SafetyInfo> getSafetyInfoData(){
+        if(mSafetyInfo == null){
+            mSafetyInfo = new MutableListLiveData<>();
+        }
+        return mSafetyInfo;
+    }
+
+    public void setSafetyInfoData(ArrayList<SafetyInfo> safetyInfo) {
+        if (mSafetyInfo == null) {
+            getSafetyInfoData();
+        }
+        mSafetyInfo.setValue(safetyInfo);
     }
 
     public void getUser(){
@@ -85,4 +101,7 @@ public class MainViewModel extends ViewModel {
             }
         });
     }
+
+
+
 }
