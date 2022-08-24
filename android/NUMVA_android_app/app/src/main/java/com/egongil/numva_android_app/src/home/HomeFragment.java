@@ -51,7 +51,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     MainViewModel mMainViewModel;
 
     HomeQrViewPagerAdapter mViewPagerAdapter;
-//    public Callback mGetSafetyInfoCallback;
 
     @Nullable
     @Override
@@ -71,8 +70,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-                if(sSharedPreferences.getString(X_ACCESS_TOKEN,"")!=""){
+                if(!Objects.equals(sSharedPreferences.getString(X_ACCESS_TOKEN, ""), "")){
                     //비로그인상태가 아닐 경우
                     ((MainActivity)getActivity()).callGetUser();
                     getSafetyInfo();
@@ -115,6 +113,18 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
             }
         });
 
+        //ViewPager margin, Transform
+        setViewPagerStyle();
+
+        getSafetyInfo();
+
+        setHasOptionsMenu(true);
+
+        setInitialLoginState();
+
+        return root;
+    }
+    private void setViewPagerStyle(){
         //이전,다음 page 미리보기
         binding.qrViewPager.setClipToPadding(false);
 
@@ -127,7 +137,10 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
         binding.qrViewPager.setPageMargin(pageMargin);
         binding.qrViewPager.setPadding(viewPagerPadding,0, viewPagerPadding,0);
+        binding.qrViewPager.setPageTransformer(false, getViewPagerTransformer(viewPagerPadding));
 
+    }
+    private QrViewPagerTransformer getViewPagerTransformer(float viewPagerPadding){
         //Transformation
         Point screen = new Point();
         ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(screen);
@@ -138,15 +151,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         //Elevation of view at center = baseElevation + raisingElevation
         float smallerScale = 0.8f; //Y scale of the view when it is at position 1 or -1
 
-        binding.qrViewPager.setPageTransformer(false, new QrViewPagerTransformer(baseElevation, rasingElevation, smallerScale, startOffset));
-
-        getSafetyInfo();
-
-        setHasOptionsMenu(true);
-
-        setInitialLoginState();
-
-        return root;
+        return new QrViewPagerTransformer(baseElevation, rasingElevation, smallerScale, startOffset);
     }
 
     @Override
