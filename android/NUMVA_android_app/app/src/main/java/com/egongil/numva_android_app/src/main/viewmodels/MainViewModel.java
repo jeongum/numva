@@ -28,7 +28,7 @@ import retrofit2.Response;
 
 
 public class MainViewModel extends ViewModel {
-    private MutableLiveData<Boolean> mLoginState; //TODO: 로그인 상태 저장
+    private MutableLiveData<Boolean> mLoginState;
     private MutableLiveData<MainService.UserInfo> mUserData;
     public MutableListLiveData<SafetyInfo> mSafetyInfo;
 
@@ -38,6 +38,20 @@ public class MainViewModel extends ViewModel {
     public MainViewModel(MainActivityView mMainActivityView, RetrofitService retrofitService) {
         this.mMainActivityView = mMainActivityView;
         this.mRetrofitService = retrofitService;
+    }
+
+    public LiveData<Boolean> getLoginState(){
+        if(mLoginState == null){
+            mLoginState = new MutableLiveData<>();
+        }
+        return mLoginState;
+    }
+
+    public void setLoginState(boolean state){
+        if(mUserData == null){
+            getLoginState();
+        }
+        mLoginState.setValue(state);
     }
 
     //data binding 시 필요

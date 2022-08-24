@@ -78,21 +78,18 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
 
         this.initializeFragment();
 
-        binding.navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                BottomNavigate(menuItem.getItemId());
-                return true;
-            }
+        binding.navView.setOnNavigationItemSelectedListener(menuItem -> {
+            BottomNavigate(menuItem.getItemId());
+            return true;
         });
 
-        if(!sSharedPreferences.getString(X_ACCESS_TOKEN,"").equals("")){
-            Callback mCallback = new Callback() {
-                @Override
-                public void callback() {
-                    ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setInitialLoginState();
-                    ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
-                }
+        //로그인 상태 확인 후 viewModel에 저장
+        checkLoginState();
+
+        if(!isLogin()){
+            Callback mCallback = () -> {
+                ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setInitialLoginState();
+                ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
             };
             getUser();  //Activity에서 user정보 한 번만 받아온다.
         }
@@ -122,6 +119,15 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
         mesiboInit();
 
     }
+    public boolean isLogin(){
+        if(sSharedPreferences.getString(X_ACCESS_TOKEN,"").equals(""))  return false;
+        return true;
+    }
+    public void checkLoginState(){
+        if(isLogin()) viewModel.setLoginState(true);
+        else viewModel.setLoginState(false);
+    }
+
     public void mesiboInit(){
         Mesibo api = Mesibo.getInstance();
         api.init(getApplicationContext());
@@ -130,14 +136,11 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
         Mesibo.addListener(this);
         Mesibo.setSecureConnection(true);
 
-        if(!sSharedPreferences.getString(MESIBO_TOKEN,"").equals("")){
-            Callback mCallback = new Callback() {
-                @Override
-                public void callback() {
-                    ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setInitialLoginState();
-                    ((NumvaTalkFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_numvatalk))).setInitialLoginState();
-                    ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
-                }
+        if(!isLogin()){
+            Callback mCallback = () -> {
+                ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setInitialLoginState();
+                ((NumvaTalkFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_numvatalk))).setInitialLoginState();
+                ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
             };
             getUser();  //Activity에서 user정보 한 번만 받아온다.
         }
@@ -225,7 +228,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
             /*모든 에러코드에 대해 로그인 세션 만료로 동일 처리하므로, 에러코드 분기 없음*/
 
             //로그인 상태였을 경우
-            if(sSharedPreferences.getString(X_ACCESS_TOKEN,null)!=null){
+            if(isLogin()){
                 //toast 메시지 발생
                 showCustomToast(getResources().getString(R.string.alert_invalid_token));
 
@@ -251,12 +254,9 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
     }
 
     public void callGetUser(){
-        Callback mCallback = new Callback() {
-            @Override
-            public void callback() {
-                ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setLoginState();
-                ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setLoginState();
-            }
+        Callback mCallback = () -> {
+            ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setLoginState();
+            ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setLoginState();
         };
         getUser();
     }
