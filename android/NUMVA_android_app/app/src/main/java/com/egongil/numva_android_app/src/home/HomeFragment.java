@@ -67,17 +67,14 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         this.fragment = this;
 
         binding.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if(!Objects.equals(sSharedPreferences.getString(X_ACCESS_TOKEN, ""), "")){
-                    //비로그인상태가 아닐 경우
-                    ((MainActivity)getActivity()).callGetUser();
-                    getSafetyInfo();
-                }
-
-                binding.refreshLayout.setRefreshing(false);
+        binding.refreshLayout.setOnRefreshListener(() -> {
+            if(!(((MainActivity)getActivity()).isLogin())){
+                //로그인 상태일 경우
+                ((MainActivity)getActivity()).getUser();
+                getSafetyInfo();
             }
+
+            binding.refreshLayout.setRefreshing(false);
         });
 
         binding.nonLoginGreeting.setOnClickListener(new OnSingleClickListener() {
@@ -119,8 +116,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         getSafetyInfo();
 
         setHasOptionsMenu(true);
-
-        setInitialLoginState();
 
         return root;
     }
@@ -168,21 +163,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
             binding.refreshLayout.setEnabled(enable);
         }
     }
-    public void setInitialLoginState(){
-        if(Objects.equals(sSharedPreferences.getString(X_ACCESS_TOKEN, ""), "")) {
-            setNonLoginState();
-        }else{
-            setLoginState();
-        }
-    }
-    public void setNonLoginState(){
-        binding.nonLoginGreeting.setVisibility(View.VISIBLE);
-        binding.loginGreeting.setVisibility(View.GONE);
-    }
-    public void setLoginState(){
-        binding.nonLoginGreeting.setVisibility(View.GONE);
-        binding.loginGreeting.setVisibility(View.VISIBLE);
-    }
+
     public void getSafetyInfo(){
         HomeService homeService = new HomeService(this);
         homeService.getSafetyInfo();
@@ -196,7 +177,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
                 ArrayList<SafetyInfo>mListQR = getSafetyInfoResponse.getResult();
 
                 if (mListQR.size() == 0) {
-//                    //등록된 QR 없을 경우, 가이드아이템 추가
+                    //등록된 QR 없을 경우, 가이드아이템 추가
                     setViewPagerSafetyGuideItem();
                 }else{
                     mMainViewModel.setSafetyInfoData(mListQR);
@@ -223,7 +204,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     //등록된 QR 없거나, 비로그인 상태일 경우
     //QR id -1로 item 담은 list를 ViewPager에 보낸다.(guide 출력할 아이템 하나)
     private void setViewPagerSafetyGuideItem(){
-        ArrayList<SafetyInfo>mListQR = new ArrayList<SafetyInfo>();
+        ArrayList<SafetyInfo>mListQR = new ArrayList<>();
         mListQR.add(new SafetyInfo(-1));
         mMainViewModel.setSafetyInfoData(mListQR);
         mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);

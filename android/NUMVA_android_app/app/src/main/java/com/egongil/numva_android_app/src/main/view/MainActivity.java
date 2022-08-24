@@ -73,6 +73,8 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
                 new MainViewModelFactory(this, retrofitService))
                 .get(MainViewModel.class);
         checkConnection(); //네트워크 연결 확인
+        //로그인 상태 확인 후 viewModel에 저장
+        checkLoginState();
 
         mContext = this;
 
@@ -83,14 +85,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
             return true;
         });
 
-        //로그인 상태 확인 후 viewModel에 저장
-        checkLoginState();
-
-        if(!isLogin()){
-            Callback mCallback = () -> {
-                ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setInitialLoginState();
-                ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
-            };
+        if(isLogin()){
             getUser();  //Activity에서 user정보 한 번만 받아온다.
         }
 
@@ -136,14 +131,6 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
         Mesibo.addListener(this);
         Mesibo.setSecureConnection(true);
 
-        if(!isLogin()){
-            Callback mCallback = () -> {
-                ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setInitialLoginState();
-                ((NumvaTalkFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_numvatalk))).setInitialLoginState();
-                ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
-            };
-            getUser();  //Activity에서 user정보 한 번만 받아온다.
-        }
         Mesibo.setAccessToken(sSharedPreferences.getString(MESIBO_TOKEN, null));
         Log.d("MESIBO_TOKEN", sSharedPreferences.getString(MESIBO_TOKEN, "null"));
         Mesibo.start();
@@ -243,7 +230,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
             editor.commit();
 
             //비로그인 상태로 정의
-            ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setInitialLoginState();
+            viewModel.setLoginState(false);
             ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setInitialLoginState();
         }
     }
@@ -254,11 +241,12 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
     }
 
     public void callGetUser(){
-        Callback mCallback = () -> {
-            ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setLoginState();
-            ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setLoginState();
-        };
-        getUser();
+//        Callback mCallback = () -> {
+//            ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setLoginState();
+//            ((MyPageFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_mypage))).setLoginState();
+//        };
+//
+//        getUser();
     }
 
     @Override
