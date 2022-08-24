@@ -51,7 +51,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     MainViewModel mMainViewModel;
 
     HomeQrViewPagerAdapter mViewPagerAdapter;
-    public Callback mGetSafetyInfoCallback;
+//    public Callback mGetSafetyInfoCallback;
 
     @Nullable
     @Override
@@ -75,9 +75,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
                 if(sSharedPreferences.getString(X_ACCESS_TOKEN,"")!=""){
                     //비로그인상태가 아닐 경우
                     ((MainActivity)getActivity()).callGetUser();
-
-                    Callback mCallback = ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).mGetSafetyInfoCallback;
-                    ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).getSafetyInfo(mCallback);
+                    getSafetyInfo();
                 }
 
                 binding.refreshLayout.setRefreshing(false);
@@ -142,28 +140,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
         binding.qrViewPager.setPageTransformer(false, new QrViewPagerTransformer(baseElevation, rasingElevation, smallerScale, startOffset));
 
-//        mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mListQR);
-
-        //getSafetyInfo()가 끝난 후, 실행할 콜백
-        //TODO: success에서 처리해도 되는지 테스트
-        mGetSafetyInfoCallback = () -> {
-//            if (mListQR == null) {
-//                //등록된 QR 없을 경우, QR id -1로 item 담은 list 보냄
-//                mListQR = new ArrayList<>();
-//                mListQR.add(new SafetyInfo(-1));
-//            }
-//            mMainViewModel.setSafetyInfoData(mListQR);
-//            mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
-            binding.qrViewPager.setAdapter(mViewPagerAdapter);
-            binding.qrIndicator.setViewPager(binding.qrViewPager);
-
-            mViewPagerAdapter.registerDataSetObserver(binding.qrIndicator.getDataSetObserver());
-        };
-
-        //viewPagerAdapter가 ViewModel의 list를 observe하도록 함
-//        mMainViewModel.mSafetyInfo.observe(this, safetyInfos -> mViewPagerAdapter.submitList(safetyInfos));
-
-        getSafetyInfo(mGetSafetyInfoCallback);
+        getSafetyInfo();
 
         setHasOptionsMenu(true);
 
@@ -176,7 +153,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(resultCode == RESULT_OK){
             if(requestCode == PARKING_MEMO_ACTIVITY){
-                getSafetyInfo(mGetSafetyInfoCallback);
+                getSafetyInfo();
             }
         }
     }
@@ -201,9 +178,9 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         binding.nonLoginGreeting.setVisibility(View.GONE);
         binding.loginGreeting.setVisibility(View.VISIBLE);
     }
-    public void getSafetyInfo(Callback mCallback){
+    public void getSafetyInfo(){
         HomeService homeService = new HomeService(this);
-        homeService.getSafetyInfo(mCallback);
+        homeService.getSafetyInfo();
     }
 
     @Override
@@ -229,11 +206,13 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
                 setViewPagerSafetyGuideItem();
             }
         }
+        setViewPager();
     }
 
     @Override
     public void getSafetyInfoFailure() {
         showCustomToast(getResources().getString(R.string.network_error));
+        setViewPager();
     }
 
     //등록된 QR 없거나, 비로그인 상태일 경우
@@ -243,5 +222,13 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         mListQR.add(new SafetyInfo(-1));
         mMainViewModel.setSafetyInfoData(mListQR);
         mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
+    }
+
+    //ViewPager에 ViewPagerAdapter를 붙이고, indicator 설정
+    private void setViewPager(){
+        binding.qrViewPager.setAdapter(mViewPagerAdapter);
+        binding.qrIndicator.setViewPager(binding.qrViewPager);
+
+        mViewPagerAdapter.registerDataSetObserver(binding.qrIndicator.getDataSetObserver());
     }
 }

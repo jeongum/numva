@@ -279,8 +279,7 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
                 showCustomToast(getResources().getString(R.string.parking_memo_save_success));
 
                 //HomeFragment 주차메모
-                Callback mCallback = ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).mGetSafetyInfoCallback;
-                ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).getSafetyInfo(mCallback);
+                ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).getSafetyInfo();
             }
         }
         else if(errorResponse != null){

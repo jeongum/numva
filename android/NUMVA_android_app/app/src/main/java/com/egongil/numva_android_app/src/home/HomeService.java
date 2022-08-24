@@ -24,7 +24,7 @@ public class HomeService {
     public HomeService(HomeFragmentView mHomeFragmentView){
         this.mHomeFragmentView = mHomeFragmentView;
     }
-    void getSafetyInfo(Callback mCallback){
+    void getSafetyInfo(){
         final HomeRetrofitInterface homeRetrofitInterface = getRetrofit().create(HomeRetrofitInterface.class);
         homeRetrofitInterface.getSafetyInfo().enqueue(new retrofit2.Callback<GetSafetyInfoResponse>() {
             @Override
@@ -45,14 +45,12 @@ public class HomeService {
                     }
                 }
                 mHomeFragmentView.getSafetyInfoSuccess(getSafetyInfoResponse, errorResponse);
-                mCallback.callback();
             }
 
             @Override
             public void onFailure(Call<GetSafetyInfoResponse> call, Throwable t) {
                 t.printStackTrace();
                 mHomeFragmentView.getSafetyInfoFailure();
-                mCallback.callback();
             }
         });
     }
