@@ -12,7 +12,7 @@ import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.config.MutableListLiveData;
 import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.home.models.SafetyInfo;
-import com.egongil.numva_android_app.src.main.interfaces.MainActivityView;
+import com.egongil.numva_android_app.src.main.interfaces.MainContract;
 import com.egongil.numva_android_app.src.main.models.MainService;
 import com.egongil.numva_android_app.src.main.models.MainService.UserInfo;
 
@@ -32,11 +32,11 @@ public class MainViewModel extends ViewModel {
     private MutableLiveData<MainService.UserInfo> mUserData;
     public MutableListLiveData<SafetyInfo> mSafetyInfo;
 
-    private final MainActivityView mMainActivityView;
+    private final MainContract mMainContract;
     private final RetrofitService mRetrofitService;
 
-    public MainViewModel(MainActivityView mMainActivityView, RetrofitService retrofitService) {
-        this.mMainActivityView = mMainActivityView;
+    public MainViewModel(MainContract mMainContract, RetrofitService retrofitService) {
+        this.mMainContract = mMainContract;
         this.mRetrofitService = retrofitService;
     }
 
@@ -105,13 +105,13 @@ public class MainViewModel extends ViewModel {
                         e.printStackTrace();
                     }
                 }
-                mMainActivityView.getUserSuccess(getUserResponse, errorResponse);
+                mMainContract.getUserSuccess(getUserResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<MainService.GetUserResponse> call, Throwable t) {
                 t.printStackTrace();
-                mMainActivityView.getUserFailure();
+                mMainContract.getUserFailure();
             }
         });
     }

@@ -1,6 +1,5 @@
 package com.egongil.numva_android_app.src.main.view;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,7 +11,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,7 +19,6 @@ import com.egongil.numva_android_app.databinding.ActivityMainBinding;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.BaseActivity;
 import com.egongil.numva_android_app.src.car_management.CarManagementFragment;
-import com.egongil.numva_android_app.src.config.Callback;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 
@@ -29,7 +26,7 @@ import com.egongil.numva_android_app.src.config.GlobalAuthHelper;
 import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.home.HomeFragment;
 import com.egongil.numva_android_app.src.login.LoginActivity;
-import com.egongil.numva_android_app.src.main.interfaces.MainActivityView;
+import com.egongil.numva_android_app.src.main.interfaces.MainContract;
 import com.egongil.numva_android_app.src.main.models.MainService;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModelFactory;
@@ -43,7 +40,6 @@ import com.egongil.numva_android_app.src.numvatalk.chatlist.NumvaTalkFragment;
 import com.egongil.numva_android_app.src.qr_scan.QrScanFragment;
 
 import com.egongil.numva_android_app.src.store.StoreActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.MESIBO_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
@@ -52,7 +48,7 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedP
 import com.mesibo.api.Mesibo;
 import com.mesibo.calls.api.MesiboCall;
 
-public class MainActivity extends BaseActivity implements MainActivityView , ConnectionReceiver.ConnectionReceiverListener,
+public class MainActivity extends BaseActivity implements MainContract, ConnectionReceiver.ConnectionReceiverListener,
 Mesibo.MessageListener, Mesibo.ConnectionListener{
     public static String TAG = "MAIN_ACTIVITY";
     private ActivityMainBinding binding;
