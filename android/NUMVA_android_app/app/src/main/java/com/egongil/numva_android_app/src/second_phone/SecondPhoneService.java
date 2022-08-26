@@ -24,8 +24,8 @@ import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Response;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.retrofit;
 
 public class SecondPhoneService {
 
@@ -52,14 +52,8 @@ public class SecondPhoneService {
                 ErrorResponse errorResponse = null;
                 if(response.body()!=null){
                     setSecondPhoneResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mSecondPhoneRegisterActivityView.setSecondPhoneSuccess(setSecondPhoneResponse, errorResponse);
             }
@@ -82,14 +76,8 @@ public class SecondPhoneService {
                 ErrorResponse errorResponse = null;
                 if(response.body()!=null) {
                     getSecondPhoneResponse = response.body();
-                }
-                else {
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else {
+                    errorResponse = convertErrorResponse(response);
                 }
                 mSecondPhoneActivityView.getSecondPhoneSuccess(getSecondPhoneResponse, errorResponse);
             }
@@ -112,14 +100,8 @@ public class SecondPhoneService {
                 ErrorResponse errorResponse = null;
                 if(response.body()!=null){
                     repSecondPhoneResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mSecondPhoneActivityView.repSecondPhoneSuccess(repSecondPhoneResponse, errorResponse);
             }
@@ -142,14 +124,8 @@ public class SecondPhoneService {
                 ErrorResponse errorResponse = null;
                 if(response.body()!=null){
                     deleteSecondPhoneResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mSecondPhoneActivityView.deleteSecondPhoneSuccess(deleteSecondPhoneResponse, errorResponse);
             }
@@ -171,14 +147,8 @@ public class SecondPhoneService {
                 ErrorResponse errorResponse=null;
                 if(response.body()!=null){
                     certPhoneResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mSecondPhoneRegisterActivityView.postCertPhoneSuccess(certPhoneResponse, errorResponse);
             }
