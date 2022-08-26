@@ -1,8 +1,10 @@
 package com.egongil.numva_android_app.src.parkingmemo.view;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.PARKING_MEMO_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ViewType.SIMPLE_MEMO_VIEW;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ViewType.SIMPLE_MEMO_VIEW_ADD;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,7 @@ import com.egongil.numva_android_app.src.custom_dialogs.EditTextDialog;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.home.view.HomeFragment;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
+import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 import com.egongil.numva_android_app.src.parkingmemo.model.ParkingMemoService;
@@ -133,6 +136,8 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
                 setParkingMemo(initialMemo);
                 hideKeyboard((ParkingMemoActivity)mContext);
                 mEtNowMemo.clearFocus();
+
+                setResultCallback(initialMemo); //MainViewModel에 전달
             }
         });
 
@@ -410,4 +415,13 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
         }
     }
 
+    private void setResultCallback(String memo){
+        int pos = getIntent().getIntExtra("safety_info_pos", -1);
+        if(pos != -1){
+            Intent finish_intent = new Intent(getApplicationContext(), MainActivity.class);
+            finish_intent.putExtra("safety_info_pos", pos);
+            finish_intent.putExtra("parking_memo", memo);
+            setResult(PARKING_MEMO_ACTIVITY, finish_intent);
+        }
+    }
 }

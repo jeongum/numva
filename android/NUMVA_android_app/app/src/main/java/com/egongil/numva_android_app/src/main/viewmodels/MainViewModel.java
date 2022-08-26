@@ -80,6 +80,12 @@ public class MainViewModel extends ViewModel {
         mSafetyInfo.setValue(safetyInfo);
     }
 
+    public void setParkingMemo(int pos, String newMemo){
+        ArrayList<SafetyInfo> newList = mSafetyInfo.getValue();
+        newList.set(pos, newList.get(pos).setMemo(newMemo));
+        mSafetyInfo.setValue(newList);
+    }
+
     //api 호출 함수
     public void getUser(){
         mRetrofitService.getUser().enqueue(new Callback<GetUserResponse>() {

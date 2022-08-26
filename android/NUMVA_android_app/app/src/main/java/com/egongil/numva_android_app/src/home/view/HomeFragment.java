@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -40,6 +42,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
     FragmentHomeBinding binding;
     Fragment fragment;
     MainViewModel mMainViewModel;
+    ActivityResultLauncher<Intent> mActivityResultLauncher;
 
     //TODO: parkingmemoActivity, QRManagementActivity에서 getSafeyInfo를 해야해서 임시로 public 설정해둠
     //TODO: parkingmemo, QR~에서 ViewModel 활용하도록 변경해서 getSafetyInfo 호출할 필요 없도록 만들기
@@ -86,6 +89,16 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), QrManagementActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if(result.getResultCode()==PARKING_MEMO_ACTIVITY){//resultCode가 PARKING_MEMO_ACTIVITY로 넘어온다면
+                Intent intent = result.getData();   //ActivityResult객체 result로 intent를 받아온다.
+                int pos = intent.getIntExtra("parking_pos", -1);
+                String memo = intent.getStringExtra("parking_memo");
+
+                if(pos!=-1) mMainViewModel.setParkingMemo(pos, memo);
             }
         });
 
@@ -145,14 +158,14 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
         return new QrViewPagerTransformer(baseElevation, rasingElevation, smallerScale, startOffset);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK){
-            if(requestCode == PARKING_MEMO_ACTIVITY){
-                mHomeService.getSafetyInfo();
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        if(resultCode == RESULT_OK){
+//            if(requestCode == PARKING_MEMO_ACTIVITY){
+//                mHomeService.getSafetyInfo();
+//            }
+//        }
+//    }
 
     private void enableDisableSwipeRefresh(boolean enable){
         if(binding.refreshLayout!=null){
@@ -172,7 +185,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
                     setViewPagerSafetyGuideItem();
                 }else{
                     mMainViewModel.setSafetyInfoData(mListQR);
-                    mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
+                    mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel, mActivityResultLauncher);
                 }
             }
         }
@@ -198,7 +211,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
         ArrayList<SafetyInfo>mListQR = new ArrayList<>();
         mListQR.add(new SafetyInfo(-1));
         mMainViewModel.setSafetyInfoData(mListQR);
-        mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
+        mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel, mActivityResultLauncher);
     }
 
     //ViewPager에 ViewPagerAdapter를 붙이고, indicator 설정

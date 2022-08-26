@@ -29,4 +29,9 @@ public class SafetyInfo {
     public void setName(String name) {
         this.name = name;
     }
+
+    public SafetyInfo setMemo(String memo) {
+        this.memo = memo;
+        return this;
+    }
 }

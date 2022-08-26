@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
@@ -29,10 +30,12 @@ import java.util.Locale;
 public class HomeQrViewPagerAdapter extends PagerAdapter {
     private Context mContext;
     private MainViewModel mMainViewModel;
+    private ActivityResultLauncher<Intent> mActivityResultLauncher;
 
-    public HomeQrViewPagerAdapter(Context mContext, MainViewModel mMainViewModel) {
+    public HomeQrViewPagerAdapter(Context mContext, MainViewModel mMainViewModel, ActivityResultLauncher<Intent> mActivityResultLauncher) {
         this.mContext = mContext;
         this.mMainViewModel = mMainViewModel;
+        this.mActivityResultLauncher = mActivityResultLauncher;
     }
 
     @NonNull
@@ -83,13 +86,11 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
                     mTvParkingMemo.setText(R.string.home_parking_memo_guide);
                     mTvParkingMemo.setTextColor(mContext.getResources().getColor(R.color.colorSemiBlack));
                 }
-                mLlParkingMemo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext, ParkingMemoActivity.class);
-                        intent.putExtra("safety_info_id", mListQr.get(position).getId());
-                        mContext.startActivity(intent);
-                    }
+                mLlParkingMemo.setOnClickListener(v -> {
+                    Intent intent = new Intent(mContext, ParkingMemoActivity.class);
+                    intent.putExtra("safety_info_id", mListQr.get(position).getId());
+                    intent.putExtra("safety_info_pos", position);
+                    mActivityResultLauncher.launch(intent); //parkingMemoActivity launcher로 실행
                 });
 
                 //안심번호
@@ -137,7 +138,7 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
 //        super.destroyItem(container, position, object);
-        ((ViewPager) container).removeView((View) object);
+        container.removeView((View) object);
     }
 
     @Override
