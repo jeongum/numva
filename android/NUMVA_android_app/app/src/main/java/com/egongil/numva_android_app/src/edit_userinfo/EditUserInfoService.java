@@ -15,8 +15,8 @@ import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Response;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.retrofit;
 
 public class EditUserInfoService {
 
@@ -35,14 +35,8 @@ public class EditUserInfoService {
                 ErrorResponse errorResponse=null;
                 if(response.body()!=null){
                     editUserInfoResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse=errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mEditUserInfoActivityView.postEditUserInfoSuccess(editUserInfoResponse, errorResponse);
             }

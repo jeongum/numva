@@ -1,7 +1,7 @@
 package com.egongil.numva_android_app.src.login;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.retrofit;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.login.interfaces.SnsLoginActivityView;
@@ -34,14 +34,8 @@ public class SnSLoginService {
                 ErrorResponse errorResponse= null;
                 if(response.body() != null){
                     linkSocialResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mSnsLoginActivityView.linkSocialSuccess(linkSocialResponse, errorResponse);
 
@@ -64,14 +58,8 @@ public class SnSLoginService {
                 ErrorResponse errorResponse= null;
                 if(response.body() != null){
                     linkSocialResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mSnsLoginActivityView.socialRegisterSuccess(linkSocialResponse, errorResponse);
             }

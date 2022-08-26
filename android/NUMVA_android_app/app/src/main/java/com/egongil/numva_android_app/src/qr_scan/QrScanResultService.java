@@ -1,7 +1,7 @@
 package com.egongil.numva_android_app.src.qr_scan;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.retrofit;
 
 import android.util.Log;
 
@@ -39,14 +39,8 @@ public class QrScanResultService {
                 ErrorResponse errorResponse = null;
                 if(response.body() != null){
                     scanQrResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mQrScanResultActivityView.scanQrSuccess(scanQrResponse, errorResponse);
             }
@@ -68,14 +62,8 @@ public class QrScanResultService {
                 ErrorResponse errorResponse = null;
                 if(response.body()!=null){
                     registerQrResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mQrScanResultActivityView.registerQrSuccess(registerQrResponse, errorResponse);
             }

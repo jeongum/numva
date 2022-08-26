@@ -17,12 +17,17 @@ import com.kakao.auth.KakaoSDK;
 import com.mesibo.api.MesiboProfile;
 import com.mesibo.calls.api.MesiboCall;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Converter;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -42,7 +47,7 @@ public class ApplicationClass extends Application implements MesiboCall.Incoming
 
     //Retrofit 인스턴스
     //TODO: retrofit private로 만들고, getRetrofit()으로만 불러오기
-    public static Retrofit retrofit;
+    private static Retrofit retrofit;
     private static RetrofitService retrofitService;
 
     //kakao login
@@ -121,6 +126,17 @@ public class ApplicationClass extends Application implements MesiboCall.Incoming
             retrofitService = getRetrofit().create(RetrofitService.class);
         }
         return retrofitService;
+    }
+
+    public static ErrorResponse convertErrorResponse(Response response){
+        ErrorResponse errorResponse = null;
+        Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
+        try {
+            errorResponse = errorConverter.convert(response.errorBody());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return errorResponse;
     }
 
     public static synchronized ApplicationClass getInstance(){
@@ -235,8 +251,6 @@ public class ApplicationClass extends Application implements MesiboCall.Incoming
             message = "You missed a mesibo " + (video?"video ":"") + "call from " + profile.getName();
 
         }
-
-
         return true;
     }
 }

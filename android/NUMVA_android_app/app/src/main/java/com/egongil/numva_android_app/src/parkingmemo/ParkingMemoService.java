@@ -1,7 +1,7 @@
 package com.egongil.numva_android_app.src.parkingmemo;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.retrofit;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityView;
@@ -42,14 +42,8 @@ public class ParkingMemoService {
                 ErrorResponse errorResponse = null;
                 if(response.body() != null){
                     getParkingMemoResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mParkingMemoActivityView.getParkingMemoSuccess(getParkingMemoResponse, errorResponse);
             }
@@ -71,12 +65,7 @@ public class ParkingMemoService {
                 if(response.body()!=null){
                     getParkingMemoResponse = response.body();
                 }else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 mParkingMemoActivityView.setParkingMemoSuccess(getParkingMemoResponse, errorResponse);
             }
@@ -97,12 +86,7 @@ public class ParkingMemoService {
                 if(response.body() !=null){
                     getSimpleMemoResponse = response.body();
                 }else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 mParkingMemoActivityView.getSimpleMemoSuccess(getSimpleMemoResponse, errorResponse);
             }
@@ -123,12 +107,7 @@ public class ParkingMemoService {
                 if(response.body()!=null){
                     updateSimpleMemoResponse = response.body();
                 }else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 mParkingMemoActivityView.deleteSimpleMemoSuccess(updateSimpleMemoResponse, errorResponse);
             }
@@ -149,12 +128,7 @@ public class ParkingMemoService {
                 if(response.body()!=null){
                     updateSimpleMemoResponse = response.body();
                 }else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 mParkingMemoActivityView.editSimpleMemoSuccess(updateSimpleMemoResponse, errorResponse);
             }
@@ -175,12 +149,7 @@ public class ParkingMemoService {
                 if(response.body()!=null){
                     addSimpleMemoResponse= response.body();
                 }else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = retrofit.responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 mParkingMemoActivityView.addSimpleMemoSucccess(addSimpleMemoResponse, errorResponse);
             }
