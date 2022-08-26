@@ -1,34 +1,15 @@
 package com.egongil.numva_android_app.src.qr_management.models;
 
+import com.egongil.numva_android_app.src.config.RetrofitResponse;
 import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class RegisterQrResponse {
-    @SerializedName("isSuccess")
-    private boolean isSuccess;
-
-    @SerializedName("code")
-    private int code;
-
-    @SerializedName("message")
-    private String message;
+public class RegisterQrResponse extends RetrofitResponse {
 
     @SerializedName("result")
     ArrayList<RetrofitService.SafetyInfo> result;
-
-    public boolean isSuccess() {
-        return isSuccess;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 
     public ArrayList<RetrofitService.SafetyInfo> getResult() {
         return result;

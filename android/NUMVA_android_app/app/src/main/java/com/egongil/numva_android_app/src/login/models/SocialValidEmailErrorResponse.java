@@ -1,32 +1,11 @@
 package com.egongil.numva_android_app.src.login.models;
 
+import com.egongil.numva_android_app.src.config.RetrofitResponse;
 import com.google.gson.annotations.SerializedName;
 
-public class SocialValidEmailErrorResponse {
-
-    @SerializedName("isSuccess")
-    private Boolean isSuccess;
-
-    @SerializedName("code")
-    private float code;
-
-    @SerializedName("message")
-    private String message;
-
+public class SocialValidEmailErrorResponse extends RetrofitResponse {
     @SerializedName("result")
     private Result result;
-
-    public Boolean getSuccess() {
-        return isSuccess;
-    }
-
-    public float getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 
     public String getProvider() {
         return result.provider;

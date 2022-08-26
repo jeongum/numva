@@ -1,25 +1,12 @@
 package com.egongil.numva_android_app.src.findLogin.models;
 
+import com.egongil.numva_android_app.src.config.RetrofitResponse;
 import com.google.gson.annotations.SerializedName;
 
-public class FindIdResponse {
-
-    @SerializedName("isSuccess")
-    private Boolean isSuccess;
-
-    @SerializedName("code")
-    private float code;
-
-    @SerializedName("message")
-    private String message;
-
+public class FindIdResponse extends RetrofitResponse {
     @SerializedName("result")
     private String result;
 
-
-    public boolean isSuccess(){return isSuccess;}
-    public float getCode(){return code;}
-    public String getMessage(){return message;}
     public String getResult(){return result;}
 
 

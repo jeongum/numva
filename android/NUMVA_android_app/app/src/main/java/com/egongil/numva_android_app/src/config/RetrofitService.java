@@ -14,35 +14,28 @@ public interface RetrofitService {
     @GET("safetyInfo/getSI")
     Call<GetSafetyInfoResponse> getSafetyInfo();
 
-    public class GetUserResponse {
-        @SerializedName("isSuccess")
-        private boolean isSuccess;
+    @GET("auth/logout")
+    Call<LogoutResponse> getLogout();
 
-        @SerializedName("code")
-        private float code;
-
-        @SerializedName("message")
-        private String message;
-
+    class GetUserResponse extends RetrofitResponse {
         @SerializedName("result")
         UserInfo result;
-
-        // Getter Methods
-        public boolean isSuccess() {
-            return isSuccess;
-        }
-
-        public float getCode() {
-            return code;
-        }
 
         public UserInfo getUser() {
             return result;
         }
+    }
 
-        public String getMessage() {
-            return message;
+    class GetSafetyInfoResponse extends RetrofitResponse{
+        @SerializedName("result")
+        ArrayList<SafetyInfo> result;
+
+        public ArrayList<SafetyInfo> getResult() {
+            return result;
         }
+    }
+
+    class LogoutResponse extends RetrofitResponse{
     }
 
     class UserInfo {
@@ -110,37 +103,6 @@ public interface RetrofitService {
             this.birth = birth;
         }
     }
-
-    class GetSafetyInfoResponse {
-        @SerializedName("isSuccess")
-        private boolean isSuccess;
-
-        @SerializedName("code")
-        private float code;
-
-        @SerializedName("message")
-        private String message;
-
-        @SerializedName("result")
-        ArrayList<SafetyInfo> result;
-
-        public boolean isSuccess() {
-            return isSuccess;
-        }
-
-        public float getCode() {
-            return code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public ArrayList<SafetyInfo> getResult() {
-            return result;
-        }
-    }
-
     class SafetyInfo {
         int id;
         String name;
@@ -171,31 +133,4 @@ public interface RetrofitService {
             this.name = name;
         }
     }
-
-    @GET("auth/logout")
-    Call<LogoutResponse> getLogout();
-
-    class LogoutResponse {
-        @SerializedName("isSuccess")
-        private boolean isSuccess;
-
-        @SerializedName("code")
-        private int code;
-
-        @SerializedName("message")
-        private String message;
-
-        public boolean isSuccess() {
-            return isSuccess;
-        }
-
-        public int getCode() {
-            return code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-    }
-
 }

@@ -1,17 +1,9 @@
 package com.egongil.numva_android_app.src.qr_scan.models;
 
+import com.egongil.numva_android_app.src.config.RetrofitResponse;
 import com.google.gson.annotations.SerializedName;
 
-public class ScanQrResponse {
-    @SerializedName("isSuccess")
-    boolean isSuccess;
-
-    @SerializedName("code")
-    int code;
-
-    @SerializedName("message")
-    String message;
-
+public class ScanQrResponse extends RetrofitResponse {
     @SerializedName("result")
     ScanResult result;
 
@@ -50,19 +42,6 @@ public class ScanQrResponse {
             return second;
         }
     }
-
-    public boolean isSuccess() {
-        return isSuccess;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
     public ScanResult getResult() {
         return result;
     }

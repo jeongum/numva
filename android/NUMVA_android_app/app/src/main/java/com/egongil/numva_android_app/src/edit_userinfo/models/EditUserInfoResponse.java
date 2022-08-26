@@ -1,26 +1,13 @@
 package com.egongil.numva_android_app.src.edit_userinfo.models;
 
+import com.egongil.numva_android_app.src.config.RetrofitResponse;
 import com.google.gson.annotations.SerializedName;
 
 import javax.xml.transform.Result;
 
-public class EditUserInfoResponse {
-
-    @SerializedName("isSuccess")
-    private Boolean isSuccess;
-
-    @SerializedName("code")
-    private float code;
-
-    @SerializedName("message")
-    private String message;
-
+public class EditUserInfoResponse extends RetrofitResponse {
     @SerializedName("result")
     private Result result;
 
-    public boolean isSuccess(){return isSuccess;}
-    public float getCode(){return code;}
-    public String getMessage(){return message;}
     public Result getResult(){return result;}
-
 }
