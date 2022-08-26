@@ -8,10 +8,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.models.GetUserResponse;
-import com.egongil.numva_android_app.src.config.MutableListLiveData;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetUserResponse;
+import com.egongil.numva_android_app.src.config.models.MutableListLiveData;
+import com.egongil.numva_android_app.src.config.interfaces.RetrofitService;
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.config.models.UserInfo;
 import com.egongil.numva_android_app.src.main.interfaces.MainContract;

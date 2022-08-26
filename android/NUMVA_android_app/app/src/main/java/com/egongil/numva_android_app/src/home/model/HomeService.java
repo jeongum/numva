@@ -2,8 +2,8 @@ package com.egongil.numva_android_app.src.home.model;
 
 import android.util.Log;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.models.GetSafetyInfoResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSafetyInfoResponse;
 import com.egongil.numva_android_app.src.home.interfaces.HomeFragmentContract;
 
 import java.io.IOException;

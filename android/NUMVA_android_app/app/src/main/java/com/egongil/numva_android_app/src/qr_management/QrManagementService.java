@@ -1,28 +1,21 @@
 package com.egongil.numva_android_app.src.qr_management;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 import android.util.Log;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementActivityView;
-import com.egongil.numva_android_app.src.config.models.DeleteQrRequest;
-import com.egongil.numva_android_app.src.config.models.DeleteQrResponse;
-import com.egongil.numva_android_app.src.config.models.GetSafetyInfoResponse;
-import com.egongil.numva_android_app.src.config.models.RegisterQrRequest;
-import com.egongil.numva_android_app.src.config.models.RegisterQrResponse;
-import com.egongil.numva_android_app.src.config.models.SetQrNameRequest;
-import com.egongil.numva_android_app.src.config.models.SetQrNameResponse;
+import com.egongil.numva_android_app.src.config.models.request.DeleteQrRequest;
+import com.egongil.numva_android_app.src.config.models.response.DeleteQrResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSafetyInfoResponse;
+import com.egongil.numva_android_app.src.config.models.request.RegisterQrRequest;
+import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
+import com.egongil.numva_android_app.src.config.models.request.SetQrNameRequest;
+import com.egongil.numva_android_app.src.config.models.response.SetQrNameResponse;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 public class QrManagementService {

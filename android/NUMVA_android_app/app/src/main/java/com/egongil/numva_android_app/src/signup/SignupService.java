@@ -1,24 +1,17 @@
 package com.egongil.numva_android_app.src.signup;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.signup.interfaces.SignupActivityView;
-import com.egongil.numva_android_app.src.config.models.SignupRequest;
-import com.egongil.numva_android_app.src.config.models.SignupResponse;
-import com.egongil.numva_android_app.src.config.models.ValidEmailRequest;
-import com.egongil.numva_android_app.src.config.models.ValidEmailResponse;
+import com.egongil.numva_android_app.src.config.models.request.SignupRequest;
+import com.egongil.numva_android_app.src.config.models.response.SignupResponse;
+import com.egongil.numva_android_app.src.config.models.request.ValidEmailRequest;
+import com.egongil.numva_android_app.src.config.models.response.ValidEmailResponse;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class SignupService {

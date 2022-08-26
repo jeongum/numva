@@ -1,6 +1,6 @@
 package com.egongil.numva_android_app.src.cert_phone.models;
 
-import com.egongil.numva_android_app.src.config.RetrofitResponse;
+import com.egongil.numva_android_app.src.config.models.base.RetrofitResponse;
 import com.google.gson.annotations.SerializedName;
 
 public class CertPhoneResponse extends RetrofitResponse {

@@ -1,7 +1,7 @@
 package com.egongil.numva_android_app.src.login.interfaces;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.models.LinkSocialResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.LinkSocialResponse;
 
 public interface SnsLoginActivityView {
     void linkSocialSuccess(LinkSocialResponse linkSocialResponse, ErrorResponse errorResponse);

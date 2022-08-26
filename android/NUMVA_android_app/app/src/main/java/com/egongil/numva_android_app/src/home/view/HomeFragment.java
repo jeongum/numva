@@ -21,9 +21,9 @@ import android.view.WindowManager;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.databinding.FragmentHomeBinding;
-import com.egongil.numva_android_app.src.config.BaseFragment;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.models.GetSafetyInfoResponse;
+import com.egongil.numva_android_app.src.config.view.BaseFragment;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSafetyInfoResponse;
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.home.model.HomeService;
 import com.egongil.numva_android_app.src.home.interfaces.HomeFragmentContract;

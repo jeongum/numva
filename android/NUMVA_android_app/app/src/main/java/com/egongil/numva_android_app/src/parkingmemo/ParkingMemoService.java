@@ -1,21 +1,19 @@
 package com.egongil.numva_android_app.src.parkingmemo;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityView;
-import com.egongil.numva_android_app.src.config.models.AddSimpleMemoRequest;
-import com.egongil.numva_android_app.src.config.models.AddSimpleMemoResponse;
-import com.egongil.numva_android_app.src.config.models.DeleteSimpleMemoRequest;
-import com.egongil.numva_android_app.src.config.models.EditSimpleMemoRequest;
-import com.egongil.numva_android_app.src.config.models.GetParkingMemoRequest;
-import com.egongil.numva_android_app.src.config.models.GetParkingMemoResponse;
-import com.egongil.numva_android_app.src.config.models.GetSimpleMemoResponse;
-import com.egongil.numva_android_app.src.config.models.SetParkingMemoRequest;
-import com.egongil.numva_android_app.src.config.models.UpdateSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.request.AddSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.response.AddSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.request.DeleteSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.request.EditSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.request.GetParkingMemoRequest;
+import com.egongil.numva_android_app.src.config.models.response.GetParkingMemoResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.request.SetParkingMemoRequest;
+import com.egongil.numva_android_app.src.config.models.response.UpdateSimpleMemoResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

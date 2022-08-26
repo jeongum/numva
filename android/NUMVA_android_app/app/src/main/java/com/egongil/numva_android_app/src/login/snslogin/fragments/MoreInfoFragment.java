@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.BaseFragment;
+import com.egongil.numva_android_app.src.config.view.BaseFragment;
 import com.egongil.numva_android_app.src.login.snslogin.SnsLoginActivity;
 
 import java.util.ArrayList;

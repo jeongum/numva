@@ -1,17 +1,15 @@
 package com.egongil.numva_android_app.src.signup;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.cert_phone.PassActivity;
-import com.egongil.numva_android_app.src.config.BaseActivity;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
 
 public class SignupCertActivity extends BaseActivity {
 

@@ -4,15 +4,10 @@ import com.egongil.numva_android_app.src.cert_phone.interfaces.PassActivityView;
 import com.egongil.numva_android_app.src.cert_phone.interfaces.PassRetrofitInterface;
 import com.egongil.numva_android_app.src.cert_phone.models.PassRequest;
 import com.egongil.numva_android_app.src.cert_phone.models.PassResponse;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;

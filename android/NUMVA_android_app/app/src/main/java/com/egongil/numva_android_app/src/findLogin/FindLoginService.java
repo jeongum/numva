@@ -2,28 +2,21 @@ package com.egongil.numva_android_app.src.findLogin;
 
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.findLogin.interfaces.FindIdActivityView;
 import com.egongil.numva_android_app.src.findLogin.interfaces.FindPwActivityView;
 import com.egongil.numva_android_app.src.findLogin.interfaces.ResetPwActivityView;
-import com.egongil.numva_android_app.src.config.models.FindIdRequest;
-import com.egongil.numva_android_app.src.config.models.FindIdResponse;
-import com.egongil.numva_android_app.src.config.models.FindPwRequest;
-import com.egongil.numva_android_app.src.config.models.FindPwResponse;
-import com.egongil.numva_android_app.src.config.models.ResetPwRequest;
+import com.egongil.numva_android_app.src.config.models.request.FindIdRequest;
+import com.egongil.numva_android_app.src.config.models.response.FindIdResponse;
+import com.egongil.numva_android_app.src.config.models.request.FindPwRequest;
+import com.egongil.numva_android_app.src.config.models.response.FindPwResponse;
+import com.egongil.numva_android_app.src.config.models.request.ResetPwRequest;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class FindLoginService {

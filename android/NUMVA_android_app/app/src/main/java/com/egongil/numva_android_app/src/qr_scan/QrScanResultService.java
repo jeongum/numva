@@ -1,18 +1,16 @@
 package com.egongil.numva_android_app.src.qr_scan;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 import android.util.Log;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
-import com.egongil.numva_android_app.src.config.models.RegisterQrRequest;
-import com.egongil.numva_android_app.src.config.models.RegisterQrResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.request.RegisterQrRequest;
+import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
 import com.egongil.numva_android_app.src.qr_scan.interfaces.QrScanResultActivityView;
-import com.egongil.numva_android_app.src.config.models.ScanQrRequest;
-import com.egongil.numva_android_app.src.config.models.ScanQrResponse;
+import com.egongil.numva_android_app.src.config.models.request.ScanQrRequest;
+import com.egongil.numva_android_app.src.config.models.response.ScanQrResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

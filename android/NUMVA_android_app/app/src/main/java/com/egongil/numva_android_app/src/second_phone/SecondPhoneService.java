@@ -2,24 +2,22 @@ package com.egongil.numva_android_app.src.second_phone;
 
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneActivityView;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRegisterActivityView;
-import com.egongil.numva_android_app.src.config.models.DeleteSecondPhoneRequest;
-import com.egongil.numva_android_app.src.config.models.DeleteSecondPhoneResponse;
-import com.egongil.numva_android_app.src.config.models.GetSecondPhoneResponse;
-import com.egongil.numva_android_app.src.config.models.RepSecondPhoneRequest;
-import com.egongil.numva_android_app.src.config.models.RepSecondPhoneResponse;
-import com.egongil.numva_android_app.src.config.models.SetSecondPhoneRequest;
-import com.egongil.numva_android_app.src.config.models.SetSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.request.DeleteSecondPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.response.DeleteSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.request.RepSecondPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.response.RepSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.request.SetSecondPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.response.SetSecondPhoneResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class SecondPhoneService {

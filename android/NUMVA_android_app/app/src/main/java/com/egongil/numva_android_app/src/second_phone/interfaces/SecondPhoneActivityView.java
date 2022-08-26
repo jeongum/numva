@@ -1,9 +1,9 @@
 package com.egongil.numva_android_app.src.second_phone.interfaces;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.models.DeleteSecondPhoneResponse;
-import com.egongil.numva_android_app.src.config.models.GetSecondPhoneResponse;
-import com.egongil.numva_android_app.src.config.models.RepSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.DeleteSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.response.RepSecondPhoneResponse;
 
 public interface SecondPhoneActivityView {
 

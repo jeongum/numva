@@ -1,17 +1,15 @@
 package com.egongil.numva_android_app.src.edit_userinfo;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.edit_userinfo.interfaces.EditUserInfoActivityView;
-import com.egongil.numva_android_app.src.config.models.EditUserInfoRequest;
-import com.egongil.numva_android_app.src.config.models.EditUserInfoResponse;
+import com.egongil.numva_android_app.src.config.models.request.EditUserInfoRequest;
+import com.egongil.numva_android_app.src.config.models.response.EditUserInfoResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class EditUserInfoService {

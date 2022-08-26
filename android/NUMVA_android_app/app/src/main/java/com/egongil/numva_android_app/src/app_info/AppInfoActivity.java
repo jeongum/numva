@@ -1,6 +1,5 @@
 package com.egongil.numva_android_app.src.app_info;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
@@ -12,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.BaseActivity;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
 
 public class AppInfoActivity extends BaseActivity {
     TextView mTvAppVersion;

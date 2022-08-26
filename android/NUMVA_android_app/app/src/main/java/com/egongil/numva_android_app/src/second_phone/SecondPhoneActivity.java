@@ -12,18 +12,18 @@ import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneActivityView;
-import com.egongil.numva_android_app.src.config.models.DeleteSecondPhoneRequest;
-import com.egongil.numva_android_app.src.config.models.DeleteSecondPhoneResponse;
-import com.egongil.numva_android_app.src.config.models.GetSecondPhoneResponse;
-import com.egongil.numva_android_app.src.config.models.RepSecondPhoneRequest;
-import com.egongil.numva_android_app.src.config.models.RepSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.request.DeleteSecondPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.response.DeleteSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.request.RepSecondPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.response.RepSecondPhoneResponse;
 
 import java.util.ArrayList;
 

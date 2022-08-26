@@ -1,8 +1,5 @@
 package com.egongil.numva_android_app.src.notification_setting;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -10,10 +7,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.network.ConnectionReceiver;
-import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
 
 public class NotiSettingActivity extends BaseActivity{
     Switch mSwAll, mSwNumva, mSwMarketing;

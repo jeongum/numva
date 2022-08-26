@@ -23,8 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.config.RecyclerTouchListener;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
+import com.egongil.numva_android_app.src.config.view.RecyclerTouchListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mesibo.api.Mesibo;

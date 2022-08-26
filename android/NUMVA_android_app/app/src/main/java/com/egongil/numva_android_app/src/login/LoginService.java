@@ -1,15 +1,14 @@
 package com.egongil.numva_android_app.src.login;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.login.interfaces.LoginActivityView;
-import com.egongil.numva_android_app.src.config.models.LoginRequest;
-import com.egongil.numva_android_app.src.config.models.LoginResponse;
-import com.egongil.numva_android_app.src.config.models.SocialLoginRequest;
-import com.egongil.numva_android_app.src.config.models.SocialLoginResponse;
-import com.egongil.numva_android_app.src.config.models.SocialValidEmailErrorResponse;
-import com.egongil.numva_android_app.src.config.models.SocialValidEmailResponse;
-import com.egongil.numva_android_app.src.config.models.ValidEmailRequest;
+import com.egongil.numva_android_app.src.config.models.request.LoginRequest;
+import com.egongil.numva_android_app.src.config.models.response.LoginResponse;
+import com.egongil.numva_android_app.src.config.models.request.SocialLoginRequest;
+import com.egongil.numva_android_app.src.config.models.response.SocialLoginResponse;
+import com.egongil.numva_android_app.src.config.models.response.SocialValidEmailErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.SocialValidEmailResponse;
+import com.egongil.numva_android_app.src.config.models.request.ValidEmailRequest;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

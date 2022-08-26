@@ -3,8 +3,6 @@ package com.egongil.numva_android_app.src.cert_phone;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -14,10 +12,9 @@ import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.cert_phone.interfaces.PassActivityView;
 import com.egongil.numva_android_app.src.cert_phone.models.PassRequest;
 import com.egongil.numva_android_app.src.cert_phone.models.PassResponse;
-import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.edit_userinfo.EditUserInfoActivity;
-import com.egongil.numva_android_app.src.signup.SignupCertActivity;
 import com.egongil.numva_android_app.src.signup.SignupMoreInfoActivity;
 
 

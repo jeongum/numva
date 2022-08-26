@@ -8,10 +8,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.edit_userinfo.interfaces.DeleteAccountActivityView;
-import com.egongil.numva_android_app.src.config.models.DeleteAccountResponse;
+import com.egongil.numva_android_app.src.config.models.response.DeleteAccountResponse;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 

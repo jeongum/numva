@@ -34,7 +34,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.RecyclerTouchListener;
+import com.egongil.numva_android_app.src.config.view.RecyclerTouchListener;
 import com.egongil.numva_android_app.src.numvatalk.NumvatalkActivity;
 import com.mesibo.api.Mesibo;
 import com.mesibo.api.MesiboProfile;

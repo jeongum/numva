@@ -1,7 +1,7 @@
 package com.egongil.numva_android_app.src.mypage;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.models.LogoutResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.LogoutResponse;
 import com.egongil.numva_android_app.src.mypage.interfaces.MyPageFragmentContract;
 
 import retrofit2.Call;

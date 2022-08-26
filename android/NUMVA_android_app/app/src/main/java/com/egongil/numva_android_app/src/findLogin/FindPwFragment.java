@@ -25,11 +25,11 @@ import com.egongil.numva_android_app.src.cert_phone.SendSMS;
 import com.egongil.numva_android_app.src.cert_phone.TimerView;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
-import com.egongil.numva_android_app.src.config.BaseFragment;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.view.BaseFragment;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.findLogin.interfaces.FindPwActivityView;
-import com.egongil.numva_android_app.src.config.models.FindPwRequest;
-import com.egongil.numva_android_app.src.config.models.FindPwResponse;
+import com.egongil.numva_android_app.src.config.models.request.FindPwRequest;
+import com.egongil.numva_android_app.src.config.models.response.FindPwResponse;
 
 public class FindPwFragment extends BaseFragment implements FindPwActivityView{
 

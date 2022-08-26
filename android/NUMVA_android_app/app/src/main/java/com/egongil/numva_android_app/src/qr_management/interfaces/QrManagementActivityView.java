@@ -1,10 +1,10 @@
 package com.egongil.numva_android_app.src.qr_management.interfaces;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.models.GetSafetyInfoResponse;
-import com.egongil.numva_android_app.src.config.models.DeleteQrResponse;
-import com.egongil.numva_android_app.src.config.models.RegisterQrResponse;
-import com.egongil.numva_android_app.src.config.models.SetQrNameResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSafetyInfoResponse;
+import com.egongil.numva_android_app.src.config.models.response.DeleteQrResponse;
+import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
+import com.egongil.numva_android_app.src.config.models.response.SetQrNameResponse;
 
 public interface QrManagementActivityView {
 
