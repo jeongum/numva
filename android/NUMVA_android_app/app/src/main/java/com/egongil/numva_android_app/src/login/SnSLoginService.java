@@ -2,10 +2,11 @@ package com.egongil.numva_android_app.src.login;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.login.interfaces.SnsLoginActivityView;
-import com.egongil.numva_android_app.src.login.interfaces.SnsLoginRetrofitInterface;
 import com.egongil.numva_android_app.src.config.models.LinkSocialRequest;
 import com.egongil.numva_android_app.src.config.models.LinkSocialResponse;
 import com.egongil.numva_android_app.src.config.models.SocialRegisterRequest;
@@ -21,8 +22,7 @@ public class SnSLoginService {
         mSnsLoginActivityView = snsLoginExistEmailActivityView;
     }
     public void linkSocial(LinkSocialRequest linkSocialRequest){
-        final SnsLoginRetrofitInterface snsLoginRetrofitInterface = getRetrofit().create(SnsLoginRetrofitInterface.class);
-        snsLoginRetrofitInterface.linkSocial(linkSocialRequest).enqueue(new Callback<LinkSocialResponse>() {
+        getRetrofitService().linkSocial(linkSocialRequest).enqueue(new Callback<LinkSocialResponse>() {
             @Override
             public void onResponse(Call<LinkSocialResponse> call, Response<LinkSocialResponse> response) {
                 LinkSocialResponse linkSocialResponse=null;
@@ -45,8 +45,7 @@ public class SnSLoginService {
     }
 
     public void socialRegister(SocialRegisterRequest socialRegisterRequest){
-        final SnsLoginRetrofitInterface snsLoginRetrofitInterface = getRetrofit().create(SnsLoginRetrofitInterface.class);
-        snsLoginRetrofitInterface.socialRegister(socialRegisterRequest).enqueue(new Callback<LinkSocialResponse>() {
+        getRetrofitService().socialRegister(socialRegisterRequest).enqueue(new Callback<LinkSocialResponse>() {
             @Override
             public void onResponse(Call<LinkSocialResponse> call, Response<LinkSocialResponse> response) {
                 LinkSocialResponse linkSocialResponse=null;

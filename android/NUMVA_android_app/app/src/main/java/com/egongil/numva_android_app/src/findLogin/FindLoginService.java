@@ -3,8 +3,8 @@ package com.egongil.numva_android_app.src.findLogin;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.findLogin.interfaces.FindIdActivityView;
-import com.egongil.numva_android_app.src.findLogin.interfaces.FindLoginRetrofitInterface;
 import com.egongil.numva_android_app.src.findLogin.interfaces.FindPwActivityView;
 import com.egongil.numva_android_app.src.findLogin.interfaces.ResetPwActivityView;
 import com.egongil.numva_android_app.src.config.models.FindIdRequest;
@@ -22,7 +22,9 @@ import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Response;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class FindLoginService {
     private FindIdActivityView mFindIdActivityView;
@@ -42,25 +44,16 @@ public class FindLoginService {
         this.mResetPwActivityView = mResetPwActivityView;
     }
 
-
-
     void postFindId(FindIdRequest findIdRequest){
-        final FindLoginRetrofitInterface findLoginRetrofitInterface = getRetrofit().create(FindLoginRetrofitInterface.class);
-        findLoginRetrofitInterface.postFindId(findIdRequest).enqueue(new Callback<FindIdResponse>(){
+        getRetrofitService().postFindId(findIdRequest).enqueue(new Callback<FindIdResponse>(){
             @Override
             public void onResponse(Call<FindIdResponse> call, Response<FindIdResponse> response) {
                 FindIdResponse findIdResponse=null;
                 ErrorResponse errorResponse=null;
                 if(response.body()!=null){
                     findIdResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mFindIdActivityView.postFindIdSuccess(findIdResponse, errorResponse);
             }
@@ -74,8 +67,7 @@ public class FindLoginService {
     }
 
     void postFindPw(FindPwRequest findPwRequest){
-        final FindLoginRetrofitInterface findLoginRetrofitInterface = getRetrofit().create(FindLoginRetrofitInterface.class);
-        findLoginRetrofitInterface.postFindPw(findPwRequest).enqueue(new Callback<FindPwResponse>() {
+        getRetrofitService().postFindPw(findPwRequest).enqueue(new Callback<FindPwResponse>() {
             @Override
             public void onResponse(Call<FindPwResponse> call, Response<FindPwResponse> response) {
                 FindPwResponse findPwResponse=null;
@@ -84,12 +76,7 @@ public class FindLoginService {
                     findPwResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 mFindPwActivityView.postFindPwSuccess(findPwResponse, errorResponse);
             }
@@ -103,22 +90,15 @@ public class FindLoginService {
     }
 
     void postResetPw(ResetPwRequest resetPwRequest){
-        final FindLoginRetrofitInterface findLoginRetrofitInterface = getRetrofit().create(FindLoginRetrofitInterface.class);
-        findLoginRetrofitInterface.postResetPw(resetPwRequest).enqueue(new Callback<FindPwResponse>(){
+        getRetrofitService().postResetPw(resetPwRequest).enqueue(new Callback<FindPwResponse>(){
             @Override
             public void onResponse(Call<FindPwResponse> call, Response<FindPwResponse> response) {
                 FindPwResponse findPwResponse=null;
                 ErrorResponse errorResponse=null;
                 if(response.body()!=null){
                     findPwResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mResetPwActivityView.postResetPwSuccess(findPwResponse, errorResponse);
             }
@@ -132,8 +112,7 @@ public class FindLoginService {
     }
 
     void postCertPhone(CertPhoneRequest certPhoneRequest){
-        final FindLoginRetrofitInterface findLoginRetrofitInterface = getRetrofit().create(FindLoginRetrofitInterface.class);
-        findLoginRetrofitInterface.postCertPhone(certPhoneRequest).enqueue(new Callback<CertPhoneResponse>(){
+        getRetrofitService().postCertPhone(certPhoneRequest).enqueue(new Callback<CertPhoneResponse>(){
             @Override
             public void onResponse(Call<CertPhoneResponse> call, Response<CertPhoneResponse> response) {
                 CertPhoneResponse certPhoneResponse=null;
@@ -142,12 +121,7 @@ public class FindLoginService {
                     certPhoneResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 if(call==mFindIdActivityView){
                     mFindIdActivityView.postCertPhoneSuccess(certPhoneResponse, errorResponse);

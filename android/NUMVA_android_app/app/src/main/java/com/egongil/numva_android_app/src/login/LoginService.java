@@ -1,8 +1,8 @@
 package com.egongil.numva_android_app.src.login;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.login.interfaces.LoginActivityView;
-import com.egongil.numva_android_app.src.login.interfaces.LoginRetrofitInterface;
 import com.egongil.numva_android_app.src.config.models.LoginRequest;
 import com.egongil.numva_android_app.src.config.models.LoginResponse;
 import com.egongil.numva_android_app.src.config.models.SocialLoginRequest;
@@ -20,7 +20,9 @@ import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Response;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class LoginService {
     private final LoginActivityView mLoginActivityView;
@@ -31,22 +33,15 @@ public class LoginService {
     }
 
     void postLogin(LoginRequest loginRequest){
-        final LoginRetrofitInterface loginRetrofitInterface = getRetrofit().create(LoginRetrofitInterface.class);
-        loginRetrofitInterface.postLogin(loginRequest).enqueue(new Callback<LoginResponse>(){
+        getRetrofitService().postLogin(loginRequest).enqueue(new Callback<LoginResponse>(){
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse=null;
                 ErrorResponse errorResponse = null;
                 if(response.body() != null){
                     loginResponse = response.body();
-                }
-                else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } else{
+                    errorResponse = convertErrorResponse(response);
                 }
                 mLoginActivityView.postLoginSuccess(loginResponse, errorResponse);
             }
@@ -60,8 +55,7 @@ public class LoginService {
     }
 
     void isValidEmail(ValidEmailRequest validEmailRequest){
-        final LoginRetrofitInterface loginRetrofitInterface = getRetrofit().create(LoginRetrofitInterface.class);
-        loginRetrofitInterface.isValidEmail(validEmailRequest).enqueue(new Callback<SocialValidEmailResponse>(){
+        getRetrofitService().isValidEmail(validEmailRequest).enqueue(new Callback<SocialValidEmailResponse>(){
 
             @Override
             public void onResponse(Call<SocialValidEmailResponse> call, Response<SocialValidEmailResponse> response) {
@@ -90,8 +84,7 @@ public class LoginService {
     }
 
     void socialLogin(SocialLoginRequest socialLoginRequest){
-        final LoginRetrofitInterface loginRetrofitInterface = getRetrofit().create(LoginRetrofitInterface.class);
-        loginRetrofitInterface.socialLogin(socialLoginRequest).enqueue(new Callback<SocialLoginResponse>() {
+        getRetrofitService().socialLogin(socialLoginRequest).enqueue(new Callback<SocialLoginResponse>() {
             @Override
             public void onResponse(Call<SocialLoginResponse> call, Response<SocialLoginResponse> response) {
                 SocialLoginResponse socialLoginResponse = null;
@@ -99,12 +92,7 @@ public class LoginService {
                 if(response.body()!=null){
                   socialLoginResponse = response.body();
                 }else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                   errorResponse = convertErrorResponse(response);
                 }
                 mLoginActivityView.socialLoginSucceess(socialLoginResponse, errorResponse);
             }

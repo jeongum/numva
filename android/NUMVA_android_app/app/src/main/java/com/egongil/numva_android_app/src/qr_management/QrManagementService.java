@@ -1,13 +1,14 @@
 package com.egongil.numva_android_app.src.qr_management;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 import android.util.Log;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementActivityView;
-import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementRetrofitInterface;
 import com.egongil.numva_android_app.src.config.models.DeleteQrRequest;
 import com.egongil.numva_android_app.src.config.models.DeleteQrResponse;
 import com.egongil.numva_android_app.src.config.models.GetSafetyInfoResponse;
@@ -26,7 +27,6 @@ import retrofit2.Response;
 
 public class QrManagementService {
     private final QrManagementActivityView qrManagementActivityView;
-    final QrManagementRetrofitInterface qrManagementRetrofitInterface = getRetrofit().create(QrManagementRetrofitInterface.class);
 
     public QrManagementService(QrManagementActivityView qrManagementActivityView){
         this.qrManagementActivityView = qrManagementActivityView;
@@ -43,12 +43,7 @@ public class QrManagementService {
                     getSafetyInfoResponse = response.body();
                 }
                 else {
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 qrManagementActivityView.getSafetyInfoSuccess(getSafetyInfoResponse, errorResponse);
             }
@@ -62,7 +57,7 @@ public class QrManagementService {
     }
 
     void setQrName(SetQrNameRequest setQrNameRequest){
-        qrManagementRetrofitInterface.setQrName(setQrNameRequest).enqueue(new retrofit2.Callback<SetQrNameResponse>(){
+        getRetrofitService().setQrName(setQrNameRequest).enqueue(new retrofit2.Callback<SetQrNameResponse>(){
             @Override
             public void onResponse(Call<SetQrNameResponse> call, Response<SetQrNameResponse> response) {
                 Log.e("response.code()", String.valueOf(response.code()));
@@ -73,12 +68,7 @@ public class QrManagementService {
                     setQrNameResponse = response.body();
                 }
                 else {
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 qrManagementActivityView.setQrNameSuccess(setQrNameResponse, errorResponse);
             }
@@ -92,7 +82,7 @@ public class QrManagementService {
     }
 
     void registerQr(RegisterQrRequest registerQrRequest){
-        qrManagementRetrofitInterface.registerQr(registerQrRequest).enqueue(new retrofit2.Callback<RegisterQrResponse>(){
+        getRetrofitService().registerQr(registerQrRequest).enqueue(new retrofit2.Callback<RegisterQrResponse>(){
             @Override
             public void onResponse(Call<RegisterQrResponse> call, Response<RegisterQrResponse> response) {
                 Log.e("response.code()", String.valueOf(response.code()));
@@ -102,12 +92,7 @@ public class QrManagementService {
                     registerQrResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 qrManagementActivityView.registerQrSuccess(registerQrResponse, errorResponse);
             }
@@ -121,7 +106,7 @@ public class QrManagementService {
     }
 
     void deleteQr(DeleteQrRequest deleteQrRequest){
-        qrManagementRetrofitInterface.deleteQr(deleteQrRequest).enqueue(new retrofit2.Callback<DeleteQrResponse>(){
+        getRetrofitService().deleteQr(deleteQrRequest).enqueue(new retrofit2.Callback<DeleteQrResponse>(){
             @Override
             public void onResponse(Call<DeleteQrResponse> call, Response<DeleteQrResponse> response) {
                 Log.e("response.code()", String.valueOf(response.code()));
@@ -130,12 +115,7 @@ public class QrManagementService {
                 if(response.body() != null){
                     deleteQrResponse = response.body();
                 }else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 qrManagementActivityView.deleteQrSuccess(deleteQrResponse, errorResponse);
             }

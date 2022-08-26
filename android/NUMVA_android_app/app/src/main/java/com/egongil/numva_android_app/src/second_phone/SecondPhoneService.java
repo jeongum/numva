@@ -3,9 +3,9 @@ package com.egongil.numva_android_app.src.second_phone;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneActivityView;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRegisterActivityView;
-import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRetrofitInterface;
 import com.egongil.numva_android_app.src.config.models.DeleteSecondPhoneRequest;
 import com.egongil.numva_android_app.src.config.models.DeleteSecondPhoneResponse;
 import com.egongil.numva_android_app.src.config.models.GetSecondPhoneResponse;
@@ -20,6 +20,7 @@ import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class SecondPhoneService {
 
@@ -37,8 +38,7 @@ public class SecondPhoneService {
 
     // Set Second Phone
     void setSecondPhone(SetSecondPhoneRequest setSecondPhoneRequest){
-        final SecondPhoneRetrofitInterface secondPhoneRetrofitInterface = getRetrofit().create(SecondPhoneRetrofitInterface.class);
-        secondPhoneRetrofitInterface.setSecondPhone(setSecondPhoneRequest).enqueue(new Callback<SetSecondPhoneResponse>(){
+        getRetrofitService().setSecondPhone(setSecondPhoneRequest).enqueue(new Callback<SetSecondPhoneResponse>(){
             // Set Second Phone 성공 시 함수 실행 정의
             @Override
             public void onResponse(Call<SetSecondPhoneResponse> call, Response<SetSecondPhoneResponse> response) {
@@ -62,8 +62,7 @@ public class SecondPhoneService {
 
     // Get Second Phone
     void getSecondPhone(){
-        final SecondPhoneRetrofitInterface secondPhoneRetrofitInterface = getRetrofit().create(SecondPhoneRetrofitInterface.class);
-        secondPhoneRetrofitInterface.getSecondPhone().enqueue(new Callback<GetSecondPhoneResponse>(){
+        getRetrofitService().getSecondPhone().enqueue(new Callback<GetSecondPhoneResponse>(){
             @Override
             public void onResponse(Call<GetSecondPhoneResponse> call, Response<GetSecondPhoneResponse> response) {
                 GetSecondPhoneResponse getSecondPhoneResponse=null;
@@ -86,8 +85,7 @@ public class SecondPhoneService {
 
     // Rep Second Phone
     void repSecondPhone(RepSecondPhoneRequest repSecondPhoneRequest){
-        final SecondPhoneRetrofitInterface secondPhoneRetrofitInterface = getRetrofit().create(SecondPhoneRetrofitInterface.class);
-        secondPhoneRetrofitInterface.repSecondPhone(repSecondPhoneRequest).enqueue(new Callback<RepSecondPhoneResponse>() {
+        getRetrofitService().repSecondPhone(repSecondPhoneRequest).enqueue(new Callback<RepSecondPhoneResponse>() {
             @Override
             public void onResponse(Call<RepSecondPhoneResponse> call, Response<RepSecondPhoneResponse> response) {
                 RepSecondPhoneResponse repSecondPhoneResponse=null;
@@ -110,8 +108,7 @@ public class SecondPhoneService {
 
     // Delete Second Phone
     void deleteSecondPhone(DeleteSecondPhoneRequest deleteSecondPhoneRequest){
-        final SecondPhoneRetrofitInterface secondPhoneRetrofitInterface = getRetrofit().create(SecondPhoneRetrofitInterface.class);
-        secondPhoneRetrofitInterface.deleteSecondPhone(deleteSecondPhoneRequest).enqueue(new Callback<DeleteSecondPhoneResponse>(){
+        getRetrofitService().deleteSecondPhone(deleteSecondPhoneRequest).enqueue(new Callback<DeleteSecondPhoneResponse>(){
             @Override
             public void onResponse(Call<DeleteSecondPhoneResponse> call, Response<DeleteSecondPhoneResponse> response) {
                 DeleteSecondPhoneResponse deleteSecondPhoneResponse=null;
@@ -133,8 +130,7 @@ public class SecondPhoneService {
     }
 
     void postCertPhone(CertPhoneRequest certPhoneRequest){
-        final SecondPhoneRetrofitInterface secondPhoneRetrofitInterface = getRetrofit().create(SecondPhoneRetrofitInterface.class);
-        secondPhoneRetrofitInterface.postCertPhone(certPhoneRequest).enqueue(new Callback<CertPhoneResponse>() {
+        getRetrofitService().postCertPhone(certPhoneRequest).enqueue(new Callback<CertPhoneResponse>() {
             @Override
             public void onResponse(Call<CertPhoneResponse> call, Response<CertPhoneResponse> response) {
                 CertPhoneResponse certPhoneResponse=null;

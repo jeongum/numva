@@ -1,9 +1,10 @@
 package com.egongil.numva_android_app.src.config.models;
 
+import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.config.RetrofitResponse;
 import com.google.gson.annotations.SerializedName;
 
-public class SocialValidEmailErrorResponse extends RetrofitResponse {
+public class SocialValidEmailErrorResponse extends ErrorResponse {
     @SerializedName("result")
     private Result result;
 
