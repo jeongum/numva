@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name = "viewModel"
             type = "com.egongil.numva_android_app.src.main.viewmodels.MainViewModel"/>
@@ -39,11 +40,11 @@
                     android:orientation="vertical">
                     <LinearLayout
                         android:id="@+id/nonLogin_greeting"
+                        android:visibility= "@{viewModel.loginState ? View.GONE : View.VISIBLE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="26dp"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -76,18 +77,18 @@
 
                     <View
                         android:id="@+id/nonLoginBoundaryLine"
+                        android:visibility= "@{viewModel.loginState ? View.GONE : View.VISIBLE}"
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/colorGrayOutline"
-                        android:visibility="gone"/>
+                        android:background="@color/colorGrayOutline" />
 
                     <LinearLayout
                         android:id="@+id/login_greeting"
+                        android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="36dp"
-                        android:orientation="vertical"
-                        android:visibility="visible">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/userName"
@@ -111,14 +112,14 @@
 
                     <LinearLayout
                         android:id="@+id/phoneInfo"
+                        android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="36dp"
                         android:background="@drawable/roundrect_white_background"
                         android:elevation="3dp"
                         android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:visibility="visible">
+                        android:orientation="vertical">
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -313,6 +314,7 @@
                         android:orientation="vertical">
                         <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
                             android:id="@+id/registerQrBtn"
+                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
                             android:layout_marginTop="14dp"
@@ -325,6 +327,7 @@
                            />
                         <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
                             android:id="@+id/editUserInfoBtn"
+                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
                             android:layout_marginTop="14dp"
@@ -337,6 +340,7 @@
                             />
                         <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
                             android:id="@+id/notiSettingBtn"
+                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
                             android:layout_marginTop="14dp"
@@ -373,6 +377,7 @@
                             />
                         <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
                             android:id="@+id/logoutBtn"
+                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
                             android:layout_marginBottom="14dp"

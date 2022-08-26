@@ -17,12 +17,11 @@ import android.widget.LinearLayout;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.config.RecyclerTouchListener;
 import com.egongil.numva_android_app.src.custom_dialogs.EditTextDialog;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
-import com.egongil.numva_android_app.src.home.HomeFragment;
+import com.egongil.numva_android_app.src.home.view.HomeFragment;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
@@ -279,8 +278,7 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
                 showCustomToast(getResources().getString(R.string.parking_memo_save_success));
 
                 //HomeFragment 주차메모
-                Callback mCallback = ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).mGetSafetyInfoCallback;
-                ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).getSafetyInfo(mCallback);
+                ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).mHomeService.getSafetyInfo();
             }
         }
         else if(errorResponse != null){

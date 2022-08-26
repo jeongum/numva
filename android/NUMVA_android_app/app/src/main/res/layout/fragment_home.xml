@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name = "viewModel"
             type = "com.egongil.numva_android_app.src.main.viewmodels.MainViewModel"/>
@@ -31,6 +32,7 @@
                     <!--greetings-->
                     <LinearLayout
                         android:id="@+id/nonLogin_greeting"
+                        android:visibility= "@{viewModel.loginState ? View.GONE : View.VISIBLE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="26dp"
@@ -67,17 +69,17 @@
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/login_greeting"
+                        android:visibility= "@{viewModel.loginState ? View.VISIBLE: View.GONE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="26dp"
-                        android:layout_marginLeft="26dp"
-                        android:visibility="gone">
+                        android:layout_marginLeft="26dp">
                         <TextView
                             android:id="@+id/userName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewModel.mutableData.nickname}"
+                            android:text="@{viewModel.userData.nickname}"
                             android:textSize="24dp"
                             android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/font_bold"

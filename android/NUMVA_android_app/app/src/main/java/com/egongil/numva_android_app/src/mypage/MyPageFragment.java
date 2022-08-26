@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +21,14 @@ import com.egongil.numva_android_app.src.app_info.AppInfoActivity;
 import com.egongil.numva_android_app.src.config.BaseFragment;
 import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.customer_center.CustomerCenterActivity;
 import com.egongil.numva_android_app.src.edit_userinfo.EditUserInfoActivity;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
-import com.egongil.numva_android_app.src.main.models.MainService;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
-import com.egongil.numva_android_app.src.mypage.interfaces.MyPageFragmentView;
-import com.egongil.numva_android_app.src.mypage.models.LogoutResponse;
+import com.egongil.numva_android_app.src.mypage.interfaces.MyPageFragmentContract;
 import com.egongil.numva_android_app.src.notification_setting.NotiSettingActivity;
 import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
 import com.egongil.numva_android_app.src.second_phone.SecondPhoneActivity;
@@ -39,7 +37,7 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.Activity
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
 
-public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
+public class MyPageFragment extends BaseFragment implements MyPageFragmentContract {
     FragmentMypageBinding binding;
     MainViewModel viewModel;
 
@@ -60,55 +58,38 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         binding.refreshLayout.setColorSchemeResources(
                 R.color.colorPrimary
         );
-        binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if(sSharedPreferences.getString(X_ACCESS_TOKEN,"")!=""){
-                    //비로그인상태가 아닐 경우
-                    ((MainActivity)getActivity()).callGetUser();
-                }
-
-                // 업데이트가 끝났음을 알림
-                binding.refreshLayout.setRefreshing(false);
+        binding.refreshLayout.setOnRefreshListener(() -> {
+            if(((MainActivity)getActivity()).isLogin()){
+                //로그인상태일 경우
+                ((MainActivity)getActivity()).getUser();
             }
+
+            // 업데이트가 끝났음을 알림
+            binding.refreshLayout.setRefreshing(false);
         });
 
-        setInitialLoginState();
-
         //유저정보 클릭 시 > 내 정보 수정 진입
-        binding.loginGreeting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
-            }
+        binding.loginGreeting.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
+            startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
         });
 
         //휴대전화번호 텍뷰 클릭 시 > 내 정보 수정 진입
-        binding.phoneNumberTitle.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
-            }
+        binding.phoneNumberTitle.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
+            startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
         });
 
         //휴대전화번호 클릭 시 > 내 정보 수정 진입
-        binding.phoneNumberTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
-            }
+        binding.phoneNumberTv.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
+            startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
         });
 
         //휴대전화번호 옆 pencil 아이콘 클릭 시 > 내 정보 수정 진입
-        binding.editPhoneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
-            }
+        binding.editPhoneBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
+            startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
         });
 
         //2차전화번호 옆 pencil 아이콘 클릭 시 > 2차전화번호 다이얼로그 진입
@@ -126,9 +107,6 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
                 startActivity(intent);
-
-//                SecondPhoneDialog secondPhoneDialog = new SecondPhoneDialog(getContext());
-//                secondPhoneDialog.showSecondPhoneDialog();
             }
         });
 
@@ -206,60 +184,23 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
                         confirmLogoutDialog.dismiss();
                     }
                 });
-                confirmLogoutDialog.mBtnRight.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        confirmLogoutDialog.dismiss();
-                        logout();
-                        setNonLoginState();
-                    }
+                confirmLogoutDialog.mBtnRight.setOnClickListener(v1 -> {
+                    confirmLogoutDialog.dismiss();
+                    logout();
                 });
             }
         });
 
-        mGetPhoneInfoCallback = new Callback() {
-            @Override
-            public void callback() {
-                setLoginState();
-            }
-        };
+        mGetPhoneInfoCallback = () -> setSecondPhoneData();
 
         setHasOptionsMenu(true);
 
         return root;
     }
-    public void setInitialLoginState(){
-        if(sSharedPreferences.getString(X_ACCESS_TOKEN,"")=="") {
-            setNonLoginState();
-        }else{
-            setLoginState();
-        }
-    }
 
-    public void setNonLoginState(){
-        binding.nonLoginGreeting.setVisibility(View.VISIBLE);
-        binding.nonLoginBoundaryLine.setVisibility(View.VISIBLE);
-        binding.loginGreeting.setVisibility(View.GONE);
-        binding.phoneInfo.setVisibility(View.GONE);
-        binding.logoutBtn.setVisibility(View.GONE);
-        binding.registerQrBtn.setVisibility(View.GONE);
-        binding.editUserInfoBtn.setVisibility(View.GONE);
-        binding.notiSettingBtn.setVisibility(View.GONE);
-    }
-    public void setLoginState(){
-        binding.nonLoginGreeting.setVisibility(View.GONE);
-        binding.nonLoginBoundaryLine.setVisibility(View.GONE);
-        binding.loginGreeting.setVisibility(View.VISIBLE);
-        binding.phoneInfo.setVisibility(View.VISIBLE);
-        binding.registerQrBtn.setVisibility(View.VISIBLE);
-        binding.editUserInfoBtn.setVisibility(View.VISIBLE);
-        binding.notiSettingBtn.setVisibility(View.VISIBLE);
-
+    public void setSecondPhoneData(){
         //data mapping
         if(((MainActivity)getActivity()).userInfo!=null){
-//            String strUserPhone = ((MainActivity)getActivity()).userInfo.getPhone();
-//            mTvUserPhone.setText((PhoneNumberUtils.formatNumber(strUserPhone, Locale.getDefault().getCountry())));
-
             if(viewModel.getMutableData().getValue().getSecond_phone().equals("")){
                 binding.secondPhoneTv.setVisibility(View.VISIBLE);  //2차전화번호 TextView
                 binding.editSecondPhoneBtn.setVisibility(View.VISIBLE); //2차전화번호 연필아이콘
@@ -282,13 +223,8 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         startActivity(intent);
     }
 
-//    public void getPhoneInfo(Callback mCallback){
-//        SecondPhoneService secondPhoneService = new SecondPhoneService();
-//
-//    }
-
     @Override
-    public void getLogoutSuccess(LogoutResponse logoutResponse, ErrorResponse errorResponse) {
+    public void getLogoutSuccess(RetrofitService.LogoutResponse logoutResponse, ErrorResponse errorResponse) {
         //모든 에러에 대해 성공한 경우와 동일 처리하므로 에러코드 분기 없음(토큰 초기화 후 로그인 페이지로 돌아감)
         SharedPreferences.Editor editor = sSharedPreferences.edit();
         editor.putString(X_ACCESS_TOKEN, null);
@@ -296,7 +232,6 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
 
         System.out.println("SHARED_TOKEN: " + sSharedPreferences.getString(X_ACCESS_TOKEN, "NULL"));
         ((MainActivity)MainActivity.mContext).accountLogout();
-
 
         showCustomToast("정상적으로 로그아웃되었습니다.");
     }
@@ -311,7 +246,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == EDIT_USERINFO_ACTIVITY){
             if(resultCode == RESULT_OK){
-                MainService.UserInfo info = viewModel.getMutableData().getValue();
+                RetrofitService.UserInfo info = viewModel.getMutableData().getValue();
                 info.setNickname(data.getStringExtra("nickname"));
                 info.setPhone(data.getStringExtra("phone"));
                 info.setBirth(data.getStringExtra("birth"));

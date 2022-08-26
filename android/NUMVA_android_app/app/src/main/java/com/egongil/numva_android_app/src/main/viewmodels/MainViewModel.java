@@ -4,65 +4,92 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.MutableListLiveData;
 import com.egongil.numva_android_app.src.config.RetrofitService;
-import com.egongil.numva_android_app.src.main.interfaces.MainActivityView;
-import com.egongil.numva_android_app.src.main.interfaces.MainRetrofitInterface;
-import com.egongil.numva_android_app.src.main.models.MainService;
-import com.egongil.numva_android_app.src.main.models.MainService.UserInfo;
+import com.egongil.numva_android_app.src.main.interfaces.MainContract;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 
 public class MainViewModel extends ViewModel {
-    private MutableLiveData<MainService.UserInfo> userData;
-    private final MainActivityView mMainActivityView;
+    private MutableLiveData<Boolean> mLoginState;
+    private MutableLiveData<RetrofitService.UserInfo> mUserData;
+    public MutableListLiveData<RetrofitService.SafetyInfo> mSafetyInfo;
+
+    private final MainContract mMainContract;
     private final RetrofitService mRetrofitService;
 
-    public MainViewModel(MainActivityView mMainActivityView, RetrofitService retrofitService) {
-        this.mMainActivityView = mMainActivityView;
+    public MainViewModel(MainContract mMainContract, RetrofitService retrofitService) {
+        this.mMainContract = mMainContract;
         this.mRetrofitService = retrofitService;
     }
 
+    public LiveData<Boolean> getLoginState(){
+        if(mLoginState == null){
+            mLoginState = new MutableLiveData<>();
+        }
+        return mLoginState;
+    }
+
+    public void setLoginState(boolean state){
+        if(mUserData == null){
+            getLoginState();
+        }
+        mLoginState.setValue(state);
+    }
+
     //data binding 시 필요
-    public LiveData<MainService.UserInfo> getMutableData(){
-        if(userData == null)
-            userData = new MutableLiveData<>(new UserInfo());
-        return userData;
+    public LiveData<RetrofitService.UserInfo> getMutableData(){
+        if(mUserData == null)
+            mUserData = new MutableLiveData<>(new RetrofitService.UserInfo());
+        return mUserData;
+    }
+    public LiveData<RetrofitService.UserInfo> getUserData(){
+        if(mUserData == null)
+            mUserData = new MutableLiveData<>(new RetrofitService.UserInfo());
+        return mUserData;
+    }
+    //TODO: getMutable -> getUserData로 변경 후, 다른 데이터들도 각각 getter 만들기
+
+    public void setUserData(RetrofitService.UserInfo data){
+        getUserData();
+        mUserData.setValue(data);
     }
 
-    public void setUserData(UserInfo data){
-        getMutableData();
-        userData.setValue(data);
+    public MutableListLiveData<RetrofitService.SafetyInfo> getSafetyInfoData(){
+        if(mSafetyInfo == null){
+            mSafetyInfo = new MutableListLiveData<>();
+        }
+        return mSafetyInfo;
     }
 
-    public void setUserNickname(String nickname){
-        UserInfo data = userData.getValue();
-        data.setNickname(nickname);
-        userData.setValue(data);
+    public void setSafetyInfoData(ArrayList<RetrofitService.SafetyInfo> safetyInfo) {
+        if (mSafetyInfo == null) {
+            getSafetyInfoData();
+        }
+        mSafetyInfo.setValue(safetyInfo);
     }
 
     public void getUser(){
-        mRetrofitService.getUser().enqueue(new Callback<MainService.GetUserResponse>() {
+        mRetrofitService.getUser().enqueue(new Callback<RetrofitService.GetUserResponse>() {
             @Override
-            public void onResponse(Call<MainService.GetUserResponse> call, Response<MainService.GetUserResponse> response) {
+            public void onResponse(Call<RetrofitService.GetUserResponse> call, Response<RetrofitService.GetUserResponse> response) {
                 Log.e("response.code()", String.valueOf(response.code()));
 
-                MainService.GetUserResponse getUserResponse = null;
+                RetrofitService.GetUserResponse getUserResponse = null;
                 ErrorResponse errorResponse = null;
                 if(response.body() != null){
                     getUserResponse = response.body();
@@ -75,14 +102,17 @@ public class MainViewModel extends ViewModel {
                         e.printStackTrace();
                     }
                 }
-                mMainActivityView.getUserSuccess(getUserResponse, errorResponse);
+                mMainContract.getUserSuccess(getUserResponse, errorResponse);
             }
 
             @Override
-            public void onFailure(Call<MainService.GetUserResponse> call, Throwable t) {
+            public void onFailure(Call<RetrofitService.GetUserResponse> call, Throwable t) {
                 t.printStackTrace();
-                mMainActivityView.getUserFailure();
+                mMainContract.getUserFailure();
             }
         });
     }
+
+
+
 }

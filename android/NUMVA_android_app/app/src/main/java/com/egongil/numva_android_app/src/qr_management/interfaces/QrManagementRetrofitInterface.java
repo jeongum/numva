@@ -4,7 +4,6 @@ import com.egongil.numva_android_app.src.login.models.LoginRequest;
 import com.egongil.numva_android_app.src.login.models.LoginResponse;
 import com.egongil.numva_android_app.src.qr_management.models.DeleteQrRequest;
 import com.egongil.numva_android_app.src.qr_management.models.DeleteQrResponse;
-import com.egongil.numva_android_app.src.qr_management.models.GetSafetyInfoResponse;
 import com.egongil.numva_android_app.src.qr_management.models.RegisterQrRequest;
 import com.egongil.numva_android_app.src.qr_management.models.RegisterQrResponse;
 import com.egongil.numva_android_app.src.qr_management.models.SetQrNameRequest;
@@ -16,9 +15,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface QrManagementRetrofitInterface {
-    @GET("safetyInfo/getSI")
-    Call<GetSafetyInfoResponse> getSafetyInfo();
-
     @POST("safetyInfo/setName")
     Call<SetQrNameResponse> setQrName(@Body SetQrNameRequest params);
 
