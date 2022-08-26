@@ -1,16 +1,18 @@
 package com.egongil.numva_android_app.src.qr_management;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 import android.util.Log;
 
 import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementActivityView;
 import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementRetrofitInterface;
 import com.egongil.numva_android_app.src.qr_management.models.DeleteQrRequest;
 import com.egongil.numva_android_app.src.qr_management.models.DeleteQrResponse;
-import com.egongil.numva_android_app.src.qr_management.models.GetSafetyInfoResponse;
+import com.egongil.numva_android_app.src.config.RetrofitService.GetSafetyInfoResponse;
 import com.egongil.numva_android_app.src.qr_management.models.RegisterQrRequest;
 import com.egongil.numva_android_app.src.qr_management.models.RegisterQrResponse;
 import com.egongil.numva_android_app.src.qr_management.models.SetQrNameRequest;
@@ -32,7 +34,7 @@ public class QrManagementService {
         this.qrManagementActivityView = qrManagementActivityView;
     }
     void getSafetyInfo(){
-        qrManagementRetrofitInterface.getSafetyInfo().enqueue(new retrofit2.Callback<GetSafetyInfoResponse>() {
+        getRetrofitService().getSafetyInfo().enqueue(new retrofit2.Callback<GetSafetyInfoResponse>() {
             @Override
             public void onResponse(Call<GetSafetyInfoResponse> call, Response<GetSafetyInfoResponse> response) {
                 Log.e("response.code()", String.valueOf(response.code()));

@@ -24,10 +24,9 @@ import com.egongil.numva_android_app.src.config.ErrorResponse;
 
 import com.egongil.numva_android_app.src.config.GlobalAuthHelper;
 import com.egongil.numva_android_app.src.config.RetrofitService;
-import com.egongil.numva_android_app.src.home.HomeFragment;
+import com.egongil.numva_android_app.src.home.view.HomeFragment;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.interfaces.MainContract;
-import com.egongil.numva_android_app.src.main.models.MainService;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModelFactory;
 import com.egongil.numva_android_app.src.mypage.MyPageFragment;
@@ -57,7 +56,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
 
     private long backKeyPressedTime = 0;
     Toast exitToast;
-    public MainService.UserInfo userInfo;
+    public RetrofitService.UserInfo userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,7 +200,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
     }
 
     @Override
-    public void getUserSuccess(MainService.GetUserResponse getUserResponse, ErrorResponse errorResponse) {
+    public void getUserSuccess(RetrofitService.GetUserResponse getUserResponse, ErrorResponse errorResponse) {
         if(getUserResponse!=null){
             if(getUserResponse.getCode()==200 && getUserResponse.isSuccess()){
                 userInfo = getUserResponse.getUser();
@@ -236,6 +235,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
         showCustomToast(getResources().getString(R.string.network_error));
     }
 
+    //TODO: 메소드 삭제
     public void callGetUser(){
 //        Callback mCallback = () -> {
 //            ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).setLoginState();

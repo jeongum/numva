@@ -12,15 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.home.models.SafetyInfo;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 
 import java.util.ArrayList;
 
 public class QrRecyclerAdapter extends RecyclerView.Adapter{
     Context mContext;
-    private ArrayList<SafetyInfo> mQrList = null;
+    private ArrayList<RetrofitService.SafetyInfo> mQrList = null;
 
-    public QrRecyclerAdapter(ArrayList<SafetyInfo> mQrList) {
+    public QrRecyclerAdapter(ArrayList<RetrofitService.SafetyInfo> mQrList) {
         this.mQrList = mQrList;
     }
 
@@ -47,7 +47,7 @@ public class QrRecyclerAdapter extends RecyclerView.Adapter{
         return mQrList.size();
     }
 
-    public void updateData(ArrayList<SafetyInfo> mList){
+    public void updateData(ArrayList<RetrofitService.SafetyInfo> mList){
         mQrList.clear();
         mQrList.addAll(mList);
         notifyDataSetChanged();

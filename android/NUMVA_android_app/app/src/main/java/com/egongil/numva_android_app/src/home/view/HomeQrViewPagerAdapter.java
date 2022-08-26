@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.home;
+package com.egongil.numva_android_app.src.home.view;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
@@ -6,7 +6,6 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedP
 import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,29 +14,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.home.models.SafetyInfo;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.parkingmemo.ParkingMemoActivity;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 public class HomeQrViewPagerAdapter extends PagerAdapter {
     private Context mContext;
-//    private ArrayList<SafetyInfo> mListQr;
     private MainViewModel mMainViewModel;
-
-    public HomeQrViewPagerAdapter(Context mContext, ArrayList<SafetyInfo> mListQr) {
-        this.mContext = mContext;
-//        this.mListQr = mListQr;
-    }
 
     public HomeQrViewPagerAdapter(Context mContext, MainViewModel mMainViewModel) {
         this.mContext = mContext;
@@ -77,7 +68,7 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
             mTvNonRegistSafeNumber.setText(R.string.home_nonlogin_guide);
 
         }else{
-            ArrayList<SafetyInfo> mListQr = mMainViewModel.getSafetyInfoData().getValue();
+            ArrayList<RetrofitService.SafetyInfo> mListQr = mMainViewModel.getSafetyInfoData().getValue();
             //로그인 상태
             if(mListQr.get(0).getId()!=-1){
                 //등록된 QR이 있는 경우
@@ -151,7 +142,7 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        ArrayList<SafetyInfo> mListQr = mMainViewModel.getSafetyInfoData().getValue();
+        ArrayList<RetrofitService.SafetyInfo> mListQr = mMainViewModel.getSafetyInfoData().getValue();
         if(mListQr != null){
             //Adapter가 관리하는 데이터 리스트의 총 개수
             return mListQr.size();
@@ -165,11 +156,6 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
         //페이지가 특정 키와 연관되는지 체크
         return (view == (View)object);
     }
-
-//    void submitList(ArrayList<SafetyInfo> list){
-//        mListQr = list;
-//        notifyDataSetChanged();
-//    }
 
     //참고:
     // PagerView에서 관리하는 데이터가 10개면, 각 데이터 항목에 해당하는 뷰(View)는 한꺼번에 생성되지 않는다.

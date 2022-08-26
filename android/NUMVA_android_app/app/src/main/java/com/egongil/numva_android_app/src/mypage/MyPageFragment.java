@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +21,14 @@ import com.egongil.numva_android_app.src.app_info.AppInfoActivity;
 import com.egongil.numva_android_app.src.config.BaseFragment;
 import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.customer_center.CustomerCenterActivity;
 import com.egongil.numva_android_app.src.edit_userinfo.EditUserInfoActivity;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
-import com.egongil.numva_android_app.src.main.models.MainService;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
-import com.egongil.numva_android_app.src.mypage.interfaces.MyPageFragmentView;
-import com.egongil.numva_android_app.src.mypage.models.LogoutResponse;
+import com.egongil.numva_android_app.src.mypage.interfaces.MyPageFragmentContract;
 import com.egongil.numva_android_app.src.notification_setting.NotiSettingActivity;
 import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
 import com.egongil.numva_android_app.src.second_phone.SecondPhoneActivity;
@@ -39,7 +37,7 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.Activity
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
 
-public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
+public class MyPageFragment extends BaseFragment implements MyPageFragmentContract {
     FragmentMypageBinding binding;
     MainViewModel viewModel;
 
@@ -226,7 +224,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
     }
 
     @Override
-    public void getLogoutSuccess(LogoutResponse logoutResponse, ErrorResponse errorResponse) {
+    public void getLogoutSuccess(RetrofitService.LogoutResponse logoutResponse, ErrorResponse errorResponse) {
         //모든 에러에 대해 성공한 경우와 동일 처리하므로 에러코드 분기 없음(토큰 초기화 후 로그인 페이지로 돌아감)
         SharedPreferences.Editor editor = sSharedPreferences.edit();
         editor.putString(X_ACCESS_TOKEN, null);
@@ -248,7 +246,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentView {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == EDIT_USERINFO_ACTIVITY){
             if(resultCode == RESULT_OK){
-                MainService.UserInfo info = viewModel.getMutableData().getValue();
+                RetrofitService.UserInfo info = viewModel.getMutableData().getValue();
                 info.setNickname(data.getStringExtra("nickname"));
                 info.setPhone(data.getStringExtra("phone"));
                 info.setBirth(data.getStringExtra("birth"));

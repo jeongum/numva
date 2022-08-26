@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.home;
+package com.egongil.numva_android_app.src.home.view;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -11,10 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -25,30 +22,27 @@ import android.view.WindowManager;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.databinding.FragmentHomeBinding;
 import com.egongil.numva_android_app.src.config.BaseFragment;
-import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.config.RetrofitService;
-import com.egongil.numva_android_app.src.home.interfaces.HomeFragmentView;
-import com.egongil.numva_android_app.src.home.models.GetSafetyInfoResponse;
-import com.egongil.numva_android_app.src.home.models.SafetyInfo;
+import com.egongil.numva_android_app.src.home.model.HomeService;
+import com.egongil.numva_android_app.src.home.interfaces.HomeFragmentContract;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
-import com.egongil.numva_android_app.src.main.viewmodels.MainViewModelFactory;
 import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.PARKING_MEMO_ACTIVITY;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
 
-public class HomeFragment extends BaseFragment implements HomeFragmentView {
+public class HomeFragment extends BaseFragment implements HomeFragmentContract {
     FragmentHomeBinding binding;
     Fragment fragment;
     MainViewModel mMainViewModel;
+
+    //TODO: parkingmemoActivity, QRManagementActivity에서 getSafeyInfo를 해야해서 임시로 public 설정해둠
+    //TODO: parkingmemo, QR~에서 ViewModel 활용하도록 변경해서 getSafetyInfo 호출할 필요 없도록 만들기
+    public HomeService mHomeService;
 
     HomeQrViewPagerAdapter mViewPagerAdapter;
 
@@ -71,7 +65,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
             if(!(((MainActivity)getActivity()).isLogin())){
                 //로그인 상태일 경우
                 ((MainActivity)getActivity()).getUser();
-                getSafetyInfo();
+                mHomeService.getSafetyInfo();
             }
 
             binding.refreshLayout.setRefreshing(false);
@@ -113,7 +107,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         //ViewPager margin, Transform
         setViewPagerStyle();
 
-        getSafetyInfo();
+        HomeService homeService = new HomeService(this);
+        homeService.getSafetyInfo();
 
         setHasOptionsMenu(true);
 
@@ -153,7 +148,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(resultCode == RESULT_OK){
             if(requestCode == PARKING_MEMO_ACTIVITY){
-                getSafetyInfo();
+                mHomeService.getSafetyInfo();
             }
         }
     }
@@ -164,17 +159,12 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         }
     }
 
-    public void getSafetyInfo(){
-        HomeService homeService = new HomeService(this);
-        homeService.getSafetyInfo();
-    }
-
     @Override
-    public void getSafetyInfoSuccess(GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse) {
+    public void getSafetyInfoSuccess(RetrofitService.GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse) {
         if(getSafetyInfoResponse!=null) {
             if (getSafetyInfoResponse.getCode() == 200 && getSafetyInfoResponse.isSuccess()) {
                 //성공 시 동작
-                ArrayList<SafetyInfo>mListQR = getSafetyInfoResponse.getResult();
+                ArrayList<RetrofitService.SafetyInfo>mListQR = getSafetyInfoResponse.getResult();
 
                 if (mListQR.size() == 0) {
                     //등록된 QR 없을 경우, 가이드아이템 추가
@@ -204,8 +194,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     //등록된 QR 없거나, 비로그인 상태일 경우
     //QR id -1로 item 담은 list를 ViewPager에 보낸다.(guide 출력할 아이템 하나)
     private void setViewPagerSafetyGuideItem(){
-        ArrayList<SafetyInfo>mListQR = new ArrayList<>();
-        mListQR.add(new SafetyInfo(-1));
+        ArrayList<RetrofitService.SafetyInfo>mListQR = new ArrayList<>();
+        mListQR.add(new RetrofitService.SafetyInfo(-1));
         mMainViewModel.setSafetyInfoData(mListQR);
         mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
     }

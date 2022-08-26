@@ -1,9 +1,9 @@
 package com.egongil.numva_android_app.src.main.interfaces;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.main.models.MainService;
+import com.egongil.numva_android_app.src.config.RetrofitService;
 
 public interface MainContract {
-    void getUserSuccess(MainService.GetUserResponse getUserResponse, ErrorResponse errorResonse);
+    void getUserSuccess(RetrofitService.GetUserResponse getUserResponse, ErrorResponse errorResonse);
     void getUserFailure();
 }

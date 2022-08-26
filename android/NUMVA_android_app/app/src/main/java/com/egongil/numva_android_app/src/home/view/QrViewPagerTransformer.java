@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.home;
+package com.egongil.numva_android_app.src.home.view;
 
 import android.view.View;
 
