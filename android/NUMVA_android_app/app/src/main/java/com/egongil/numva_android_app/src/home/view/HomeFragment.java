@@ -157,16 +157,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
 
         return new QrViewPagerTransformer(baseElevation, rasingElevation, smallerScale, startOffset);
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        if(resultCode == RESULT_OK){
-//            if(requestCode == PARKING_MEMO_ACTIVITY){
-//                mHomeService.getSafetyInfo();
-//            }
-//        }
-//    }
-
     private void enableDisableSwipeRefresh(boolean enable){
         if(binding.refreshLayout!=null){
             binding.refreshLayout.setEnabled(enable);
