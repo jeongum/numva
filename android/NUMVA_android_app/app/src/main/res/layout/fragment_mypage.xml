@@ -96,7 +96,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/notosanscjkk_medium"
                             android:includeFontPadding="false"
-                            android:text="@{viewModel.mutableData.nickname}"
+                            android:text="@{viewModel.userData.nickname}"
                             android:textColor="@color/colorBlack"
                             android:textSize="27dp" />
 
@@ -106,7 +106,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/font_regular"
                             android:includeFontPadding="false"
-                            android:text="@{viewModel.mutableData.email}"
+                            android:text="@{viewModel.userData.email}"
                             android:textSize="12dp" />
                     </LinearLayout>
 
@@ -155,7 +155,7 @@
                                 android:textSize="12dp"
                                 android:fontFamily="@font/font_regular"
                                 android:includeFontPadding="false"
-                                android:text="@{viewModel.mutableData.phone}"
+                                android:text="@{viewModel.userData.phone}"
 
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -212,7 +212,7 @@
                                 android:textSize="12dp"
                                 android:includeFontPadding="false"
                                 android:fontFamily="@font/font_regular"
-                                android:text="@{viewModel.mutableData.second_phone}"
+                                android:text="@{viewModel.userData.second_phone}"
                                 android:visibility="gone"
 
                                 app:layout_constraintTop_toTopOf="parent"

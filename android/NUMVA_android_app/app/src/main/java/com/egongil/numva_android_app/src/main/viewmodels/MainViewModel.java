@@ -1,5 +1,6 @@
 package com.egongil.numva_android_app.src.main.viewmodels;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 
 import android.util.Log;
@@ -54,18 +55,11 @@ public class MainViewModel extends ViewModel {
         mLoginState.setValue(state);
     }
 
-    //data binding 시 필요
-    public LiveData<UserInfo> getMutableData(){
-        if(mUserData == null)
-            mUserData = new MutableLiveData<>(new UserInfo());
-        return mUserData;
-    }
     public LiveData<UserInfo> getUserData(){
         if(mUserData == null)
             mUserData = new MutableLiveData<>(new UserInfo());
         return mUserData;
     }
-    //TODO: getMutable -> getUserData로 변경 후, 다른 데이터들도 각각 getter 만들기
 
     public void setUserData(UserInfo data){
         getUserData();
@@ -86,6 +80,7 @@ public class MainViewModel extends ViewModel {
         mSafetyInfo.setValue(safetyInfo);
     }
 
+    //api 호출 함수
     public void getUser(){
         mRetrofitService.getUser().enqueue(new Callback<GetUserResponse>() {
             @Override
@@ -98,12 +93,7 @@ public class MainViewModel extends ViewModel {
                     getUserResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 mMainContract.getUserSuccess(getUserResponse, errorResponse);
             }

@@ -202,7 +202,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
     public void setSecondPhoneData(){
         //data mapping
         if(((MainActivity)getActivity()).userInfo!=null){
-            if(viewModel.getMutableData().getValue().getSecond_phone().equals("")){
+            if(viewModel.getUserData().getValue().getSecond_phone().equals("")){
                 binding.secondPhoneTv.setVisibility(View.VISIBLE);  //2차전화번호 TextView
                 binding.editSecondPhoneBtn.setVisibility(View.VISIBLE); //2차전화번호 연필아이콘
                 binding.registerSecondphone.setVisibility(View.GONE);  //2차전화번호 등록버튼
@@ -247,7 +247,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == EDIT_USERINFO_ACTIVITY){
             if(resultCode == RESULT_OK){
-                UserInfo info = viewModel.getMutableData().getValue();
+                UserInfo info = viewModel.getUserData().getValue();
                 info.setNickname(data.getStringExtra("nickname"));
                 info.setPhone(data.getStringExtra("phone"));
                 info.setBirth(data.getStringExtra("birth"));
