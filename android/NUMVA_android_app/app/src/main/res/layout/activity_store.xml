@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".src.store.StoreActivity">
 
-    <com.egongil.numva_android_app.src.config.CustomViewTitlebar
+    <com.egongil.numva_android_app.src.config.view.CustomViewTitlebar
         android:id="@+id/store_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

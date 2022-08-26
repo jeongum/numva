@@ -7,9 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.customer_center.models.FAQResponse;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
 
 public class CustomerCenterDetailActivity extends BaseActivity{
 

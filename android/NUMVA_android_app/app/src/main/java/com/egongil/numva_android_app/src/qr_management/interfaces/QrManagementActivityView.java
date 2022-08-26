@@ -1,14 +1,14 @@
 package com.egongil.numva_android_app.src.qr_management.interfaces;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
-import com.egongil.numva_android_app.src.qr_management.models.DeleteQrResponse;
-import com.egongil.numva_android_app.src.qr_management.models.RegisterQrResponse;
-import com.egongil.numva_android_app.src.qr_management.models.SetQrNameResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSafetyInfoResponse;
+import com.egongil.numva_android_app.src.config.models.response.DeleteQrResponse;
+import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
+import com.egongil.numva_android_app.src.config.models.response.SetQrNameResponse;
 
 public interface QrManagementActivityView {
 
-    void getSafetyInfoSuccess(RetrofitService.GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse);
+    void getSafetyInfoSuccess(GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse);
     void getSafetyInfoFailure();
 
     void setQrNameSuccess(SetQrNameResponse setQrNameResponse, ErrorResponse errorResponse);

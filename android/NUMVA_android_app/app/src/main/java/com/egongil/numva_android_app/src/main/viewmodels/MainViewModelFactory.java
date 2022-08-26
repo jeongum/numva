@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.interfaces.RetrofitService;
 import com.egongil.numva_android_app.src.main.interfaces.MainContract;
 
 public class MainViewModelFactory implements ViewModelProvider.Factory{

@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.BaseFragment;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.view.BaseFragment;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.findLogin.interfaces.ResetPwActivityView;
-import com.egongil.numva_android_app.src.findLogin.models.FindPwResponse;
-import com.egongil.numva_android_app.src.findLogin.models.ResetPwRequest;
+import com.egongil.numva_android_app.src.config.models.response.FindPwResponse;
+import com.egongil.numva_android_app.src.config.models.request.ResetPwRequest;
 
 
 public class PwResetFragment extends BaseFragment implements ResetPwActivityView {

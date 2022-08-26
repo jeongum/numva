@@ -3,7 +3,6 @@ package com.egongil.numva_android_app.src.findLogin;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.BaseFragment;
+import com.egongil.numva_android_app.src.config.view.BaseFragment;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 
 public class FindIdExistFragment extends BaseFragment {

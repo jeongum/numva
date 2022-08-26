@@ -3,7 +3,6 @@ package com.egongil.numva_android_app.src.findLogin;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.FragmentType.FIND_ID_FRAGMENT;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.FragmentType.FIND_PW_FRAGMENT;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,7 +15,7 @@ import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.BaseActivity;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 

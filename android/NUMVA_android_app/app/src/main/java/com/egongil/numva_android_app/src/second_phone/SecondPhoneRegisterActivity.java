@@ -22,14 +22,14 @@ import com.egongil.numva_android_app.src.cert_phone.TimerView;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRegisterActivityView;
-import com.egongil.numva_android_app.src.second_phone.models.SetSecondPhoneRequest;
-import com.egongil.numva_android_app.src.second_phone.models.SetSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.request.SetSecondPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.response.SetSecondPhoneResponse;
 
 public class SecondPhoneRegisterActivity extends BaseActivity implements SecondPhoneRegisterActivityView, ConnectionReceiver.ConnectionReceiverListener {
 

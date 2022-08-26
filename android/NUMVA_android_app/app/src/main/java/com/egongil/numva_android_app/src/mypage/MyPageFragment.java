@@ -18,10 +18,11 @@ import android.view.ViewGroup;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.databinding.FragmentMypageBinding;
 import com.egongil.numva_android_app.src.app_info.AppInfoActivity;
-import com.egongil.numva_android_app.src.config.BaseFragment;
-import com.egongil.numva_android_app.src.config.Callback;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.view.BaseFragment;
+import com.egongil.numva_android_app.src.config.interfaces.Callback;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.LogoutResponse;
+import com.egongil.numva_android_app.src.config.models.UserInfo;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.customer_center.CustomerCenterActivity;
 import com.egongil.numva_android_app.src.edit_userinfo.EditUserInfoActivity;
@@ -201,7 +202,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
     public void setSecondPhoneData(){
         //data mapping
         if(((MainActivity)getActivity()).userInfo!=null){
-            if(viewModel.getMutableData().getValue().getSecond_phone().equals("")){
+            if(viewModel.getUserData().getValue().getSecond_phone().equals("")){
                 binding.secondPhoneTv.setVisibility(View.VISIBLE);  //2차전화번호 TextView
                 binding.editSecondPhoneBtn.setVisibility(View.VISIBLE); //2차전화번호 연필아이콘
                 binding.registerSecondphone.setVisibility(View.GONE);  //2차전화번호 등록버튼
@@ -224,7 +225,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
     }
 
     @Override
-    public void getLogoutSuccess(RetrofitService.LogoutResponse logoutResponse, ErrorResponse errorResponse) {
+    public void getLogoutSuccess(LogoutResponse logoutResponse, ErrorResponse errorResponse) {
         //모든 에러에 대해 성공한 경우와 동일 처리하므로 에러코드 분기 없음(토큰 초기화 후 로그인 페이지로 돌아감)
         SharedPreferences.Editor editor = sSharedPreferences.edit();
         editor.putString(X_ACCESS_TOKEN, null);
@@ -246,7 +247,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == EDIT_USERINFO_ACTIVITY){
             if(resultCode == RESULT_OK){
-                RetrofitService.UserInfo info = viewModel.getMutableData().getValue();
+                UserInfo info = viewModel.getUserData().getValue();
                 info.setNickname(data.getStringExtra("nickname"));
                 info.setPhone(data.getStringExtra("phone"));
                 info.setBirth(data.getStringExtra("birth"));

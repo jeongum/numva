@@ -1,13 +1,10 @@
 package com.egongil.numva_android_app.src.signup;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,18 +13,18 @@ import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.findLogin.FindLoginActivity;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 import com.egongil.numva_android_app.src.signup.interfaces.SignupActivityView;
-import com.egongil.numva_android_app.src.signup.models.SignupRequest;
-import com.egongil.numva_android_app.src.signup.models.SignupResponse;
-import com.egongil.numva_android_app.src.signup.models.ValidEmailRequest;
-import com.egongil.numva_android_app.src.signup.models.ValidEmailResponse;
+import com.egongil.numva_android_app.src.config.models.request.SignupRequest;
+import com.egongil.numva_android_app.src.config.models.response.SignupResponse;
+import com.egongil.numva_android_app.src.config.models.request.ValidEmailRequest;
+import com.egongil.numva_android_app.src.config.models.response.ValidEmailResponse;
 
 import java.util.Random;
 

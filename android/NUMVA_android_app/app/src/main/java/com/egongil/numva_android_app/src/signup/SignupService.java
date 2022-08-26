@@ -1,37 +1,29 @@
 package com.egongil.numva_android_app.src.signup;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.signup.interfaces.SignupActivityView;
-import com.egongil.numva_android_app.src.signup.interfaces.SignupRetrofitInterface;
-import com.egongil.numva_android_app.src.signup.models.SignupRequest;
-import com.egongil.numva_android_app.src.signup.models.SignupResponse;
-import com.egongil.numva_android_app.src.signup.models.ValidEmailRequest;
-import com.egongil.numva_android_app.src.signup.models.ValidEmailResponse;
+import com.egongil.numva_android_app.src.config.models.request.SignupRequest;
+import com.egongil.numva_android_app.src.config.models.response.SignupResponse;
+import com.egongil.numva_android_app.src.config.models.request.ValidEmailRequest;
+import com.egongil.numva_android_app.src.config.models.response.ValidEmailResponse;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class SignupService {
-
     private final SignupActivityView mSignupActivityView;
-
 
     public SignupService(SignupActivityView mSignupActivityView) {
         this.mSignupActivityView = mSignupActivityView;
     }
 
-    //postSignup : 실직적으로 post를 실행하는 함수
+    //postSignup : 실질적으로 post를 실행하는 함수
     void postSignup(SignupRequest signupRequest){
-        final SignupRetrofitInterface signupRetrofitInterface = getRetrofit().create(SignupRetrofitInterface.class);
-        signupRetrofitInterface.postSignup(signupRequest).enqueue(new Callback<SignupResponse>() {
+        getRetrofitService().postSignup(signupRequest).enqueue(new Callback<SignupResponse>() {
             //성공 시 함수 실행 정의
             @Override
             public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
@@ -41,12 +33,7 @@ public class SignupService {
                     signupResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 mSignupActivityView.postSignupSuccess(signupResponse, errorResponse);
             }
@@ -61,8 +48,7 @@ public class SignupService {
     }
 
     void postValidEmail(ValidEmailRequest validEmailRequest){
-        final SignupRetrofitInterface signupRetrofitInterface = getRetrofit().create(SignupRetrofitInterface.class);
-        signupRetrofitInterface.postValidEmail(validEmailRequest).enqueue(new Callback<ValidEmailResponse>(){
+        getRetrofitService().postValidEmail(validEmailRequest).enqueue(new Callback<ValidEmailResponse>(){
 
             @Override
             public void onResponse(Call<ValidEmailResponse> call, Response<ValidEmailResponse> response) {
@@ -72,12 +58,7 @@ public class SignupService {
                     validEmailResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 mSignupActivityView.postValidEmailSuccess(validEmailResponse, errorResponse);
             }

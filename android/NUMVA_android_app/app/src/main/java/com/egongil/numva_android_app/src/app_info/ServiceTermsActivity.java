@@ -1,13 +1,11 @@
 package com.egongil.numva_android_app.src.app_info;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.BaseActivity;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
 
 public class ServiceTermsActivity extends BaseActivity {
 

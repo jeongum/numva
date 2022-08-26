@@ -18,7 +18,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.parkingmemo.ParkingMemoActivity;
 
@@ -68,7 +68,7 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
             mTvNonRegistSafeNumber.setText(R.string.home_nonlogin_guide);
 
         }else{
-            ArrayList<RetrofitService.SafetyInfo> mListQr = mMainViewModel.getSafetyInfoData().getValue();
+            ArrayList<SafetyInfo> mListQr = mMainViewModel.getSafetyInfoData().getValue();
             //로그인 상태
             if(mListQr.get(0).getId()!=-1){
                 //등록된 QR이 있는 경우
@@ -142,7 +142,7 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        ArrayList<RetrofitService.SafetyInfo> mListQr = mMainViewModel.getSafetyInfoData().getValue();
+        ArrayList<SafetyInfo> mListQr = mMainViewModel.getSafetyInfoData().getValue();
         if(mListQr != null){
             //Adapter가 관리하는 데이터 리스트의 총 개수
             return mListQr.size();

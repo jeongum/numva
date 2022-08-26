@@ -1,11 +1,11 @@
 package com.egongil.numva_android_app.src.config;
 
-import static org.webrtc.ContextUtils.getApplicationContext;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.egongil.numva_android_app.src.config.interfaces.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 
 import com.kakao.auth.ApprovalType;

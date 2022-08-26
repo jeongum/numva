@@ -1,41 +1,33 @@
 package com.egongil.numva_android_app.src.parkingmemo;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityView;
-import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoRetrofitInterface;
-import com.egongil.numva_android_app.src.parkingmemo.models.AddSimpleMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.AddSimpleMemoResponse;
-import com.egongil.numva_android_app.src.parkingmemo.models.DeleteSimpleMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.EditSimpleMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.GetParkingMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.GetParkingMemoResponse;
-import com.egongil.numva_android_app.src.parkingmemo.models.GetSimpleMemoResponse;
-import com.egongil.numva_android_app.src.parkingmemo.models.SetParkingMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.UpdateSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.request.AddSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.response.AddSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.request.DeleteSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.request.EditSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.request.GetParkingMemoRequest;
+import com.egongil.numva_android_app.src.config.models.response.GetParkingMemoResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.request.SetParkingMemoRequest;
+import com.egongil.numva_android_app.src.config.models.response.UpdateSimpleMemoResponse;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 public class ParkingMemoService {
     private final ParkingMemoActivityView mParkingMemoActivityView;
-    final ParkingMemoRetrofitInterface parkingMemoRetrofitInterface;
 
     public ParkingMemoService(ParkingMemoActivityView mParkingMemoActivityView) {
         this.mParkingMemoActivityView = mParkingMemoActivityView;
-        this.parkingMemoRetrofitInterface = getRetrofit().create(ParkingMemoRetrofitInterface.class);
     }
 
     void getParkingMemo(GetParkingMemoRequest getParkingMemoRequest){
-        parkingMemoRetrofitInterface.getParkingMemo(getParkingMemoRequest).enqueue(new Callback<GetParkingMemoResponse>() {
+        getRetrofitService().getParkingMemo(getParkingMemoRequest).enqueue(new Callback<GetParkingMemoResponse>() {
             @Override
             public void onResponse(Call<GetParkingMemoResponse> call, Response<GetParkingMemoResponse> response) {
                 GetParkingMemoResponse getParkingMemoResponse = null;
@@ -57,7 +49,7 @@ public class ParkingMemoService {
     }
 
     void setparkingMemo(SetParkingMemoRequest setParkingMemoRequest){
-        parkingMemoRetrofitInterface.setParkingmemo(setParkingMemoRequest).enqueue(new Callback<GetParkingMemoResponse>() {
+        getRetrofitService().setParkingmemo(setParkingMemoRequest).enqueue(new Callback<GetParkingMemoResponse>() {
             @Override
             public void onResponse(Call<GetParkingMemoResponse> call, Response<GetParkingMemoResponse> response) {
                 GetParkingMemoResponse getParkingMemoResponse = null;
@@ -78,7 +70,7 @@ public class ParkingMemoService {
         });
     }
     void getSimpleMemo(){
-        parkingMemoRetrofitInterface.getSimpleMemo().enqueue(new Callback<GetSimpleMemoResponse>() {
+        getRetrofitService().getSimpleMemo().enqueue(new Callback<GetSimpleMemoResponse>() {
             @Override
             public void onResponse(Call<GetSimpleMemoResponse> call, Response<GetSimpleMemoResponse> response) {
                 GetSimpleMemoResponse getSimpleMemoResponse = null;
@@ -99,7 +91,7 @@ public class ParkingMemoService {
         });
     }
     void deleteSimpleMemo(DeleteSimpleMemoRequest deleteSimpleMemoRequest){
-        parkingMemoRetrofitInterface.deleteSimpleMemo(deleteSimpleMemoRequest).enqueue(new Callback<UpdateSimpleMemoResponse>() {
+        getRetrofitService().deleteSimpleMemo(deleteSimpleMemoRequest).enqueue(new Callback<UpdateSimpleMemoResponse>() {
             @Override
             public void onResponse(Call<UpdateSimpleMemoResponse> call, Response<UpdateSimpleMemoResponse> response) {
                 UpdateSimpleMemoResponse updateSimpleMemoResponse = null;
@@ -120,7 +112,7 @@ public class ParkingMemoService {
         });
     }
     void editSimpleMemo(EditSimpleMemoRequest editSimpleMemoRequest){
-        parkingMemoRetrofitInterface.editSimpleMemo(editSimpleMemoRequest).enqueue(new Callback<UpdateSimpleMemoResponse>() {
+        getRetrofitService().editSimpleMemo(editSimpleMemoRequest).enqueue(new Callback<UpdateSimpleMemoResponse>() {
             @Override
             public void onResponse(Call<UpdateSimpleMemoResponse> call, Response<UpdateSimpleMemoResponse> response) {
                 UpdateSimpleMemoResponse updateSimpleMemoResponse = null;
@@ -141,7 +133,7 @@ public class ParkingMemoService {
         });
     }
     void addSimpleMemo(AddSimpleMemoRequest addSimpleMemoRequest){
-        parkingMemoRetrofitInterface.addSimpleMemo(addSimpleMemoRequest).enqueue(new Callback<AddSimpleMemoResponse>() {
+        getRetrofitService().addSimpleMemo(addSimpleMemoRequest).enqueue(new Callback<AddSimpleMemoResponse>() {
             @Override
             public void onResponse(Call<AddSimpleMemoResponse> call, Response<AddSimpleMemoResponse> response) {
                 AddSimpleMemoResponse addSimpleMemoResponse = null;

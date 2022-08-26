@@ -17,13 +17,15 @@ import android.widget.Toast;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.databinding.ActivityMainBinding;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.BaseActivity;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.car_management.CarManagementFragment;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 
+import com.egongil.numva_android_app.src.config.models.response.GetUserResponse;
 import com.egongil.numva_android_app.src.config.GlobalAuthHelper;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.interfaces.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.UserInfo;
 import com.egongil.numva_android_app.src.home.view.HomeFragment;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.interfaces.MainContract;
@@ -56,7 +58,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
 
     private long backKeyPressedTime = 0;
     Toast exitToast;
-    public RetrofitService.UserInfo userInfo;
+    public UserInfo userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,7 +202,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
     }
 
     @Override
-    public void getUserSuccess(RetrofitService.GetUserResponse getUserResponse, ErrorResponse errorResponse) {
+    public void getUserSuccess(GetUserResponse getUserResponse, ErrorResponse errorResponse) {
         if(getUserResponse!=null){
             if(getUserResponse.getCode()==200 && getUserResponse.isSuccess()){
                 userInfo = getUserResponse.getUser();

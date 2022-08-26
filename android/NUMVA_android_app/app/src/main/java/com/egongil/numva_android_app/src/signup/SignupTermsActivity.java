@@ -1,7 +1,5 @@
 package com.egongil.numva_android_app.src.signup;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +13,7 @@ import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.app_info.MarketingTermsActivity;
 import com.egongil.numva_android_app.src.app_info.PrivacyTermsActivity;
 import com.egongil.numva_android_app.src.app_info.ServiceTermsActivity;
-import com.egongil.numva_android_app.src.config.BaseActivity;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
 
 public class SignupTermsActivity extends BaseActivity {
 

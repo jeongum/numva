@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.BaseActivity;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
 
 public class NetworkFailureActivity extends BaseActivity implements ConnectionReceiver.ConnectionReceiverListener{
 

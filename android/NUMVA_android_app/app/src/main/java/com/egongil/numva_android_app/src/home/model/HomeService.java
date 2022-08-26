@@ -2,8 +2,8 @@ package com.egongil.numva_android_app.src.home.model;
 
 import android.util.Log;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSafetyInfoResponse;
 import com.egongil.numva_android_app.src.home.interfaces.HomeFragmentContract;
 
 import java.io.IOException;
@@ -24,12 +24,12 @@ public class HomeService {
         this.mHomeFragmentContract = mHomeFragmentContract;
     }
     public void getSafetyInfo(){
-        getRetrofitService().getSafetyInfo().enqueue(new retrofit2.Callback<RetrofitService.GetSafetyInfoResponse>() {
+        getRetrofitService().getSafetyInfo().enqueue(new retrofit2.Callback<GetSafetyInfoResponse>() {
             @Override
-            public void onResponse(Call<RetrofitService.GetSafetyInfoResponse> call, Response<RetrofitService.GetSafetyInfoResponse> response) {
+            public void onResponse(Call<GetSafetyInfoResponse> call, Response<GetSafetyInfoResponse> response) {
                 Log.e("response.code()", String.valueOf(response.code()));
 
-                RetrofitService.GetSafetyInfoResponse getSafetyInfoResponse = null;
+                GetSafetyInfoResponse getSafetyInfoResponse = null;
                 ErrorResponse errorResponse = null;
                 if(response.body()!= null) {
                     getSafetyInfoResponse = response.body();
@@ -46,7 +46,7 @@ public class HomeService {
             }
 
             @Override
-            public void onFailure(Call<RetrofitService.GetSafetyInfoResponse> call, Throwable t) {
+            public void onFailure(Call<GetSafetyInfoResponse> call, Throwable t) {
                 t.printStackTrace();
                 mHomeFragmentContract.getSafetyInfoFailure();
             }

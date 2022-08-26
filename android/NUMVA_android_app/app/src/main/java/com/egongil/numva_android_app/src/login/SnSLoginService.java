@@ -1,22 +1,16 @@
 package com.egongil.numva_android_app.src.login;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
-import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.login.interfaces.SnsLoginActivityView;
-import com.egongil.numva_android_app.src.login.interfaces.SnsLoginRetrofitInterface;
-import com.egongil.numva_android_app.src.login.models.LinkSocialRequest;
-import com.egongil.numva_android_app.src.login.models.LinkSocialResponse;
-import com.egongil.numva_android_app.src.login.models.SocialRegisterRequest;
+import com.egongil.numva_android_app.src.config.models.request.LinkSocialRequest;
+import com.egongil.numva_android_app.src.config.models.response.LinkSocialResponse;
+import com.egongil.numva_android_app.src.config.models.request.SocialRegisterRequest;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 public class SnSLoginService {
@@ -26,8 +20,7 @@ public class SnSLoginService {
         mSnsLoginActivityView = snsLoginExistEmailActivityView;
     }
     public void linkSocial(LinkSocialRequest linkSocialRequest){
-        final SnsLoginRetrofitInterface snsLoginRetrofitInterface = getRetrofit().create(SnsLoginRetrofitInterface.class);
-        snsLoginRetrofitInterface.linkSocial(linkSocialRequest).enqueue(new Callback<LinkSocialResponse>() {
+        getRetrofitService().linkSocial(linkSocialRequest).enqueue(new Callback<LinkSocialResponse>() {
             @Override
             public void onResponse(Call<LinkSocialResponse> call, Response<LinkSocialResponse> response) {
                 LinkSocialResponse linkSocialResponse=null;
@@ -50,8 +43,7 @@ public class SnSLoginService {
     }
 
     public void socialRegister(SocialRegisterRequest socialRegisterRequest){
-        final SnsLoginRetrofitInterface snsLoginRetrofitInterface = getRetrofit().create(SnsLoginRetrofitInterface.class);
-        snsLoginRetrofitInterface.socialRegister(socialRegisterRequest).enqueue(new Callback<LinkSocialResponse>() {
+        getRetrofitService().socialRegister(socialRegisterRequest).enqueue(new Callback<LinkSocialResponse>() {
             @Override
             public void onResponse(Call<LinkSocialResponse> call, Response<LinkSocialResponse> response) {
                 LinkSocialResponse linkSocialResponse=null;

@@ -5,23 +5,16 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.ViewType
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyboardShortcutGroup;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.BaseFragment;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
-import java.util.List;
 
 public class NumvatalkBottomDialog extends BottomSheetDialogFragment {
     private BottomSheetListener mListener;

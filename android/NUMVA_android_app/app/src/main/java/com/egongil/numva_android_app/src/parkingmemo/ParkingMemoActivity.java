@@ -16,9 +16,9 @@ import android.widget.LinearLayout;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.BaseActivity;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RecyclerTouchListener;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.view.RecyclerTouchListener;
 import com.egongil.numva_android_app.src.custom_dialogs.EditTextDialog;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.home.view.HomeFragment;
@@ -26,15 +26,15 @@ import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityView;
-import com.egongil.numva_android_app.src.parkingmemo.models.AddSimpleMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.AddSimpleMemoResponse;
-import com.egongil.numva_android_app.src.parkingmemo.models.DeleteSimpleMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.EditSimpleMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.GetParkingMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.GetParkingMemoResponse;
-import com.egongil.numva_android_app.src.parkingmemo.models.GetSimpleMemoResponse;
-import com.egongil.numva_android_app.src.parkingmemo.models.SetParkingMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.UpdateSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.request.AddSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.response.AddSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.request.DeleteSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.request.EditSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.request.GetParkingMemoRequest;
+import com.egongil.numva_android_app.src.config.models.response.GetParkingMemoResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.request.SetParkingMemoRequest;
+import com.egongil.numva_android_app.src.config.models.response.UpdateSimpleMemoResponse;
 
 import java.util.ArrayList;
 

@@ -21,9 +21,10 @@ import android.view.WindowManager;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.databinding.FragmentHomeBinding;
-import com.egongil.numva_android_app.src.config.BaseFragment;
-import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.view.BaseFragment;
+import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.GetSafetyInfoResponse;
+import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.home.model.HomeService;
 import com.egongil.numva_android_app.src.home.interfaces.HomeFragmentContract;
 import com.egongil.numva_android_app.src.login.LoginActivity;
@@ -160,11 +161,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
     }
 
     @Override
-    public void getSafetyInfoSuccess(RetrofitService.GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse) {
+    public void getSafetyInfoSuccess(GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse) {
         if(getSafetyInfoResponse!=null) {
             if (getSafetyInfoResponse.getCode() == 200 && getSafetyInfoResponse.isSuccess()) {
                 //성공 시 동작
-                ArrayList<RetrofitService.SafetyInfo>mListQR = getSafetyInfoResponse.getResult();
+                ArrayList<SafetyInfo>mListQR = getSafetyInfoResponse.getResult();
 
                 if (mListQR.size() == 0) {
                     //등록된 QR 없을 경우, 가이드아이템 추가
@@ -194,8 +195,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
     //등록된 QR 없거나, 비로그인 상태일 경우
     //QR id -1로 item 담은 list를 ViewPager에 보낸다.(guide 출력할 아이템 하나)
     private void setViewPagerSafetyGuideItem(){
-        ArrayList<RetrofitService.SafetyInfo>mListQR = new ArrayList<>();
-        mListQR.add(new RetrofitService.SafetyInfo(-1));
+        ArrayList<SafetyInfo>mListQR = new ArrayList<>();
+        mListQR.add(new SafetyInfo(-1));
         mMainViewModel.setSafetyInfoData(mListQR);
         mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
     }
