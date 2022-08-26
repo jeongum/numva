@@ -6,7 +6,7 @@ import com.egongil.numva_android_app.src.config.models.response.GetParkingMemoRe
 import com.egongil.numva_android_app.src.config.models.response.GetSimpleMemoResponse;
 import com.egongil.numva_android_app.src.config.models.response.UpdateSimpleMemoResponse;
 
-public interface ParkingMemoActivityView {
+public interface ParkingMemoActivityContract {
     void getParkingMemoSuccess(GetParkingMemoResponse getparkingMemoResponse, ErrorResponse errorResponse);
     void getParkingMemoFailure();
 

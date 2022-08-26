@@ -1,10 +1,10 @@
-package com.egongil.numva_android_app.src.parkingmemo;
+package com.egongil.numva_android_app.src.parkingmemo.model;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityView;
+import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.AddSimpleMemoRequest;
 import com.egongil.numva_android_app.src.config.models.response.AddSimpleMemoResponse;
 import com.egongil.numva_android_app.src.config.models.request.DeleteSimpleMemoRequest;
@@ -20,13 +20,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ParkingMemoService {
-    private final ParkingMemoActivityView mParkingMemoActivityView;
+    private final ParkingMemoActivityContract mParkingMemoActivityView;
 
-    public ParkingMemoService(ParkingMemoActivityView mParkingMemoActivityView) {
+    public ParkingMemoService(ParkingMemoActivityContract mParkingMemoActivityView) {
         this.mParkingMemoActivityView = mParkingMemoActivityView;
     }
 
-    void getParkingMemo(GetParkingMemoRequest getParkingMemoRequest){
+    public void getParkingMemo(GetParkingMemoRequest getParkingMemoRequest){
         getRetrofitService().getParkingMemo(getParkingMemoRequest).enqueue(new Callback<GetParkingMemoResponse>() {
             @Override
             public void onResponse(Call<GetParkingMemoResponse> call, Response<GetParkingMemoResponse> response) {
@@ -48,7 +48,7 @@ public class ParkingMemoService {
         });
     }
 
-    void setparkingMemo(SetParkingMemoRequest setParkingMemoRequest){
+    public void setParkingMemo(SetParkingMemoRequest setParkingMemoRequest){
         getRetrofitService().setParkingmemo(setParkingMemoRequest).enqueue(new Callback<GetParkingMemoResponse>() {
             @Override
             public void onResponse(Call<GetParkingMemoResponse> call, Response<GetParkingMemoResponse> response) {
@@ -69,7 +69,7 @@ public class ParkingMemoService {
             }
         });
     }
-    void getSimpleMemo(){
+    public void getSimpleMemo(){
         getRetrofitService().getSimpleMemo().enqueue(new Callback<GetSimpleMemoResponse>() {
             @Override
             public void onResponse(Call<GetSimpleMemoResponse> call, Response<GetSimpleMemoResponse> response) {
@@ -90,7 +90,7 @@ public class ParkingMemoService {
             }
         });
     }
-    void deleteSimpleMemo(DeleteSimpleMemoRequest deleteSimpleMemoRequest){
+    public void deleteSimpleMemo(DeleteSimpleMemoRequest deleteSimpleMemoRequest){
         getRetrofitService().deleteSimpleMemo(deleteSimpleMemoRequest).enqueue(new Callback<UpdateSimpleMemoResponse>() {
             @Override
             public void onResponse(Call<UpdateSimpleMemoResponse> call, Response<UpdateSimpleMemoResponse> response) {
@@ -111,7 +111,7 @@ public class ParkingMemoService {
             }
         });
     }
-    void editSimpleMemo(EditSimpleMemoRequest editSimpleMemoRequest){
+    public void editSimpleMemo(EditSimpleMemoRequest editSimpleMemoRequest){
         getRetrofitService().editSimpleMemo(editSimpleMemoRequest).enqueue(new Callback<UpdateSimpleMemoResponse>() {
             @Override
             public void onResponse(Call<UpdateSimpleMemoResponse> call, Response<UpdateSimpleMemoResponse> response) {
@@ -132,7 +132,7 @@ public class ParkingMemoService {
             }
         });
     }
-    void addSimpleMemo(AddSimpleMemoRequest addSimpleMemoRequest){
+    public void addSimpleMemo(AddSimpleMemoRequest addSimpleMemoRequest){
         getRetrofitService().addSimpleMemo(addSimpleMemoRequest).enqueue(new Callback<AddSimpleMemoResponse>() {
             @Override
             public void onResponse(Call<AddSimpleMemoResponse> call, Response<AddSimpleMemoResponse> response) {

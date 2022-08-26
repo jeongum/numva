@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.parkingmemo;
+package com.egongil.numva_android_app.src.parkingmemo.model;
 
 public class SimpleMemoRecyclerItem {
     private int id;

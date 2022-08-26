@@ -20,7 +20,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
-import com.egongil.numva_android_app.src.parkingmemo.ParkingMemoActivity;
+import com.egongil.numva_android_app.src.parkingmemo.view.ParkingMemoActivity;
 
 import java.util.ArrayList;
 import java.util.Date;

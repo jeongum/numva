@@ -60,6 +60,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
         binding.setLifecycleOwner(this);
 
         this.fragment = this;
+        mHomeService = new HomeService(this);
 
         binding.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
         binding.refreshLayout.setOnRefreshListener(() -> {
@@ -108,8 +109,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
         //ViewPager margin, Transform
         setViewPagerStyle();
 
-        HomeService homeService = new HomeService(this);
-        homeService.getSafetyInfo();
+        mHomeService.getSafetyInfo();
 
         setHasOptionsMenu(true);
 

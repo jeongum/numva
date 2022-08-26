@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.parkingmemo;
+package com.egongil.numva_android_app.src.parkingmemo.view;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ViewType.SIMPLE_MEMO_VIEW;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ViewType.SIMPLE_MEMO_VIEW_ADD;
@@ -25,7 +25,9 @@ import com.egongil.numva_android_app.src.home.view.HomeFragment;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
-import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityView;
+import com.egongil.numva_android_app.src.parkingmemo.model.ParkingMemoService;
+import com.egongil.numva_android_app.src.parkingmemo.model.SimpleMemoRecyclerItem;
+import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.AddSimpleMemoRequest;
 import com.egongil.numva_android_app.src.config.models.response.AddSimpleMemoResponse;
 import com.egongil.numva_android_app.src.config.models.request.DeleteSimpleMemoRequest;
@@ -38,7 +40,7 @@ import com.egongil.numva_android_app.src.config.models.response.UpdateSimpleMemo
 
 import java.util.ArrayList;
 
-public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActivityView , ConnectionReceiver.ConnectionReceiverListener {
+public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActivityContract, ConnectionReceiver.ConnectionReceiverListener {
     public static Context mContext;
     private ArrayList<SimpleMemoRecyclerItem> mSimpleMemoList;
     private String initialMemo;
@@ -214,7 +216,7 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
         SetParkingMemoRequest setParkingMemoRequest = new SetParkingMemoRequest();
         setParkingMemoRequest.setSafety_info_id(safety_info_id);
         setParkingMemoRequest.setMemo(memo);
-        parkingMemoService.setparkingMemo(setParkingMemoRequest);
+        parkingMemoService.setParkingMemo(setParkingMemoRequest);
     };
 
     private void getSimpleMemo(){

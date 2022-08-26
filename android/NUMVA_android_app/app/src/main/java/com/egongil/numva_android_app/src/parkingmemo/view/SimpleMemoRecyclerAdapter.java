@@ -1,8 +1,7 @@
-package com.egongil.numva_android_app.src.parkingmemo;
+package com.egongil.numva_android_app.src.parkingmemo.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.custom_dialogs.EditTextDialog;
+import com.egongil.numva_android_app.src.parkingmemo.model.SimpleMemoRecyclerItem;
 
 import java.util.ArrayList;
 

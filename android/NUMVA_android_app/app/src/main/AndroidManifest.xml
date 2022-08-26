@@ -76,7 +76,7 @@
         <activity android:name=".src.qr_scan.QrScanResultActivity" />
         <activity android:name=".src.main.view.MainActivity" />
         <activity
-            android:name=".src.parkingmemo.ParkingMemoActivity"
+            android:name=".src.parkingmemo.view.ParkingMemoActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <receiver
