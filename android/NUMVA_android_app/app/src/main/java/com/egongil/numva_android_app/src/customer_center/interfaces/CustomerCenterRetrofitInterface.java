@@ -1,6 +1,6 @@
 package com.egongil.numva_android_app.src.customer_center.interfaces;
 
-import com.egongil.numva_android_app.src.customer_center.models.FAQResponse;
+import com.egongil.numva_android_app.src.config.models.FAQResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

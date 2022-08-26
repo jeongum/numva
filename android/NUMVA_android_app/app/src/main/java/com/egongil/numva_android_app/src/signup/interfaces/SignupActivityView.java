@@ -1,8 +1,8 @@
 package com.egongil.numva_android_app.src.signup.interfaces;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.signup.models.SignupResponse;
-import com.egongil.numva_android_app.src.signup.models.ValidEmailResponse;
+import com.egongil.numva_android_app.src.config.models.SignupResponse;
+import com.egongil.numva_android_app.src.config.models.ValidEmailResponse;
 
 public interface SignupActivityView {
 

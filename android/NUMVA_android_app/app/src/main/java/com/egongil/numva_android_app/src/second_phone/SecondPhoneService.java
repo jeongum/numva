@@ -3,25 +3,19 @@ package com.egongil.numva_android_app.src.second_phone;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.findLogin.interfaces.ResetPwActivityView;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneActivityView;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRegisterActivityView;
 import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRetrofitInterface;
-import com.egongil.numva_android_app.src.second_phone.models.DeleteSecondPhoneRequest;
-import com.egongil.numva_android_app.src.second_phone.models.DeleteSecondPhoneResponse;
-import com.egongil.numva_android_app.src.second_phone.models.GetSecondPhoneResponse;
-import com.egongil.numva_android_app.src.second_phone.models.RepSecondPhoneRequest;
-import com.egongil.numva_android_app.src.second_phone.models.RepSecondPhoneResponse;
-import com.egongil.numva_android_app.src.second_phone.models.SetSecondPhoneRequest;
-import com.egongil.numva_android_app.src.second_phone.models.SetSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.DeleteSecondPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.DeleteSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.GetSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.RepSecondPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.RepSecondPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.SetSecondPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.SetSecondPhoneResponse;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;

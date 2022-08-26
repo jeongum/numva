@@ -13,7 +13,7 @@ import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.BaseActivity;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.customer_center.interfaces.CustomerCenterActivityView;
-import com.egongil.numva_android_app.src.customer_center.models.FAQResponse;
+import com.egongil.numva_android_app.src.config.models.FAQResponse;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 

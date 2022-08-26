@@ -3,10 +3,10 @@ package com.egongil.numva_android_app.src.signup;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.signup.interfaces.SignupActivityView;
 import com.egongil.numva_android_app.src.signup.interfaces.SignupRetrofitInterface;
-import com.egongil.numva_android_app.src.signup.models.SignupRequest;
-import com.egongil.numva_android_app.src.signup.models.SignupResponse;
-import com.egongil.numva_android_app.src.signup.models.ValidEmailRequest;
-import com.egongil.numva_android_app.src.signup.models.ValidEmailResponse;
+import com.egongil.numva_android_app.src.config.models.SignupRequest;
+import com.egongil.numva_android_app.src.config.models.SignupResponse;
+import com.egongil.numva_android_app.src.config.models.ValidEmailRequest;
+import com.egongil.numva_android_app.src.config.models.ValidEmailResponse;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

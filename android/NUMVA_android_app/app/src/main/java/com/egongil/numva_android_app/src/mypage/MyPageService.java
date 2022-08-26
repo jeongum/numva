@@ -1,20 +1,14 @@
 package com.egongil.numva_android_app.src.mypage;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.LogoutResponse;
 import com.egongil.numva_android_app.src.mypage.interfaces.MyPageFragmentContract;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class MyPageService {
@@ -25,10 +19,10 @@ public class MyPageService {
     }
 
     void getLogout(){
-        getRetrofitService().getLogout().enqueue(new Callback<RetrofitService.LogoutResponse>() {
+        getRetrofitService().getLogout().enqueue(new Callback<LogoutResponse>() {
             @Override
-            public void onResponse(Call<RetrofitService.LogoutResponse> call, Response<RetrofitService.LogoutResponse> response) {
-                RetrofitService.LogoutResponse logoutResponse = null;
+            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                LogoutResponse logoutResponse = null;
                 ErrorResponse errorResponse = null;
                 if(response.body()!=null){
                     logoutResponse = response.body();
@@ -40,7 +34,7 @@ public class MyPageService {
             }
 
             @Override
-            public void onFailure(Call<RetrofitService.LogoutResponse> call, Throwable t) {
+            public void onFailure(Call<LogoutResponse> call, Throwable t) {
                 t.printStackTrace();
                 mMyPageFragmentContract.getLogoutFailure();
             }

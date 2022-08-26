@@ -2,7 +2,7 @@ package com.egongil.numva_android_app.src.findLogin.interfaces;
 
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.findLogin.models.FindIdResponse;
+import com.egongil.numva_android_app.src.config.models.FindIdResponse;
 
 public interface FindIdActivityView {
 

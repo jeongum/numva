@@ -1,13 +1,10 @@
 package com.egongil.numva_android_app.src.signup;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,10 +21,10 @@ import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 import com.egongil.numva_android_app.src.signup.interfaces.SignupActivityView;
-import com.egongil.numva_android_app.src.signup.models.SignupRequest;
-import com.egongil.numva_android_app.src.signup.models.SignupResponse;
-import com.egongil.numva_android_app.src.signup.models.ValidEmailRequest;
-import com.egongil.numva_android_app.src.signup.models.ValidEmailResponse;
+import com.egongil.numva_android_app.src.config.models.SignupRequest;
+import com.egongil.numva_android_app.src.config.models.SignupResponse;
+import com.egongil.numva_android_app.src.config.models.ValidEmailRequest;
+import com.egongil.numva_android_app.src.config.models.ValidEmailResponse;
 
 import java.util.Random;
 

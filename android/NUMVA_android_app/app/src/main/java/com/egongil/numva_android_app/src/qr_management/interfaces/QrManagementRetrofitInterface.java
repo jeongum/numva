@@ -1,17 +1,14 @@
 package com.egongil.numva_android_app.src.qr_management.interfaces;
 
-import com.egongil.numva_android_app.src.login.models.LoginRequest;
-import com.egongil.numva_android_app.src.login.models.LoginResponse;
-import com.egongil.numva_android_app.src.qr_management.models.DeleteQrRequest;
-import com.egongil.numva_android_app.src.qr_management.models.DeleteQrResponse;
-import com.egongil.numva_android_app.src.qr_management.models.RegisterQrRequest;
-import com.egongil.numva_android_app.src.qr_management.models.RegisterQrResponse;
-import com.egongil.numva_android_app.src.qr_management.models.SetQrNameRequest;
-import com.egongil.numva_android_app.src.qr_management.models.SetQrNameResponse;
+import com.egongil.numva_android_app.src.config.models.DeleteQrRequest;
+import com.egongil.numva_android_app.src.config.models.DeleteQrResponse;
+import com.egongil.numva_android_app.src.config.models.RegisterQrRequest;
+import com.egongil.numva_android_app.src.config.models.RegisterQrResponse;
+import com.egongil.numva_android_app.src.config.models.SetQrNameRequest;
+import com.egongil.numva_android_app.src.config.models.SetQrNameResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface QrManagementRetrofitInterface {

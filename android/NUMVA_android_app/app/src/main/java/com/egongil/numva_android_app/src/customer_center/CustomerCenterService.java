@@ -3,7 +3,7 @@ package com.egongil.numva_android_app.src.customer_center;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.customer_center.interfaces.CustomerCenterActivityView;
 import com.egongil.numva_android_app.src.customer_center.interfaces.CustomerCenterRetrofitInterface;
-import com.egongil.numva_android_app.src.customer_center.models.FAQResponse;
+import com.egongil.numva_android_app.src.config.models.FAQResponse;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

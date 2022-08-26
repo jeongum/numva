@@ -6,17 +6,12 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.login.interfaces.SnsLoginActivityView;
 import com.egongil.numva_android_app.src.login.interfaces.SnsLoginRetrofitInterface;
-import com.egongil.numva_android_app.src.login.models.LinkSocialRequest;
-import com.egongil.numva_android_app.src.login.models.LinkSocialResponse;
-import com.egongil.numva_android_app.src.login.models.SocialRegisterRequest;
+import com.egongil.numva_android_app.src.config.models.LinkSocialRequest;
+import com.egongil.numva_android_app.src.config.models.LinkSocialResponse;
+import com.egongil.numva_android_app.src.config.models.SocialRegisterRequest;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 public class SnSLoginService {

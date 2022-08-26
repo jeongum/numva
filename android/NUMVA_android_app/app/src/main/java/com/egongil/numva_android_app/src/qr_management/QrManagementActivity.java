@@ -14,20 +14,21 @@ import android.widget.TextView;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.BaseActivity;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.GetSafetyInfoResponse;
 import com.egongil.numva_android_app.src.config.RecyclerTouchListener;
-import com.egongil.numva_android_app.src.config.RetrofitService;
+import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.custom_dialogs.OneLineEditDialog;
 import com.egongil.numva_android_app.src.custom_dialogs.SelectTwoButtonDialog;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.home.view.HomeFragment;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementActivityView;
-import com.egongil.numva_android_app.src.qr_management.models.DeleteQrRequest;
-import com.egongil.numva_android_app.src.qr_management.models.DeleteQrResponse;
-import com.egongil.numva_android_app.src.qr_management.models.RegisterQrRequest;
-import com.egongil.numva_android_app.src.qr_management.models.RegisterQrResponse;
-import com.egongil.numva_android_app.src.qr_management.models.SetQrNameRequest;
-import com.egongil.numva_android_app.src.qr_management.models.SetQrNameResponse;
+import com.egongil.numva_android_app.src.config.models.DeleteQrRequest;
+import com.egongil.numva_android_app.src.config.models.DeleteQrResponse;
+import com.egongil.numva_android_app.src.config.models.RegisterQrRequest;
+import com.egongil.numva_android_app.src.config.models.RegisterQrResponse;
+import com.egongil.numva_android_app.src.config.models.SetQrNameRequest;
+import com.egongil.numva_android_app.src.config.models.SetQrNameResponse;
 import com.egongil.numva_android_app.src.qr_scan.QrScanActivity;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
     Button mBtnRegister;
     ImageView mIvCloseBtn;
 
-    ArrayList<RetrofitService.SafetyInfo>mListQR;
+    ArrayList<SafetyInfo>mListQR;
 
     OneLineEditDialog directDialog;
     
@@ -117,7 +118,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
     }
 
     @Override
-    public void getSafetyInfoSuccess(RetrofitService.GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse) {
+    public void getSafetyInfoSuccess(GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse) {
         if(getSafetyInfoResponse!=null) {
             if (getSafetyInfoResponse.getCode() == 200 && getSafetyInfoResponse.isSuccess()) {
                 //성공 시 동작

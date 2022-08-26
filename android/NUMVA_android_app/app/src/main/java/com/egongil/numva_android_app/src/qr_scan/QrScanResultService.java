@@ -6,21 +6,15 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 import android.util.Log;
 
 import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoRetrofitInterface;
-import com.egongil.numva_android_app.src.qr_management.models.RegisterQrRequest;
-import com.egongil.numva_android_app.src.qr_management.models.RegisterQrResponse;
+import com.egongil.numva_android_app.src.config.models.RegisterQrRequest;
+import com.egongil.numva_android_app.src.config.models.RegisterQrResponse;
 import com.egongil.numva_android_app.src.qr_scan.interfaces.QrScanResultActivityView;
 import com.egongil.numva_android_app.src.qr_scan.interfaces.QrScanResultRetrofitInterface;
-import com.egongil.numva_android_app.src.qr_scan.models.ScanQrRequest;
-import com.egongil.numva_android_app.src.qr_scan.models.ScanQrResponse;
+import com.egongil.numva_android_app.src.config.models.ScanQrRequest;
+import com.egongil.numva_android_app.src.config.models.ScanQrResponse;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 public class QrScanResultService {

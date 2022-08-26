@@ -5,18 +5,16 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 
 import android.util.Log;
 
-import com.egongil.numva_android_app.src.config.Callback;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService;
 import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementActivityView;
 import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementRetrofitInterface;
-import com.egongil.numva_android_app.src.qr_management.models.DeleteQrRequest;
-import com.egongil.numva_android_app.src.qr_management.models.DeleteQrResponse;
-import com.egongil.numva_android_app.src.config.RetrofitService.GetSafetyInfoResponse;
-import com.egongil.numva_android_app.src.qr_management.models.RegisterQrRequest;
-import com.egongil.numva_android_app.src.qr_management.models.RegisterQrResponse;
-import com.egongil.numva_android_app.src.qr_management.models.SetQrNameRequest;
-import com.egongil.numva_android_app.src.qr_management.models.SetQrNameResponse;
+import com.egongil.numva_android_app.src.config.models.DeleteQrRequest;
+import com.egongil.numva_android_app.src.config.models.DeleteQrResponse;
+import com.egongil.numva_android_app.src.config.models.GetSafetyInfoResponse;
+import com.egongil.numva_android_app.src.config.models.RegisterQrRequest;
+import com.egongil.numva_android_app.src.config.models.RegisterQrResponse;
+import com.egongil.numva_android_app.src.config.models.SetQrNameRequest;
+import com.egongil.numva_android_app.src.config.models.SetQrNameResponse;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

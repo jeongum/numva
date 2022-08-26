@@ -2,11 +2,11 @@ package com.egongil.numva_android_app.src.findLogin.interfaces;
 
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
 import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
-import com.egongil.numva_android_app.src.findLogin.models.FindIdRequest;
-import com.egongil.numva_android_app.src.findLogin.models.FindIdResponse;
-import com.egongil.numva_android_app.src.findLogin.models.FindPwRequest;
-import com.egongil.numva_android_app.src.findLogin.models.FindPwResponse;
-import com.egongil.numva_android_app.src.findLogin.models.ResetPwRequest;
+import com.egongil.numva_android_app.src.config.models.FindIdRequest;
+import com.egongil.numva_android_app.src.config.models.FindIdResponse;
+import com.egongil.numva_android_app.src.config.models.FindPwRequest;
+import com.egongil.numva_android_app.src.config.models.FindPwResponse;
+import com.egongil.numva_android_app.src.config.models.ResetPwRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

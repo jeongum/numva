@@ -6,23 +6,18 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityView;
 import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoRetrofitInterface;
-import com.egongil.numva_android_app.src.parkingmemo.models.AddSimpleMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.AddSimpleMemoResponse;
-import com.egongil.numva_android_app.src.parkingmemo.models.DeleteSimpleMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.EditSimpleMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.GetParkingMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.GetParkingMemoResponse;
-import com.egongil.numva_android_app.src.parkingmemo.models.GetSimpleMemoResponse;
-import com.egongil.numva_android_app.src.parkingmemo.models.SetParkingMemoRequest;
-import com.egongil.numva_android_app.src.parkingmemo.models.UpdateSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.AddSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.AddSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.DeleteSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.EditSimpleMemoRequest;
+import com.egongil.numva_android_app.src.config.models.GetParkingMemoRequest;
+import com.egongil.numva_android_app.src.config.models.GetParkingMemoResponse;
+import com.egongil.numva_android_app.src.config.models.GetSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.models.SetParkingMemoRequest;
+import com.egongil.numva_android_app.src.config.models.UpdateSimpleMemoResponse;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 public class ParkingMemoService {

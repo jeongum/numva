@@ -3,16 +3,11 @@ package com.egongil.numva_android_app.src.edit_userinfo;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.edit_userinfo.interfaces.EditUserInfoActivityView;
 import com.egongil.numva_android_app.src.edit_userinfo.interfaces.EditUserInfoRetrofitInterface;
-import com.egongil.numva_android_app.src.edit_userinfo.models.EditUserInfoRequest;
-import com.egongil.numva_android_app.src.edit_userinfo.models.EditUserInfoResponse;
+import com.egongil.numva_android_app.src.config.models.EditUserInfoRequest;
+import com.egongil.numva_android_app.src.config.models.EditUserInfoResponse;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;

@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +28,8 @@ import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.BaseFragment;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.findLogin.interfaces.FindPwActivityView;
-import com.egongil.numva_android_app.src.findLogin.models.FindPwRequest;
-import com.egongil.numva_android_app.src.findLogin.models.FindPwResponse;
+import com.egongil.numva_android_app.src.config.models.FindPwRequest;
+import com.egongil.numva_android_app.src.config.models.FindPwResponse;
 
 public class FindPwFragment extends BaseFragment implements FindPwActivityView{
 

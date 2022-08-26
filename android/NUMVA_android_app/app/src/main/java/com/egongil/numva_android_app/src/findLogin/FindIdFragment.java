@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +29,8 @@ import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.BaseFragment;
 import com.egongil.numva_android_app.src.config.ErrorResponse;
 import com.egongil.numva_android_app.src.findLogin.interfaces.FindIdActivityView;
-import com.egongil.numva_android_app.src.findLogin.models.FindIdRequest;
-import com.egongil.numva_android_app.src.findLogin.models.FindIdResponse;
+import com.egongil.numva_android_app.src.config.models.FindIdRequest;
+import com.egongil.numva_android_app.src.config.models.FindIdResponse;
 
 public class FindIdFragment extends BaseFragment implements FindIdActivityView {
 
