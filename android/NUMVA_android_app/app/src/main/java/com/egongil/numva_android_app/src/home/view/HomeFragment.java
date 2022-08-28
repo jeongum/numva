@@ -43,8 +43,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
     MainViewModel mMainViewModel;
     ActivityResultLauncher<Intent> mActivityResultLauncher;
 
-    //TODO: parkingmemoActivity, QRManagementActivity에서 getSafeyInfo를 해야해서 임시로 public 설정해둠
-    //TODO: parkingmemo, QR~에서 ViewModel 활용하도록 변경해서 getSafetyInfo 호출할 필요 없도록 만들기
     private HomeService mHomeService;
 
     HomeQrViewPagerAdapter mViewPagerAdapter;
