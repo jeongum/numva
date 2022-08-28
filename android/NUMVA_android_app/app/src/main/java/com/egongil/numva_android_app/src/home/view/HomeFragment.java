@@ -1,7 +1,5 @@
 package com.egongil.numva_android_app.src.home.view;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -32,7 +30,7 @@ import com.egongil.numva_android_app.src.home.interfaces.HomeFragmentContract;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
-import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
+import com.egongil.numva_android_app.src.qr_management.view.QrManagementActivity;
 
 import java.util.ArrayList;
 

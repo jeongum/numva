@@ -6,7 +6,7 @@ import com.egongil.numva_android_app.src.config.models.response.DeleteQrResponse
 import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
 import com.egongil.numva_android_app.src.config.models.response.SetQrNameResponse;
 
-public interface QrManagementActivityView {
+public interface QrManagementActivityContract {
 
 //    void getSafetyInfoSuccess(GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse);
 //    void getSafetyInfoFailure();

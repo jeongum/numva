@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.qr_management;
+package com.egongil.numva_android_app.src.qr_management.view;
 
 
 import android.content.Context;

@@ -20,7 +20,7 @@ import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.numvatalk.NumvatalkActivity;
-import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
+import com.egongil.numva_android_app.src.qr_management.view.QrManagementActivity;
 import com.egongil.numva_android_app.src.config.models.request.RegisterQrRequest;
 import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
 import com.egongil.numva_android_app.src.qr_scan.interfaces.QrScanResultActivityView;

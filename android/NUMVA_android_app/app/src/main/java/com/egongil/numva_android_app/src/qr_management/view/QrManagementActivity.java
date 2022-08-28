@@ -1,6 +1,5 @@
-package com.egongil.numva_android_app.src.qr_management;
+package com.egongil.numva_android_app.src.qr_management.view;
 
-import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.PARKING_MEMO_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_MANAGEMENT_ACTIVITY;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,15 +16,14 @@ import android.widget.TextView;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.config.models.response.GetSafetyInfoResponse;
 import com.egongil.numva_android_app.src.config.view.RecyclerTouchListener;
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.custom_dialogs.OneLineEditDialog;
 import com.egongil.numva_android_app.src.custom_dialogs.SelectTwoButtonDialog;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
-import com.egongil.numva_android_app.src.home.view.HomeFragment;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
-import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementActivityView;
+import com.egongil.numva_android_app.src.qr_management.model.QrManagementService;
+import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.DeleteQrRequest;
 import com.egongil.numva_android_app.src.config.models.response.DeleteQrResponse;
 import com.egongil.numva_android_app.src.config.models.request.RegisterQrRequest;
@@ -37,7 +35,7 @@ import com.egongil.numva_android_app.src.qr_scan.QrScanActivity;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class QrManagementActivity extends BaseActivity implements QrManagementActivityView {
+public class QrManagementActivity extends BaseActivity implements QrManagementActivityContract {
 
     final static int QRNAME_VALID = 0;
     final static int QRNAME_EMPTY = 1;

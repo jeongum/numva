@@ -50,7 +50,7 @@
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="${kakaoAppkey}" />
 
         <activity
-            android:name=".src.qr_management.QrManagementActivity"
+            android:name=".src.qr_management.view.QrManagementActivity"
             android:exported="true" />
         <activity android:name=".src.edit_userinfo.EditUserInfoActivity" />
         <activity android:name=".src.findLogin.FindLoginActivity" />
