@@ -136,8 +136,6 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
                 setParkingMemo(initialMemo);
                 hideKeyboard((ParkingMemoActivity)mContext);
                 mEtNowMemo.clearFocus();
-
-                setResultCallback(initialMemo); //MainViewModel에 전달
             }
         });
 
@@ -283,9 +281,7 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
             //setMemo 성공 시
             if(getParkingMemoResponse.getCode() == 200 && getParkingMemoResponse.isSuccess()){
                 showCustomToast(getResources().getString(R.string.parking_memo_save_success));
-
-                //HomeFragment 주차메모
-                ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).mHomeService.getSafetyInfo();
+                setResultCallback(initialMemo); //MainViewModel에 전달
             }
         }
         else if(errorResponse != null){

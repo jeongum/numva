@@ -45,7 +45,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
 
     //TODO: parkingmemoActivity, QRManagementActivity에서 getSafeyInfo를 해야해서 임시로 public 설정해둠
     //TODO: parkingmemo, QR~에서 ViewModel 활용하도록 변경해서 getSafetyInfo 호출할 필요 없도록 만들기
-    public HomeService mHomeService;
+    private HomeService mHomeService;
 
     HomeQrViewPagerAdapter mViewPagerAdapter;
 
@@ -95,10 +95,13 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
         mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if(result.getResultCode()==PARKING_MEMO_ACTIVITY){//resultCode가 PARKING_MEMO_ACTIVITY로 넘어온다면
                 Intent intent = result.getData();   //ActivityResult객체 result로 intent를 받아온다.
-                int pos = intent.getIntExtra("parking_pos", -1);
+                int pos = intent.getIntExtra("safety_info_pos", -1);
                 String memo = intent.getStringExtra("parking_memo");
 
-                if(pos!=-1) mMainViewModel.setParkingMemo(pos, memo);
+                if(pos!=-1){
+                    mMainViewModel.setParkingMemo(pos, memo);
+                    setViewPager();
+                }
             }else if(result.getResultCode()==QR_MANAGEMENT_ACTIVITY){
                 Intent intent = result.getData();
                 ArrayList<SafetyInfo>mListQR = (ArrayList<SafetyInfo>)intent.getSerializableExtra("safety_info");
