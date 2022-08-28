@@ -8,8 +8,8 @@ import com.egongil.numva_android_app.src.config.models.response.SetQrNameRespons
 
 public interface QrManagementActivityView {
 
-    void getSafetyInfoSuccess(GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse);
-    void getSafetyInfoFailure();
+//    void getSafetyInfoSuccess(GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse);
+//    void getSafetyInfoFailure();
 
     void setQrNameSuccess(SetQrNameResponse setQrNameResponse, ErrorResponse errorResponse);
     void setQrNameFailure();

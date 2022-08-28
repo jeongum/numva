@@ -89,6 +89,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), QrManagementActivity.class);
+                intent.putExtra("safety_info", mMainViewModel.getSafetyInfoData().getValue());
                 mActivityResultLauncher.launch(intent);
             }
         });

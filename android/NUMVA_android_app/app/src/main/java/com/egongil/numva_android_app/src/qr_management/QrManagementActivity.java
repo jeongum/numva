@@ -35,6 +35,7 @@ import com.egongil.numva_android_app.src.config.models.response.SetQrNameRespons
 import com.egongil.numva_android_app.src.qr_scan.QrScanActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class QrManagementActivity extends BaseActivity implements QrManagementActivityView {
 
@@ -93,7 +94,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                 });
         mRvQrList.addOnItemTouchListener(touchListener);
 
-        getSafetyInfo();
+        initSafetyInfo();
 
         mIvCloseBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
@@ -114,46 +115,19 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         }
         return QRNAME_VALID;
     }
+    public void initSafetyInfo(){
+        mListQR = (ArrayList<SafetyInfo>) getIntent().getSerializableExtra("safety_info");
+        ((QrRecyclerAdapter) Objects.requireNonNull(mRvQrList.getAdapter())).updateData(mListQR);
 
-    public void getSafetyInfo(){
-        QrManagementService qrManagementService  = new QrManagementService(this);
-        qrManagementService.getSafetyInfo();
-    }
-
-    @Override
-    public void getSafetyInfoSuccess(GetSafetyInfoResponse getSafetyInfoResponse, ErrorResponse errorResponse) {
-        if(getSafetyInfoResponse!=null) {
-            if (getSafetyInfoResponse.getCode() == 200 && getSafetyInfoResponse.isSuccess()) {
-                //성공 시 동작
-                mListQR = getSafetyInfoResponse.getResult();
-                ((QrRecyclerAdapter)mRvQrList.getAdapter()).updateData(mListQR);
-//                ((HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).;
-
-
-                if(mListQR.size()!=0){
-                    //등록된 QR 있을 경우
-                    mTvQrNotExist.setVisibility(View.GONE);
-                    mRvQrList.setVisibility(View.VISIBLE);
-                } else{
-//                    //등록된 QR 없을 경우
-                    mTvQrNotExist.setVisibility(View.VISIBLE);
-                    mRvQrList.setVisibility(View.GONE);
-                }
-            }
+        if(mListQR.size()!=0){
+            //등록된 QR 있을 경우
+            mTvQrNotExist.setVisibility(View.GONE);
+            mRvQrList.setVisibility(View.VISIBLE);
+        } else{
+            //등록된 QR 없을 경우
+            mTvQrNotExist.setVisibility(View.VISIBLE);
+            mRvQrList.setVisibility(View.GONE);
         }
-        else if(errorResponse != null){
-            //에러 시 동작
-            if(errorResponse.getCode() == -103) {
-                showCustomToast(getResources().getString(R.string.alert_data_not_matched_error));
-            }else{
-                showCustomToast(getResources().getString(R.string.network_error));
-            }
-        }
-    }
-
-    @Override
-    public void getSafetyInfoFailure() {
-        showCustomToast(getResources().getString(R.string.network_error));
     }
 
     public void setQrName(int id, String name){
@@ -201,7 +175,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                 showCustomToast(getString(R.string.qr_manage_register_success));
                 mListQR = registerQrResponse.getResult();
 
-                ((QrRecyclerAdapter) mRvQrList.getAdapter()).updateData(mListQR); //RecyclerView 업데이트
+                ((QrRecyclerAdapter) Objects.requireNonNull(mRvQrList.getAdapter())).updateData(mListQR); //RecyclerView 업데이트
 //                updateHomeViewPager();  //HomeFragment의 Viewpaer 업데이트
                 putIntentSafetyInfo();
 
@@ -323,7 +297,6 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                     mListQR.get(position).setName(strEdit);
 
                     ((QrRecyclerAdapter) mRvQrList.getAdapter()).updateData(mListQR); //RecyclerView 업데이트
-//                    updateHomeViewPager();  //HomeFragment의 Viewpaer 업데이트
 
                     putIntentSafetyInfo();
                 }
@@ -356,16 +329,11 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
             public void onSingleClick(View v) {
                 deleteQr(mListQR.get(position).getId());    //api
                 mListQR.remove(position);
-                ((QrRecyclerAdapter)mRvQrList.getAdapter()).updateData(mListQR);
-//                updateHomeViewPager();
+                ((QrRecyclerAdapter) Objects.requireNonNull(mRvQrList.getAdapter())).updateData(mListQR);
                 putIntentSafetyInfo();
                 deleteDialog.dismiss();
             }
         });
-    }
-
-    public void updateHomeViewPager(){
-        ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).mHomeService.getSafetyInfo();
     }
 
     //HomeFragment로 향할 intent에 mListQR담기

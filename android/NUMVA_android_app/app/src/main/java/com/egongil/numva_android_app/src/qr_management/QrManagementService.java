@@ -24,30 +24,6 @@ public class QrManagementService {
     public QrManagementService(QrManagementActivityView qrManagementActivityView){
         this.qrManagementActivityView = qrManagementActivityView;
     }
-    void getSafetyInfo(){
-        getRetrofitService().getSafetyInfo().enqueue(new retrofit2.Callback<GetSafetyInfoResponse>() {
-            @Override
-            public void onResponse(Call<GetSafetyInfoResponse> call, Response<GetSafetyInfoResponse> response) {
-                Log.e("response.code()", String.valueOf(response.code()));
-
-                GetSafetyInfoResponse getSafetyInfoResponse = null;
-                ErrorResponse errorResponse = null;
-                if(response.body()!= null) {
-                    getSafetyInfoResponse = response.body();
-                }
-                else {
-                    errorResponse = convertErrorResponse(response);
-                }
-                qrManagementActivityView.getSafetyInfoSuccess(getSafetyInfoResponse, errorResponse);
-            }
-
-            @Override
-            public void onFailure(Call<GetSafetyInfoResponse> call, Throwable t) {
-                t.printStackTrace();
-                qrManagementActivityView.getSafetyInfoFailure();
-            }
-        });
-    }
 
     void setQrName(SetQrNameRequest setQrNameRequest){
         getRetrofitService().setQrName(setQrNameRequest).enqueue(new retrofit2.Callback<SetQrNameResponse>(){
