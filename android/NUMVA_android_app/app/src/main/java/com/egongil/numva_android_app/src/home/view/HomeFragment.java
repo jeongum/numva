@@ -67,7 +67,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
 
         binding.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
         binding.refreshLayout.setOnRefreshListener(() -> {
-            if(!(((MainActivity)getActivity()).isLogin())){
+            if((((MainActivity)getActivity()).isLogin())){
                 //로그인 상태일 경우
                 ((MainActivity)getActivity()).getUser();
                 mHomeService.getSafetyInfo();

@@ -77,7 +77,9 @@ public class MainViewModel extends ViewModel {
         if (mSafetyInfo == null) {
             getSafetyInfoData();
         }
-        mSafetyInfo.setValue(safetyInfo);
+//        mSafetyInfo.setValue(safetyInfo);
+        mSafetyInfo.clear(true);
+        mSafetyInfo.addAll(safetyInfo);
     }
 
     public void setParkingMemo(int pos, String newMemo){

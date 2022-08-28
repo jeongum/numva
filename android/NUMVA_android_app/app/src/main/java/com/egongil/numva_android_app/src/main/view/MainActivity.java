@@ -113,7 +113,8 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
 
     }
     public boolean isLogin(){
-        if(sSharedPreferences.getString(X_ACCESS_TOKEN,"").equals(""))  return false;
+        if(sSharedPreferences.getString(X_ACCESS_TOKEN,"").equals(""))
+            return false;
         return true;
     }
     public void checkLoginState(){
