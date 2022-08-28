@@ -1,5 +1,8 @@
 package com.egongil.numva_android_app.src.qr_management;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.PARKING_MEMO_ACTIVITY;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_MANAGEMENT_ACTIVITY;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -131,8 +134,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                     //등록된 QR 있을 경우
                     mTvQrNotExist.setVisibility(View.GONE);
                     mRvQrList.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else{
 //                    //등록된 QR 없을 경우
                     mTvQrNotExist.setVisibility(View.VISIBLE);
                     mRvQrList.setVisibility(View.GONE);
@@ -200,7 +202,8 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                 mListQR = registerQrResponse.getResult();
 
                 ((QrRecyclerAdapter) mRvQrList.getAdapter()).updateData(mListQR); //RecyclerView 업데이트
-                updateHomeViewPager();  //HomeFragment의 Viewpaer 업데이트
+//                updateHomeViewPager();  //HomeFragment의 Viewpaer 업데이트
+                putIntentSafetyInfo();
 
             }
         }
@@ -320,8 +323,9 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                     mListQR.get(position).setName(strEdit);
 
                     ((QrRecyclerAdapter) mRvQrList.getAdapter()).updateData(mListQR); //RecyclerView 업데이트
-                    updateHomeViewPager();  //HomeFragment의 Viewpaer 업데이트
+//                    updateHomeViewPager();  //HomeFragment의 Viewpaer 업데이트
 
+                    putIntentSafetyInfo();
                 }
                 else if(isQrNameValid == QRNAME_EMPTY) {
                     editDialog.setGuideText("한 글자 이상 입력해주세요.");
@@ -353,7 +357,8 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                 deleteQr(mListQR.get(position).getId());    //api
                 mListQR.remove(position);
                 ((QrRecyclerAdapter)mRvQrList.getAdapter()).updateData(mListQR);
-                updateHomeViewPager();
+//                updateHomeViewPager();
+                putIntentSafetyInfo();
                 deleteDialog.dismiss();
             }
         });
@@ -361,5 +366,12 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
 
     public void updateHomeViewPager(){
         ((HomeFragment)((MainActivity)MainActivity.mContext).getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.nav_home))).mHomeService.getSafetyInfo();
+    }
+
+    //HomeFragment로 향할 intent에 mListQR담기
+    public void putIntentSafetyInfo(){
+        Intent finish_intent = new Intent(getApplicationContext(), MainActivity.class);
+        finish_intent.putExtra("safety_info", mListQR);
+        setResult(QR_MANAGEMENT_ACTIVITY, finish_intent);
     }
 }

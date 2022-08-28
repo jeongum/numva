@@ -37,6 +37,7 @@ import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
 import java.util.ArrayList;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.PARKING_MEMO_ACTIVITY;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_MANAGEMENT_ACTIVITY;
 
 public class HomeFragment extends BaseFragment implements HomeFragmentContract {
     FragmentHomeBinding binding;
@@ -88,7 +89,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), QrManagementActivity.class);
-                startActivity(intent);
+                mActivityResultLauncher.launch(intent);
             }
         });
 
@@ -99,6 +100,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
                 String memo = intent.getStringExtra("parking_memo");
 
                 if(pos!=-1) mMainViewModel.setParkingMemo(pos, memo);
+            }else if(result.getResultCode()==QR_MANAGEMENT_ACTIVITY){
+                Intent intent = result.getData();
+                ArrayList<SafetyInfo>mListQR = (ArrayList<SafetyInfo>)intent.getSerializableExtra("safety_info");
+                mMainViewModel.setSafetyInfoData(mListQR);
+                setViewPager();
             }
         });
 
@@ -175,7 +181,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
                     setViewPagerSafetyGuideItem();
                 }else{
                     mMainViewModel.setSafetyInfoData(mListQR);
-                    mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel, mActivityResultLauncher);
                 }
             }
         }
@@ -201,11 +206,12 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
         ArrayList<SafetyInfo>mListQR = new ArrayList<>();
         mListQR.add(new SafetyInfo(-1));
         mMainViewModel.setSafetyInfoData(mListQR);
-        mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel, mActivityResultLauncher);
     }
 
     //ViewPager에 ViewPagerAdapter를 붙이고, indicator 설정
     private void setViewPager(){
+        mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel, mActivityResultLauncher);
+
         binding.qrViewPager.setAdapter(mViewPagerAdapter);
         binding.qrIndicator.setViewPager(binding.qrViewPager);
 
