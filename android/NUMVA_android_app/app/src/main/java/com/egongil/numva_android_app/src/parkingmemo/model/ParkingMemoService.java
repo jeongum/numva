@@ -20,10 +20,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ParkingMemoService {
-    private final ParkingMemoActivityContract mParkingMemoActivityView;
+    private final ParkingMemoActivityContract mParkingMemoActivityContract;
 
-    public ParkingMemoService(ParkingMemoActivityContract mParkingMemoActivityView) {
-        this.mParkingMemoActivityView = mParkingMemoActivityView;
+    public ParkingMemoService(ParkingMemoActivityContract mParkingMemoActivityContract) {
+        this.mParkingMemoActivityContract = mParkingMemoActivityContract;
     }
 
     public void getParkingMemo(GetParkingMemoRequest getParkingMemoRequest){
@@ -37,13 +37,13 @@ public class ParkingMemoService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mParkingMemoActivityView.getParkingMemoSuccess(getParkingMemoResponse, errorResponse);
+                mParkingMemoActivityContract.getParkingMemoSuccess(getParkingMemoResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<GetParkingMemoResponse> call, Throwable t) {
                 t.printStackTrace();
-                mParkingMemoActivityView.getParkingMemoFailure();
+                mParkingMemoActivityContract.getParkingMemoFailure();
             }
         });
     }
@@ -59,13 +59,13 @@ public class ParkingMemoService {
                 }else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mParkingMemoActivityView.setParkingMemoSuccess(getParkingMemoResponse, errorResponse);
+                mParkingMemoActivityContract.setParkingMemoSuccess(getParkingMemoResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<GetParkingMemoResponse> call, Throwable t) {
                 t.printStackTrace();
-                mParkingMemoActivityView.setParkingMemoFailure();
+                mParkingMemoActivityContract.setParkingMemoFailure();
             }
         });
     }
@@ -80,13 +80,13 @@ public class ParkingMemoService {
                 }else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mParkingMemoActivityView.getSimpleMemoSuccess(getSimpleMemoResponse, errorResponse);
+                mParkingMemoActivityContract.getSimpleMemoSuccess(getSimpleMemoResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<GetSimpleMemoResponse> call, Throwable t) {
                 t.printStackTrace();
-                mParkingMemoActivityView.getSimpleMemoFailure();
+                mParkingMemoActivityContract.getSimpleMemoFailure();
             }
         });
     }
@@ -101,13 +101,13 @@ public class ParkingMemoService {
                 }else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mParkingMemoActivityView.deleteSimpleMemoSuccess(updateSimpleMemoResponse, errorResponse);
+                mParkingMemoActivityContract.deleteSimpleMemoSuccess(updateSimpleMemoResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<UpdateSimpleMemoResponse> call, Throwable t) {
                 t.printStackTrace();
-                mParkingMemoActivityView.deleteSimpleMemoFailure();
+                mParkingMemoActivityContract.deleteSimpleMemoFailure();
             }
         });
     }
@@ -122,13 +122,13 @@ public class ParkingMemoService {
                 }else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mParkingMemoActivityView.editSimpleMemoSuccess(updateSimpleMemoResponse, errorResponse);
+                mParkingMemoActivityContract.editSimpleMemoSuccess(updateSimpleMemoResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<UpdateSimpleMemoResponse> call, Throwable t) {
                 t.printStackTrace();
-                mParkingMemoActivityView.editSimpleMemoFailure();
+                mParkingMemoActivityContract.editSimpleMemoFailure();
             }
         });
     }
@@ -143,13 +143,13 @@ public class ParkingMemoService {
                 }else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mParkingMemoActivityView.addSimpleMemoSucccess(addSimpleMemoResponse, errorResponse);
+                mParkingMemoActivityContract.addSimpleMemoSucccess(addSimpleMemoResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<AddSimpleMemoResponse> call, Throwable t) {
                 t.printStackTrace();
-                mParkingMemoActivityView.addSimpleMemoFailure();
+                mParkingMemoActivityContract.addSimpleMemoFailure();
             }
         });
     }

@@ -21,20 +21,20 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 
 public class FindLoginService {
     private FindIdActivityContract mFindIdActivityContract;
-    private FindPwActivityContract mFindPwActivityView;
-    private ResetPwActivityContract mResetPwActivityView;
-    private FindIdActivityContract mCertPhoneActivityView;
+    private FindPwActivityContract mFindPwActivityContract;
+    private ResetPwActivityContract mResetPwActivityContract;
+    private FindIdActivityContract mCertPhoneActivityContract;
 
-    public FindLoginService(FindIdActivityContract mFindLoginActivityView) {
-        this.mFindIdActivityContract = mFindLoginActivityView;
+    public FindLoginService(FindIdActivityContract mFindLoginActivityContract) {
+        this.mFindIdActivityContract = mFindLoginActivityContract;
     }
 
-    public FindLoginService(FindPwActivityContract mFindPwActivityView){
-        this.mFindPwActivityView = mFindPwActivityView;
+    public FindLoginService(FindPwActivityContract mFindPwActivityContract){
+        this.mFindPwActivityContract = mFindPwActivityContract;
     }
 
-    public FindLoginService(ResetPwActivityContract mResetPwActivityView){
-        this.mResetPwActivityView = mResetPwActivityView;
+    public FindLoginService(ResetPwActivityContract mResetPwActivityContract){
+        this.mResetPwActivityContract = mResetPwActivityContract;
     }
 
     public void postFindId(FindIdRequest findIdRequest){
@@ -71,13 +71,13 @@ public class FindLoginService {
                 else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mFindPwActivityView.postFindPwSuccess(findPwResponse, errorResponse);
+                mFindPwActivityContract.postFindPwSuccess(findPwResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<FindPwResponse> call, Throwable t) {
                 t.printStackTrace();
-                mFindPwActivityView.postFindPwFailure();
+                mFindPwActivityContract.postFindPwFailure();
             }
         });
     }
@@ -93,13 +93,13 @@ public class FindLoginService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mResetPwActivityView.postResetPwSuccess(findPwResponse, errorResponse);
+                mResetPwActivityContract.postResetPwSuccess(findPwResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<FindPwResponse> call, Throwable t) {
                 t.printStackTrace();
-                mResetPwActivityView.postResetPwFailure();
+                mResetPwActivityContract.postResetPwFailure();
             }
         });
     }
@@ -119,8 +119,8 @@ public class FindLoginService {
                 if(call== mFindIdActivityContract){
                     mFindIdActivityContract.postCertPhoneSuccess(certPhoneResponse, errorResponse);
                 }
-                if(call==mFindPwActivityView){
-                    mFindPwActivityView.postCertPhoneSuccess(certPhoneResponse, errorResponse);
+                if(call== mFindPwActivityContract){
+                    mFindPwActivityContract.postCertPhoneSuccess(certPhoneResponse, errorResponse);
                 }
 
             }
@@ -130,8 +130,8 @@ public class FindLoginService {
                 if (call == mFindIdActivityContract) {
                     mFindIdActivityContract.postCertPhoneFailure();
                 }
-                if(call==mFindPwActivityView){
-                    mFindPwActivityView.postCertPhoneFailure();
+                if(call== mFindPwActivityContract){
+                    mFindPwActivityContract.postCertPhoneFailure();
                 }
 
             }

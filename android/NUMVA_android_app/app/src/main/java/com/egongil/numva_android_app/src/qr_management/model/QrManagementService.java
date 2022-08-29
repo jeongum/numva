@@ -18,10 +18,10 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class QrManagementService {
-    private final QrManagementActivityContract qrManagementActivityView;
+    private final QrManagementActivityContract mQrManagementActivityContract;
 
-    public QrManagementService(QrManagementActivityContract qrManagementActivityView){
-        this.qrManagementActivityView = qrManagementActivityView;
+    public QrManagementService(QrManagementActivityContract mQrManagementActivityContract){
+        this.mQrManagementActivityContract = mQrManagementActivityContract;
     }
 
     public void setQrName(SetQrNameRequest setQrNameRequest){
@@ -38,13 +38,13 @@ public class QrManagementService {
                 else {
                     errorResponse = convertErrorResponse(response);
                 }
-                qrManagementActivityView.setQrNameSuccess(setQrNameResponse, errorResponse);
+                mQrManagementActivityContract.setQrNameSuccess(setQrNameResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<SetQrNameResponse> call, Throwable t) {
                 t.printStackTrace();
-                qrManagementActivityView.setQrNameFailure();
+                mQrManagementActivityContract.setQrNameFailure();
             }
         });
     }
@@ -62,13 +62,13 @@ public class QrManagementService {
                 else{
                     errorResponse = convertErrorResponse(response);
                 }
-                qrManagementActivityView.registerQrSuccess(registerQrResponse, errorResponse);
+                mQrManagementActivityContract.registerQrSuccess(registerQrResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<RegisterQrResponse> call, Throwable t) {
                 t.printStackTrace();
-                qrManagementActivityView.registerQrFailure();
+                mQrManagementActivityContract.registerQrFailure();
             }
         });
     }
@@ -85,13 +85,13 @@ public class QrManagementService {
                 }else{
                     errorResponse = convertErrorResponse(response);
                 }
-                qrManagementActivityView.deleteQrSuccess(deleteQrResponse, errorResponse);
+                mQrManagementActivityContract.deleteQrSuccess(deleteQrResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<DeleteQrResponse> call, Throwable t) {
                 t.printStackTrace();
-                qrManagementActivityView.deleteQrFailure();
+                mQrManagementActivityContract.deleteQrFailure();
             }
         });
     }

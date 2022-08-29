@@ -13,10 +13,10 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 
 public class DeleteAccountService {
 
-    private final DeleteAccountActivityContract mDeleteAccountActivityView;
+    private final DeleteAccountActivityContract mDeleteAccountActivityContract;
 
-    public DeleteAccountService(DeleteAccountActivityContract mDeleteAccountActivityView) {
-        this.mDeleteAccountActivityView = mDeleteAccountActivityView;
+    public DeleteAccountService(DeleteAccountActivityContract mDeleteAccountActivityContract) {
+        this.mDeleteAccountActivityContract = mDeleteAccountActivityContract;
     }
 
     public void deleteAccount(){
@@ -31,13 +31,13 @@ public class DeleteAccountService {
                 else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mDeleteAccountActivityView.deleteAccountSuccess(deleteAccountResponse, errorResponse);
+                mDeleteAccountActivityContract.deleteAccountSuccess(deleteAccountResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<DeleteAccountResponse> call, Throwable t) {
                 t.printStackTrace();
-                mDeleteAccountActivityView.deleteAccountFailure();
+                mDeleteAccountActivityContract.deleteAccountFailure();
             }
         });
     }
