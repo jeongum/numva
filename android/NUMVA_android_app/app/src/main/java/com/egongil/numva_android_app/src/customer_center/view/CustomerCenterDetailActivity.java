@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.customer_center;
+package com.egongil.numva_android_app.src.customer_center.view;
 
 import android.content.Intent;
 import android.os.Bundle;

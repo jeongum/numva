@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.customer_center;
+package com.egongil.numva_android_app.src.customer_center.models;
 
 public class FAQRecyclerItem {
     private int id;

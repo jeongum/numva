@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.customer_center;
+package com.egongil.numva_android_app.src.customer_center.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.customer_center.models.CustomerCenterService;
+import com.egongil.numva_android_app.src.customer_center.models.FAQRecyclerItem;
 import com.egongil.numva_android_app.src.customer_center.interfaces.CustomerCenterActivityView;
 import com.egongil.numva_android_app.src.config.models.response.FAQResponse;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;

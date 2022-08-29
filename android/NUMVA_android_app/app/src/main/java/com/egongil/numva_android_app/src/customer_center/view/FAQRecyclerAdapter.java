@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.customer_center;
+package com.egongil.numva_android_app.src.customer_center.view;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.second_phone.SecondPhoneRecyclerAdapter;
+import com.egongil.numva_android_app.src.customer_center.models.FAQRecyclerItem;
 
 import org.jetbrains.annotations.NotNull;
 

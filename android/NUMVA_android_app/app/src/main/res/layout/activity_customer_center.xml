@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.customer_center.CustomerCenterActivity">
+    tools:context=".src.customer_center.view.CustomerCenterActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/customer_center_cl_topbar"

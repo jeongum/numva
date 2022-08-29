@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.customer_center;
+package com.egongil.numva_android_app.src.customer_center.models;
 
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.customer_center.interfaces.CustomerCenterActivityView;
@@ -18,7 +18,7 @@ public class CustomerCenterService {
         this.mCustomerCenterActivityView = mCustomerCenterActivityView;
     }
 
-    void getFAQ(){
+    public void getFAQ(){
         getRetrofitService().getFAQ().enqueue(new Callback<FAQResponse>() {
             @Override
             public void onResponse(Call<FAQResponse> call, Response<FAQResponse> response) {
