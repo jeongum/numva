@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.login;
+package com.egongil.numva_android_app.src.login.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,7 +21,8 @@ import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.findLogin.view.FindLoginActivity;
-import com.egongil.numva_android_app.src.login.interfaces.LoginActivityView;
+import com.egongil.numva_android_app.src.login.models.LoginService;
+import com.egongil.numva_android_app.src.login.interfaces.LoginActivityContract;
 import com.egongil.numva_android_app.src.login.snslogin.kakaologin.KakaoLogin;
 import com.egongil.numva_android_app.src.config.models.request.LoginRequest;
 import com.egongil.numva_android_app.src.config.models.response.LoginResponse;
@@ -29,7 +30,7 @@ import com.egongil.numva_android_app.src.config.models.request.SocialLoginReques
 import com.egongil.numva_android_app.src.config.models.response.SocialLoginResponse;
 import com.egongil.numva_android_app.src.config.models.response.SocialValidEmailErrorResponse;
 import com.egongil.numva_android_app.src.config.models.response.SocialValidEmailResponse;
-import com.egongil.numva_android_app.src.login.snslogin.SnsLoginActivity;
+import com.egongil.numva_android_app.src.login.snslogin.view.SnsLoginActivity;
 import com.egongil.numva_android_app.src.login.snslogin.naverlogin.NaverLogin;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 
@@ -58,7 +59,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 
-public class LoginActivity extends BaseActivity implements LoginActivityView, ConnectionReceiver.ConnectionReceiverListener {
+public class LoginActivity extends BaseActivity implements LoginActivityContract, ConnectionReceiver.ConnectionReceiverListener {
 
     private String TAG = "LOGIN_ACTIVITY";
     public static Context mContext;

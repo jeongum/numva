@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
@@ -28,7 +27,7 @@ import com.egongil.numva_android_app.src.config.models.response.GetSafetyInfoRes
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.home.model.HomeService;
 import com.egongil.numva_android_app.src.home.interfaces.HomeFragmentContract;
-import com.egongil.numva_android_app.src.login.LoginActivity;
+import com.egongil.numva_android_app.src.login.view.LoginActivity;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.qr_management.view.QrManagementActivity;

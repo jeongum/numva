@@ -1,7 +1,7 @@
-package com.egongil.numva_android_app.src.login;
+package com.egongil.numva_android_app.src.login.models;
 
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.login.interfaces.LoginActivityView;
+import com.egongil.numva_android_app.src.login.interfaces.LoginActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.LoginRequest;
 import com.egongil.numva_android_app.src.config.models.response.LoginResponse;
 import com.egongil.numva_android_app.src.config.models.request.SocialLoginRequest;
@@ -24,14 +24,14 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class LoginService {
-    private final LoginActivityView mLoginActivityView;
+    private final LoginActivityContract mLoginActivityContract;
 
 
-    public LoginService(LoginActivityView mLoginActivityView) {
-        this.mLoginActivityView = mLoginActivityView;
+    public LoginService(LoginActivityContract mLoginActivityContract) {
+        this.mLoginActivityContract = mLoginActivityContract;
     }
 
-    void postLogin(LoginRequest loginRequest){
+    public void postLogin(LoginRequest loginRequest){
         getRetrofitService().postLogin(loginRequest).enqueue(new Callback<LoginResponse>(){
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -42,18 +42,18 @@ public class LoginService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mLoginActivityView.postLoginSuccess(loginResponse, errorResponse);
+                mLoginActivityContract.postLoginSuccess(loginResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 t.printStackTrace();
-                mLoginActivityView.postLoginFailure();
+                mLoginActivityContract.postLoginFailure();
             }
         });
     }
 
-    void isValidEmail(ValidEmailRequest validEmailRequest){
+    public void isValidEmail(ValidEmailRequest validEmailRequest){
         getRetrofitService().isValidEmail(validEmailRequest).enqueue(new Callback<SocialValidEmailResponse>(){
 
             @Override
@@ -71,18 +71,18 @@ public class LoginService {
                         e.printStackTrace();
                     }
                 }
-                mLoginActivityView.isValidEmailSuccess(validEmailResponse, errorResponse);
+                mLoginActivityContract.isValidEmailSuccess(validEmailResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<SocialValidEmailResponse> call, Throwable t) {
                 t.printStackTrace();
-                mLoginActivityView.isValidEmailFailure();
+                mLoginActivityContract.isValidEmailFailure();
             }
         });
     }
 
-    void socialLogin(SocialLoginRequest socialLoginRequest){
+    public void socialLogin(SocialLoginRequest socialLoginRequest){
         getRetrofitService().socialLogin(socialLoginRequest).enqueue(new Callback<SocialLoginResponse>() {
             @Override
             public void onResponse(Call<SocialLoginResponse> call, Response<SocialLoginResponse> response) {
@@ -93,13 +93,13 @@ public class LoginService {
                 }else{
                    errorResponse = convertErrorResponse(response);
                 }
-                mLoginActivityView.socialLoginSucceess(socialLoginResponse, errorResponse);
+                mLoginActivityContract.socialLoginSucceess(socialLoginResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<SocialLoginResponse> call, Throwable t) {
                 t.printStackTrace();
-                mLoginActivityView.socialLoginFailure();
+                mLoginActivityContract.socialLoginFailure();
             }
         });
     }

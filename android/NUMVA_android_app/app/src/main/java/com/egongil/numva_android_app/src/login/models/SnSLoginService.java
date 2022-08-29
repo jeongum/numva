@@ -1,10 +1,10 @@
-package com.egongil.numva_android_app.src.login;
+package com.egongil.numva_android_app.src.login.models;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.login.interfaces.SnsLoginActivityView;
+import com.egongil.numva_android_app.src.login.interfaces.SnsLoginActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.LinkSocialRequest;
 import com.egongil.numva_android_app.src.config.models.response.LinkSocialResponse;
 import com.egongil.numva_android_app.src.config.models.request.SocialRegisterRequest;
@@ -14,10 +14,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SnSLoginService {
-    private final SnsLoginActivityView mSnsLoginActivityView;
+    private final SnsLoginActivityContract mSnsLoginActivityContract;
 
-    public SnSLoginService(SnsLoginActivityView snsLoginExistEmailActivityView){
-        mSnsLoginActivityView = snsLoginExistEmailActivityView;
+    public SnSLoginService(SnsLoginActivityContract snsLoginExistEmailActivityContract){
+        mSnsLoginActivityContract = snsLoginExistEmailActivityContract;
     }
     public void linkSocial(LinkSocialRequest linkSocialRequest){
         getRetrofitService().linkSocial(linkSocialRequest).enqueue(new Callback<LinkSocialResponse>() {
@@ -30,14 +30,14 @@ public class SnSLoginService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mSnsLoginActivityView.linkSocialSuccess(linkSocialResponse, errorResponse);
+                mSnsLoginActivityContract.linkSocialSuccess(linkSocialResponse, errorResponse);
 
             }
 
             @Override
             public void onFailure(Call<LinkSocialResponse> call, Throwable t) {
                 t.printStackTrace();
-                mSnsLoginActivityView.linkSocialFailure();
+                mSnsLoginActivityContract.linkSocialFailure();
             }
         });
     }
@@ -53,13 +53,13 @@ public class SnSLoginService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mSnsLoginActivityView.socialRegisterSuccess(linkSocialResponse, errorResponse);
+                mSnsLoginActivityContract.socialRegisterSuccess(linkSocialResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<LinkSocialResponse> call, Throwable t) {
                 t.printStackTrace();
-                mSnsLoginActivityView.socialRegisterFailure();
+                mSnsLoginActivityContract.socialRegisterFailure();
             }
         });
     }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.egongil.numva_android_app.src.login.snslogin.SnsLoginActivity;
 import com.egongil.numva_android_app.src.login.snslogin.naverlogin.NaverLogin;
 import com.kakao.auth.ApiErrorCode;
 import com.kakao.auth.Session;

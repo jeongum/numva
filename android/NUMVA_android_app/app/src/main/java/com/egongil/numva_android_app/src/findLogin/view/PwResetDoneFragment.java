@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.view.BaseFragment;
-import com.egongil.numva_android_app.src.login.LoginActivity;
+import com.egongil.numva_android_app.src.login.view.LoginActivity;
 
 public class PwResetDoneFragment extends BaseFragment {
 

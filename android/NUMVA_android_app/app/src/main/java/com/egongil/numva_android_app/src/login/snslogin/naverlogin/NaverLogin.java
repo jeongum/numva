@@ -8,19 +8,15 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.USER_NAM
 import static com.egongil.numva_android_app.src.config.ApplicationClass.USER_PHONE;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.login.LoginActivity;
-import com.egongil.numva_android_app.src.login.snslogin.SnsLoginActivity;
+import com.egongil.numva_android_app.src.login.view.LoginActivity;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.data.OAuthLoginState;
 
@@ -28,15 +24,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.http.Url;
 
 public class NaverLogin extends Activity {
     final String NAVER_RESPONSE_CODE = "00"; //정상 반환 시 코드

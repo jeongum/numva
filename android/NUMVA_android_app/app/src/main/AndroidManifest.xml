@@ -43,7 +43,7 @@
             android:name=".src.numvatalk.NumvatalkActivity"
             android:exported="false" />
         <activity
-            android:name=".src.login.snslogin.SnsLoginActivity"
+            android:name=".src.login.snslogin.view.SnsLoginActivity"
             android:exported="true" />
         <activity android:name=".src.login.snslogin.naverlogin.NaverLogin" />
 
@@ -55,7 +55,7 @@
         <activity android:name=".src.edit_userinfo.view.EditUserInfoActivity" />
         <activity android:name=".src.findLogin.view.FindLoginActivity" />
         <activity android:name=".src.signup.SignupDoneActivity" />
-        <activity android:name=".src.login.LoginActivity" />
+        <activity android:name=".src.login.view.LoginActivity" />
         <activity android:name=".src.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

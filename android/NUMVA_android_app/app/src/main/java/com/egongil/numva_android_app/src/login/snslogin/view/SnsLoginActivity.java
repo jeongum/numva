@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.login.snslogin;
+package com.egongil.numva_android_app.src.login.snslogin.view;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.USER_BIRTHDAY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.USER_BIRTHYEAR;
@@ -24,20 +24,18 @@ import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.config.GlobalAuthHelper;
-import com.egongil.numva_android_app.src.login.LoginActivity;
-import com.egongil.numva_android_app.src.login.SnSLoginService;
-import com.egongil.numva_android_app.src.login.interfaces.SnsLoginActivityView;
+import com.egongil.numva_android_app.src.login.view.LoginActivity;
+import com.egongil.numva_android_app.src.login.models.SnSLoginService;
+import com.egongil.numva_android_app.src.login.interfaces.SnsLoginActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.LinkSocialRequest;
 import com.egongil.numva_android_app.src.config.models.response.LinkSocialResponse;
 import com.egongil.numva_android_app.src.config.models.request.SocialRegisterRequest;
-import com.egongil.numva_android_app.src.login.snslogin.fragments.ExistEmailFragment;
-import com.egongil.numva_android_app.src.login.snslogin.fragments.MoreInfoFragment;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SnsLoginActivity extends BaseActivity implements SnsLoginActivityView {
+public class SnsLoginActivity extends BaseActivity implements SnsLoginActivityContract {
     public static final int EXIST_EMAIL = 0;
     public static final int MORE_INFO = 1;
 

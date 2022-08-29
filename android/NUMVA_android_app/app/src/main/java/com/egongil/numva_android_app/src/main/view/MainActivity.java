@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.databinding.ActivityMainBinding;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.car_management.CarManagementFragment;
@@ -27,7 +26,7 @@ import com.egongil.numva_android_app.src.config.GlobalAuthHelper;
 import com.egongil.numva_android_app.src.config.interfaces.RetrofitService;
 import com.egongil.numva_android_app.src.config.models.UserInfo;
 import com.egongil.numva_android_app.src.home.view.HomeFragment;
-import com.egongil.numva_android_app.src.login.LoginActivity;
+import com.egongil.numva_android_app.src.login.view.LoginActivity;
 import com.egongil.numva_android_app.src.main.interfaces.MainContract;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModelFactory;

@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.login.snslogin.fragments;
+package com.egongil.numva_android_app.src.login.snslogin.view;
 
 import static android.view.View.GONE;
 
@@ -24,7 +24,6 @@ import android.widget.TextView;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseFragment;
-import com.egongil.numva_android_app.src.login.snslogin.SnsLoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;

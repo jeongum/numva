@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.databinding.FragmentMypageBinding;
 import com.egongil.numva_android_app.src.app_info.AppInfoActivity;
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.config.view.BaseFragment;
@@ -27,7 +26,7 @@ import com.egongil.numva_android_app.src.config.models.UserInfo;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.customer_center.view.CustomerCenterActivity;
 import com.egongil.numva_android_app.src.edit_userinfo.view.EditUserInfoActivity;
-import com.egongil.numva_android_app.src.login.LoginActivity;
+import com.egongil.numva_android_app.src.login.view.LoginActivity;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.mypage.model.MyPageService;

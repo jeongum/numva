@@ -6,7 +6,7 @@ import com.egongil.numva_android_app.src.config.models.response.SocialLoginRespo
 import com.egongil.numva_android_app.src.config.models.response.SocialValidEmailErrorResponse;
 import com.egongil.numva_android_app.src.config.models.response.SocialValidEmailResponse;
 
-public interface LoginActivityView {
+public interface LoginActivityContract {
     void postLoginSuccess(LoginResponse loginResponse, ErrorResponse errorResponse);
 
     void postLoginFailure();

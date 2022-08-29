@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
-import com.egongil.numva_android_app.src.login.LoginActivity;
+import com.egongil.numva_android_app.src.login.view.LoginActivity;
 
 public class SignupDoneActivity extends BaseActivity {
     Button mBtnLogin;

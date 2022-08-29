@@ -1,8 +1,4 @@
-package com.egongil.numva_android_app.src.login.snslogin.fragments;
-
-import static com.egongil.numva_android_app.src.config.ApplicationClass.USER_EMAIL;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.USER_ID;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.USER_PROVIDER;
+package com.egongil.numva_android_app.src.login.snslogin.view;
 
 import android.os.Bundle;
 
@@ -14,12 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.GlobalAuthHelper;
-import com.egongil.numva_android_app.src.login.snslogin.SnsLoginActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ExistEmailFragment extends Fragment {
 
