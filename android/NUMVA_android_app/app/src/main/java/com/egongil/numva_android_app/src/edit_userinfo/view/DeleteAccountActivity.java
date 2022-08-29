@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.edit_userinfo.model.DeleteAccountService;
+import com.egongil.numva_android_app.src.edit_userinfo.models.DeleteAccountService;
 import com.egongil.numva_android_app.src.edit_userinfo.interfaces.DeleteAccountActivityContract;
 import com.egongil.numva_android_app.src.config.models.response.DeleteAccountResponse;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
