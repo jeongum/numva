@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.second_phone;
+package com.egongil.numva_android_app.src.second_phone.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -27,11 +27,12 @@ import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
-import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRegisterActivityView;
+import com.egongil.numva_android_app.src.second_phone.models.SecondPhoneService;
+import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRegisterActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.SetSecondPhoneRequest;
 import com.egongil.numva_android_app.src.config.models.response.SetSecondPhoneResponse;
 
-public class SecondPhoneRegisterActivity extends BaseActivity implements SecondPhoneRegisterActivityView, ConnectionReceiver.ConnectionReceiverListener {
+public class SecondPhoneRegisterActivity extends BaseActivity implements SecondPhoneRegisterActivityContract, ConnectionReceiver.ConnectionReceiverListener {
 
     EditText mEtPhoneMid, mEtPhoneFin, mEtCtfNumber;
     Button mBtnSend, mBtnCheck, mBtnRegister;

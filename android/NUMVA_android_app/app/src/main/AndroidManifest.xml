@@ -33,8 +33,8 @@
         <activity android:name=".src.signup.SignupMoreInfoActivity" />
         <activity android:name=".src.signup.SignupCertActivity" />
         <activity android:name=".src.customer_center.view.CustomerCenterDetailActivity" />
-        <activity android:name=".src.second_phone.SecondPhoneRegisterActivity" />
-        <activity android:name=".src.second_phone.SecondPhoneActivity" />
+        <activity android:name=".src.second_phone.view.SecondPhoneRegisterActivity" />
+        <activity android:name=".src.second_phone.view.SecondPhoneActivity" />
         <activity android:name=".src.app_info.AppInfoActivity" />
         <activity android:name=".src.notification_setting.NotiSettingActivity" />
         <activity android:name=".src.customer_center.view.CustomerCenterActivity" />

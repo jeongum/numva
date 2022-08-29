@@ -5,7 +5,7 @@ import com.egongil.numva_android_app.src.config.models.response.DeleteSecondPhon
 import com.egongil.numva_android_app.src.config.models.response.GetSecondPhoneResponse;
 import com.egongil.numva_android_app.src.config.models.response.RepSecondPhoneResponse;
 
-public interface SecondPhoneActivityView {
+public interface SecondPhoneActivityContract {
 
     void getSecondPhoneSuccess(GetSecondPhoneResponse getSecondPhoneResponse, ErrorResponse errorResponse);
     void getSecondPhoneFailure();

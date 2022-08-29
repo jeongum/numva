@@ -4,7 +4,7 @@ import com.egongil.numva_android_app.src.config.models.response.CertPhoneRespons
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.config.models.response.SetSecondPhoneResponse;
 
-public interface SecondPhoneRegisterActivityView {
+public interface SecondPhoneRegisterActivityContract {
 
     void setSecondPhoneSuccess(SetSecondPhoneResponse setSecondPhoneResponse, ErrorResponse errorResponse);
 

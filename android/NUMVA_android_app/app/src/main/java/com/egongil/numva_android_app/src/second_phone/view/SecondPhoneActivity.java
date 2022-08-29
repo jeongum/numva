@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.second_phone;
+package com.egongil.numva_android_app.src.second_phone.view;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +18,9 @@ import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
-import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneActivityView;
+import com.egongil.numva_android_app.src.second_phone.models.SecondPhoneRecyclerItem;
+import com.egongil.numva_android_app.src.second_phone.models.SecondPhoneService;
+import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.DeleteSecondPhoneRequest;
 import com.egongil.numva_android_app.src.config.models.response.DeleteSecondPhoneResponse;
 import com.egongil.numva_android_app.src.config.models.response.GetSecondPhoneResponse;
@@ -27,7 +29,7 @@ import com.egongil.numva_android_app.src.config.models.response.RepSecondPhoneRe
 
 import java.util.ArrayList;
 
-public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActivityView , ConnectionReceiver.ConnectionReceiverListener {
+public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActivityContract, ConnectionReceiver.ConnectionReceiverListener {
     private ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList;
     SecondPhoneRecyclerAdapter mAdapter;
 

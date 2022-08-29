@@ -1,24 +1,21 @@
-package com.egongil.numva_android_app.src.second_phone;
+package com.egongil.numva_android_app.src.second_phone.view;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.src.second_phone.models.SecondPhoneRecyclerItem;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
-import static com.egongil.numva_android_app.src.second_phone.SecondPhoneActivity.isEditState;
+import static com.egongil.numva_android_app.src.second_phone.view.SecondPhoneActivity.isEditState;
 
 public class SecondPhoneRecyclerAdapter extends RecyclerView.Adapter<SecondPhoneRecyclerAdapter.ViewHolder> {
     private ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList = null;

@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.second_phone;
+package com.egongil.numva_android_app.src.second_phone.models;
 
 public class SecondPhoneRecyclerItem {
     private  int id;

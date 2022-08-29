@@ -33,7 +33,7 @@ import com.egongil.numva_android_app.src.mypage.model.MyPageService;
 import com.egongil.numva_android_app.src.mypage.interfaces.MyPageFragmentContract;
 import com.egongil.numva_android_app.src.notification_setting.NotiSettingActivity;
 import com.egongil.numva_android_app.src.qr_management.view.QrManagementActivity;
-import com.egongil.numva_android_app.src.second_phone.SecondPhoneActivity;
+import com.egongil.numva_android_app.src.second_phone.view.SecondPhoneActivity;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.EDIT_USERINFO_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_MANAGEMENT_ACTIVITY;

@@ -1,10 +1,10 @@
-package com.egongil.numva_android_app.src.second_phone;
+package com.egongil.numva_android_app.src.second_phone.models;
 
 import com.egongil.numva_android_app.src.config.models.request.CertPhoneRequest;
 import com.egongil.numva_android_app.src.config.models.response.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneActivityView;
-import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRegisterActivityView;
+import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneActivityContract;
+import com.egongil.numva_android_app.src.second_phone.interfaces.SecondPhoneRegisterActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.DeleteSecondPhoneRequest;
 import com.egongil.numva_android_app.src.config.models.response.DeleteSecondPhoneResponse;
 import com.egongil.numva_android_app.src.config.models.response.GetSecondPhoneResponse;
@@ -22,20 +22,20 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 
 public class SecondPhoneService {
 
-    private SecondPhoneActivityView mSecondPhoneActivityView;
-    private SecondPhoneRegisterActivityView mSecondPhoneRegisterActivityView;
+    private SecondPhoneActivityContract mSecondPhoneActivityContract;
+    private SecondPhoneRegisterActivityContract mSecondPhoneRegisterActivityContract;
 
 
-    public SecondPhoneService(SecondPhoneActivityView mSecondPhoneActivityView) {
-        this.mSecondPhoneActivityView = mSecondPhoneActivityView;
+    public SecondPhoneService(SecondPhoneActivityContract mSecondPhoneActivityContract) {
+        this.mSecondPhoneActivityContract = mSecondPhoneActivityContract;
     }
 
-    public SecondPhoneService(SecondPhoneRegisterActivityView mSecondPhoneRegisterActivityView){
-        this.mSecondPhoneRegisterActivityView = mSecondPhoneRegisterActivityView;
+    public SecondPhoneService(SecondPhoneRegisterActivityContract mSecondPhoneRegisterActivityContract){
+        this.mSecondPhoneRegisterActivityContract = mSecondPhoneRegisterActivityContract;
     }
 
     // Set Second Phone
-    void setSecondPhone(SetSecondPhoneRequest setSecondPhoneRequest){
+    public void setSecondPhone(SetSecondPhoneRequest setSecondPhoneRequest){
         getRetrofitService().setSecondPhone(setSecondPhoneRequest).enqueue(new Callback<SetSecondPhoneResponse>(){
             // Set Second Phone 성공 시 함수 실행 정의
             @Override
@@ -47,19 +47,19 @@ public class SecondPhoneService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mSecondPhoneRegisterActivityView.setSecondPhoneSuccess(setSecondPhoneResponse, errorResponse);
+                mSecondPhoneRegisterActivityContract.setSecondPhoneSuccess(setSecondPhoneResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<SetSecondPhoneResponse> call, Throwable t) {
                 t.printStackTrace();
-                mSecondPhoneRegisterActivityView.setSecondPhoneFailure();
+                mSecondPhoneRegisterActivityContract.setSecondPhoneFailure();
             }
         });
     }
 
     // Get Second Phone
-    void getSecondPhone(){
+    public void getSecondPhone(){
         getRetrofitService().getSecondPhone().enqueue(new Callback<GetSecondPhoneResponse>(){
             @Override
             public void onResponse(Call<GetSecondPhoneResponse> call, Response<GetSecondPhoneResponse> response) {
@@ -70,19 +70,19 @@ public class SecondPhoneService {
                 } else {
                     errorResponse = convertErrorResponse(response);
                 }
-                mSecondPhoneActivityView.getSecondPhoneSuccess(getSecondPhoneResponse, errorResponse);
+                mSecondPhoneActivityContract.getSecondPhoneSuccess(getSecondPhoneResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<GetSecondPhoneResponse> call, Throwable t) {
                 t.printStackTrace();
-                mSecondPhoneActivityView.getSecondPhoneFailure();
+                mSecondPhoneActivityContract.getSecondPhoneFailure();
             }
         });
     }
 
     // Rep Second Phone
-    void repSecondPhone(RepSecondPhoneRequest repSecondPhoneRequest){
+    public void repSecondPhone(RepSecondPhoneRequest repSecondPhoneRequest){
         getRetrofitService().repSecondPhone(repSecondPhoneRequest).enqueue(new Callback<RepSecondPhoneResponse>() {
             @Override
             public void onResponse(Call<RepSecondPhoneResponse> call, Response<RepSecondPhoneResponse> response) {
@@ -93,19 +93,19 @@ public class SecondPhoneService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mSecondPhoneActivityView.repSecondPhoneSuccess(repSecondPhoneResponse, errorResponse);
+                mSecondPhoneActivityContract.repSecondPhoneSuccess(repSecondPhoneResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<RepSecondPhoneResponse> call, Throwable t) {
                 t.printStackTrace();
-                mSecondPhoneActivityView.repSecondPhoneFailure();
+                mSecondPhoneActivityContract.repSecondPhoneFailure();
             }
         });
     }
 
     // Delete Second Phone
-    void deleteSecondPhone(DeleteSecondPhoneRequest deleteSecondPhoneRequest){
+    public void deleteSecondPhone(DeleteSecondPhoneRequest deleteSecondPhoneRequest){
         getRetrofitService().deleteSecondPhone(deleteSecondPhoneRequest).enqueue(new Callback<DeleteSecondPhoneResponse>(){
             @Override
             public void onResponse(Call<DeleteSecondPhoneResponse> call, Response<DeleteSecondPhoneResponse> response) {
@@ -116,18 +116,18 @@ public class SecondPhoneService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mSecondPhoneActivityView.deleteSecondPhoneSuccess(deleteSecondPhoneResponse, errorResponse);
+                mSecondPhoneActivityContract.deleteSecondPhoneSuccess(deleteSecondPhoneResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<DeleteSecondPhoneResponse> call, Throwable t) {
                 t.printStackTrace();
-                mSecondPhoneActivityView.deleteSecondPhoneFailure();
+                mSecondPhoneActivityContract.deleteSecondPhoneFailure();
             }
         });
     }
 
-    void postCertPhone(CertPhoneRequest certPhoneRequest){
+    public void postCertPhone(CertPhoneRequest certPhoneRequest){
         getRetrofitService().postCertPhone(certPhoneRequest).enqueue(new Callback<CertPhoneResponse>() {
             @Override
             public void onResponse(Call<CertPhoneResponse> call, Response<CertPhoneResponse> response) {
@@ -138,13 +138,13 @@ public class SecondPhoneService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mSecondPhoneRegisterActivityView.postCertPhoneSuccess(certPhoneResponse, errorResponse);
+                mSecondPhoneRegisterActivityContract.postCertPhoneSuccess(certPhoneResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<CertPhoneResponse> call, Throwable t) {
                 t.printStackTrace();
-                mSecondPhoneRegisterActivityView.postCertPhoneFailure();
+                mSecondPhoneRegisterActivityContract.postCertPhoneFailure();
             }
         });
     }
