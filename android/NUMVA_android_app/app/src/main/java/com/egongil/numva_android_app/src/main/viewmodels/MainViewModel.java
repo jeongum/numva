@@ -62,7 +62,8 @@ public class MainViewModel extends ViewModel {
     }
 
     public void setUserData(UserInfo data){
-        getUserData();
+        if(mUserData == null)
+            getUserData();
         mUserData.setValue(data);
     }
 

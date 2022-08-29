@@ -53,6 +53,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
     public Callback mGetPhoneInfoCallback;
 
     ActivityResultLauncher<Intent> mActivityResultLauncher;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -70,9 +71,9 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
                 R.color.colorPrimary
         );
         binding.refreshLayout.setOnRefreshListener(() -> {
-            if(((MainActivity)getActivity()).isLogin()){
+            if (((MainActivity) getActivity()).isLogin()) {
                 //로그인상태일 경우
-                ((MainActivity)getActivity()).getUser();
+                ((MainActivity) getActivity()).getUser();
             }
 
             // 업데이트가 끝났음을 알림
@@ -80,19 +81,16 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         });
 
         mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            switch(result.getResultCode()){
+            switch (result.getResultCode()) {
                 case QR_MANAGEMENT_ACTIVITY:
                     Intent qrIntent = result.getData();
-                    ArrayList<SafetyInfo> mListQR = (ArrayList<SafetyInfo>)qrIntent.getSerializableExtra("safety_info");
+                    ArrayList<SafetyInfo> mListQR = (ArrayList<SafetyInfo>) qrIntent.getSerializableExtra("safety_info");
                     mMainViewModel.setSafetyInfoData(mListQR);
                     break;
 
                 case EDIT_USERINFO_ACTIVITY:
                     Intent editIntent = result.getData();
-                    UserInfo info = mMainViewModel.getUserData().getValue();
-                    info.setNickname(editIntent.getStringExtra("nickname"));
-                    info.setPhone(editIntent.getStringExtra("phone"));
-                    info.setBirth(editIntent.getStringExtra("birth"));
+                    UserInfo info = (UserInfo)editIntent.getSerializableExtra("user_info");
                     mMainViewModel.setUserData(info);
                     break;
             }
@@ -100,26 +98,22 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
 
         //유저정보 클릭 시 > 내 정보 수정 진입
         binding.loginGreeting.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-            mActivityResultLauncher.launch(intent);
+            launchEditUserInfoActivity();
         });
 
         //휴대전화번호 텍뷰 클릭 시 > 내 정보 수정 진입
         binding.phoneNumberTitle.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-            mActivityResultLauncher.launch(intent);
+            launchEditUserInfoActivity();
         });
 
         //휴대전화번호 클릭 시 > 내 정보 수정 진입
         binding.phoneNumberTv.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-            mActivityResultLauncher.launch(intent);
+            launchEditUserInfoActivity();
         });
 
         //휴대전화번호 옆 pencil 아이콘 클릭 시 > 내 정보 수정 진입
         binding.editPhoneBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-            mActivityResultLauncher.launch(intent);
+            launchEditUserInfoActivity();
         });
 
         //2차전화번호 옆 pencil 아이콘 클릭 시 > 2차전화번호 다이얼로그 진입
@@ -171,8 +165,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         binding.editUserInfoBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                mActivityResultLauncher.launch(intent);
+                launchEditUserInfoActivity();
             }
         });
 
@@ -229,15 +222,14 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         return root;
     }
 
-    public void setSecondPhoneData(){
+    public void setSecondPhoneData() {
         //data mapping
-        if(((MainActivity)getActivity()).userInfo!=null){
-            if(mMainViewModel.getUserData().getValue().getSecond_phone().equals("")){
+        if (((MainActivity) getActivity()).userInfo != null) {
+            if (mMainViewModel.getUserData().getValue().getSecond_phone().equals("")) {
                 binding.secondPhoneTv.setVisibility(View.VISIBLE);  //2차전화번호 TextView
                 binding.editSecondPhoneBtn.setVisibility(View.VISIBLE); //2차전화번호 연필아이콘
                 binding.registerSecondphone.setVisibility(View.GONE);  //2차전화번호 등록버튼
-            }
-            else{
+            } else {
                 binding.secondPhoneTv.setVisibility(View.GONE);  //2차전화번호 TextView
                 binding.editSecondPhoneBtn.setVisibility(View.GONE);  //2차전화번호 연필아이콘
                 binding.registerSecondphone.setVisibility(View.VISIBLE);  //2차전화번호 등록버튼
@@ -245,7 +237,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         }
     }
 
-    public void logout(){
+    public void logout() {
         MyPageService myPageService = new MyPageService(this);
         myPageService.getLogout();
 
@@ -262,7 +254,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         editor.commit();
 
         System.out.println("SHARED_TOKEN: " + sSharedPreferences.getString(X_ACCESS_TOKEN, "NULL"));
-        ((MainActivity)MainActivity.mContext).accountLogout();
+        ((MainActivity) MainActivity.mContext).accountLogout();
 
         showCustomToast("정상적으로 로그아웃되었습니다.");
     }
@@ -270,5 +262,11 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
     @Override
     public void getLogoutFailure() {
         showCustomToast(getResources().getString(R.string.network_error));
+    }
+
+    private void launchEditUserInfoActivity() {
+        Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
+        intent.putExtra("user_info", mMainViewModel.getUserData().getValue());
+        mActivityResultLauncher.launch(intent);
     }
 }

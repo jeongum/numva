@@ -1,5 +1,7 @@
 package com.egongil.numva_android_app.src.edit_userinfo;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.EDIT_USERINFO_ACTIVITY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.cert_phone.PassActivity;
+import com.egongil.numva_android_app.src.config.models.UserInfo;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
@@ -24,16 +27,19 @@ import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 
 import java.util.Random;
 
-import static android.app.PendingIntent.getActivity;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 public class EditUserInfoActivity extends BaseActivity implements EditUserInfoActivityView, ConnectionReceiver.ConnectionReceiverListener {
-    Intent intent;
+    UserInfo mUserInfo;
     TextView mTvName, mTvEmail, mTvNickGuide, mTvDeleteAccount, mTvPhone;
     EditText mEtBirth, mEtNickname;
     Button mBtnPass, mBtnRandomNickname, mBtnSave;
     ImageView  mIvBirthRemoveBtn, mIvNicknameRemoveBtn, mIvExit;
-    String mStrName, mStrPhone, mStrBirth;
+
     static final int PASS_EDITUSERINFO_CODE = 999;
+
+    ActivityResultLauncher<Intent> mActivityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +47,6 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
         setContentView(R.layout.activity_edit_user_info);
 
         checkConnection(); //네트워크 확인
-
-        intent = new Intent();
 
         mTvName = findViewById(R.id.edituserinfo_tv_username);  //이름
         mTvEmail = findViewById(R.id.edituserinfo_tv_useremail);  //이메일
@@ -66,9 +70,12 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
         mIvExit.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                putIntentUserInfo();
                 finish();
             }
         });
+
+        initializeInfo();
 
         mEtBirth.addTextChangedListener(new TextWatcher() {
             @Override
@@ -112,8 +119,6 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
             }
         });
 
-
-
         mIvBirthRemoveBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
@@ -128,22 +133,13 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
             }
         });
 
-        mBtnPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO : PASS연결
-                Intent intent = new Intent(EditUserInfoActivity.this, PassActivity.class);
-                intent.putExtra("request_page", "edituserinfo");
-                startActivityForResult(intent,PASS_EDITUSERINFO_CODE);
-            }
+        mBtnPass.setOnClickListener(v -> {
+            Intent intent = new Intent(EditUserInfoActivity.this, PassActivity.class);
+            intent.putExtra("request_page", "edituserinfo");
+            mActivityResultLauncher.launch(intent);
         });
 
-        mBtnRandomNickname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEtNickname.setText(setRandNick());
-            }
-        });
+        mBtnRandomNickname.setOnClickListener(v -> mEtNickname.setText(setRandNick()));
 
         mTvDeleteAccount.setOnClickListener(new OnSingleClickListener() {
             @Override
@@ -171,43 +167,40 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
         mBtnSave.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                edituserinfo();
-
-                setResult(RESULT_OK, intent);
-                finish();
+                editUserInfo();
             }
         });
 
+        mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == PASS_EDITUSERINFO_CODE) {
+                Intent intent = result.getData();
 
+                String strName = intent.getStringExtra("name");
+                String strPhone = intent.getStringExtra("phone");
+                String strBirth = intent.getStringExtra("birth");
 
-        mStrName = ((MainActivity)MainActivity.mContext).userInfo.getName();
-        mStrPhone = ((MainActivity)MainActivity.mContext).userInfo.getPhone();
-        mStrBirth = ((MainActivity)MainActivity.mContext).userInfo.getBirth();
+                mTvName.setText(strName);
+                mTvPhone.setText(strPhone);
+                mEtBirth.setText(strBirth);
 
-        mTvName.setText(mStrName);
-        mTvEmail.setText(((MainActivity)MainActivity.mContext).userInfo.getEmail());
-        mEtBirth.setText(mStrBirth);
-        mEtNickname.setText(((MainActivity)MainActivity.mContext).userInfo.getNickname());
-        mTvPhone.setText(mStrPhone);
-
-
+                mUserInfo.setName(strName);
+                mUserInfo.setPhone(strPhone);
+                mUserInfo.setBirth(strBirth);
+                //TODO: ViewModel 구현하여 양방향 binding
+            }
+        });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PASS_EDITUSERINFO_CODE){
-            if(resultCode==RESULT_OK){
+    private void initializeInfo(){
+        Intent intent = getIntent();
+        mUserInfo = (UserInfo)intent.getSerializableExtra("user_info");
 
-                mStrName = data.getExtras().getString("name");
-                mStrPhone = data.getExtras().getString("phone");
-                mStrBirth = data.getExtras().getString("birth");
-
-                mTvName.setText(mStrName);
-                mTvPhone.setText(mStrPhone);
-                mEtBirth.setText(mStrBirth);
-            }
-        }
+        //TODO: ViewModel 구현하여 양방향 바인딩
+        mTvName.setText(mUserInfo.getName());
+        mTvEmail.setText(mUserInfo.getEmail());
+        mEtBirth.setText(mUserInfo.getBirth());
+        mEtNickname.setText(mUserInfo.getNickname());
+        mTvPhone.setText(mUserInfo.getPhone());
     }
 
     @Override
@@ -215,6 +208,8 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
         if(editUserInfoResponse!=null){
             if(editUserInfoResponse.getCode()==200 && editUserInfoResponse.isSuccess()){
                 showCustomToast("회원정보 수정 완료되었습니다.");
+                putIntentUserInfo();//finish_intent에 userData 담기
+                finish();
             }
         }
         else if(errorResponse!=null){
@@ -226,26 +221,17 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
 
     }
 
-    private void edituserinfo(){
+    private void editUserInfo(){
+        mUserInfo.setNickname(mEtNickname.getText().toString());
 
         EditUserInfoService editUserInfoService = new EditUserInfoService(this);
         EditUserInfoRequest editUserInfoRequest = new EditUserInfoRequest();
-        editUserInfoRequest.setPhone(mStrPhone);
-        editUserInfoRequest.setBirth(mStrBirth);
+        editUserInfoRequest.setPhone(mUserInfo.getPhone());
+        editUserInfoRequest.setBirth(mUserInfo.getBirth());
         editUserInfoRequest.setNickname(mEtNickname.getText().toString());
+
         editUserInfoService.postEditUserInfo(editUserInfoRequest);
-
-//        ((MainActivity)MainActivity.mContext).callGetUser();
-
-        intent.putExtra("phone", mStrPhone);
-        intent.putExtra("birth", mStrBirth);
-        intent.putExtra("nickname", mEtNickname.getText().toString());
     }
-
-
-
-
-
     //랜덤닉네임 메소드
     private String setRandNick(){
         Random rand = new Random();
@@ -263,7 +249,6 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
         return strnick1+strnick2;
     }
 
-
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
         if(!isConnected){
@@ -274,12 +259,18 @@ public class EditUserInfoActivity extends BaseActivity implements EditUserInfoAc
         }
     }
 
-
     private void checkConnection(){
         boolean isConnected = ConnectionReceiver.isConnected();
         if(!isConnected){
             Intent intent = new Intent(this, NetworkFailureActivity.class);
             startActivity(intent);
         }
+    }
+
+    //MyPageFragment 향할 intent에 userData 담기
+    public void putIntentUserInfo(){
+        Intent finish_intent = new Intent(getApplicationContext(), MainActivity.class);
+        finish_intent.putExtra("user_info", mUserInfo);
+        setResult(EDIT_USERINFO_ACTIVITY, finish_intent);
     }
 }

@@ -174,7 +174,6 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                 mListQR = registerQrResponse.getResult();
 
                 ((QrRecyclerAdapter) Objects.requireNonNull(mRvQrList.getAdapter())).updateData(mListQR); //RecyclerView 업데이트
-//                updateHomeViewPager();  //HomeFragment의 Viewpaer 업데이트
                 putIntentSafetyInfo();
 
             }
