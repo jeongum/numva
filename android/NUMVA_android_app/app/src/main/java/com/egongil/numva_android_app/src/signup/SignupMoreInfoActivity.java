@@ -16,7 +16,7 @@ import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
-import com.egongil.numva_android_app.src.findLogin.FindLoginActivity;
+import com.egongil.numva_android_app.src.findLogin.view.FindLoginActivity;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;

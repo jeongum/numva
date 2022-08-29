@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="36dp"
-    tools:context=".src.findLogin.FindPwFragment">
+    tools:context=".src.findLogin.view.FindPwFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

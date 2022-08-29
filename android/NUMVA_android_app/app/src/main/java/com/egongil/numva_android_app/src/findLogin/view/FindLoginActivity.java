@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.findLogin;
+package com.egongil.numva_android_app.src.findLogin.view;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.FragmentType.FIND_ID_FRAGMENT;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.FragmentType.FIND_PW_FRAGMENT;

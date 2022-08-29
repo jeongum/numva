@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="36dp"
-    tools:context=".src.findLogin.FindIdFragment">
+    tools:context=".src.findLogin.view.FindIdFragment">
 
     <LinearLayout
         android:id="@+id/findid_ll"

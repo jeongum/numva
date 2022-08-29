@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.findLogin;
+package com.egongil.numva_android_app.src.findLogin.view;
 
 import android.content.Intent;
 import android.os.Bundle;

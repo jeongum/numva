@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.findLogin;
+package com.egongil.numva_android_app.src.findLogin.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -27,11 +27,12 @@ import com.egongil.numva_android_app.src.config.models.request.CertPhoneRequest;
 import com.egongil.numva_android_app.src.config.models.response.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.view.BaseFragment;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.findLogin.interfaces.FindPwActivityView;
+import com.egongil.numva_android_app.src.findLogin.models.FindLoginService;
+import com.egongil.numva_android_app.src.findLogin.interfaces.FindPwActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.FindPwRequest;
 import com.egongil.numva_android_app.src.config.models.response.FindPwResponse;
 
-public class FindPwFragment extends BaseFragment implements FindPwActivityView{
+public class FindPwFragment extends BaseFragment implements FindPwActivityContract {
 
     EditText mEtEmail, mEtCtfNumber, mEtPhoneMid, mEtPhoneFin;
     Button mBtnCertSend, mBtnCertConfirm, mBtnFindPw;

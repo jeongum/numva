@@ -20,7 +20,7 @@ import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.findLogin.FindLoginActivity;
+import com.egongil.numva_android_app.src.findLogin.view.FindLoginActivity;
 import com.egongil.numva_android_app.src.login.interfaces.LoginActivityView;
 import com.egongil.numva_android_app.src.login.snslogin.kakaologin.KakaoLogin;
 import com.egongil.numva_android_app.src.config.models.request.LoginRequest;

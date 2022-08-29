@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".src.findLogin.PwResetFragment">
+    tools:context=".src.findLogin.view.PwResetFragment">
 
     <TextView
         android:layout_width="match_parent"

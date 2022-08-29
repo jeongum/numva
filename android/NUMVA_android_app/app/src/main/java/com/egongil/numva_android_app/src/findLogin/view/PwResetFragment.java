@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.findLogin;
+package com.egongil.numva_android_app.src.findLogin.view;
 
 import android.os.Bundle;
 
@@ -14,12 +14,13 @@ import android.widget.ImageView;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.view.BaseFragment;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.findLogin.interfaces.ResetPwActivityView;
+import com.egongil.numva_android_app.src.findLogin.models.FindLoginService;
+import com.egongil.numva_android_app.src.findLogin.interfaces.ResetPwActivityContract;
 import com.egongil.numva_android_app.src.config.models.response.FindPwResponse;
 import com.egongil.numva_android_app.src.config.models.request.ResetPwRequest;
 
 
-public class PwResetFragment extends BaseFragment implements ResetPwActivityView {
+public class PwResetFragment extends BaseFragment implements ResetPwActivityContract {
 
     EditText mEtPw, mEtCpw;
     Button mBtnPwReset;

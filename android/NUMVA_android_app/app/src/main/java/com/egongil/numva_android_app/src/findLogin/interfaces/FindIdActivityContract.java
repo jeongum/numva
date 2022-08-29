@@ -2,13 +2,17 @@ package com.egongil.numva_android_app.src.findLogin.interfaces;
 
 import com.egongil.numva_android_app.src.config.models.response.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.config.models.response.FindPwResponse;
+import com.egongil.numva_android_app.src.config.models.response.FindIdResponse;
 
-public interface FindPwActivityView {
-    void postFindPwSuccess(FindPwResponse findPwResponse, ErrorResponse errorResponse);
+public interface FindIdActivityContract {
+
+    //FindIdFragment에서 implements해서 사용할 인터페이스
+
+    //아이디찾기 post성공 시
+    void postFindIdSuccess(FindIdResponse findIdResponse, ErrorResponse errorResponse);
 
     //아이디찾기 post실패 시
-    void postFindPwFailure();
+    void postFindIdFailure();
 
     void postCertPhoneSuccess(CertPhoneResponse certPhoneResponse, ErrorResponse errorResponse);
 

@@ -1,11 +1,11 @@
-package com.egongil.numva_android_app.src.findLogin;
+package com.egongil.numva_android_app.src.findLogin.models;
 
 import com.egongil.numva_android_app.src.config.models.request.CertPhoneRequest;
 import com.egongil.numva_android_app.src.config.models.response.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.findLogin.interfaces.FindIdActivityView;
-import com.egongil.numva_android_app.src.findLogin.interfaces.FindPwActivityView;
-import com.egongil.numva_android_app.src.findLogin.interfaces.ResetPwActivityView;
+import com.egongil.numva_android_app.src.findLogin.interfaces.FindIdActivityContract;
+import com.egongil.numva_android_app.src.findLogin.interfaces.FindPwActivityContract;
+import com.egongil.numva_android_app.src.findLogin.interfaces.ResetPwActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.FindIdRequest;
 import com.egongil.numva_android_app.src.config.models.response.FindIdResponse;
 import com.egongil.numva_android_app.src.config.models.request.FindPwRequest;
@@ -20,24 +20,24 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.convertE
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class FindLoginService {
-    private FindIdActivityView mFindIdActivityView;
-    private FindPwActivityView mFindPwActivityView;
-    private ResetPwActivityView mResetPwActivityView;
-    private FindIdActivityView mCertPhoneActivityView;
+    private FindIdActivityContract mFindIdActivityContract;
+    private FindPwActivityContract mFindPwActivityView;
+    private ResetPwActivityContract mResetPwActivityView;
+    private FindIdActivityContract mCertPhoneActivityView;
 
-    public FindLoginService(FindIdActivityView mFindLoginActivityView) {
-        this.mFindIdActivityView = mFindLoginActivityView;
+    public FindLoginService(FindIdActivityContract mFindLoginActivityView) {
+        this.mFindIdActivityContract = mFindLoginActivityView;
     }
 
-    public FindLoginService(FindPwActivityView mFindPwActivityView){
+    public FindLoginService(FindPwActivityContract mFindPwActivityView){
         this.mFindPwActivityView = mFindPwActivityView;
     }
 
-    public FindLoginService(ResetPwActivityView mResetPwActivityView){
+    public FindLoginService(ResetPwActivityContract mResetPwActivityView){
         this.mResetPwActivityView = mResetPwActivityView;
     }
 
-    void postFindId(FindIdRequest findIdRequest){
+    public void postFindId(FindIdRequest findIdRequest){
         getRetrofitService().postFindId(findIdRequest).enqueue(new Callback<FindIdResponse>(){
             @Override
             public void onResponse(Call<FindIdResponse> call, Response<FindIdResponse> response) {
@@ -48,18 +48,18 @@ public class FindLoginService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mFindIdActivityView.postFindIdSuccess(findIdResponse, errorResponse);
+                mFindIdActivityContract.postFindIdSuccess(findIdResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<FindIdResponse> call, Throwable t){
                 t.printStackTrace();
-                mFindIdActivityView.postFindIdFailure();
+                mFindIdActivityContract.postFindIdFailure();
             }
         });
     }
 
-    void postFindPw(FindPwRequest findPwRequest){
+    public void postFindPw(FindPwRequest findPwRequest){
         getRetrofitService().postFindPw(findPwRequest).enqueue(new Callback<FindPwResponse>() {
             @Override
             public void onResponse(Call<FindPwResponse> call, Response<FindPwResponse> response) {
@@ -82,7 +82,7 @@ public class FindLoginService {
         });
     }
 
-    void postResetPw(ResetPwRequest resetPwRequest){
+    public void postResetPw(ResetPwRequest resetPwRequest){
         getRetrofitService().postResetPw(resetPwRequest).enqueue(new Callback<FindPwResponse>(){
             @Override
             public void onResponse(Call<FindPwResponse> call, Response<FindPwResponse> response) {
@@ -104,7 +104,7 @@ public class FindLoginService {
         });
     }
 
-    void postCertPhone(CertPhoneRequest certPhoneRequest){
+    public void postCertPhone(CertPhoneRequest certPhoneRequest){
         getRetrofitService().postCertPhone(certPhoneRequest).enqueue(new Callback<CertPhoneResponse>(){
             @Override
             public void onResponse(Call<CertPhoneResponse> call, Response<CertPhoneResponse> response) {
@@ -116,8 +116,8 @@ public class FindLoginService {
                 else{
                     errorResponse = convertErrorResponse(response);
                 }
-                if(call==mFindIdActivityView){
-                    mFindIdActivityView.postCertPhoneSuccess(certPhoneResponse, errorResponse);
+                if(call== mFindIdActivityContract){
+                    mFindIdActivityContract.postCertPhoneSuccess(certPhoneResponse, errorResponse);
                 }
                 if(call==mFindPwActivityView){
                     mFindPwActivityView.postCertPhoneSuccess(certPhoneResponse, errorResponse);
@@ -127,8 +127,8 @@ public class FindLoginService {
             @Override
             public void onFailure(Call<CertPhoneResponse> call, Throwable t) {
                 t.printStackTrace();
-                if (call == mFindIdActivityView) {
-                    mFindIdActivityView.postCertPhoneFailure();
+                if (call == mFindIdActivityContract) {
+                    mFindIdActivityContract.postCertPhoneFailure();
                 }
                 if(call==mFindPwActivityView){
                     mFindPwActivityView.postCertPhoneFailure();

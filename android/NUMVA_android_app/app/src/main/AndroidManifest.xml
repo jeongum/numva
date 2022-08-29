@@ -53,7 +53,7 @@
             android:name=".src.qr_management.view.QrManagementActivity"
             android:exported="true" />
         <activity android:name=".src.edit_userinfo.view.EditUserInfoActivity" />
-        <activity android:name=".src.findLogin.FindLoginActivity" />
+        <activity android:name=".src.findLogin.view.FindLoginActivity" />
         <activity android:name=".src.signup.SignupDoneActivity" />
         <activity android:name=".src.login.LoginActivity" />
         <activity android:name=".src.splash.SplashActivity">
