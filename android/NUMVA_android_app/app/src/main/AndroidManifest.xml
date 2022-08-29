@@ -29,9 +29,9 @@
         <activity android:name=".src.app_info.ServiceTermsActivity" />
         <activity android:name=".src.cert_phone.view.PassActivity" />
         <activity android:name=".src.network.NetworkFailureActivity" />
-        <activity android:name=".src.signup.SignupTermsActivity" />
-        <activity android:name=".src.signup.SignupMoreInfoActivity" />
-        <activity android:name=".src.signup.SignupCertActivity" />
+        <activity android:name=".src.signup.view.SignupTermsActivity" />
+        <activity android:name=".src.signup.view.SignupMoreInfoActivity" />
+        <activity android:name=".src.signup.view.SignupCertActivity" />
         <activity android:name=".src.customer_center.view.CustomerCenterDetailActivity" />
         <activity android:name=".src.second_phone.view.SecondPhoneRegisterActivity" />
         <activity android:name=".src.second_phone.view.SecondPhoneActivity" />
@@ -54,7 +54,7 @@
             android:exported="true" />
         <activity android:name=".src.edit_userinfo.view.EditUserInfoActivity" />
         <activity android:name=".src.findLogin.view.FindLoginActivity" />
-        <activity android:name=".src.signup.SignupDoneActivity" />
+        <activity android:name=".src.signup.view.SignupDoneActivity" />
         <activity android:name=".src.login.view.LoginActivity" />
         <activity android:name=".src.splash.SplashActivity">
             <intent-filter>

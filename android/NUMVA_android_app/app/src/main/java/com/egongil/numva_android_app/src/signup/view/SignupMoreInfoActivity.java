@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.signup;
+package com.egongil.numva_android_app.src.signup.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,7 +20,8 @@ import com.egongil.numva_android_app.src.findLogin.view.FindLoginActivity;
 import com.egongil.numva_android_app.src.login.view.LoginActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
-import com.egongil.numva_android_app.src.signup.interfaces.SignupActivityView;
+import com.egongil.numva_android_app.src.signup.models.SignupService;
+import com.egongil.numva_android_app.src.signup.interfaces.SignupActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.SignupRequest;
 import com.egongil.numva_android_app.src.config.models.response.SignupResponse;
 import com.egongil.numva_android_app.src.config.models.request.ValidEmailRequest;
@@ -28,7 +29,7 @@ import com.egongil.numva_android_app.src.config.models.response.ValidEmailRespon
 
 import java.util.Random;
 
-public class SignupMoreInfoActivity extends BaseActivity implements SignupActivityView , ConnectionReceiver.ConnectionReceiverListener {
+public class SignupMoreInfoActivity extends BaseActivity implements SignupActivityContract, ConnectionReceiver.ConnectionReceiverListener {
 
     EditText mEtEmail, mEtPw, mEtCpw, mEtNick;
     Button mBtnDoubleCheck, mBtnRanNick, mBtnSignup;

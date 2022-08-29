@@ -36,7 +36,7 @@ import com.egongil.numva_android_app.src.main.view.MainActivity;
 
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
-import com.egongil.numva_android_app.src.signup.SignupTermsActivity;
+import com.egongil.numva_android_app.src.signup.view.SignupTermsActivity;
 
 import com.egongil.numva_android_app.src.config.models.request.ValidEmailRequest;
 import com.kakao.auth.Session;

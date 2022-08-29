@@ -4,7 +4,7 @@ import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.config.models.response.SignupResponse;
 import com.egongil.numva_android_app.src.config.models.response.ValidEmailResponse;
 
-public interface SignupActivityView {
+public interface SignupActivityContract {
 
     //SignupActivity에서 implements해서 사용할 인터페이스
 

@@ -16,7 +16,7 @@ import com.egongil.numva_android_app.src.cert_phone.models.PassService;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.edit_userinfo.view.EditUserInfoActivity;
-import com.egongil.numva_android_app.src.signup.SignupMoreInfoActivity;
+import com.egongil.numva_android_app.src.signup.view.SignupMoreInfoActivity;
 
 
 public class PassActivity extends BaseActivity implements PassActivityContract {

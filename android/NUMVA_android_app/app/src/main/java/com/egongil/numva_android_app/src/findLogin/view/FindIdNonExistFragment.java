@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.view.BaseFragment;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
-import com.egongil.numva_android_app.src.signup.SignupTermsActivity;
+import com.egongil.numva_android_app.src.signup.view.SignupTermsActivity;
 
 public class FindIdNonExistFragment extends BaseFragment {
 

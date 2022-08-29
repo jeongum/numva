@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.signup;
+package com.egongil.numva_android_app.src.signup.view;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
