@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.mypage;
+package com.egongil.numva_android_app.src.mypage.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

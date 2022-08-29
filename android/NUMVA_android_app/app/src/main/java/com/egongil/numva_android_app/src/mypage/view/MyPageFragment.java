@@ -1,6 +1,4 @@
-package com.egongil.numva_android_app.src.mypage;
-
-import static android.app.Activity.RESULT_OK;
+package com.egongil.numva_android_app.src.mypage.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,13 +30,13 @@ import com.egongil.numva_android_app.src.edit_userinfo.EditUserInfoActivity;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
+import com.egongil.numva_android_app.src.mypage.model.MyPageService;
 import com.egongil.numva_android_app.src.mypage.interfaces.MyPageFragmentContract;
 import com.egongil.numva_android_app.src.notification_setting.NotiSettingActivity;
 import com.egongil.numva_android_app.src.qr_management.view.QrManagementActivity;
 import com.egongil.numva_android_app.src.second_phone.SecondPhoneActivity;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.EDIT_USERINFO_ACTIVITY;
-import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.PARKING_MEMO_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_MANAGEMENT_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;

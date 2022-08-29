@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.mypage;
+package com.egongil.numva_android_app.src.mypage.model;
 
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.config.models.response.LogoutResponse;
@@ -18,7 +18,7 @@ public class MyPageService {
         this.mMyPageFragmentContract = mMyPageFragmentContract;
     }
 
-    void getLogout(){
+    public void getLogout(){
         getRetrofitService().getLogout().enqueue(new Callback<LogoutResponse>() {
             @Override
             public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
