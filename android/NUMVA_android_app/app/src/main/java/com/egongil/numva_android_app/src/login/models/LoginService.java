@@ -64,12 +64,7 @@ public class LoginService {
                     validEmailResponse = response.body();
                 }
                 else{
-                    Converter<ResponseBody, SocialValidEmailErrorResponse> errorConverter = getRetrofit().responseBodyConverter(SocialValidEmailErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = (SocialValidEmailErrorResponse)convertErrorResponse(response);
                 }
                 mLoginActivityContract.isValidEmailSuccess(validEmailResponse, errorResponse);
             }
