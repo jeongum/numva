@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.qr_scan.CustomQrScanActivity">
+    tools:context=".src.qr_scan.view.CustomQrScanActivity">
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/custom_qrscan_dbv"

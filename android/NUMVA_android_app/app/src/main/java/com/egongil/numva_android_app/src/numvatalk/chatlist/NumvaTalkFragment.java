@@ -3,7 +3,7 @@ package com.egongil.numva_android_app.src.numvatalk.chatlist;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.MESIBO_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
-import static com.egongil.numva_android_app.src.qr_scan.QrScanResultActivity.getRandomColor;
+import static com.egongil.numva_android_app.src.qr_scan.view.QrScanResultActivity.getRandomColor;
 import static com.mesibo.api.Mesibo.MSGSTATUS_CALLINCOMING;
 import static com.mesibo.api.Mesibo.MSGSTATUS_CALLOUTGOING;
 import static com.mesibo.messaging.MesiboConfiguration.MESSAGE_DELETED_STRING;

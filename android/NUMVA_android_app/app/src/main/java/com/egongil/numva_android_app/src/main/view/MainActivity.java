@@ -37,7 +37,7 @@ import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 
 import com.egongil.numva_android_app.src.numvatalk.chatlist.NumvaTalkFragment;
 
-import com.egongil.numva_android_app.src.qr_scan.QrScanFragment;
+import com.egongil.numva_android_app.src.qr_scan.view.QrScanFragment;
 
 import com.egongil.numva_android_app.src.store.StoreActivity;
 

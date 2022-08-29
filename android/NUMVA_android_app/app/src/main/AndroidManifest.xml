@@ -64,16 +64,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".src.store.StoreActivity" />
-        <activity android:name=".src.qr_scan.CustomQrScanActivity" />
+        <activity android:name=".src.qr_scan.view.CustomQrScanActivity" />
         <activity
-            android:name=".src.qr_scan.QrScanActivity"
+            android:name=".src.qr_scan.view.QrScanActivity"
             android:stateNotNeeded="true" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
             tools:replace="android:screenOrientation" />
-        <activity android:name=".src.qr_scan.QrScanResultActivity" />
+        <activity android:name=".src.qr_scan.view.QrScanResultActivity" />
         <activity android:name=".src.main.view.MainActivity" />
         <activity
             android:name=".src.parkingmemo.view.ParkingMemoActivity"

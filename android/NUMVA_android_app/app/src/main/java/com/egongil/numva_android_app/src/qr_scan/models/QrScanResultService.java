@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.qr_scan;
+package com.egongil.numva_android_app.src.qr_scan.models;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
@@ -44,7 +44,7 @@ public class QrScanResultService {
         });
     }
 
-    void registerQr(RegisterQrRequest registerQrRequest){
+    public void registerQr(RegisterQrRequest registerQrRequest){
         getRetrofitService().registerQr(registerQrRequest).enqueue(new retrofit2.Callback<RegisterQrResponse>(){
             @Override
             public void onResponse(Call<RegisterQrResponse> call, Response<RegisterQrResponse> response) {

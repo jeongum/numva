@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.qr_scan;
+package com.egongil.numva_android_app.src.qr_scan.view;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,6 +23,7 @@ import com.egongil.numva_android_app.src.numvatalk.NumvatalkActivity;
 import com.egongil.numva_android_app.src.qr_management.view.QrManagementActivity;
 import com.egongil.numva_android_app.src.config.models.request.RegisterQrRequest;
 import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
+import com.egongil.numva_android_app.src.qr_scan.models.QrScanResultService;
 import com.egongil.numva_android_app.src.qr_scan.interfaces.QrScanResultActivityView;
 import com.egongil.numva_android_app.src.config.models.request.ScanQrRequest;
 import com.egongil.numva_android_app.src.config.models.response.ScanQrResponse;

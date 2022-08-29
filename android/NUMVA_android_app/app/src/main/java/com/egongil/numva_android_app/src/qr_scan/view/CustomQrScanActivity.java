@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.qr_scan;
+package com.egongil.numva_android_app.src.qr_scan.view;
 
 import androidx.annotation.NonNull;
 

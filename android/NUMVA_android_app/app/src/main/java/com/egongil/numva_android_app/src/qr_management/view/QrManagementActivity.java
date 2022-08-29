@@ -30,7 +30,7 @@ import com.egongil.numva_android_app.src.config.models.request.RegisterQrRequest
 import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
 import com.egongil.numva_android_app.src.config.models.request.SetQrNameRequest;
 import com.egongil.numva_android_app.src.config.models.response.SetQrNameResponse;
-import com.egongil.numva_android_app.src.qr_scan.QrScanActivity;
+import com.egongil.numva_android_app.src.qr_scan.view.QrScanActivity;
 
 import java.util.ArrayList;
 import java.util.Objects;
