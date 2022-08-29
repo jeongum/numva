@@ -26,7 +26,7 @@ import com.egongil.numva_android_app.src.config.models.response.LogoutResponse;
 import com.egongil.numva_android_app.src.config.models.UserInfo;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.customer_center.CustomerCenterActivity;
-import com.egongil.numva_android_app.src.edit_userinfo.EditUserInfoActivity;
+import com.egongil.numva_android_app.src.edit_userinfo.view.EditUserInfoActivity;
 import com.egongil.numva_android_app.src.login.LoginActivity;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;

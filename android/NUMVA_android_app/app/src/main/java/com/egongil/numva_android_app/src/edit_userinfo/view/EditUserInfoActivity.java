@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.edit_userinfo;
+package com.egongil.numva_android_app.src.edit_userinfo.view;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.EDIT_USERINFO_ACTIVITY;
 
@@ -18,7 +18,8 @@ import com.egongil.numva_android_app.src.config.models.UserInfo;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
-import com.egongil.numva_android_app.src.edit_userinfo.interfaces.EditUserInfoActivityView;
+import com.egongil.numva_android_app.src.edit_userinfo.model.EditUserInfoService;
+import com.egongil.numva_android_app.src.edit_userinfo.interfaces.EditUserInfoActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.EditUserInfoRequest;
 import com.egongil.numva_android_app.src.config.models.response.EditUserInfoResponse;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
@@ -30,7 +31,7 @@ import java.util.Random;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
-public class EditUserInfoActivity extends BaseActivity implements EditUserInfoActivityView, ConnectionReceiver.ConnectionReceiverListener {
+public class EditUserInfoActivity extends BaseActivity implements EditUserInfoActivityContract, ConnectionReceiver.ConnectionReceiverListener {
     UserInfo mUserInfo;
     TextView mTvName, mTvEmail, mTvNickGuide, mTvDeleteAccount, mTvPhone;
     EditText mEtBirth, mEtNickname;

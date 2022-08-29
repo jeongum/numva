@@ -1,7 +1,7 @@
-package com.egongil.numva_android_app.src.edit_userinfo;
+package com.egongil.numva_android_app.src.edit_userinfo.model;
 
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.edit_userinfo.interfaces.DeleteAccountActivityView;
+import com.egongil.numva_android_app.src.edit_userinfo.interfaces.DeleteAccountActivityContract;
 import com.egongil.numva_android_app.src.config.models.response.DeleteAccountResponse;
 
 import retrofit2.Call;
@@ -13,13 +13,13 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 
 public class DeleteAccountService {
 
-    private final DeleteAccountActivityView mDeleteAccountActivityView;
+    private final DeleteAccountActivityContract mDeleteAccountActivityView;
 
-    public DeleteAccountService(DeleteAccountActivityView mDeleteAccountActivityView) {
+    public DeleteAccountService(DeleteAccountActivityContract mDeleteAccountActivityView) {
         this.mDeleteAccountActivityView = mDeleteAccountActivityView;
     }
 
-    void deleteAccount(){
+    public void deleteAccount(){
         getRetrofitService().deleteAccount().enqueue(new Callback<DeleteAccountResponse>(){
             @Override
             public void onResponse(Call<DeleteAccountResponse> call, Response<DeleteAccountResponse> response) {

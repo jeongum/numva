@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.edit_userinfo;
+package com.egongil.numva_android_app.src.edit_userinfo.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +10,13 @@ import android.widget.ImageView;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.edit_userinfo.interfaces.DeleteAccountActivityView;
+import com.egongil.numva_android_app.src.edit_userinfo.model.DeleteAccountService;
+import com.egongil.numva_android_app.src.edit_userinfo.interfaces.DeleteAccountActivityContract;
 import com.egongil.numva_android_app.src.config.models.response.DeleteAccountResponse;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 
-public class DeleteAccountActivity extends BaseActivity implements DeleteAccountActivityView, ConnectionReceiver.ConnectionReceiverListener {
+public class DeleteAccountActivity extends BaseActivity implements DeleteAccountActivityContract, ConnectionReceiver.ConnectionReceiverListener {
 
     ImageView mBtnBack;
     Button mBtnDelete;

@@ -1,7 +1,7 @@
-package com.egongil.numva_android_app.src.edit_userinfo;
+package com.egongil.numva_android_app.src.edit_userinfo.model;
 
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.edit_userinfo.interfaces.EditUserInfoActivityView;
+import com.egongil.numva_android_app.src.edit_userinfo.interfaces.EditUserInfoActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.EditUserInfoRequest;
 import com.egongil.numva_android_app.src.config.models.response.EditUserInfoResponse;
 
@@ -14,13 +14,13 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 
 public class EditUserInfoService {
 
-    private final EditUserInfoActivityView mEditUserInfoActivityView;
+    private final EditUserInfoActivityContract mEditUserInfoActivityView;
 
-    public EditUserInfoService(EditUserInfoActivityView mEditUserInfoActivityView) {
+    public EditUserInfoService(EditUserInfoActivityContract mEditUserInfoActivityView) {
         this.mEditUserInfoActivityView = mEditUserInfoActivityView;
     }
 
-    void postEditUserInfo(EditUserInfoRequest editUserInfoRequest){
+    public void postEditUserInfo(EditUserInfoRequest editUserInfoRequest){
         getRetrofitService().postEditUserInfo(editUserInfoRequest).enqueue(new Callback<EditUserInfoResponse>(){
             @Override
             public void onResponse(Call<EditUserInfoResponse> call, Response<EditUserInfoResponse> response) {

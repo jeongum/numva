@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.edit_userinfo.DeleteAccountActivity">
+    tools:context=".src.edit_userinfo.view.DeleteAccountActivity">
 
     <ImageView
         android:id="@+id/delete_account_iv_logo"

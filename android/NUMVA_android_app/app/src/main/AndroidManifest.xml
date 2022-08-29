@@ -23,7 +23,7 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
 
-        <activity android:name=".src.edit_userinfo.DeleteAccountActivity"></activity>
+        <activity android:name=".src.edit_userinfo.view.DeleteAccountActivity"></activity>
         <activity android:name=".src.app_info.MarketingTermsActivity" />
         <activity android:name=".src.app_info.PrivacyTermsActivity" />
         <activity android:name=".src.app_info.ServiceTermsActivity" />
@@ -52,7 +52,7 @@
         <activity
             android:name=".src.qr_management.view.QrManagementActivity"
             android:exported="true" />
-        <activity android:name=".src.edit_userinfo.EditUserInfoActivity" />
+        <activity android:name=".src.edit_userinfo.view.EditUserInfoActivity" />
         <activity android:name=".src.findLogin.FindLoginActivity" />
         <activity android:name=".src.signup.SignupDoneActivity" />
         <activity android:name=".src.login.LoginActivity" />
