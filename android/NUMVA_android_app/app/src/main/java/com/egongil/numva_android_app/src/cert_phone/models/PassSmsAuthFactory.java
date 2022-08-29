@@ -1,9 +1,11 @@
-package com.egongil.numva_android_app.src.cert_phone;
+package com.egongil.numva_android_app.src.cert_phone.models;
 
 import android.content.Intent;
 import android.webkit.JavascriptInterface;
 
 import static android.app.Activity.RESULT_OK;
+
+import com.egongil.numva_android_app.src.cert_phone.view.PassActivity;
 
 public class PassSmsAuthFactory {
     private static final String TAG = "SmsAuthFactory";

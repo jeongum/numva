@@ -27,7 +27,7 @@
         <activity android:name=".src.app_info.MarketingTermsActivity" />
         <activity android:name=".src.app_info.PrivacyTermsActivity" />
         <activity android:name=".src.app_info.ServiceTermsActivity" />
-        <activity android:name=".src.cert_phone.PassActivity" />
+        <activity android:name=".src.cert_phone.view.PassActivity" />
         <activity android:name=".src.network.NetworkFailureActivity" />
         <activity android:name=".src.signup.SignupTermsActivity" />
         <activity android:name=".src.signup.SignupMoreInfoActivity" />

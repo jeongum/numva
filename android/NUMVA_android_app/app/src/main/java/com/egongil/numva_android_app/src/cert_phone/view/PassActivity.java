@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.cert_phone;
+package com.egongil.numva_android_app.src.cert_phone.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,16 +9,17 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.cert_phone.interfaces.PassActivityView;
-import com.egongil.numva_android_app.src.cert_phone.models.PassRequest;
-import com.egongil.numva_android_app.src.cert_phone.models.PassResponse;
+import com.egongil.numva_android_app.src.cert_phone.interfaces.PassActivityContract;
+import com.egongil.numva_android_app.src.config.models.request.PassRequest;
+import com.egongil.numva_android_app.src.config.models.response.PassResponse;
+import com.egongil.numva_android_app.src.cert_phone.models.PassService;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.edit_userinfo.view.EditUserInfoActivity;
 import com.egongil.numva_android_app.src.signup.SignupMoreInfoActivity;
 
 
-public class PassActivity extends BaseActivity implements PassActivityView {
+public class PassActivity extends BaseActivity implements PassActivityContract {
     private WebView mWvPass = null;
     private Handler handler;
 //    private String mImp_uid;

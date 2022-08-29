@@ -1,7 +1,7 @@
 package com.egongil.numva_android_app.src.findLogin;
 
-import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
-import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.request.CertPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.response.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.findLogin.interfaces.FindIdActivityView;
 import com.egongil.numva_android_app.src.findLogin.interfaces.FindPwActivityView;

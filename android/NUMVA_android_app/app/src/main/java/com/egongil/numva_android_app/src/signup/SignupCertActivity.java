@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.cert_phone.PassActivity;
+import com.egongil.numva_android_app.src.cert_phone.view.PassActivity;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 
 public class SignupCertActivity extends BaseActivity {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.cert_phone.PassActivity">
+    tools:context=".src.cert_phone.view.PassActivity">
     <WebView
         android:id="@+id/pass_webview"
         android:layout_width="match_parent"

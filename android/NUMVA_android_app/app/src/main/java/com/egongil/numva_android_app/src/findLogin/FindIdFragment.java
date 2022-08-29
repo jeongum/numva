@@ -22,10 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.cert_phone.SendSMS;
-import com.egongil.numva_android_app.src.cert_phone.TimerView;
-import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
-import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
+import com.egongil.numva_android_app.src.cert_phone.models.SendSMS;
+import com.egongil.numva_android_app.src.cert_phone.view.TimerView;
+import com.egongil.numva_android_app.src.config.models.request.CertPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.response.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.view.BaseFragment;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.findLogin.interfaces.FindIdActivityView;

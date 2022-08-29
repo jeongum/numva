@@ -252,7 +252,7 @@
                     app:layout_constraintLeft_toRightOf="@+id/secondphone_register_et_certnumber"
                     app:layout_constraintRight_toRightOf="parent"/>
 
-                <com.egongil.numva_android_app.src.cert_phone.TimerView
+                <com.egongil.numva_android_app.src.cert_phone.view.TimerView
                     android:id="@+id/secondphone_register_tv_timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

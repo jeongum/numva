@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.src.cert_phone.PassActivity;
+import com.egongil.numva_android_app.src.cert_phone.view.PassActivity;
 import com.egongil.numva_android_app.src.config.models.UserInfo;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;

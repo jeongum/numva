@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.cert_phone;
+package com.egongil.numva_android_app.src.cert_phone.view;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;

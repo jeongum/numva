@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.cert_phone;
+package com.egongil.numva_android_app.src.cert_phone.models;
 
 import java.util.Random;
 

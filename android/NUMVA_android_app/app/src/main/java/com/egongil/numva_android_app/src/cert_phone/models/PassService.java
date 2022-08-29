@@ -1,10 +1,10 @@
-package com.egongil.numva_android_app.src.cert_phone;
+package com.egongil.numva_android_app.src.cert_phone.models;
 
-import com.egongil.numva_android_app.src.cert_phone.interfaces.PassActivityView;
-import com.egongil.numva_android_app.src.cert_phone.interfaces.PassRetrofitInterface;
-import com.egongil.numva_android_app.src.cert_phone.models.PassRequest;
-import com.egongil.numva_android_app.src.cert_phone.models.PassResponse;
+import com.egongil.numva_android_app.src.cert_phone.interfaces.PassActivityContract;
+import com.egongil.numva_android_app.src.config.models.request.PassRequest;
+import com.egongil.numva_android_app.src.config.interfaces.RetrofitService;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
+import com.egongil.numva_android_app.src.config.models.response.PassResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,14 +14,14 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.convertE
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 
 public class PassService {
-    private final PassActivityView mPassActivityView;
+    private final PassActivityContract mPassActivityContract;
 
-    public PassService(PassActivityView mPassActivityView){
-        this.mPassActivityView = mPassActivityView;
+    public PassService(PassActivityContract mPassActivityContract){
+        this.mPassActivityContract = mPassActivityContract;
     }
 
-    void postPass(PassRequest passRequest){
-        final PassRetrofitInterface passRetrofitInterface = getRetrofit().create(PassRetrofitInterface.class);
+    public void postPass(PassRequest passRequest){
+        final RetrofitService.PassRetrofitInterface passRetrofitInterface = getRetrofit().create(RetrofitService.PassRetrofitInterface.class);
         passRetrofitInterface.postPass(passRequest).enqueue(new Callback<PassResponse>(){
             @Override
             public void onResponse(Call<PassResponse> call, Response<PassResponse> response) {
@@ -32,13 +32,13 @@ public class PassService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mPassActivityView.postPassSuccess(passResponse, errorResponse);
+                mPassActivityContract.postPassSuccess(passResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<PassResponse> call, Throwable t) {
                 t.printStackTrace();
-                mPassActivityView.postPassFailure();
+                mPassActivityContract.postPassFailure();
             }
         });
     }

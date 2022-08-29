@@ -14,10 +14,10 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 
 public class EditUserInfoService {
 
-    private final EditUserInfoActivityContract mEditUserInfoActivityView;
+    private final EditUserInfoActivityContract mEditUserInfoActivityContract;
 
-    public EditUserInfoService(EditUserInfoActivityContract mEditUserInfoActivityView) {
-        this.mEditUserInfoActivityView = mEditUserInfoActivityView;
+    public EditUserInfoService(EditUserInfoActivityContract mEditUserInfoActivityContract) {
+        this.mEditUserInfoActivityContract = mEditUserInfoActivityContract;
     }
 
     public void postEditUserInfo(EditUserInfoRequest editUserInfoRequest){
@@ -31,13 +31,13 @@ public class EditUserInfoService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mEditUserInfoActivityView.postEditUserInfoSuccess(editUserInfoResponse, errorResponse);
+                mEditUserInfoActivityContract.postEditUserInfoSuccess(editUserInfoResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<EditUserInfoResponse> call, Throwable t) {
                 t.printStackTrace();
-                mEditUserInfoActivityView.postEditUserInfoFailure();
+                mEditUserInfoActivityContract.postEditUserInfoFailure();
             }
         });
 

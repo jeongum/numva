@@ -1,4 +1,4 @@
-package com.egongil.numva_android_app.src.cert_phone.models;
+package com.egongil.numva_android_app.src.config.models.request;
 
 import com.google.gson.annotations.SerializedName;
 
