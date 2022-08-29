@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -18,6 +21,7 @@ import android.view.ViewGroup;
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.databinding.FragmentMypageBinding;
 import com.egongil.numva_android_app.src.app_info.AppInfoActivity;
+import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.config.view.BaseFragment;
 import com.egongil.numva_android_app.src.config.interfaces.Callback;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
@@ -35,14 +39,20 @@ import com.egongil.numva_android_app.src.qr_management.view.QrManagementActivity
 import com.egongil.numva_android_app.src.second_phone.SecondPhoneActivity;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.EDIT_USERINFO_ACTIVITY;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.PARKING_MEMO_ACTIVITY;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_MANAGEMENT_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
 
+import java.util.ArrayList;
+
 public class MyPageFragment extends BaseFragment implements MyPageFragmentContract {
     FragmentMypageBinding binding;
-    MainViewModel viewModel;
+    MainViewModel mMainViewModel;
 
     public Callback mGetPhoneInfoCallback;
+
+    ActivityResultLauncher<Intent> mActivityResultLauncher;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -52,8 +62,8 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         View root = binding.getRoot();
 
         //MainActivity의 ViewModel 가져옴
-        viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        binding.setViewModel(viewModel);
+        mMainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        binding.setViewModel(mMainViewModel);
         binding.setLifecycleOwner(this);
 
         binding.refreshLayout.setColorSchemeResources(
@@ -69,28 +79,47 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
             binding.refreshLayout.setRefreshing(false);
         });
 
+        mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            switch(result.getResultCode()){
+                case QR_MANAGEMENT_ACTIVITY:
+                    Intent qrIntent = result.getData();
+                    ArrayList<SafetyInfo> mListQR = (ArrayList<SafetyInfo>)qrIntent.getSerializableExtra("safety_info");
+                    mMainViewModel.setSafetyInfoData(mListQR);
+                    break;
+
+                case EDIT_USERINFO_ACTIVITY:
+                    Intent editIntent = result.getData();
+                    UserInfo info = mMainViewModel.getUserData().getValue();
+                    info.setNickname(editIntent.getStringExtra("nickname"));
+                    info.setPhone(editIntent.getStringExtra("phone"));
+                    info.setBirth(editIntent.getStringExtra("birth"));
+                    mMainViewModel.setUserData(info);
+                    break;
+            }
+        });
+
         //유저정보 클릭 시 > 내 정보 수정 진입
         binding.loginGreeting.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-            startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
+            mActivityResultLauncher.launch(intent);
         });
 
         //휴대전화번호 텍뷰 클릭 시 > 내 정보 수정 진입
         binding.phoneNumberTitle.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-            startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
+            mActivityResultLauncher.launch(intent);
         });
 
         //휴대전화번호 클릭 시 > 내 정보 수정 진입
         binding.phoneNumberTv.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-            startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
+            mActivityResultLauncher.launch(intent);
         });
 
         //휴대전화번호 옆 pencil 아이콘 클릭 시 > 내 정보 수정 진입
         binding.editPhoneBtn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-            startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
+            mActivityResultLauncher.launch(intent);
         });
 
         //2차전화번호 옆 pencil 아이콘 클릭 시 > 2차전화번호 다이얼로그 진입
@@ -133,7 +162,8 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), QrManagementActivity.class);
-                startActivity(intent);
+                intent.putExtra("safety_info", mMainViewModel.getSafetyInfoData().getValue());  //safetyInfo 정보 담아서 보낸다.
+                mActivityResultLauncher.launch(intent);
             }
         });
 
@@ -142,7 +172,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
-                startActivityForResult(intent, EDIT_USERINFO_ACTIVITY);
+                mActivityResultLauncher.launch(intent);
             }
         });
 
@@ -202,7 +232,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
     public void setSecondPhoneData(){
         //data mapping
         if(((MainActivity)getActivity()).userInfo!=null){
-            if(viewModel.getUserData().getValue().getSecond_phone().equals("")){
+            if(mMainViewModel.getUserData().getValue().getSecond_phone().equals("")){
                 binding.secondPhoneTv.setVisibility(View.VISIBLE);  //2차전화번호 TextView
                 binding.editSecondPhoneBtn.setVisibility(View.VISIBLE); //2차전화번호 연필아이콘
                 binding.registerSecondphone.setVisibility(View.GONE);  //2차전화번호 등록버튼
@@ -240,19 +270,5 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
     @Override
     public void getLogoutFailure() {
         showCustomToast(getResources().getString(R.string.network_error));
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == EDIT_USERINFO_ACTIVITY){
-            if(resultCode == RESULT_OK){
-                UserInfo info = viewModel.getUserData().getValue();
-                info.setNickname(data.getStringExtra("nickname"));
-                info.setPhone(data.getStringExtra("phone"));
-                info.setBirth(data.getStringExtra("birth"));
-                viewModel.setUserData(info);
-            }
-        }
     }
 }

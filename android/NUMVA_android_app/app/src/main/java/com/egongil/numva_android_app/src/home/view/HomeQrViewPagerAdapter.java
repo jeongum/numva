@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -134,7 +135,6 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
         return view;
     }
 
-
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
 //        super.destroyItem(container, position, object);
@@ -155,7 +155,14 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         //페이지가 특정 키와 연관되는지 체크
-        return (view == (View)object);
+        return (view == object);
+    }
+
+
+    @Override
+    public int getItemPosition(Object object) {
+        //notifyDataSetChanged() 호출 시, 모든 데이터를 제거하고 다시 로드함
+        return POSITION_NONE;
     }
 
     //참고:

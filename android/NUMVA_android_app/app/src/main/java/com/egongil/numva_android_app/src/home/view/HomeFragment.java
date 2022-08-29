@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
@@ -85,7 +86,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), QrManagementActivity.class);
-                intent.putExtra("safety_info", mMainViewModel.getSafetyInfoData().getValue());
+                intent.putExtra("safety_info", mMainViewModel.getSafetyInfoData().getValue()); //safetyInfo 정보 담아서 보낸다.
                 mActivityResultLauncher.launch(intent);
             }
         });
@@ -98,13 +99,13 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
 
                 if(pos!=-1){
                     mMainViewModel.setParkingMemo(pos, memo);
-                    setViewPager();
+//                    setViewPager();
                 }
             }else if(result.getResultCode()==QR_MANAGEMENT_ACTIVITY){
                 Intent intent = result.getData();
                 ArrayList<SafetyInfo>mListQR = (ArrayList<SafetyInfo>)intent.getSerializableExtra("safety_info");
                 mMainViewModel.setSafetyInfoData(mListQR);
-                setViewPager();
+//                setViewPager();
             }
         });
 
@@ -124,6 +125,12 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
                 enableDisableSwipeRefresh(state == ViewPager.SCROLL_STATE_IDLE);
             }
         });
+
+        //safetyInfo가 변경되면 setViewPager() 해줌
+        if(mMainViewModel.mSafetyInfo == null){
+            mMainViewModel.getSafetyInfoData(); //null체크
+        }
+        mMainViewModel.mSafetyInfo.observe(getViewLifecycleOwner(), safetyInfos -> updateViewPager());
 
         //ViewPager margin, Transform
         setViewPagerStyle();
@@ -216,5 +223,10 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
         binding.qrIndicator.setViewPager(binding.qrViewPager);
 
         mViewPagerAdapter.registerDataSetObserver(binding.qrIndicator.getDataSetObserver());
+    }
+
+    private void updateViewPager(){
+        if(mViewPagerAdapter!= null)
+            mViewPagerAdapter.notifyDataSetChanged();
     }
 }
