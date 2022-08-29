@@ -24,7 +24,7 @@ import com.egongil.numva_android_app.src.qr_management.view.QrManagementActivity
 import com.egongil.numva_android_app.src.config.models.request.RegisterQrRequest;
 import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
 import com.egongil.numva_android_app.src.qr_scan.models.QrScanResultService;
-import com.egongil.numva_android_app.src.qr_scan.interfaces.QrScanResultActivityView;
+import com.egongil.numva_android_app.src.qr_scan.interfaces.QrScanResultActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.ScanQrRequest;
 import com.egongil.numva_android_app.src.config.models.response.ScanQrResponse;
 import com.mesibo.calls.api.MesiboCall;
@@ -37,7 +37,7 @@ import com.skydoves.balloon.OnBalloonClickListener;
 import com.skydoves.balloon.OnBalloonOutsideTouchListener;
 
 
-public class QrScanResultActivity extends BaseActivity implements QrScanResultActivityView {
+public class QrScanResultActivity extends BaseActivity implements QrScanResultActivityContract {
 
     private String first_phone, second_phone;
     private String qrId;
