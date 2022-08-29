@@ -1,7 +1,7 @@
 package com.egongil.numva_android_app.src.customer_center.models;
 
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.customer_center.interfaces.CustomerCenterActivityView;
+import com.egongil.numva_android_app.src.customer_center.interfaces.CustomerCenterActivityContract;
 import com.egongil.numva_android_app.src.config.models.response.FAQResponse;
 
 import retrofit2.Call;
@@ -12,10 +12,10 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.convertE
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 public class CustomerCenterService {
-    private CustomerCenterActivityView mCustomerCenterActivityView;
+    private CustomerCenterActivityContract mCustomerCenterActivityContract;
 
-    public CustomerCenterService(CustomerCenterActivityView mCustomerCenterActivityView){
-        this.mCustomerCenterActivityView = mCustomerCenterActivityView;
+    public CustomerCenterService(CustomerCenterActivityContract mCustomerCenterActivityContract){
+        this.mCustomerCenterActivityContract = mCustomerCenterActivityContract;
     }
 
     public void getFAQ(){
@@ -29,13 +29,13 @@ public class CustomerCenterService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mCustomerCenterActivityView.getFAQSuccess(faqResponse, errorResponse);
+                mCustomerCenterActivityContract.getFAQSuccess(faqResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<FAQResponse> call, Throwable t) {
                 t.printStackTrace();
-                mCustomerCenterActivityView.getFAQFailure();
+                mCustomerCenterActivityContract.getFAQFailure();
             }
         });
     }

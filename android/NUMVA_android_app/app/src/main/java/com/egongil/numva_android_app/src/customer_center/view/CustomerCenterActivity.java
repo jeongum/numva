@@ -14,14 +14,14 @@ import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.customer_center.models.CustomerCenterService;
 import com.egongil.numva_android_app.src.customer_center.models.FAQRecyclerItem;
-import com.egongil.numva_android_app.src.customer_center.interfaces.CustomerCenterActivityView;
+import com.egongil.numva_android_app.src.customer_center.interfaces.CustomerCenterActivityContract;
 import com.egongil.numva_android_app.src.config.models.response.FAQResponse;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 
 import java.util.ArrayList;
 
-public class CustomerCenterActivity extends BaseActivity implements CustomerCenterActivityView, ConnectionReceiver.ConnectionReceiverListener {
+public class CustomerCenterActivity extends BaseActivity implements CustomerCenterActivityContract, ConnectionReceiver.ConnectionReceiverListener {
     private ArrayList<FAQRecyclerItem> mFAQList;
     FAQRecyclerAdapter mAdapter;
     RecyclerView mRvFAQ;
