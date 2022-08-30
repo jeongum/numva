@@ -5,15 +5,11 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.Activity
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.databinding.ActivityQrManagementBinding;
@@ -37,7 +33,6 @@ import com.egongil.numva_android_app.src.qr_management.viewmodel.QrManagementVie
 import com.egongil.numva_android_app.src.qr_scan.view.QrScanActivity;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class QrManagementActivity extends BaseActivity implements QrManagementActivityContract {
     final static int QRNAME_VALID = 0;
@@ -46,8 +41,11 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
 
     ActivityQrManagementBinding binding;
     private QrManagementViewModel mQrManagementViewModel;
+    private QrRecyclerAdapter mQrRvAdapter;
 
-    OneLineEditDialog directDialog;
+    private OneLineEditDialog directRegisterDialog;
+    private TwoButtonDialog deleteDialog;
+    private OneLineEditDialog editDialog;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +56,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                 new QrManagementViewModelFactory(this))
                 .get(QrManagementViewModel.class);
 
+        binding.setViewModel(mQrManagementViewModel);
         binding.qrManageBtnAddQr.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
@@ -68,7 +67,8 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         //RecyclerView 초기화
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.qrManageRvQrlist.setLayoutManager(manager);
-        binding.qrManageRvQrlist.setAdapter(new QrRecyclerAdapter(mQrManagementViewModel));
+        mQrRvAdapter = new QrRecyclerAdapter(mQrManagementViewModel);
+        binding.qrManageRvQrlist.setAdapter(mQrRvAdapter);
 
         //RecyclerView Swipe menu
         RecyclerTouchListener touchListener = new RecyclerTouchListener(this, binding.qrManageRvQrlist);
@@ -89,6 +89,12 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
 
         initSafetyInfo();
 
+        //safetyInfo 변경되면 recyclerView update해줌
+        if(mQrManagementViewModel.mSafetyInfo == null){
+            mQrManagementViewModel.getSafetyInfoData(); //null체크
+        }
+        mQrManagementViewModel.mSafetyInfo.observe(this, safetyInfos -> updateRecyclerView());
+
         binding.qrManageIvClosebtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
@@ -101,7 +107,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         if(name.equals("")){
             return QRNAME_EMPTY;
         }
-        ArrayList<SafetyInfo> mListQR = (ArrayList<SafetyInfo>) getIntent().getSerializableExtra("safety_info");
+        ArrayList<SafetyInfo> mListQR = mQrManagementViewModel.getSafetyInfoData().getValue();
         for(int i=0; i<mListQR.size();i++){
             if(mListQR.get(i).getName().equals(name)){
                 return QRNAME_EXIST;
@@ -112,17 +118,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
     public void initSafetyInfo(){
         ArrayList<SafetyInfo> mListQR = (ArrayList<SafetyInfo>) getIntent().getSerializableExtra("safety_info");
         mQrManagementViewModel.setSafetyInfoData(mListQR);
-        ((QrRecyclerAdapter) Objects.requireNonNull(binding.qrManageRvQrlist.getAdapter())).updateData(mListQR);
-
-        if(mListQR.size()!=0){
-            //등록된 QR 있을 경우
-            binding.qrManageTvQrNotexist.setVisibility(View.GONE);
-            binding.qrManageRvQrlist.setVisibility(View.VISIBLE);
-        } else{
-            //등록된 QR 없을 경우
-            binding.qrManageTvQrNotexist.setVisibility(View.VISIBLE);
-            binding.qrManageRvQrlist.setVisibility(View.GONE);
-        }
+        mQrRvAdapter.updateData(mListQR);
     }
 
     public void setQrName(int id, String name){
@@ -135,6 +131,8 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         if(setQrNameResponse!=null) {
             if (setQrNameResponse.getCode() == 200 && setQrNameResponse.isSuccess()) {
                 showCustomToast(getResources().getString(R.string.qr_manage_edit_success));
+                putIntentSafetyInfo();
+                editDialog.dismiss();
             }
         }
         else if(errorResponse != null){
@@ -161,14 +159,11 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
     public void registerQrSuccess(RegisterQrResponse registerQrResponse, ErrorResponse errorResponse) {
         if(registerQrResponse!=null){
             if(registerQrResponse.getCode()==200 && registerQrResponse.isSuccess()){
-                directDialog.dismiss();
+                directRegisterDialog.dismiss();
 
                 showCustomToast(getString(R.string.qr_manage_register_success));
                 ArrayList<SafetyInfo> mListQR = registerQrResponse.getResult();
                 mQrManagementViewModel.setSafetyInfoData(mListQR);
-
-                //RecyclerView 업데이트
-                ((QrRecyclerAdapter) Objects.requireNonNull(binding.qrManageRvQrlist.getAdapter())).updateData(mListQR);
 
                 putIntentSafetyInfo();
             }
@@ -177,13 +172,13 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
             //에러 시 동작
             if(errorResponse.getCode() == -102){
                 //이미 등록된 qr
-                directDialog.setGuideText("이미 등록된 일련번호입니다. 다시 한 번 확인해주세요.");
-                directDialog.setGuideColor(getColor(R.color.colorErrorRed));
+                directRegisterDialog.setGuideText("이미 등록된 일련번호입니다. 다시 한 번 확인해주세요.");
+                directRegisterDialog.setGuideColor(getColor(R.color.colorErrorRed));
 
             }else if(errorResponse.getCode() == -103){
                 //유효하지 않은 일련번호
-                directDialog.setGuideText("유효하지 않은 일련번호입니다. 다시 한 번 확인해주세요.");
-                directDialog.setGuideColor(getColor(R.color.colorErrorRed));
+                directRegisterDialog.setGuideText("유효하지 않은 일련번호입니다. 다시 한 번 확인해주세요.");
+                directRegisterDialog.setGuideColor(getColor(R.color.colorErrorRed));
             }else{
                 showCustomToast(getResources().getString(R.string.network_error));
             }
@@ -205,6 +200,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         if(deleteQrResponse!=null){
             if(deleteQrResponse.getCode()==200 && deleteQrResponse.isSuccess()){
                 showCustomToast(getString(R.string.qr_manage_delete_success));
+                putIntentSafetyInfo();
             }
         }else if(errorResponse!=null){
             //에러 시 동작
@@ -246,24 +242,24 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
     }
 
     public void showDirectRegisterDialog(){
-        directDialog = new OneLineEditDialog(QrManagementActivity.this);
-        directDialog.showDialog();
+        directRegisterDialog = new OneLineEditDialog(QrManagementActivity.this);
+        directRegisterDialog.showDialog();
 
-        directDialog.setTitleText("제품 일련번호 등록");
-        directDialog.setEditHint("일련번호 입력");
-        directDialog.setConfirmBtnText("등록하기");
+        directRegisterDialog.setTitleText("제품 일련번호 등록");
+        directRegisterDialog.setEditHint("일련번호 입력");
+        directRegisterDialog.setConfirmBtnText("등록하기");
 
 
-        directDialog.mTvConfirmBtn.setOnClickListener(new OnSingleClickListener() {
+        directRegisterDialog.mTvConfirmBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                registerQr(directDialog.getTextOfEdit());
+                registerQr(directRegisterDialog.getTextOfEdit());
             }
         });
     }
 
     public void showEditDialog(int position){
-        OneLineEditDialog editDialog = new OneLineEditDialog(QrManagementActivity.this);
+        editDialog = new OneLineEditDialog(QrManagementActivity.this);
         editDialog.showDialog();
 
         editDialog.setTitleText("QR 별명 설정");    //타이틀 text 설정
@@ -280,17 +276,14 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         editDialog.mTvConfirmBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                editDialog.dismiss();
                 String strEdit = editDialog.getTextOfEdit();
                 int isQrNameValid = checkQrNameValidity(strEdit);
                 if(isQrNameValid == QRNAME_VALID) {
                     ArrayList<SafetyInfo> mListQR = mQrManagementViewModel.getSafetyInfoData().getValue();
-                    setQrName(mListQR.get(position).getId(), strEdit);  //api
                     mListQR.get(position).setName(strEdit);
+                    mQrManagementViewModel.setSafetyInfoData(mListQR);
 
-                    ((QrRecyclerAdapter) binding.qrManageRvQrlist.getAdapter()).updateData(mListQR); //RecyclerView 업데이트
-
-                    putIntentSafetyInfo();
+                    setQrName(mListQR.get(position).getId(), strEdit);  //api
                 }
                 else if(isQrNameValid == QRNAME_EMPTY) {
                     editDialog.setGuideText("한 글자 이상 입력해주세요.");
@@ -305,7 +298,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
     }
 
     public void showDeleteDialog(int position){
-        TwoButtonDialog deleteDialog = new TwoButtonDialog(QrManagementActivity.this);
+        deleteDialog = new TwoButtonDialog(QrManagementActivity.this);
         deleteDialog.showDialog();
         deleteDialog.setContextText("이 QR을 삭제할까요?");
         deleteDialog.setSelectText("취소", "확인");
@@ -320,10 +313,10 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
             @Override
             public void onSingleClick(View v) {
                 ArrayList<SafetyInfo> mListQR = mQrManagementViewModel.getSafetyInfoData().getValue();
-                deleteQr(mListQR.get(position).getId());    //api
                 mListQR.remove(position);
-                ((QrRecyclerAdapter) Objects.requireNonNull(binding.qrManageRvQrlist.getAdapter())).updateData(mListQR);
-                putIntentSafetyInfo();
+                mQrManagementViewModel.setSafetyInfoData(mListQR);
+
+                deleteQr(mListQR.get(position).getId());    //api
                 deleteDialog.dismiss();
             }
         });
@@ -335,5 +328,11 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         ArrayList<SafetyInfo> mListQR = mQrManagementViewModel.getSafetyInfoData().getValue();
         finish_intent.putExtra("safety_info", mListQR);
         setResult(QR_MANAGEMENT_ACTIVITY, finish_intent);
+    }
+
+    private void updateRecyclerView(){
+        if(mQrRvAdapter !=null){
+            mQrRvAdapter.notifyDataSetChanged();
+        }
     }
 }

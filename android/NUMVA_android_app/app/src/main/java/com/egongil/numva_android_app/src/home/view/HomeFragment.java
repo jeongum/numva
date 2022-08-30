@@ -85,7 +85,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), QrManagementActivity.class);
-                intent.putExtra("safety_info", mMainViewModel.getSafetyInfoData().getValue()); //safetyInfo 정보 담아서 보낸다.
+                ArrayList<SafetyInfo> safetyInfos = new ArrayList<>();
+                if(mMainViewModel.getSafetyInfoData().getValue().get(0).getId() !=-1){
+                    safetyInfos = mMainViewModel.getSafetyInfoData().getValue();
+                }
+                intent.putExtra("safety_info", safetyInfos); //safetyInfo 정보 담아서 보낸다.
                 mActivityResultLauncher.launch(intent);
             }
         });
@@ -123,7 +127,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
             }
         });
 
-        //safetyInfo가 변경되면 setViewPager() 해줌
+        //safetyInfo가 변경되면 updateViewPager 해줌
         if(mMainViewModel.mSafetyInfo == null){
             mMainViewModel.getSafetyInfoData(); //null체크
         }

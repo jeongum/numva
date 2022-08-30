@@ -4,10 +4,11 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.convertE
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 import android.util.Log;
+import android.view.View;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.egongil.numva_android_app.src.config.interfaces.RetrofitService;
 import com.egongil.numva_android_app.src.config.models.MutableListLiveData;
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
@@ -47,6 +48,19 @@ public class QrManagementViewModel extends ViewModel {
         mSafetyInfo.setValue(safetyInfo);
     }
 
+    public int getEmptyGuideVisibility(){
+        if(mSafetyInfo.getValue().isEmpty())
+            return View.VISIBLE;
+        else
+            return View.GONE;
+    }
+
+    public int getSafetyInfoVisibility(){
+        if(!mSafetyInfo.getValue().isEmpty())
+            return View.VISIBLE;
+        else
+            return View.GONE;
+    }
 
     public void setQrName(SetQrNameRequest setQrNameRequest){
         getRetrofitService().setQrName(setQrNameRequest).enqueue(new retrofit2.Callback<SetQrNameResponse>(){

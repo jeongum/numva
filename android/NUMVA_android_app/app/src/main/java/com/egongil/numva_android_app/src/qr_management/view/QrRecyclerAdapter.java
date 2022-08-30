@@ -1,6 +1,8 @@
 package com.egongil.numva_android_app.src.qr_management.view;
 
 
+import static androidx.viewpager.widget.PagerAdapter.POSITION_NONE;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;

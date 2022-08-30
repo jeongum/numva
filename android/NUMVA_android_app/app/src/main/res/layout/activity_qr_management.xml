@@ -2,11 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="viewModel"
             type="com.egongil.numva_android_app.src.qr_management.viewmodel.QrManagementViewModel" />
@@ -73,9 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="41dp"
-            android:orientation="vertical"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/qr_manage_btn_addQr">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,10 +102,10 @@
             android:text="현재 등록된 QR 전화번호판이 없습니다."
             android:textColor="@color/colorBlack"
             android:textSize="15dp"
-
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/qr_manage_ll_qrlist_title" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:visibility="@{viewModel.emptyGuideVisibility}"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/qr_manage_rv_qrlist"
@@ -121,8 +116,6 @@
             android:layout_weight="1"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
-
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/qr_manage_ll_qrlist_title" />
+            android:visibility="@{viewModel.safetyInfoVisibility}" />
     </LinearLayout>
 </layout>
