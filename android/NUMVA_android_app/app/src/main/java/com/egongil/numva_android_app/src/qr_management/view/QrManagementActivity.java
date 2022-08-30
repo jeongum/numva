@@ -2,6 +2,8 @@ package com.egongil.numva_android_app.src.qr_management.view;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_MANAGEMENT_ACTIVITY;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.databinding.ActivityQrManagementBinding;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.config.view.RecyclerTouchListener;
@@ -22,7 +25,6 @@ import com.egongil.numva_android_app.src.custom_dialogs.OneLineEditDialog;
 import com.egongil.numva_android_app.src.custom_dialogs.SelectTwoButtonDialog;
 import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
-import com.egongil.numva_android_app.src.qr_management.model.QrManagementService;
 import com.egongil.numva_android_app.src.qr_management.interfaces.QrManagementActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.DeleteQrRequest;
 import com.egongil.numva_android_app.src.config.models.response.DeleteQrResponse;
@@ -30,71 +32,64 @@ import com.egongil.numva_android_app.src.config.models.request.RegisterQrRequest
 import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
 import com.egongil.numva_android_app.src.config.models.request.SetQrNameRequest;
 import com.egongil.numva_android_app.src.config.models.response.SetQrNameResponse;
+import com.egongil.numva_android_app.src.qr_management.viewmodel.QrManagementViewModel;
+import com.egongil.numva_android_app.src.qr_management.viewmodel.QrManagementViewModelFactory;
 import com.egongil.numva_android_app.src.qr_scan.view.QrScanActivity;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class QrManagementActivity extends BaseActivity implements QrManagementActivityContract {
-
     final static int QRNAME_VALID = 0;
     final static int QRNAME_EMPTY = 1;
     final static int QRNAME_EXIST = 2;
 
-    RecyclerView mRvQrList;
-    TextView mTvQrNotExist;
-    Button mBtnRegister;
-    ImageView mIvCloseBtn;
-
-    ArrayList<SafetyInfo>mListQR;
+    ActivityQrManagementBinding binding;
+    private QrManagementViewModel mQrManagementViewModel;
 
     OneLineEditDialog directDialog;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qr_management);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_qr_management);
 
-        mRvQrList = findViewById(R.id.qr_manage_rv_qrlist);
-        mTvQrNotExist = findViewById(R.id.qr_manage_tv_qr_notexist);
-        mBtnRegister = findViewById(R.id.qr_manage_btn_addQr);
-        mIvCloseBtn = findViewById(R.id.qr_manage_iv_closebtn);
-        mListQR = new ArrayList<>();
+        mQrManagementViewModel = new ViewModelProvider(this,
+                new QrManagementViewModelFactory(this))
+                .get(QrManagementViewModel.class);
 
-        mBtnRegister.setOnClickListener(new OnSingleClickListener() {
+        binding.qrManageBtnAddQr.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 showRegisterDialog();
             }
         });
+
         //RecyclerView 초기화
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRvQrList.setLayoutManager(manager);
-        mRvQrList.setAdapter(new QrRecyclerAdapter(mListQR));
+        binding.qrManageRvQrlist.setLayoutManager(manager);
+        binding.qrManageRvQrlist.setAdapter(new QrRecyclerAdapter(mQrManagementViewModel));
 
         //RecyclerView Swipe menu
-        RecyclerTouchListener touchListener = new RecyclerTouchListener(this, mRvQrList);
+        RecyclerTouchListener touchListener = new RecyclerTouchListener(this, binding.qrManageRvQrlist);
         touchListener.setSwipeOptionViews(R.id.qrlist_rl_deletebtn, R.id.qrlist_rl_editbtn)
-                .setSwipeable(R.id.qrlist_ll_FG, R.id.qrlist_ll_BG, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
-                    @Override
-                    public void onSwipeOptionClicked(int viewID, int position) {
-                        switch(viewID){
-                            case R.id.qrlist_rl_deletebtn:
-                                //삭제버튼 눌렀을 때
-                                showDeleteDialog(position);
-                                break;
-                            case R.id.qrlist_rl_editbtn:
-                                //swipemenu 수정버튼 눌렀을 때
-                                showEditDialog(position);
-                                break;
-                        }
+                .setSwipeable(R.id.qrlist_ll_FG, R.id.qrlist_ll_BG, (viewID, position) -> {
+                    switch(viewID){
+                        case R.id.qrlist_rl_deletebtn:
+                            //삭제버튼 눌렀을 때
+                            showDeleteDialog(position);
+                            break;
+                        case R.id.qrlist_rl_editbtn:
+                            //swipemenu 수정버튼 눌렀을 때
+                            showEditDialog(position);
+                            break;
                     }
                 });
-        mRvQrList.addOnItemTouchListener(touchListener);
+        binding.qrManageRvQrlist.addOnItemTouchListener(touchListener);
 
         initSafetyInfo();
 
-        mIvCloseBtn.setOnClickListener(new OnSingleClickListener() {
+        binding.qrManageIvClosebtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 finish();
@@ -106,6 +101,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         if(name.equals("")){
             return QRNAME_EMPTY;
         }
+        ArrayList<SafetyInfo> mListQR = (ArrayList<SafetyInfo>) getIntent().getSerializableExtra("safety_info");
         for(int i=0; i<mListQR.size();i++){
             if(mListQR.get(i).getName().equals(name)){
                 return QRNAME_EXIST;
@@ -114,25 +110,24 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         return QRNAME_VALID;
     }
     public void initSafetyInfo(){
-        mListQR = (ArrayList<SafetyInfo>) getIntent().getSerializableExtra("safety_info");
-        ((QrRecyclerAdapter) Objects.requireNonNull(mRvQrList.getAdapter())).updateData(mListQR);
+        ArrayList<SafetyInfo> mListQR = (ArrayList<SafetyInfo>) getIntent().getSerializableExtra("safety_info");
+        mQrManagementViewModel.setSafetyInfoData(mListQR);
+        ((QrRecyclerAdapter) Objects.requireNonNull(binding.qrManageRvQrlist.getAdapter())).updateData(mListQR);
 
         if(mListQR.size()!=0){
             //등록된 QR 있을 경우
-            mTvQrNotExist.setVisibility(View.GONE);
-            mRvQrList.setVisibility(View.VISIBLE);
+            binding.qrManageTvQrNotexist.setVisibility(View.GONE);
+            binding.qrManageRvQrlist.setVisibility(View.VISIBLE);
         } else{
             //등록된 QR 없을 경우
-            mTvQrNotExist.setVisibility(View.VISIBLE);
-            mRvQrList.setVisibility(View.GONE);
+            binding.qrManageTvQrNotexist.setVisibility(View.VISIBLE);
+            binding.qrManageRvQrlist.setVisibility(View.GONE);
         }
     }
 
     public void setQrName(int id, String name){
         SetQrNameRequest setQrNameRequest = new SetQrNameRequest(id, name);
-
-        QrManagementService qrManagementService  = new QrManagementService(this);
-        qrManagementService.setQrName(setQrNameRequest);
+        mQrManagementViewModel.setQrName(setQrNameRequest);
     }
 
     @Override
@@ -159,9 +154,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
 
     public void registerQr(String qr_id){
         RegisterQrRequest registerQrRequest = new RegisterQrRequest(qr_id);
-
-        QrManagementService qrManagementService  = new QrManagementService(this);
-        qrManagementService.registerQr(registerQrRequest);
+        mQrManagementViewModel.registerQr(registerQrRequest);
     }
 
     @Override
@@ -171,11 +164,13 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                 directDialog.dismiss();
 
                 showCustomToast(getString(R.string.qr_manage_register_success));
-                mListQR = registerQrResponse.getResult();
+                ArrayList<SafetyInfo> mListQR = registerQrResponse.getResult();
+                mQrManagementViewModel.setSafetyInfoData(mListQR);
 
-                ((QrRecyclerAdapter) Objects.requireNonNull(mRvQrList.getAdapter())).updateData(mListQR); //RecyclerView 업데이트
+                //RecyclerView 업데이트
+                ((QrRecyclerAdapter) Objects.requireNonNull(binding.qrManageRvQrlist.getAdapter())).updateData(mListQR);
+
                 putIntentSafetyInfo();
-
             }
         }
         else if(errorResponse != null){
@@ -202,9 +197,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
 
     public void deleteQr(int id){
         DeleteQrRequest deleteQrRequest = new DeleteQrRequest(id);
-
-        QrManagementService qrManagementService  = new QrManagementService(this);
-        qrManagementService.deleteQr(deleteQrRequest);
+        mQrManagementViewModel.deleteQr(deleteQrRequest);
     }
 
     @Override
@@ -281,7 +274,8 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         editDialog.setGuideColor(getColor(R.color.colorPrimary));
 
         editDialog.setConfirmBtnText("설정하기");   //버튼 text 설정
-        editDialog.setTextOfEdit(mListQR.get(position).getName());  //editText 내용 설정
+        editDialog.setTextOfEdit(mQrManagementViewModel.getSafetyInfoData().getValue()
+                .get(position).getName());  //editText 내용 설정
 
         editDialog.mTvConfirmBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
@@ -290,10 +284,11 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                 String strEdit = editDialog.getTextOfEdit();
                 int isQrNameValid = checkQrNameValidity(strEdit);
                 if(isQrNameValid == QRNAME_VALID) {
+                    ArrayList<SafetyInfo> mListQR = mQrManagementViewModel.getSafetyInfoData().getValue();
                     setQrName(mListQR.get(position).getId(), strEdit);  //api
                     mListQR.get(position).setName(strEdit);
 
-                    ((QrRecyclerAdapter) mRvQrList.getAdapter()).updateData(mListQR); //RecyclerView 업데이트
+                    ((QrRecyclerAdapter) binding.qrManageRvQrlist.getAdapter()).updateData(mListQR); //RecyclerView 업데이트
 
                     putIntentSafetyInfo();
                 }
@@ -324,18 +319,20 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         deleteDialog.mBtnRight.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                ArrayList<SafetyInfo> mListQR = mQrManagementViewModel.getSafetyInfoData().getValue();
                 deleteQr(mListQR.get(position).getId());    //api
                 mListQR.remove(position);
-                ((QrRecyclerAdapter) Objects.requireNonNull(mRvQrList.getAdapter())).updateData(mListQR);
+                ((QrRecyclerAdapter) Objects.requireNonNull(binding.qrManageRvQrlist.getAdapter())).updateData(mListQR);
                 putIntentSafetyInfo();
                 deleteDialog.dismiss();
             }
         });
     }
 
-    //HomeFragment로 향할 intent에 mListQR담기
+    //HomeFragment/MyPageFragment로 향할 intent에 mListQR담기
     public void putIntentSafetyInfo(){
         Intent finish_intent = new Intent(getApplicationContext(), MainActivity.class);
+        ArrayList<SafetyInfo> mListQR = mQrManagementViewModel.getSafetyInfoData().getValue();
         finish_intent.putExtra("safety_info", mListQR);
         setResult(QR_MANAGEMENT_ACTIVITY, finish_intent);
     }

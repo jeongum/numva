@@ -13,22 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
+import com.egongil.numva_android_app.src.qr_management.viewmodel.QrManagementViewModel;
 
 import java.util.ArrayList;
 
 public class QrRecyclerAdapter extends RecyclerView.Adapter{
-    Context mContext;
-    private ArrayList<SafetyInfo> mQrList = null;
+    private QrManagementViewModel mQrManagementViewModel;
 
-    public QrRecyclerAdapter(ArrayList<SafetyInfo> mQrList) {
-        this.mQrList = mQrList;
+    public QrRecyclerAdapter(QrManagementViewModel mQrManagementViewModel) {
+        this.mQrManagementViewModel = mQrManagementViewModel;
     }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        mContext = parent.getContext();
+        Context mContext = parent.getContext();
         LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.item_rv_qrlist, parent,false);
 
@@ -37,6 +36,7 @@ public class QrRecyclerAdapter extends RecyclerView.Adapter{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ArrayList<SafetyInfo> mQrList = mQrManagementViewModel.getSafetyInfoData().getValue();
         String strQrName = mQrList.get(position).getName();
         Log.d("QrRecyclerAdapter", "strQrName : "+strQrName);
         ((QrViewHolder)holder).mtvQrname.setText(strQrName);
@@ -44,12 +44,11 @@ public class QrRecyclerAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        return mQrList.size();
+        return mQrManagementViewModel.getSafetyInfoData().getValue().size();
     }
 
     public void updateData(ArrayList<SafetyInfo> mList){
-        mQrList.clear();
-        mQrList.addAll(mList);
+        mQrManagementViewModel.setSafetyInfoData(mList);
         notifyDataSetChanged();
     }
 

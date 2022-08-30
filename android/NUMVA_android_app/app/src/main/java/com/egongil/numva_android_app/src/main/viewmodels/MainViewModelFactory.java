@@ -9,16 +9,14 @@ import com.egongil.numva_android_app.src.main.interfaces.MainContract;
 
 public class MainViewModelFactory implements ViewModelProvider.Factory{
     private MainContract mMainContract;
-    private RetrofitService mRetrofitService;
 
-    public MainViewModelFactory(MainContract mMainContract, RetrofitService mRetrofitService) {
+    public MainViewModelFactory(MainContract mMainContract) {
         this.mMainContract = mMainContract;
-        this.mRetrofitService = mRetrofitService;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new MainViewModel(mMainContract, mRetrofitService);
+        return (T) new MainViewModel(mMainContract);
     }
 }

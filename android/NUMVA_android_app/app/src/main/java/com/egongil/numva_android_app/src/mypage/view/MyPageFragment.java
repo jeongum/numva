@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.databinding.FragmentMypageBinding;
 import com.egongil.numva_android_app.src.app_info.AppInfoActivity;
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.config.view.BaseFragment;

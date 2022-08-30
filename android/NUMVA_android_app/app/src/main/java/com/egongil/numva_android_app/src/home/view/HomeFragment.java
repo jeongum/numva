@@ -98,13 +98,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
 
                 if(pos!=-1){
                     mMainViewModel.setParkingMemo(pos, memo);
-//                    setViewPager();
                 }
             }else if(result.getResultCode()==QR_MANAGEMENT_ACTIVITY){
                 Intent intent = result.getData();
                 ArrayList<SafetyInfo>mListQR = (ArrayList<SafetyInfo>)intent.getSerializableExtra("safety_info");
                 mMainViewModel.setSafetyInfoData(mListQR);
-//                setViewPager();
             }
         });
 

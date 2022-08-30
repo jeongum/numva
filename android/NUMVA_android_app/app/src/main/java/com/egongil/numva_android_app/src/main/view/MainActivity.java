@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.databinding.ActivityMainBinding;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.car_management.CarManagementFragment;
@@ -52,7 +53,7 @@ public class MainActivity extends BaseActivity implements MainContract, Connecti
 Mesibo.MessageListener, Mesibo.ConnectionListener{
     public static String TAG = "MAIN_ACTIVITY";
     private ActivityMainBinding binding;
-    MainViewModel viewModel;
+    private MainViewModel viewModel;
     public static Context mContext;
 
     private long backKeyPressedTime = 0;
@@ -64,9 +65,8 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        final RetrofitService retrofitService = getRetrofitService();
         viewModel = new ViewModelProvider(this,
-                new MainViewModelFactory(this, retrofitService))
+                new MainViewModelFactory(this))
                 .get(MainViewModel.class);
         checkConnection(); //네트워크 연결 확인
 
