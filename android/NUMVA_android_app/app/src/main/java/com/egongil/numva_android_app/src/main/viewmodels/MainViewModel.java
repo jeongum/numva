@@ -113,6 +113,11 @@ public class MainViewModel extends ViewModel {
         });
     }
 
+    public void setSecondPhone(String second_phone){
+        UserInfo newUser = getUserData().getValue();
+        newUser.setSecond_phone(second_phone);
+        setUserData(newUser);
+    }
 
 
 }

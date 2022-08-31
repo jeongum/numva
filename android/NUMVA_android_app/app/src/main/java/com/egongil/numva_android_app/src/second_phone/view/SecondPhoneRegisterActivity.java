@@ -1,5 +1,7 @@
 package com.egongil.numva_android_app.src.second_phone.view;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.SECONDPHONE_REGISTER_ACTIVITY;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResultLauncher;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.cert_phone.models.SendSMS;
@@ -83,6 +87,7 @@ public class SecondPhoneRegisterActivity extends BaseActivity implements SecondP
         mTvCtfNumber = findViewById(R.id.secondphone_register_tv_failure_ctfnumber); //인증번호 fail guide
         mLlCertNum = findViewById(R.id.secondphone_register_ll_certnumber); //인증번호 확인 Linear Layout
         timerView = findViewById(R.id.secondphone_register_tv_timer); //인증번호 타이머
+
         mBtnSend.setOnClickListener(new View.OnClickListener(){ //인증번호 전송 버튼
             @Override
             public void onClick(View v) {
@@ -148,22 +153,16 @@ public class SecondPhoneRegisterActivity extends BaseActivity implements SecondP
                 }
             }
         });
-        mIvCtfNumRemoveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEtCtfNumber.setText("");
-                REGISTER_POSSIBLE = false;
-            }
+        mIvCtfNumRemoveBtn.setOnClickListener(v -> {
+            mEtCtfNumber.setText("");
+            REGISTER_POSSIBLE = false;
         });
 
-        mBtnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(REGISTER_POSSIBLE==true) {
-                    registerSecondPhone();
-                } else{
-                    showCustomToast("휴대폰 인증을 진행해주세요.");
-                }
+        mBtnRegister.setOnClickListener(v -> {
+            if(REGISTER_POSSIBLE==true) {
+                registerSecondPhone();
+            } else{
+                showCustomToast("휴대폰 인증을 진행해주세요.");
             }
         });
     }
@@ -186,7 +185,6 @@ public class SecondPhoneRegisterActivity extends BaseActivity implements SecondP
         SetSecondPhoneRequest setSecondPhoneRequest = new SetSecondPhoneRequest();
         setSecondPhoneRequest.setSecond_phone(mStPhone);
         secondPhoneService.setSecondPhone(setSecondPhoneRequest);
-
     }
 
     private void certPhone(){
@@ -207,10 +205,10 @@ public class SecondPhoneRegisterActivity extends BaseActivity implements SecondP
         if(setSecondPhoneResponse != null){
             if(setSecondPhoneResponse.getCode() == 200 && setSecondPhoneResponse.isSuccess()){
                 showCustomToast("해당 2차전화번호가 추가되었습니다.");
-                ((MainActivity)MainActivity.mContext).callGetUser();
-                Intent intent = new Intent(SecondPhoneRegisterActivity.this, SecondPhoneActivity.class);
+
+                Intent finish_intent = new Intent(getApplicationContext(), SecondPhoneActivity.class);
+                setResult(SECONDPHONE_REGISTER_ACTIVITY, finish_intent);
                 finish();
-                startActivity(intent);
             }
         }
         else if(errorResponse != null){
