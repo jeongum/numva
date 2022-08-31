@@ -313,10 +313,11 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
             @Override
             public void onSingleClick(View v) {
                 ArrayList<SafetyInfo> mListQR = mQrManagementViewModel.getSafetyInfoData().getValue();
-                mListQR.remove(position);
-                mQrManagementViewModel.setSafetyInfoData(mListQR);
-
                 deleteQr(mListQR.get(position).getId());    //api
+
+                mListQR.remove(position);
+                mQrRvAdapter.updateData(mListQR);
+
                 deleteDialog.dismiss();
             }
         });
