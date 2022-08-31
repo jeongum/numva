@@ -147,44 +147,41 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
 
             }
         }).setSwipeOptionViews(R.id.simple_memo_rl_deletebtn, R.id.simple_memo_rl_editbtn)
-                .setSwipeable(R.id.simple_memo_ll_FG, R.id.simple_memo_ll_BG, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
-                    @Override
-                    public void onSwipeOptionClicked(int viewID, int position) {
-                        switch(viewID){
-                            case R.id.simple_memo_rl_deletebtn:
-                                //swipemenu 삭제버튼 눌렀을 때
-                                deleteSimpleMemo(mSimpleMemoList.get(position).getId());    //api
-                                mSimpleMemoList.remove(position);
-                                mRvAdapter.updateData(mSimpleMemoList);
-                                break;
+                .setSwipeable(R.id.simple_memo_ll_FG, R.id.simple_memo_ll_BG, (viewID, position) -> {
+                    switch(viewID){
+                        case R.id.simple_memo_rl_deletebtn:
+                            //swipemenu 삭제버튼 눌렀을 때
+                            deleteSimpleMemo(mSimpleMemoList.get(position).getId());    //api
+                            mSimpleMemoList.remove(position);
+                            mRvAdapter.updateData(mSimpleMemoList);
+                            break;
 
-                            case R.id.simple_memo_rl_editbtn:
-                                //swipemenu 수정버튼 눌렀을 때
-                                EditTextDialog editDialog = new EditTextDialog(ParkingMemoActivity.this);
-                                editDialog.showDialog();
-                                editDialog.setBtnText("수정하기");
-                                editDialog.setEditText(mSimpleMemoList.get(position).getMemo());
-                                editDialog.showKeyboard();
-                                editDialog.mLlClose.setOnClickListener(new OnSingleClickListener() {
-                                    @Override
-                                    public void onSingleClick(View v) {
-                                        editDialog.closeKeyboard();
-                                        editDialog.dismiss();
-                                    }
-                                });
-                                editDialog.mTvSave.setOnClickListener(new OnSingleClickListener() {
-                                    @Override
-                                    public void onSingleClick(View v) {
-                                        String strEdit = editDialog.mEtText.getText().toString();
-                                        editSimpleMemo(mSimpleMemoList.get(position).getId(), strEdit);    //api
-                                        mSimpleMemoList.get(position).setMemo(strEdit);
-                                        mRvAdapter.updateData(mSimpleMemoList);
-                                        editDialog.closeKeyboard();
-                                        editDialog.dismiss();
-                                    }
-                                });
-                                break;
-                        }
+                        case R.id.simple_memo_rl_editbtn:
+                            //swipemenu 수정버튼 눌렀을 때
+                            EditTextDialog editDialog = new EditTextDialog(ParkingMemoActivity.this);
+                            editDialog.showDialog();
+                            editDialog.setBtnText("수정하기");
+                            editDialog.setEditText(mSimpleMemoList.get(position).getMemo());
+                            editDialog.showKeyboard();
+                            editDialog.mLlClose.setOnClickListener(new OnSingleClickListener() {
+                                @Override
+                                public void onSingleClick(View v) {
+                                    editDialog.closeKeyboard();
+                                    editDialog.dismiss();
+                                }
+                            });
+                            editDialog.mTvSave.setOnClickListener(new OnSingleClickListener() {
+                                @Override
+                                public void onSingleClick(View v) {
+                                    String strEdit = editDialog.mEtText.getText().toString();
+                                    editSimpleMemo(mSimpleMemoList.get(position).getId(), strEdit);    //api
+                                    mSimpleMemoList.get(position).setMemo(strEdit);
+                                    mRvAdapter.updateData(mSimpleMemoList);
+                                    editDialog.closeKeyboard();
+                                    editDialog.dismiss();
+                                }
+                            });
+                            break;
                     }
                 }).setIgnoredViewTypes(SIMPLE_MEMO_VIEW_ADD);
         binding.parkingMemoRvSimple.addOnItemTouchListener(touchListener);
