@@ -129,7 +129,9 @@
                             android:fontFamily="@font/font_medium"
                             android:includeFontPadding="false"
                             android:textSize="13dp"
-                            android:elevation="5dp"/>
+                            android:elevation="5dp"
+                            android:visibility= "@{viewModel.loginState ? View.VISIBLE : View.GONE}"
+                            />
                     </LinearLayout>
 
                     <androidx.viewpager.widget.ViewPager
