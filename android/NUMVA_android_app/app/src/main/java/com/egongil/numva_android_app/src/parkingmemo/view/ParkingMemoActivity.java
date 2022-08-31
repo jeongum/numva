@@ -4,10 +4,6 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.Activity
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ViewType.SIMPLE_MEMO_VIEW;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ViewType.SIMPLE_MEMO_VIEW_ADD;
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,30 +12,33 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.databinding.ActivityParkingMemoBinding;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.config.view.RecyclerTouchListener;
-import com.egongil.numva_android_app.src.custom_dialogs.EditTextDialog;
-import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
-import com.egongil.numva_android_app.src.home.view.HomeFragment;
-import com.egongil.numva_android_app.src.main.view.MainActivity;
-import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
-import com.egongil.numva_android_app.src.network.ConnectionReceiver;
-import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
-import com.egongil.numva_android_app.src.parkingmemo.model.ParkingMemoService;
-import com.egongil.numva_android_app.src.parkingmemo.model.SimpleMemoRecyclerItem;
-import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.AddSimpleMemoRequest;
-import com.egongil.numva_android_app.src.config.models.response.AddSimpleMemoResponse;
 import com.egongil.numva_android_app.src.config.models.request.DeleteSimpleMemoRequest;
 import com.egongil.numva_android_app.src.config.models.request.EditSimpleMemoRequest;
 import com.egongil.numva_android_app.src.config.models.request.GetParkingMemoRequest;
+import com.egongil.numva_android_app.src.config.models.request.SetParkingMemoRequest;
+import com.egongil.numva_android_app.src.config.models.response.AddSimpleMemoResponse;
 import com.egongil.numva_android_app.src.config.models.response.GetParkingMemoResponse;
 import com.egongil.numva_android_app.src.config.models.response.GetSimpleMemoResponse;
-import com.egongil.numva_android_app.src.config.models.request.SetParkingMemoRequest;
 import com.egongil.numva_android_app.src.config.models.response.UpdateSimpleMemoResponse;
+import com.egongil.numva_android_app.src.config.view.BaseActivity;
+import com.egongil.numva_android_app.src.config.view.RecyclerTouchListener;
+import com.egongil.numva_android_app.src.custom_dialogs.EditTextDialog;
+import com.egongil.numva_android_app.src.custom_dialogs.TwoButtonDialog;
+import com.egongil.numva_android_app.src.main.view.MainActivity;
+import com.egongil.numva_android_app.src.network.ConnectionReceiver;
+import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
+import com.egongil.numva_android_app.src.parkingmemo.interfaces.ParkingMemoActivityContract;
+import com.egongil.numva_android_app.src.parkingmemo.model.ParkingMemoService;
+import com.egongil.numva_android_app.src.parkingmemo.model.SimpleMemoRecyclerItem;
 
 import java.util.ArrayList;
 
@@ -48,9 +47,8 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
     private ArrayList<SimpleMemoRecyclerItem> mSimpleMemoList;
     private String initialMemo;
     private int safety_info_id;
-
-    RecyclerView mRvSimpleMemo;
-    EditText mEtNowMemo;
+    private ActivityParkingMemoBinding binding;
+    private SimpleMemoRecyclerAdapter mRvAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,46 +57,39 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
         mContext = this;
         mSimpleMemoList = new ArrayList<>();
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_parking_memo);
+
         Intent intent = getIntent();
         safety_info_id = intent.getExtras().getInt("safety_info_id");
-
-        View mRootView = findViewById(R.id.parking_memo_cl_rootView);
-        ImageView mIvCrossBtn = findViewById(R.id.parking_memo_iv_crossbtn);
-        mEtNowMemo = findViewById(R.id.parking_memo_et_now);
-        LinearLayout mLlSaveBtn = findViewById(R.id.parking_memo_ll_savebtn_now);
-        LinearLayout mLlResetBtn = findViewById(R.id.parking_memo_ll_resetbtn_now);
-        mRvSimpleMemo = findViewById(R.id.parking_memo_rv_simple);
-        LinearLayout mLlDeleteBtn = findViewById(R.id.parking_memo_ll_deletebtn);
-
 
         getParkingMemo();
         getSimpleMemo();
 
         //EditText 밖 클릭하면 키보드 닫히고 focus 해제하도록 함
-        editTextSetCancelable(mRootView, ParkingMemoActivity.this);
+        editTextSetCancelable(binding.parkingMemoClRootView, ParkingMemoActivity.this);
 
         //EditText focusOut되면 최상단으로 스크롤, focus In 되면 최하단에 커서
-        mEtNowMemo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        binding.parkingMemoEtNow.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
-                    mEtNowMemo.setSelection(0);
+                    binding.parkingMemoEtNow.setSelection(0);
                 }
             }
         });
 
-        mLlDeleteBtn.setOnClickListener(new OnSingleClickListener() {
+        binding.parkingMemoLlDeletebtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                mEtNowMemo.setText(null);
+                binding.parkingMemoEtNow.setText(null);
             }
         });
 
-        mIvCrossBtn.setOnClickListener(new OnSingleClickListener() {
+        binding.parkingMemoIvCrossbtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
 //
-                if(!mEtNowMemo.getText().toString().equals(initialMemo)){
+                if(!binding.parkingMemoEtNow.getText().toString().equals(initialMemo)){
                     TwoButtonDialog confirmExitDialog = new TwoButtonDialog(ParkingMemoActivity.this);
                     confirmExitDialog.showDialog();
                     confirmExitDialog.setContextText("수정을 취소하고 나가시겠습니까? 저장하지 않은 메모는 삭제됩니다.");
@@ -121,36 +112,37 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
             }
         });
 
-        mLlResetBtn.setOnClickListener(new OnSingleClickListener() {
+        binding.parkingMemoLlResetbtnNow.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                mEtNowMemo.setText(initialMemo);
+                binding.parkingMemoEtNow.setText(initialMemo);
                 hideKeyboard((ParkingMemoActivity)mContext);
-                mEtNowMemo.clearFocus();
+                binding.parkingMemoEtNow.clearFocus();
             }
         });
-        mLlSaveBtn.setOnClickListener(new OnSingleClickListener() {
+        binding.parkingMemoLlSavebtnNow.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                initialMemo = mEtNowMemo.getText().toString();
+                initialMemo = binding.parkingMemoEtNow.getText().toString();
                 setParkingMemo(initialMemo);
                 hideKeyboard((ParkingMemoActivity)mContext);
-                mEtNowMemo.clearFocus();
+                binding.parkingMemoEtNow.clearFocus();
             }
         });
 
         this.initializeSimpleMemoList();    //RecyclerView 리스트 초기화
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRvSimpleMemo.setLayoutManager(manager);    //RecyclerView에 LayoutManager 등록
-        mRvSimpleMemo.setAdapter(new SimpleMemoRecyclerAdapter(mSimpleMemoList));   //RecyclerView에 Adapter 등록
+        binding.parkingMemoRvSimple.setLayoutManager(manager);    //RecyclerView에 LayoutManager 등록
+        mRvAdapter = new SimpleMemoRecyclerAdapter(mSimpleMemoList);
+        binding.parkingMemoRvSimple.setAdapter(mRvAdapter);   //RecyclerView에 Adapter 등록
 
         //간편메모 RecyclerView Swipe menu
-        RecyclerTouchListener touchListener = new RecyclerTouchListener(this, mRvSimpleMemo);
+        RecyclerTouchListener touchListener = new RecyclerTouchListener(this, binding.parkingMemoRvSimple);
         touchListener.setClickable(new RecyclerTouchListener.OnRowClickListener() {
             @Override
             public void onRowClicked(int position) {
                 //아이템 클릭 시 동작
-                mEtNowMemo.setText(mSimpleMemoList.get(position).getMemo());
+                binding.parkingMemoEtNow.setText(mSimpleMemoList.get(position).getMemo());
             }
 
             @Override
@@ -166,7 +158,7 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
                                 //swipemenu 삭제버튼 눌렀을 때
                                 deleteSimpleMemo(mSimpleMemoList.get(position).getId());    //api
                                 mSimpleMemoList.remove(position);
-                                ((SimpleMemoRecyclerAdapter)mRvSimpleMemo.getAdapter()).updateData(mSimpleMemoList);
+                                mRvAdapter.updateData(mSimpleMemoList);
                                 break;
 
                             case R.id.simple_memo_rl_editbtn:
@@ -189,7 +181,7 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
                                         String strEdit = editDialog.mEtText.getText().toString();
                                         editSimpleMemo(mSimpleMemoList.get(position).getId(), strEdit);    //api
                                         mSimpleMemoList.get(position).setMemo(strEdit);
-                                        ((SimpleMemoRecyclerAdapter)mRvSimpleMemo.getAdapter()).updateData(mSimpleMemoList);
+                                        mRvAdapter.updateData(mSimpleMemoList);
                                         editDialog.closeKeyboard();
                                         editDialog.dismiss();
                                     }
@@ -198,7 +190,7 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
                         }
                     }
                 }).setIgnoredViewTypes(SIMPLE_MEMO_VIEW_ADD);
-        mRvSimpleMemo.addOnItemTouchListener(touchListener);
+        binding.parkingMemoRvSimple.addOnItemTouchListener(touchListener);
     }
 
     public void initializeSimpleMemoList(){
@@ -259,7 +251,7 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
                 }else{
                     initialMemo = null;
                 }
-                mEtNowMemo.setText(initialMemo);
+                binding.parkingMemoEtNow.setText(initialMemo);
             }
         }
         else if(errorResponse != null){
@@ -302,7 +294,7 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
             if(getSimpleMemoResponse.getCode() == 200 && getSimpleMemoResponse.isSuccess()){
                 mSimpleMemoList = getSimpleMemoResponse.getResult();
                 initializeSimpleMemoList();
-                ((SimpleMemoRecyclerAdapter)mRvSimpleMemo.getAdapter()).updateData(mSimpleMemoList);
+                mRvAdapter.updateData(mSimpleMemoList);
             }
         }else if(errorResponse != null){
             if(errorResponse.getCode() == -103){
@@ -363,9 +355,6 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
                 //성공했을 경우
                 showCustomToast(getResources().getString(R.string.parking_memo_quickmemo_add_success));
                 getSimpleMemo();
-                //TODO: getSimpleMemo 대신, response로 list에 add해주는 방식으로 변경
-//                mSimpleMemoList.add(new SimpleMemoRecyclerItem())
-//                ((SimpleMemoRecyclerAdapter)mRvSimpleMemo.getAdapter()).updateData(mSimpleMemoList);
             }
         }
         else if(errorResponse != null){
