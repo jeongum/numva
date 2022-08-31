@@ -106,7 +106,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
             }else if(result.getResultCode()==QR_MANAGEMENT_ACTIVITY){
                 Intent intent = result.getData();
                 ArrayList<SafetyInfo>mListQR = (ArrayList<SafetyInfo>)intent.getSerializableExtra("safety_info");
-                mMainViewModel.setSafetyInfoData(mListQR);
+                if(mListQR.isEmpty()){
+                    setViewPagerSafetyGuideItem();
+                }else{
+                    mMainViewModel.setSafetyInfoData(mListQR);
+                }
             }
         });
 
