@@ -6,6 +6,7 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetro
 import android.util.Log;
 import android.view.View;
 
+import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -46,20 +47,6 @@ public class QrManagementViewModel extends ViewModel {
             getSafetyInfoData();
         }
         mSafetyInfo.setValue(safetyInfo);
-    }
-
-    public int getEmptyGuideVisibility(){
-        if(mSafetyInfo.getValue().isEmpty())
-            return View.VISIBLE;
-        else
-            return View.GONE;
-    }
-
-    public int getSafetyInfoVisibility(){
-        if(!mSafetyInfo.getValue().isEmpty())
-            return View.VISIBLE;
-        else
-            return View.GONE;
     }
 
     public void setQrName(SetQrNameRequest setQrNameRequest){

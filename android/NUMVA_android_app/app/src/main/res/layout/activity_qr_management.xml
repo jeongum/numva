@@ -103,8 +103,7 @@
             android:textColor="@color/colorBlack"
             android:textSize="15dp"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:visibility="@{viewModel.emptyGuideVisibility}"
+            android:visibility="@{viewModel.safetyInfoData.size() == 0 ? View.VISIBLE:View.GONE}"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -116,6 +115,6 @@
             android:layout_weight="1"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
-            android:visibility="@{viewModel.safetyInfoVisibility}" />
+            android:visibility="@{viewModel.safetyInfoData.size() == 0 ? View.GONE:View.VISIBLE}" />
     </LinearLayout>
 </layout>
