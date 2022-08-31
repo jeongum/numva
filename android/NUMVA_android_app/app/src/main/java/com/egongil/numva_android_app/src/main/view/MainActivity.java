@@ -27,18 +27,18 @@ import com.egongil.numva_android_app.src.config.GlobalAuthHelper;
 import com.egongil.numva_android_app.src.config.interfaces.RetrofitService;
 import com.egongil.numva_android_app.src.config.models.UserInfo;
 import com.egongil.numva_android_app.src.home.view.HomeFragment;
-import com.egongil.numva_android_app.src.login.LoginActivity;
+import com.egongil.numva_android_app.src.login.view.LoginActivity;
 import com.egongil.numva_android_app.src.main.interfaces.MainContract;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModelFactory;
-import com.egongil.numva_android_app.src.mypage.MyPageFragment;
+import com.egongil.numva_android_app.src.mypage.view.MyPageFragment;
 
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 
 import com.egongil.numva_android_app.src.numvatalk.chatlist.NumvaTalkFragment;
 
-import com.egongil.numva_android_app.src.qr_scan.QrScanFragment;
+import com.egongil.numva_android_app.src.qr_scan.view.QrScanFragment;
 
 import com.egongil.numva_android_app.src.store.StoreActivity;
 
@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity implements MainContract, Connecti
 Mesibo.MessageListener, Mesibo.ConnectionListener{
     public static String TAG = "MAIN_ACTIVITY";
     private ActivityMainBinding binding;
-    MainViewModel viewModel;
+    private MainViewModel viewModel;
     public static Context mContext;
 
     private long backKeyPressedTime = 0;
@@ -65,9 +65,8 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        final RetrofitService retrofitService = getRetrofitService();
         viewModel = new ViewModelProvider(this,
-                new MainViewModelFactory(this, retrofitService))
+                new MainViewModelFactory(this))
                 .get(MainViewModel.class);
         checkConnection(); //네트워크 연결 확인
 
@@ -113,7 +112,8 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
 
     }
     public boolean isLogin(){
-        if(sSharedPreferences.getString(X_ACCESS_TOKEN,"").equals(""))  return false;
+        if(sSharedPreferences.getString(X_ACCESS_TOKEN,"").equals(""))
+            return false;
         return true;
     }
     public void checkLoginState(){

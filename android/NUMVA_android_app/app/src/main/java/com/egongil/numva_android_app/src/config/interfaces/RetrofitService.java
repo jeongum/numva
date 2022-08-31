@@ -1,7 +1,9 @@
 package com.egongil.numva_android_app.src.config.interfaces;
 
-import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneRequest;
-import com.egongil.numva_android_app.src.cert_phone.models.CertPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.request.CertPhoneRequest;
+import com.egongil.numva_android_app.src.config.models.response.CertPhoneResponse;
+import com.egongil.numva_android_app.src.config.models.request.PassRequest;
+import com.egongil.numva_android_app.src.config.models.response.PassResponse;
 import com.egongil.numva_android_app.src.config.models.request.AddSimpleMemoRequest;
 import com.egongil.numva_android_app.src.config.models.response.AddSimpleMemoResponse;
 import com.egongil.numva_android_app.src.config.models.response.DeleteAccountResponse;
@@ -163,4 +165,11 @@ public interface RetrofitService {
     Call<ValidEmailResponse> postValidEmail(
             @Body ValidEmailRequest params);
 
+    interface PassRetrofitInterface {
+        @POST("pass/getInfo")
+        Call<PassResponse> postPass(
+                @Body PassRequest params);
+
+
+    }
 }

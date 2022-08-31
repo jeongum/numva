@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.second_phone.SecondPhoneActivity">
+    tools:context=".src.second_phone.view.SecondPhoneActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/secondphone_topbar"

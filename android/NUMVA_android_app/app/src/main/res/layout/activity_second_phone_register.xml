@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.second_phone.SecondPhoneRegisterActivity">
+    tools:context=".src.second_phone.view.SecondPhoneRegisterActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/secondphone_register_topbar"
@@ -252,7 +252,7 @@
                     app:layout_constraintLeft_toRightOf="@+id/secondphone_register_et_certnumber"
                     app:layout_constraintRight_toRightOf="parent"/>
 
-                <com.egongil.numva_android_app.src.cert_phone.TimerView
+                <com.egongil.numva_android_app.src.cert_phone.view.TimerView
                     android:id="@+id/secondphone_register_tv_timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

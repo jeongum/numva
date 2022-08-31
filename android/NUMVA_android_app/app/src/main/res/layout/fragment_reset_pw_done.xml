@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="36dp"
-    tools:context=".src.findLogin.PwResetDoneFragment">
+    tools:context=".src.findLogin.view.PwResetDoneFragment">
 
     <ImageView
         android:id="@+id/resetpw_full_check"

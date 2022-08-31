@@ -109,7 +109,7 @@
     <string name="parking_memo_save_success">주차메모가 저장되었어요.</string>
     <string name="parking_memo_quickmemo_edit_success">간편메모가 수정되었어요.</string>
     <string name="parking_memo_quickmemo_delete_success">간편메모가 삭제되었어요.</string>
-    <string name="parking_memo_quickmemo_add_success">새로운 간편메모가 생되었어요.</string>
+    <string name="parking_memo_quickmemo_add_success">새로운 간편메모가 생성되었어요.</string>
     <string name="parking_memo_quickmemo_add_failure_max">최대 5개까지만 저장 가능해요.\n기존 메모를 삭제하고 생성해주세요!</string>
     <string name="parking_memo_quickmemo_add_hint">간편하게 주차메모를 적어보세요! (최대 40자)</string>
 

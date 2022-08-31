@@ -312,7 +312,7 @@
                         android:layout_marginVertical="40dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                        <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/registerQrBtn"
                             android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
@@ -325,7 +325,7 @@
                             android:elevation="3dp"
                             android:background="@drawable/roundrect_white_background"
                            />
-                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                        <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/editUserInfoBtn"
                             android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
@@ -338,7 +338,7 @@
                             android:elevation="3dp"
                             android:background="@drawable/roundrect_white_background"
                             />
-                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                        <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/notiSettingBtn"
                             android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
@@ -351,7 +351,7 @@
                             android:elevation="3dp"
                             android:background="@drawable/roundrect_white_background"
                             />
-                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                        <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/customerServiceBtn"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
@@ -363,7 +363,7 @@
                             android:elevation="3dp"
                             android:background="@drawable/roundrect_white_background"
                             />
-                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                        <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/appInfoBtn"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
@@ -375,7 +375,7 @@
                             android:elevation="3dp"
                             android:background="@drawable/roundrect_white_background"
                             />
-                        <com.egongil.numva_android_app.src.mypage.CustomViewMyPageListItem
+                        <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/logoutBtn"
                             android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"

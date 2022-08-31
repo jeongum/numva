@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.signup.SignupTermsActivity">
+    tools:context=".src.signup.view.SignupTermsActivity">
 
     <ImageView
         android:id="@+id/signup_iv_logo"

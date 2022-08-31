@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:paddingVertical="20dp"
     android:orientation="vertical"
-    tools:context=".src.findLogin.FindIdExistFragment">
+    tools:context=".src.findLogin.view.FindIdExistFragment">
 
    <TextView
        android:layout_width="wrap_content"

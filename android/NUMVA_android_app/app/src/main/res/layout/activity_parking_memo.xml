@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.parkingmemo.ParkingMemoActivity"
+    tools:context=".src.parkingmemo.view.ParkingMemoActivity"
     android:orientation="vertical">
-ㅌ
+
     <!--타이틀 바-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parking_memo_cl_titlebar"
@@ -202,6 +202,4 @@
         android:layout_marginHorizontal="32dp"
         android:focusableInTouchMode="true"
         android:descendantFocusability="beforeDescendants"/>
-
-
 </LinearLayout>

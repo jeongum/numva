@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.findLogin.FindLoginActivity">
+    tools:context=".src.findLogin.view.FindLoginActivity">
 
     <ImageView
         android:id="@+id/find_login_iv_logo"

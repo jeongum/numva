@@ -12,15 +12,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
-import com.egongil.numva_android_app.src.parkingmemo.ParkingMemoActivity;
+import com.egongil.numva_android_app.src.parkingmemo.view.ParkingMemoActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,10 +31,12 @@ import java.util.Locale;
 public class HomeQrViewPagerAdapter extends PagerAdapter {
     private Context mContext;
     private MainViewModel mMainViewModel;
+    private ActivityResultLauncher<Intent> mActivityResultLauncher;
 
-    public HomeQrViewPagerAdapter(Context mContext, MainViewModel mMainViewModel) {
+    public HomeQrViewPagerAdapter(Context mContext, MainViewModel mMainViewModel, ActivityResultLauncher<Intent> mActivityResultLauncher) {
         this.mContext = mContext;
         this.mMainViewModel = mMainViewModel;
+        this.mActivityResultLauncher = mActivityResultLauncher;
     }
 
     @NonNull
@@ -83,13 +87,11 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
                     mTvParkingMemo.setText(R.string.home_parking_memo_guide);
                     mTvParkingMemo.setTextColor(mContext.getResources().getColor(R.color.colorSemiBlack));
                 }
-                mLlParkingMemo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext, ParkingMemoActivity.class);
-                        intent.putExtra("safety_info_id", mListQr.get(position).getId());
-                        mContext.startActivity(intent);
-                    }
+                mLlParkingMemo.setOnClickListener(v -> {
+                    Intent intent = new Intent(mContext, ParkingMemoActivity.class);
+                    intent.putExtra("safety_info_id", mListQr.get(position).getId());
+                    intent.putExtra("safety_info_pos", position);
+                    mActivityResultLauncher.launch(intent); //parkingMemoActivity launcher로 실행
                 });
 
                 //안심번호
@@ -133,11 +135,10 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
         return view;
     }
 
-
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
 //        super.destroyItem(container, position, object);
-        ((ViewPager) container).removeView((View) object);
+        container.removeView((View) object);
     }
 
     @Override
@@ -154,7 +155,14 @@ public class HomeQrViewPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         //페이지가 특정 키와 연관되는지 체크
-        return (view == (View)object);
+        return (view == object);
+    }
+
+
+    @Override
+    public int getItemPosition(Object object) {
+        //notifyDataSetChanged() 호출 시, 모든 데이터를 제거하고 다시 로드함
+        return POSITION_NONE;
     }
 
     //참고:

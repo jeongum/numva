@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:paddingVertical="20dp"
     android:orientation="vertical"
-    tools:context=".src.findLogin.FindIdNonExistFragment">
+    tools:context=".src.findLogin.view.FindIdNonExistFragment">
 
    <ImageView
        android:layout_width="45dp"

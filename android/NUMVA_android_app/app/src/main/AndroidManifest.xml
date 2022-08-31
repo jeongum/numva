@@ -23,39 +23,39 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
 
-        <activity android:name=".src.edit_userinfo.DeleteAccountActivity"></activity>
+        <activity android:name=".src.edit_userinfo.view.DeleteAccountActivity"></activity>
         <activity android:name=".src.app_info.MarketingTermsActivity" />
         <activity android:name=".src.app_info.PrivacyTermsActivity" />
         <activity android:name=".src.app_info.ServiceTermsActivity" />
-        <activity android:name=".src.cert_phone.PassActivity" />
+        <activity android:name=".src.cert_phone.view.PassActivity" />
         <activity android:name=".src.network.NetworkFailureActivity" />
-        <activity android:name=".src.signup.SignupTermsActivity" />
-        <activity android:name=".src.signup.SignupMoreInfoActivity" />
-        <activity android:name=".src.signup.SignupCertActivity" />
-        <activity android:name=".src.customer_center.CustomerCenterDetailActivity" />
-        <activity android:name=".src.second_phone.SecondPhoneRegisterActivity" />
-        <activity android:name=".src.second_phone.SecondPhoneActivity" />
+        <activity android:name=".src.signup.view.SignupTermsActivity" />
+        <activity android:name=".src.signup.view.SignupMoreInfoActivity" />
+        <activity android:name=".src.signup.view.SignupCertActivity" />
+        <activity android:name=".src.customer_center.view.CustomerCenterDetailActivity" />
+        <activity android:name=".src.second_phone.view.SecondPhoneRegisterActivity" />
+        <activity android:name=".src.second_phone.view.SecondPhoneActivity" />
         <activity android:name=".src.app_info.AppInfoActivity" />
         <activity android:name=".src.notification_setting.NotiSettingActivity" />
-        <activity android:name=".src.customer_center.CustomerCenterActivity" />
+        <activity android:name=".src.customer_center.view.CustomerCenterActivity" />
 
         <activity
             android:name=".src.numvatalk.NumvatalkActivity"
             android:exported="false" />
         <activity
-            android:name=".src.login.snslogin.SnsLoginActivity"
+            android:name=".src.login.snslogin.view.SnsLoginActivity"
             android:exported="true" />
         <activity android:name=".src.login.snslogin.naverlogin.NaverLogin" />
 
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="${kakaoAppkey}" />
 
         <activity
-            android:name=".src.qr_management.QrManagementActivity"
+            android:name=".src.qr_management.view.QrManagementActivity"
             android:exported="true" />
-        <activity android:name=".src.edit_userinfo.EditUserInfoActivity" />
-        <activity android:name=".src.findLogin.FindLoginActivity" />
-        <activity android:name=".src.signup.SignupDoneActivity" />
-        <activity android:name=".src.login.LoginActivity" />
+        <activity android:name=".src.edit_userinfo.view.EditUserInfoActivity" />
+        <activity android:name=".src.findLogin.view.FindLoginActivity" />
+        <activity android:name=".src.signup.view.SignupDoneActivity" />
+        <activity android:name=".src.login.view.LoginActivity" />
         <activity android:name=".src.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,19 +64,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".src.store.StoreActivity" />
-        <activity android:name=".src.qr_scan.CustomQrScanActivity" />
+        <activity android:name=".src.qr_scan.view.CustomQrScanActivity" />
         <activity
-            android:name=".src.qr_scan.QrScanActivity"
+            android:name=".src.qr_scan.view.QrScanActivity"
             android:stateNotNeeded="true" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
             tools:replace="android:screenOrientation" />
-        <activity android:name=".src.qr_scan.QrScanResultActivity" />
+        <activity android:name=".src.qr_scan.view.QrScanResultActivity" />
         <activity android:name=".src.main.view.MainActivity" />
         <activity
-            android:name=".src.parkingmemo.ParkingMemoActivity"
+            android:name=".src.parkingmemo.view.ParkingMemoActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <receiver

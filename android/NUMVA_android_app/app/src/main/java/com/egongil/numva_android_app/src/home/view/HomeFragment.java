@@ -1,12 +1,12 @@
 package com.egongil.numva_android_app.src.home.view;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -27,23 +27,23 @@ import com.egongil.numva_android_app.src.config.models.response.GetSafetyInfoRes
 import com.egongil.numva_android_app.src.config.models.SafetyInfo;
 import com.egongil.numva_android_app.src.home.model.HomeService;
 import com.egongil.numva_android_app.src.home.interfaces.HomeFragmentContract;
-import com.egongil.numva_android_app.src.login.LoginActivity;
+import com.egongil.numva_android_app.src.login.view.LoginActivity;
 import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.main.viewmodels.MainViewModel;
-import com.egongil.numva_android_app.src.qr_management.QrManagementActivity;
+import com.egongil.numva_android_app.src.qr_management.view.QrManagementActivity;
 
 import java.util.ArrayList;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.PARKING_MEMO_ACTIVITY;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_MANAGEMENT_ACTIVITY;
 
 public class HomeFragment extends BaseFragment implements HomeFragmentContract {
     FragmentHomeBinding binding;
     Fragment fragment;
     MainViewModel mMainViewModel;
+    ActivityResultLauncher<Intent> mActivityResultLauncher;
 
-    //TODO: parkingmemoActivity, QRManagementActivity에서 getSafeyInfo를 해야해서 임시로 public 설정해둠
-    //TODO: parkingmemo, QR~에서 ViewModel 활용하도록 변경해서 getSafetyInfo 호출할 필요 없도록 만들기
-    public HomeService mHomeService;
+    private HomeService mHomeService;
 
     HomeQrViewPagerAdapter mViewPagerAdapter;
 
@@ -60,10 +60,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
         binding.setLifecycleOwner(this);
 
         this.fragment = this;
+        mHomeService = new HomeService(this);
 
         binding.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
         binding.refreshLayout.setOnRefreshListener(() -> {
-            if(!(((MainActivity)getActivity()).isLogin())){
+            if((((MainActivity)getActivity()).isLogin())){
                 //로그인 상태일 경우
                 ((MainActivity)getActivity()).getUser();
                 mHomeService.getSafetyInfo();
@@ -84,7 +85,32 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), QrManagementActivity.class);
-                startActivity(intent);
+                ArrayList<SafetyInfo> safetyInfos = new ArrayList<>();
+                if(mMainViewModel.getSafetyInfoData().getValue().get(0).getId() !=-1){
+                    safetyInfos = mMainViewModel.getSafetyInfoData().getValue();
+                }
+                intent.putExtra("safety_info", safetyInfos); //safetyInfo 정보 담아서 보낸다.
+                mActivityResultLauncher.launch(intent);
+            }
+        });
+
+        mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if(result.getResultCode()==PARKING_MEMO_ACTIVITY){//resultCode가 PARKING_MEMO_ACTIVITY로 넘어온다면
+                Intent intent = result.getData();   //ActivityResult객체 result로 intent를 받아온다.
+                int pos = intent.getIntExtra("safety_info_pos", -1);
+                String memo = intent.getStringExtra("parking_memo");
+
+                if(pos!=-1){
+                    mMainViewModel.setParkingMemo(pos, memo);
+                }
+            }else if(result.getResultCode()==QR_MANAGEMENT_ACTIVITY){
+                Intent intent = result.getData();
+                ArrayList<SafetyInfo>mListQR = (ArrayList<SafetyInfo>)intent.getSerializableExtra("safety_info");
+                if(mListQR.isEmpty()){
+                    setViewPagerSafetyGuideItem();
+                }else{
+                    mMainViewModel.setSafetyInfoData(mListQR);
+                }
             }
         });
 
@@ -105,11 +131,16 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
             }
         });
 
+        //safetyInfo가 변경되면 updateViewPager 해줌
+        if(mMainViewModel.mSafetyInfo == null){
+            mMainViewModel.getSafetyInfoData(); //null체크
+        }
+        mMainViewModel.mSafetyInfo.observe(getViewLifecycleOwner(), safetyInfos -> updateViewPager());
+
         //ViewPager margin, Transform
         setViewPagerStyle();
 
-        HomeService homeService = new HomeService(this);
-        homeService.getSafetyInfo();
+        mHomeService.getSafetyInfo();
 
         setHasOptionsMenu(true);
 
@@ -144,16 +175,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
 
         return new QrViewPagerTransformer(baseElevation, rasingElevation, smallerScale, startOffset);
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK){
-            if(requestCode == PARKING_MEMO_ACTIVITY){
-                mHomeService.getSafetyInfo();
-            }
-        }
-    }
-
     private void enableDisableSwipeRefresh(boolean enable){
         if(binding.refreshLayout!=null){
             binding.refreshLayout.setEnabled(enable);
@@ -172,7 +193,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
                     setViewPagerSafetyGuideItem();
                 }else{
                     mMainViewModel.setSafetyInfoData(mListQR);
-                    mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
                 }
             }
         }
@@ -198,14 +218,20 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
         ArrayList<SafetyInfo>mListQR = new ArrayList<>();
         mListQR.add(new SafetyInfo(-1));
         mMainViewModel.setSafetyInfoData(mListQR);
-        mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel);
     }
 
     //ViewPager에 ViewPagerAdapter를 붙이고, indicator 설정
     private void setViewPager(){
+        mViewPagerAdapter = new HomeQrViewPagerAdapter(getActivity(), mMainViewModel, mActivityResultLauncher);
+
         binding.qrViewPager.setAdapter(mViewPagerAdapter);
         binding.qrIndicator.setViewPager(binding.qrViewPager);
 
         mViewPagerAdapter.registerDataSetObserver(binding.qrIndicator.getDataSetObserver());
+    }
+
+    private void updateViewPager(){
+        if(mViewPagerAdapter!= null)
+            mViewPagerAdapter.notifyDataSetChanged();
     }
 }

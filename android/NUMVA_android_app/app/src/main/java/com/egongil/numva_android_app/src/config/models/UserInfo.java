@@ -1,6 +1,11 @@
 package com.egongil.numva_android_app.src.config.models;
 
-public class UserInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class UserInfo implements Serializable {
     private int id;
     private String name;
     private String nickname;

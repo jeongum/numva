@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="36dp"
-    tools:context=".src.findLogin.FindIdFragment">
+    tools:context=".src.findLogin.view.FindIdFragment">
 
     <LinearLayout
         android:id="@+id/findid_ll"
@@ -252,7 +252,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     />
 
-                <com.egongil.numva_android_app.src.cert_phone.TimerView
+                <com.egongil.numva_android_app.src.cert_phone.view.TimerView
                     android:id="@+id/findid_tv_timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

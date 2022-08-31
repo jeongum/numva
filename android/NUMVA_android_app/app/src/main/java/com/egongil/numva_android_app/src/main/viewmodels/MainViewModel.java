@@ -2,6 +2,7 @@ package com.egongil.numva_android_app.src.main.viewmodels;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
 import android.util.Log;
 
@@ -31,14 +32,13 @@ import retrofit2.Response;
 public class MainViewModel extends ViewModel {
     private MutableLiveData<Boolean> mLoginState;
     private MutableLiveData<UserInfo> mUserData;
+    //observe 등록 위해 public
     public MutableListLiveData<SafetyInfo> mSafetyInfo;
 
     private final MainContract mMainContract;
-    private final RetrofitService mRetrofitService;
 
-    public MainViewModel(MainContract mMainContract, RetrofitService retrofitService) {
+    public MainViewModel(MainContract mMainContract) {
         this.mMainContract = mMainContract;
-        this.mRetrofitService = retrofitService;
     }
 
     public LiveData<Boolean> getLoginState(){
@@ -62,7 +62,8 @@ public class MainViewModel extends ViewModel {
     }
 
     public void setUserData(UserInfo data){
-        getUserData();
+        if(mUserData == null)
+            getUserData();
         mUserData.setValue(data);
     }
 
@@ -80,9 +81,15 @@ public class MainViewModel extends ViewModel {
         mSafetyInfo.setValue(safetyInfo);
     }
 
+    public void setParkingMemo(int pos, String newMemo){
+        ArrayList<SafetyInfo> newList = mSafetyInfo.getValue();
+        newList.set(pos, newList.get(pos).setMemo(newMemo));
+        mSafetyInfo.setValue(newList);
+    }
+
     //api 호출 함수
     public void getUser(){
-        mRetrofitService.getUser().enqueue(new Callback<GetUserResponse>() {
+        getRetrofitService().getUser().enqueue(new Callback<GetUserResponse>() {
             @Override
             public void onResponse(Call<GetUserResponse> call, Response<GetUserResponse> response) {
                 Log.e("response.code()", String.valueOf(response.code()));

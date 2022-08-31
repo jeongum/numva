@@ -5,13 +5,12 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.egongil.numva_android_app.src.config.ApplicationClass;
-import com.egongil.numva_android_app.src.login.LoginActivity;
+import com.egongil.numva_android_app.src.login.view.LoginActivity;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
-import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
 
 import java.util.ArrayList;

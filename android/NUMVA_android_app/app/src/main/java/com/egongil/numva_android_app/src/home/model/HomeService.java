@@ -14,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.Converter;
 import retrofit2.Response;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.convertErrorResponse;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofit;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.getRetrofitService;
 
@@ -35,12 +36,7 @@ public class HomeService {
                     getSafetyInfoResponse = response.body();
                 }
                 else {
-                    Converter<ResponseBody, ErrorResponse> errorConverter = getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
-                    try {
-                        errorResponse = errorConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    errorResponse = convertErrorResponse(response);
                 }
                 mHomeFragmentContract.getSafetyInfoSuccess(getSafetyInfoResponse, errorResponse);
             }
