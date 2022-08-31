@@ -69,12 +69,9 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
         editTextSetCancelable(binding.parkingMemoClRootView, ParkingMemoActivity.this);
 
         //EditText focusOut되면 최상단으로 스크롤, focus In 되면 최하단에 커서
-        binding.parkingMemoEtNow.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    binding.parkingMemoEtNow.setSelection(0);
-                }
+        binding.parkingMemoEtNow.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus){
+                binding.parkingMemoEtNow.setSelection(0);
             }
         });
 
@@ -248,8 +245,9 @@ public class ParkingMemoActivity extends BaseActivity implements ParkingMemoActi
             if(getparkingMemoResponse.getCode()==200 && getparkingMemoResponse.isSuccess()){
                 if(getparkingMemoResponse.getResult() != null){
                     initialMemo = getparkingMemoResponse.getResult().getMemo();
+                    if(initialMemo==null)   initialMemo="";
                 }else{
-                    initialMemo = null;
+                    initialMemo = "";
                 }
                 binding.parkingMemoEtNow.setText(initialMemo);
             }
