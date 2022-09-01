@@ -83,7 +83,6 @@ public class SecondPhoneRegisterActivity extends BaseActivity implements SecondP
         mBtnCheck = findViewById(R.id.secondphone_register_btn_certconfirm); //인증번호 확인 버튼
         mBtnRegister = findViewById(R.id.secondphone_register_btn); //추가하기 버튼
         mIvBack = findViewById(R.id.secondphone_register_iv_backbtn); //뒤로가기
-        mIvExit = findViewById(R.id.secondphone_register_iv_crossbtn); //x버튼
         mTvCtfNumber = findViewById(R.id.secondphone_register_tv_failure_ctfnumber); //인증번호 fail guide
         mLlCertNum = findViewById(R.id.secondphone_register_ll_certnumber); //인증번호 확인 Linear Layout
         timerView = findViewById(R.id.secondphone_register_tv_timer); //인증번호 타이머

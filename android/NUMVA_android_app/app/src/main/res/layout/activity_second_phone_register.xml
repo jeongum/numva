@@ -40,16 +40,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ImageView
-            android:id="@+id/secondphone_register_iv_crossbtn"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_margin="17dp"
-            android:src="@drawable/ic_crossbtn"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     
     <LinearLayout
