@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class SecondPhoneViewModel extends ViewModel {
     public MutableListLiveData<SecondPhoneRecyclerItem> mSecondPhone;
-    private MutableLiveData<Boolean> mEditState;
+    public  MutableLiveData<Boolean> mEditState;
     public MutableLiveData<Integer> mSelectedPos;
 
     private SecondPhoneActivityContract mSecondPhoneActivityContract;

@@ -49,12 +49,6 @@ public class QrRecyclerAdapter extends RecyclerView.Adapter{
         return mQrManagementViewModel.getSafetyInfoData().getValue().size();
     }
 
-//    //ViewModel에 setValue하는 함수
-//    public void updateData(ArrayList<SafetyInfo> mList){
-//        mQrManagementViewModel.setSafetyInfoData(mList);
-//        notifyDataSetChanged();
-//    }
-
     public class QrViewHolder extends RecyclerView.ViewHolder {
         TextView mtvQrname;
 

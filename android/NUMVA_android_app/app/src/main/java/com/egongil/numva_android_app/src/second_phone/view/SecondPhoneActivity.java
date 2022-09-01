@@ -57,7 +57,6 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
                 .get(SecondPhoneViewModel.class);
 
         binding.setLifecycleOwner(this);
-        mSecondPhoneViewModel.setEditState(false);
         binding.setViewModel(mSecondPhoneViewModel);
 
         getSecondPhone(); //2차 전화번호 불러오기
@@ -77,6 +76,10 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
         //ViewModel observe 설정
         mSecondPhoneViewModel.getSecondPhone();
         mSecondPhoneViewModel.getSelectedPos();
+        mSecondPhoneViewModel.setEditState(false);
+        mSecondPhoneViewModel.mEditState.observe(this, state ->{
+           mRvAdapter.notifyDataSetChanged();
+        });
         mSecondPhoneViewModel.mSecondPhone.observe(this, secondPhoneRecyclerItems -> {
             mRvAdapter.notifyDataSetChanged();
         });
@@ -85,6 +88,7 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
                 putSecondPhoneData(mSecondPhoneViewModel.getSecondPhone().getValue()
                         .get(pos).getSecondphone());
             }
+            mRvAdapter.notifyDataSetChanged();
         });
 
         //x버튼
@@ -92,65 +96,57 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
 
         //추가버튼
         binding.secondphoneBtnAdd.setOnClickListener(v -> {
-            Boolean isEditState = mSecondPhoneViewModel.getEditState().getValue();
-            ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList = mSecondPhoneViewModel.getSecondPhone().getValue();
-            if(isEditState==false) {
-                //추가 버튼
-                if (mSecondPhoneList.size() < 5) {
-                    Intent intent = new Intent(getApplicationContext(), SecondPhoneRegisterActivity.class);
-                    startActivity(intent);
-                } else {
-                    showCustomToast("2차전화번호는 최대 5개까지 저장 가능합니다.");
-                }
-            }
-            else if(isEditState==true){
-//                    //삭제 버튼
-                String strId = "";
-
-                for(int i = 0; i< mRvAdapter.getItemCount(); i++){
-                    if(mSecondPhoneList.get(i).getSelected()==true){
-                        strId += " "+mSecondPhoneList.get(i).getId();
-                    }
-                }
-                delSecondPhone(strId);
+            //추가 버튼
+            if (mSecondPhoneViewModel.getSecondPhone().getValue().size() < 5) {
+                Intent intent = new Intent(getApplicationContext(), SecondPhoneRegisterActivity.class);
+                startActivity(intent);
+            } else {
+                showCustomToast("2차전화번호는 최대 5개까지 저장 가능합니다.");
             }
         });
 
         //편집버튼
         binding.secondphoneBtnEdit.setOnClickListener(v -> {
-            Boolean isEditState = mSecondPhoneViewModel.getEditState().getValue();
-            if(!isEditState){
-                //편집 버튼
-                mSecondPhoneViewModel.setEditState(true);
-                setisEditState();
-
-                ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList = mSecondPhoneViewModel.getSecondPhone().getValue();
-                //기존 체크했던 항목 해제
-                for(int i = 0; i< mRvAdapter.getItemCount(); i++){
-                    if(mSecondPhoneList.get(i).getSelected()){
-                        mSecondPhoneList.get(i).setSelected(false);
-                    }
+            //기존 체크했던 항목 해제
+            for(int i = 0; i< mRvAdapter.getItemCount(); i++){
+                if(mSecondPhoneViewModel.getSecondPhone().getValue().get(i).getSelected()){
+                    mSecondPhoneViewModel.getSecondPhone().getValue().get(i).setSelected(false);
                 }
             }
-            else if(isEditState){
-                //취소 버튼
-                mSecondPhoneViewModel.setEditState(true);
-                setisEditState();
-            }
+            mSecondPhoneViewModel.setEditState(true);
             mRvAdapter.notifyItemRangeChanged(0, mRvAdapter.getItemCount());
         });
 
+        binding.secondphoneBtnDelete.setOnClickListener(v -> {
+            //삭제 버튼
+            String strId = "";
+            for(int i = 0; i< mRvAdapter.getItemCount(); i++){
+                if(mSecondPhoneViewModel.getSecondPhone().getValue().get(i).getSelected()){
+                    strId += " "+mSecondPhoneViewModel.getSecondPhone().getValue().get(i).getId();
+                }
+            }
+            delSecondPhone(strId);
+            mSecondPhoneViewModel.setEditState(false);
+        });
+
+        binding.secondphoneBtnCancel.setOnClickListener(v -> {
+            //취소 버튼
+            mSecondPhoneViewModel.setEditState(false);
+        });
+
         mRvAdapter.setOnItemClickListener((v, position) -> {
-            TwoButtonDialog setRepDialog = new TwoButtonDialog(SecondPhoneActivity.this);
-            setRepDialog.showDialog();
-            setRepDialog.setContextText("이 번호를 2차전화번호로 등록하시겠습니까?");
-            setRepDialog.setSelectText("취소", "확인");
-            setRepDialog.mBtnLeft.setOnClickListener(v12 -> setRepDialog.dismiss());
-            setRepDialog.mBtnRight.setOnClickListener(v1 -> {
-                setRepDialog.dismiss();
-                repSecondPhone(mSecondPhoneViewModel.getSecondPhone().getValue().get(position).getId());
-                mSecondPhoneViewModel.setSelectedPos(position);
-            });
+            if(!mSecondPhoneViewModel.getEditState().getValue()){
+                TwoButtonDialog setRepDialog = new TwoButtonDialog(SecondPhoneActivity.this);
+                setRepDialog.showDialog();
+                setRepDialog.setContextText("이 번호를 2차전화번호로 등록하시겠습니까?");
+                setRepDialog.setSelectText("취소", "확인");
+                setRepDialog.mBtnLeft.setOnClickListener(v12 -> setRepDialog.dismiss());
+                setRepDialog.mBtnRight.setOnClickListener(v1 -> {
+                    setRepDialog.dismiss();
+                    repSecondPhone(mSecondPhoneViewModel.getSecondPhone().getValue().get(position).getId());
+                    mSecondPhoneViewModel.setSelectedPos(position);
+                });
+            }
         });
     }
 
@@ -233,7 +229,7 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
             if(deleteSecondPhoneResponse.getCode()==200 && deleteSecondPhoneResponse.isSuccess()){
                 System.out.println("TOKEN : "+deleteSecondPhoneResponse.getMessage());
                 showCustomToast("선택하신 전화번호가 삭제되었습니다.");
-                //TODO: recyclerView ReLoad
+                mSecondPhoneViewModel.setSecondPhone(deleteSecondPhoneResponse.getResult());
             }
             else if(errorResponse != null){
                 showCustomToast(getString(R.string.secondphone_invalid_error));
@@ -245,24 +241,6 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
     @Override
     public void deleteSecondPhoneFailure() {
         showCustomToast(getString(R.string.network_error));
-    }
-
-//    public void initializeSecondPhoneList(){
-//        for(int i=0;i<mSecondPhoneList.size(); i++){
-//            mSecondPhoneList.get(i).getSecondphone();
-//        }
-//    }
-
-    private void setisEditState(){
-        Boolean isEditState = mSecondPhoneViewModel.getEditState().getValue();
-        if (isEditState == false){
-            binding.secondphoneBtnAdd.setText("추가");
-            binding.secondphoneBtnEdit.setText("편집");
-        }
-        else if(isEditState == true){
-            binding.secondphoneBtnAdd.setText("삭제");
-            binding.secondphoneBtnEdit.setText("취소");
-        }
     }
 
     @Override
