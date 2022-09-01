@@ -51,14 +51,7 @@ public class SecondPhoneRecyclerAdapter extends RecyclerView.Adapter<SecondPhone
         holder.binding.secondphoneCheckbox.setChecked(item.getSelected());
         holder.binding.secondphoneCheckbox.setVisibility(mSecondPhoneViewModel.getEditState().getValue()? View.VISIBLE: View.GONE);
         holder.binding.secondphoneCheckbox.setOnClickListener(v -> {
-            ArrayList<SecondPhoneRecyclerItem> secondPhone = mSecondPhoneViewModel.getSecondPhone().getValue();
-            if(secondPhone.get(position).getSelected()){
-                secondPhone.get(position).setSelected(false);
-                mSecondPhoneViewModel.setSecondPhone(secondPhone);
-            }else{
-                secondPhone.get(position).setSelected(true);
-                mSecondPhoneViewModel.setSecondPhone(secondPhone);
-            }
+            checkItem(position);
         });
     }
 
@@ -73,15 +66,14 @@ public class SecondPhoneRecyclerAdapter extends RecyclerView.Adapter<SecondPhone
             super(binding.getRoot());
             this.binding = binding;
 
+            //Item 클릭 시, 전달받은 listener객체의 메소드 호출
             binding.getRoot().setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if(pos != RecyclerView.NO_POSITION){
-                    // 리스너 객체의 메서드 호출
-                    // TODO: click position , api connection
                     if(mListener != null){
                         mListener.onItemClick(v, pos);
                     }
-                    notifyItemChanged(pos);
+                    checkItem(pos);
                 }
             });
         }
@@ -94,8 +86,12 @@ public class SecondPhoneRecyclerAdapter extends RecyclerView.Adapter<SecondPhone
 
     // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
     public void setOnItemClickListener(OnItemClickListener listener){
-
         this.mListener = listener;
+    }
+    public void checkItem(int position){
+        ArrayList<SecondPhoneRecyclerItem> secondPhone = mSecondPhoneViewModel.getSecondPhone().getValue();
+        secondPhone.get(position).setSelected(!secondPhone.get(position).getSelected());//반대로 바꿈
+        mSecondPhoneViewModel.setSecondPhone(secondPhone);
     }
 
 }
