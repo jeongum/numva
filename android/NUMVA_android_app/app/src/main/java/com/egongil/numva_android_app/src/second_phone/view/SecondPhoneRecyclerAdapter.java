@@ -12,21 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.egongil.numva_android_app.R;
 import com.egongil.numva_android_app.src.second_phone.models.SecondPhoneRecyclerItem;
+import com.egongil.numva_android_app.src.second_phone.viewmodel.SecondPhoneViewModel;
 
 import java.util.ArrayList;
 
-import static com.egongil.numva_android_app.src.second_phone.view.SecondPhoneActivity.isEditState;
-
 public class SecondPhoneRecyclerAdapter extends RecyclerView.Adapter<SecondPhoneRecyclerAdapter.ViewHolder> {
-    private ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList = null;
     private OnItemClickListener mListener = null; //리스너 객체 참조를 저장하는 변수
+    private SecondPhoneViewModel mSecondPhoneViewModel;
 
-
-    SecondPhoneRecyclerAdapter(ArrayList<SecondPhoneRecyclerItem> dataList){
-        mSecondPhoneList = dataList;
+    public SecondPhoneRecyclerAdapter(SecondPhoneViewModel mSecondPhoneViewModel) {
+        this.mSecondPhoneViewModel = mSecondPhoneViewModel;
     }
-
-
 
     @NonNull
     @Override
@@ -40,18 +36,17 @@ public class SecondPhoneRecyclerAdapter extends RecyclerView.Adapter<SecondPhone
 
     @Override
     public void onBindViewHolder(@NonNull SecondPhoneRecyclerAdapter.ViewHolder holder, int position) {
+        ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList = mSecondPhoneViewModel.getSecondPhone().getValue();
 
-        final SecondPhoneRecyclerItem item = mSecondPhoneList.get(position); //final로 선언하여 체크박스의 체크 상태값을 바뀌지 않도록 한다.
+        final SecondPhoneRecyclerItem item = mSecondPhoneViewModel.getSecondPhone().getValue().get(position); //final로 선언하여 체크박스의 체크 상태값을 바뀌지 않도록 한다.
         String strSecondPhone = mSecondPhoneList.get(position).getSecondphone();
         holder.tv_secondphone.setText(strSecondPhone);
 
-
-        if(isEditState==true) {
+        if(mSecondPhoneViewModel.getEditState().getValue()) {
             holder.cb_select.setVisibility(View.VISIBLE);
-        }else if(isEditState==false) {
+        }else{
             holder.cb_select.setVisibility(View.GONE);
         }
-
 
         if(strSecondPhone!=null){
             //2차전화번호 없을 때
@@ -63,7 +58,7 @@ public class SecondPhoneRecyclerAdapter extends RecyclerView.Adapter<SecondPhone
         holder.cb_select.setOnCheckedChangeListener(null);
         holder.cb_select.setChecked(item.getSelected());
         holder.cb_select.setOnClickListener(v -> {
-            if(mSecondPhoneList.get(position).getSelected()==true){
+            if(mSecondPhoneList.get(position).getSelected()){
                 mSecondPhoneList.get(position).setSelected(false);
 
             }else{
@@ -76,7 +71,7 @@ public class SecondPhoneRecyclerAdapter extends RecyclerView.Adapter<SecondPhone
 
     @Override
     public int getItemCount() {
-        return mSecondPhoneList.size();
+        return mSecondPhoneViewModel.getSecondPhone().getValue().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -107,19 +102,14 @@ public class SecondPhoneRecyclerAdapter extends RecyclerView.Adapter<SecondPhone
                     }
                 }
             });
-
-
-
         }
-
-
     }
 
-    public void updateData(ArrayList<SecondPhoneRecyclerItem> mList){
-        mSecondPhoneList.clear();
-        mSecondPhoneList.addAll(mList);
-        notifyDataSetChanged();
-    }
+//    public void updateData(ArrayList<SecondPhoneRecyclerItem> mList){
+//        mSecondPhoneList.clear();
+//        mSecondPhoneList.addAll(mList);
+//        notifyDataSetChanged();
+//    }
 
 
     public interface OnItemClickListener{

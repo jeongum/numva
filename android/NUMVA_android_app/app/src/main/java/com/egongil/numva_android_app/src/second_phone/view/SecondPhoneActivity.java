@@ -1,29 +1,18 @@
 package com.egongil.numva_android_app.src.second_phone.view;
 
-import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.EDIT_USERINFO_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.SECONDPHONE_REGISTER_ACTIVITY;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
-import com.egongil.numva_android_app.databinding.ActivityEditUserInfoBinding;
 import com.egongil.numva_android_app.databinding.ActivitySecondPhoneBinding;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
@@ -40,16 +29,20 @@ import com.egongil.numva_android_app.src.config.models.response.DeleteSecondPhon
 import com.egongil.numva_android_app.src.config.models.response.GetSecondPhoneResponse;
 import com.egongil.numva_android_app.src.config.models.request.RepSecondPhoneRequest;
 import com.egongil.numva_android_app.src.config.models.response.RepSecondPhoneResponse;
+import com.egongil.numva_android_app.src.second_phone.viewmodel.SecondPhoneViewModel;
+import com.egongil.numva_android_app.src.second_phone.viewmodel.SecondPhoneViewModelFactory;
 
 import java.util.ArrayList;
 
 public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActivityContract, ConnectionReceiver.ConnectionReceiverListener {
-    private ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList;
-    SecondPhoneRecyclerAdapter mAdapter;
+//    private ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList;
+//    public static boolean isEditState = false;
+//
+    private SecondPhoneRecyclerAdapter mRvAdapter;
 
-    public static boolean isEditState = false;
-    ActivityResultLauncher<Intent> mActivityResultLauncher;
-    ActivitySecondPhoneBinding binding;
+    private ActivityResultLauncher<Intent> mActivityResultLauncher;
+    private ActivitySecondPhoneBinding binding;
+    private SecondPhoneViewModel mSecondPhoneViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +51,15 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
         checkConnection(); //네트워크 연결 확인
         binding = DataBindingUtil.setContentView(this, R.layout.activity_second_phone);
 
-        isEditState = false;
+        //viewModel setting
+        mSecondPhoneViewModel = new ViewModelProvider(this,
+                new SecondPhoneViewModelFactory(this))
+                .get(SecondPhoneViewModel.class);
 
-        mSecondPhoneList = new ArrayList<>();
+        binding.setLifecycleOwner(this);
+        mSecondPhoneViewModel.setEditState(false);
+        binding.setViewModel(mSecondPhoneViewModel);
+
         getSecondPhone(); //2차 전화번호 불러오기
 
         mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -70,19 +69,31 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
         });
 
         /////////recyclerview//////
-//        initializeSecondPhoneList();
         LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         binding.secondphoneRv.setLayoutManager(manager);
+        mRvAdapter = new SecondPhoneRecyclerAdapter(mSecondPhoneViewModel);
+        binding.secondphoneRv.setAdapter(mRvAdapter);
 
-        // Adapter 객체 지정
-        mAdapter = new SecondPhoneRecyclerAdapter(mSecondPhoneList);
-        binding.secondphoneRv.setAdapter(mAdapter);
+        //ViewModel observe 설정
+        mSecondPhoneViewModel.getSecondPhone();
+        mSecondPhoneViewModel.getSelectedPos();
+        mSecondPhoneViewModel.mSecondPhone.observe(this, secondPhoneRecyclerItems -> {
+            mRvAdapter.notifyDataSetChanged();
+        });
+        mSecondPhoneViewModel.mSelectedPos.observe(this, pos -> {
+            if(pos!=null){
+                putSecondPhoneData(mSecondPhoneViewModel.getSecondPhone().getValue()
+                        .get(pos).getSecondphone());
+            }
+        });
 
         //x버튼
         binding.secondphoneIvCrossbtn.setOnClickListener(v -> finish());
 
         //추가버튼
         binding.secondphoneBtnAdd.setOnClickListener(v -> {
+            Boolean isEditState = mSecondPhoneViewModel.getEditState().getValue();
+            ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList = mSecondPhoneViewModel.getSecondPhone().getValue();
             if(isEditState==false) {
                 //추가 버튼
                 if (mSecondPhoneList.size() < 5) {
@@ -96,7 +107,7 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
 //                    //삭제 버튼
                 String strId = "";
 
-                for(int i=0; i<mAdapter.getItemCount();i++){
+                for(int i = 0; i< mRvAdapter.getItemCount(); i++){
                     if(mSecondPhoneList.get(i).getSelected()==true){
                         strId += " "+mSecondPhoneList.get(i).getId();
                     }
@@ -107,27 +118,29 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
 
         //편집버튼
         binding.secondphoneBtnEdit.setOnClickListener(v -> {
-            if(isEditState==false){
+            Boolean isEditState = mSecondPhoneViewModel.getEditState().getValue();
+            if(!isEditState){
                 //편집 버튼
-                isEditState=true;
+                mSecondPhoneViewModel.setEditState(true);
                 setisEditState();
 
+                ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList = mSecondPhoneViewModel.getSecondPhone().getValue();
                 //기존 체크했던 항목 해제
-                for(int i=0; i<mAdapter.getItemCount();i++){
-                    if(mSecondPhoneList.get(i).getSelected()==true){
+                for(int i = 0; i< mRvAdapter.getItemCount(); i++){
+                    if(mSecondPhoneList.get(i).getSelected()){
                         mSecondPhoneList.get(i).setSelected(false);
                     }
                 }
             }
-            else if(isEditState==true){
+            else if(isEditState){
                 //취소 버튼
-                isEditState=false;
+                mSecondPhoneViewModel.setEditState(true);
                 setisEditState();
             }
-            mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
+            mRvAdapter.notifyItemRangeChanged(0, mRvAdapter.getItemCount());
         });
 
-        mAdapter.setOnItemClickListener((v, position) -> {
+        mRvAdapter.setOnItemClickListener((v, position) -> {
             TwoButtonDialog setRepDialog = new TwoButtonDialog(SecondPhoneActivity.this);
             setRepDialog.showDialog();
             setRepDialog.setContextText("이 번호를 2차전화번호로 등록하시겠습니까?");
@@ -135,7 +148,8 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
             setRepDialog.mBtnLeft.setOnClickListener(v12 -> setRepDialog.dismiss());
             setRepDialog.mBtnRight.setOnClickListener(v1 -> {
                 setRepDialog.dismiss();
-                repSecondPhone(mSecondPhoneList.get(position).getId());
+                repSecondPhone(mSecondPhoneViewModel.getSecondPhone().getValue().get(position).getId());
+                mSecondPhoneViewModel.setSelectedPos(position);
             });
         });
     }
@@ -151,9 +165,9 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
     public void getSecondPhoneSuccess(GetSecondPhoneResponse getSecondPhoneResponse, ErrorResponse errorResponse) {
         if(getSecondPhoneResponse != null){
             if(getSecondPhoneResponse.getCode()==200 && getSecondPhoneResponse.isSuccess()){
-                mSecondPhoneList = getSecondPhoneResponse.getResult();
-//                initializeSecondPhoneList();
-                mAdapter.updateData(mSecondPhoneList);
+                ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList = getSecondPhoneResponse.getResult();
+                mSecondPhoneViewModel.setSecondPhone(mSecondPhoneList); //viewmodel 데이터 변경
+
                 if(getSecondPhoneResponse.getResult().isEmpty()){
                     //배열 비어있을 때
                     binding.secondphoneTvEmpty.setVisibility(View.VISIBLE);
@@ -189,8 +203,6 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
                 System.out.println("TOKEN : "+repSecondPhoneResponse.getMessage());
 
                 showCustomToast("2차전화번호가 설정되었습니다.");
-                putSecondPhoneData(repSecondPhoneResponse.getSecondPhone());
-
                 finish();
                 }
             else if(errorResponse != null){
@@ -242,6 +254,7 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
 //    }
 
     private void setisEditState(){
+        Boolean isEditState = mSecondPhoneViewModel.getEditState().getValue();
         if (isEditState == false){
             binding.secondphoneBtnAdd.setText("추가");
             binding.secondphoneBtnEdit.setText("편집");

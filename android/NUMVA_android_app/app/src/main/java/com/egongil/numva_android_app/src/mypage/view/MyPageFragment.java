@@ -121,8 +121,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         binding.editSecondPhoneBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
-                startActivity(intent);
+                launchSecondPhoneActivity();
             }
         });
 
@@ -130,8 +129,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         binding.secondPhoneTv.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
-                startActivity(intent);
+                launchSecondPhoneActivity();
             }
         });
 
@@ -139,11 +137,11 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         binding.registerSecondphone.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
-                startActivity(intent);
+                launchSecondPhoneActivity();
             }
         });
 
+        //비로그인상태 Greeting
         binding.nonLoginGreeting.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
@@ -251,6 +249,11 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
     private void launchEditUserInfoActivity() {
         Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
         intent.putExtra("user_info", mMainViewModel.getUserData().getValue());
+        mActivityResultLauncher.launch(intent);
+    }
+
+    private void launchSecondPhoneActivity(){
+        Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
         mActivityResultLauncher.launch(intent);
     }
 }
