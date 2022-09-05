@@ -9,26 +9,17 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
+import androidx.databinding.DataBindingUtil;
 
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.databinding.ActivitySecondPhoneRegisterBinding;
 import com.egongil.numva_android_app.src.cert_phone.models.SendSMS;
-import com.egongil.numva_android_app.src.cert_phone.view.TimerView;
 import com.egongil.numva_android_app.src.config.models.request.CertPhoneRequest;
 import com.egongil.numva_android_app.src.config.models.response.CertPhoneResponse;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
-import com.egongil.numva_android_app.src.main.view.MainActivity;
 import com.egongil.numva_android_app.src.network.ConnectionReceiver;
 import com.egongil.numva_android_app.src.network.NetworkFailureActivity;
 import com.egongil.numva_android_app.src.second_phone.models.SecondPhoneService;
@@ -37,79 +28,49 @@ import com.egongil.numva_android_app.src.config.models.request.SetSecondPhoneReq
 import com.egongil.numva_android_app.src.config.models.response.SetSecondPhoneResponse;
 
 public class SecondPhoneRegisterActivity extends BaseActivity implements SecondPhoneRegisterActivityContract, ConnectionReceiver.ConnectionReceiverListener {
-
-    EditText mEtPhoneMid, mEtPhoneFin, mEtCtfNumber;
-    Button mBtnSend, mBtnCheck, mBtnRegister;
-    String mStPhone, mStPhone_fir, mStCertNum;
-    Spinner mPhoneFir;
-    ImageView mIvCtfNumRemoveBtn, mIvBack, mIvExit;
-    LinearLayout mLlCertNum;
-    TextView mTvCtfNumber;
+    String mStrCertNum;  //certNum
 
     static Boolean REGISTER_POSSIBLE = false;
-    private TimerView timerView;
+//    private TimerView timerView;
+    private ActivitySecondPhoneRegisterBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second_phone_register);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_second_phone_register);
+
         checkConnection(); //네트워크 연결 확인
 
-        // 전화번호 첫 3자리 spinner - dropdown
-        mPhoneFir = (Spinner)this.findViewById(R.id.secondphone_register_sp_phone_start);
-        String[] str = this.getResources().getStringArray(R.array.phone_dropdown);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_spinner_phonenumber, str);
-        adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-        mPhoneFir.setAdapter(adapter);
-
-
-        mPhoneFir.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //선택된 해당 값 받아오기
-                mStPhone_fir = (mPhoneFir.getItemAtPosition(position)).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        mEtPhoneMid = findViewById(R.id.secondphone_register_et_phone_middle); //8567
-        mEtPhoneFin = findViewById(R.id.secondphone_register_et_phone_final);  //1488
-        mEtCtfNumber = findViewById(R.id.secondphone_register_et_certnumber); //인증번호 EditText
-        mBtnSend = findViewById(R.id.secondphone_register_btn_ctfnumber); //인증번호전송 버튼
-        mBtnCheck = findViewById(R.id.secondphone_register_btn_certconfirm); //인증번호 확인 버튼
-        mBtnRegister = findViewById(R.id.secondphone_register_btn); //추가하기 버튼
-        mIvBack = findViewById(R.id.secondphone_register_iv_backbtn); //뒤로가기
-        mTvCtfNumber = findViewById(R.id.secondphone_register_tv_failure_ctfnumber); //인증번호 fail guide
-        mLlCertNum = findViewById(R.id.secondphone_register_ll_certnumber); //인증번호 확인 Linear Layout
-        timerView = findViewById(R.id.secondphone_register_tv_timer); //인증번호 타이머
-
-        mBtnSend.setOnClickListener(new View.OnClickListener(){ //인증번호 전송 버튼
+        binding.sendCertBtn.setOnClickListener(new View.OnClickListener(){ //인증번호 전송 버튼
             @Override
             public void onClick(View v) {
-                certPhone();
+                String phoneNum = makePhoneNumString(binding.etPhoneMiddle.getText().toString(), binding.etPhoneFinal.getText().toString());
+
+                if(phoneNum.equals("")){
+                    showCustomToast("올바른 핸드폰 번호를 입력하세요.");
+                    return;
+                }
+
+                certPhone(phoneNum);
                 showCustomToast("인증번호가 전송되었습니다.");
-                mLlCertNum.setVisibility(View.VISIBLE);
-                timerView.start(300000);
-                if(!timerView.isCertification()){
-                    timerView.setText("인증시간초과");
+                binding.llCert.setVisibility(View.VISIBLE);
+                binding.timer.start(300000);
+                if(!binding.timer.isCertification()){
+                    binding.timer.setText("인증시간초과");
                 }
             }
         });
 
-        mBtnCheck.setOnClickListener(new View.OnClickListener() {
+        binding.btnCertconfirm.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                if(mStCertNum.equals(mEtCtfNumber.getText().toString())){
+                if(mStrCertNum.equals(binding.etCertnum.getText().toString())){
                     //인증번호가 일치함
-                    mTvCtfNumber.setText(R.string.certnumber_guide);
-                    mTvCtfNumber.setTextColor(R.color.colorPrimary);
-                    mTvCtfNumber.setVisibility(View.VISIBLE);
-                    timerView.setVisibility(View.GONE);
+                    binding.tvGuidCert.setText(R.string.certnumber_guide);
+                    binding.tvGuidCert.setTextColor(R.color.colorPrimary);
+                    binding.tvGuidCert.setVisibility(View.VISIBLE);
+                    binding.timer.setVisibility(View.GONE);
                     REGISTER_POSSIBLE = true;
                     //키보드 내림
                     InputMethodManager manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
@@ -117,22 +78,21 @@ public class SecondPhoneRegisterActivity extends BaseActivity implements SecondP
 
                 }else{
                     //인증번호가 일치하지 않음
-                    mTvCtfNumber.setText(R.string.certnumber_fail_guide);
-                    mTvCtfNumber.setVisibility(View.VISIBLE);
+                    binding.tvGuidCert.setText(R.string.certnumber_fail_guide);
+                    binding.tvGuidCert.setVisibility(View.VISIBLE);
                     REGISTER_POSSIBLE = false;
                 }
             }
         });
 
-        mIvBack.setOnClickListener(new View.OnClickListener() {
+        binding.backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        mIvCtfNumRemoveBtn = findViewById(R.id.secondphone_register_iv_ctfnumber_remove);
-        mEtCtfNumber.addTextChangedListener(new TextWatcher() {
+        binding.etCertnum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -140,24 +100,23 @@ public class SecondPhoneRegisterActivity extends BaseActivity implements SecondP
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()>0 && mIvCtfNumRemoveBtn.getVisibility()==View.GONE){
-                    mIvCtfNumRemoveBtn.setVisibility(View.VISIBLE);
-                }else if(s.length()==0 && mIvCtfNumRemoveBtn.getVisibility()==View.VISIBLE){
-                    mIvCtfNumRemoveBtn.setVisibility(View.GONE);
+                if(s.length()>0 && binding.ivCertRemove.getVisibility()==View.GONE){
+                    binding.ivCertRemove.setVisibility(View.VISIBLE);
+                }else if(s.length()==0 && binding.ivCertRemove.getVisibility()==View.VISIBLE){
+                    binding.ivCertRemove.setVisibility(View.GONE);
                 }
             }
         });
-        mIvCtfNumRemoveBtn.setOnClickListener(v -> {
-            mEtCtfNumber.setText("");
+        binding.ivCertRemove.setOnClickListener(v -> {
+            binding.etCertnum.setText("");
             REGISTER_POSSIBLE = false;
         });
 
-        mBtnRegister.setOnClickListener(v -> {
+        binding.registerBtn.setOnClickListener(v -> {
             if(REGISTER_POSSIBLE==true) {
                 registerSecondPhone();
             } else{
@@ -166,35 +125,39 @@ public class SecondPhoneRegisterActivity extends BaseActivity implements SecondP
         });
     }
 
-    private String setPhoneNumber(String fir, String mid, String fin){
-        mStPhone = fir + mid + fin;
-        return mStPhone;
+    private String makePhoneNumString(String mid, String fin){
+        //유효성 검사
+        if(mid.length()!=4 || fin.length() != 4)    return "";
+
+        return "010" + mid + fin;
     }
 
     private String setCertNumber(){
         SendSMS sendSMS = new SendSMS();
-        mStCertNum = sendSMS.numberGen(4, 2);
-        return mStCertNum;
+        mStrCertNum = sendSMS.numberGen(4, 2);
+        return mStrCertNum;
     }
 
     public void registerSecondPhone(){
-        setPhoneNumber(mStPhone_fir,mEtPhoneMid.getText().toString(), mEtPhoneFin.getText().toString());
+        String phoneNum = makePhoneNumString(binding.etPhoneMiddle.getText().toString(), binding.etPhoneFinal.getText().toString());
 
+        if(phoneNum.equals("")){
+            showCustomToast("올바른 핸드폰 번호를 입력하세요.");
+            return;
+        }
         SecondPhoneService secondPhoneService = new SecondPhoneService(this);
         SetSecondPhoneRequest setSecondPhoneRequest = new SetSecondPhoneRequest();
-        setSecondPhoneRequest.setSecond_phone(mStPhone);
+        setSecondPhoneRequest.setSecond_phone(phoneNum);
         secondPhoneService.setSecondPhone(setSecondPhoneRequest);
     }
 
-    private void certPhone(){
-        setPhoneNumber(mStPhone_fir, mEtPhoneMid.getText().toString(), mEtPhoneFin.getText().toString());
-
+    private void certPhone(String phoneNum){
         setCertNumber();
 
         SecondPhoneService secondPhoneService = new SecondPhoneService(this);
         CertPhoneRequest certPhoneRequest = new CertPhoneRequest();
-        certPhoneRequest.setPhone(mStPhone);
-        certPhoneRequest.setCert(mStCertNum);
+        certPhoneRequest.setPhone(phoneNum);
+        certPhoneRequest.setCert(mStrCertNum);
         secondPhoneService.postCertPhone(certPhoneRequest);
     }
 
