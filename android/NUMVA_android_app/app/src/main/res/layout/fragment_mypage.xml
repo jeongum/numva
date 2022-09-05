@@ -2,28 +2,31 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
-            name = "viewModel"
-            type = "com.egongil.numva_android_app.src.main.viewmodels.MainViewModel"/>
+            name="viewModel"
+            type="com.egongil.numva_android_app.src.main.viewmodels.MainViewModel" />
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
             android:layout_gravity="center_horizontal"
-            android:text="MY넘바"
+            android:layout_marginTop="18dp"
             android:fontFamily="@font/font_medium"
             android:includeFontPadding="false"
-            android:textSize="20dp"
+            android:text="MY넘바"
             android:textColor="@color/colorBlack"
-            />
+            android:textSize="20dp" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refreshLayout"
@@ -38,57 +41,61 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:id="@+id/nonLogin_greeting"
-                        android:visibility= "@{viewModel.loginState ? View.GONE : View.VISIBLE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="26dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="@{viewModel.loginState ? View.GONE : View.VISIBLE}">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/home_nonlogin_greeting"
                             android:fontFamily="@font/font_regular"
                             android:includeFontPadding="false"
-                            android:textSize="12dp"
+                            android:text="@string/home_nonlogin_greeting"
                             android:textColor="@color/colorGraySmallTitle"
-                            />
+                            android:textSize="12dp" />
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="9dp"
-                                android:text="@string/home_nonlogin_gotologin"
                                 android:fontFamily="@font/font_medium"
                                 android:includeFontPadding="false"
-                                android:textSize="27dp"
-                                android:textColor="@color/colorBlack"/>
+                                android:text="@string/home_nonlogin_gotologin"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="27dp" />
+
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_right_bracket_small_primary"/>
+                                android:src="@drawable/ic_right_bracket_small_primary" />
                         </LinearLayout>
                     </LinearLayout>
 
                     <View
                         android:id="@+id/nonLoginBoundaryLine"
-                        android:visibility= "@{viewModel.loginState ? View.GONE : View.VISIBLE}"
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/colorGrayOutline" />
+                        android:background="@color/colorGrayOutline"
+                        android:visibility="@{viewModel.loginState ? View.GONE : View.VISIBLE}" />
 
                     <LinearLayout
                         android:id="@+id/login_greeting"
-                        android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="36dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}">
 
                         <TextView
                             android:id="@+id/userName"
@@ -112,167 +119,172 @@
 
                     <LinearLayout
                         android:id="@+id/phoneInfo"
-                        android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginHorizontal="36dp"
                         android:background="@drawable/roundrect_white_background"
                         android:elevation="3dp"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}">
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/phoneNumberTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="전화번호"
-                                android:textSize="15dp"
-                                android:textColor="@color/colorBlack"
+                                android:layout_marginVertical="10dp"
                                 android:layout_marginStart="13dp"
                                 android:fontFamily="@font/font_regular"
                                 android:includeFontPadding="false"
-                                android:layout_marginVertical="10dp"
+                                android:text="전화번호"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="15dp"
 
-                                app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toLeftOf="parent"/>
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
 
-                                app:layout_constraintTop_toBottomOf="@+id/phoneNumberTitle"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
-                                />
+                                app:layout_constraintTop_toBottomOf="@+id/phoneNumberTitle" />
+
                             <TextView
                                 android:id="@+id/phoneNumberTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="7dp"
-                                android:textSize="12dp"
                                 android:fontFamily="@font/font_regular"
                                 android:includeFontPadding="false"
                                 android:text="@{viewModel.userData.phone}"
+                                android:textSize="12dp"
 
-                                app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toLeftOf="@+id/editPhoneBtn"/>
+                                app:layout_constraintRight_toLeftOf="@+id/editPhoneBtn"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
                                 android:id="@+id/editPhoneBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_edit_pencil"
                                 android:layout_marginRight="11dp"
+                                android:src="@drawable/ic_edit_pencil"
 
-                                app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"/>
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1px"
-                            android:background="@color/colorGrayOutline"/>
+                            android:background="@color/colorGrayOutline" />
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/secondPhoneTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2차 전화번호"
-                                android:textSize="15dp"
-                                android:textColor="@color/colorBlack"
+                                android:layout_marginVertical="10dp"
                                 android:layout_marginStart="13dp"
                                 android:fontFamily="@font/font_regular"
                                 android:includeFontPadding="false"
-                                android:layout_marginVertical="10dp"
+                                android:text="2차 전화번호"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="15dp"
 
-                                app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toLeftOf="parent"/>
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
 
-                                app:layout_constraintTop_toBottomOf="@+id/secondPhoneTitle"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
-                                />
+                                app:layout_constraintTop_toBottomOf="@+id/secondPhoneTitle" />
+
                             <TextView
                                 android:id="@+id/secondPhoneTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="7dp"
-                                android:textSize="12dp"
-                                android:includeFontPadding="false"
                                 android:fontFamily="@font/font_regular"
+                                android:includeFontPadding="false"
                                 android:text="@{viewModel.userData.second_phone}"
-                                android:visibility="gone"
+                                android:textSize="12dp"
+                                android:visibility="@{viewModel.userData.second_phone.empty||viewModel.userData.second_phone==null?View.GONE:View.VISIBLE}"
 
-                                app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toLeftOf="@+id/editSecondPhoneBtn"/>
+                                app:layout_constraintRight_toLeftOf="@+id/editSecondPhoneBtn"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
                                 android:id="@+id/editSecondPhoneBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_edit_pencil"
                                 android:layout_marginRight="11dp"
-                                android:visibility="gone"
-
-                                app:layout_constraintTop_toTopOf="parent"
+                                android:src="@drawable/ic_edit_pencil"
+                                android:visibility="@{viewModel.userData.second_phone.empty||viewModel.userData.second_phone==null?View.GONE:View.VISIBLE}"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"/>
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/registerSecondphone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
                                 android:background="@drawable/roundrect_white_background"
                                 android:elevation="3dp"
                                 android:padding="3dp"
-                                android:layout_marginRight="10dp"
-                                app:layout_constraintTop_toTopOf="parent"
+                                android:visibility="@{viewModel.userData.second_phone.empty||viewModel.userData.second_phone==null?View.VISIBLE:View.GONE}"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
-                                android:visibility="visible">
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_check_primary"
-                                    android:layout_marginRight="3dp"
                                     android:layout_marginLeft="6dp"
+                                    android:layout_marginRight="3dp"
+                                    android:src="@drawable/ic_check_primary"
 
-                                    app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toLeftOf="@+id/mypage_tv_secondphone_register"/>
+                                    app:layout_constraintRight_toLeftOf="@+id/mypage_tv_secondphone_register"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
                                 <TextView
                                     android:id="@+id/mypage_tv_secondphone_register"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="등록"
+                                    android:layout_marginRight="6dp"
                                     android:fontFamily="@font/font_regular"
                                     android:includeFontPadding="false"
-                                    android:textSize="12dp"
+                                    android:text="등록"
                                     android:textColor="@color/colorPrimary"
-                                    android:layout_marginRight="6dp"
+                                    android:textSize="12dp"
 
-                                    app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintRight_toRightOf="parent"/>
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -280,28 +292,30 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1px"
-                            android:background="@color/colorGrayOutline"/>
+                            android:background="@color/colorGrayOutline" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <ImageView
                                 android:layout_width="9.5dp"
                                 android:layout_height="9.5dp"
-                                android:src="@drawable/ic_caution_grey"
                                 android:layout_marginStart="13dp"
-                                android:layout_marginTop="4dp"/>
+                                android:layout_marginTop="4dp"
+                                android:src="@drawable/ic_caution_grey" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="3dp"
-                                android:text="@string/mypage_second_phone_guideline"
-                                android:textSize="8dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="10dp"
                                 android:fontFamily="@font/font_regular"
                                 android:includeFontPadding="false"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="2dp"/>
+                                android:text="@string/mypage_second_phone_guideline"
+                                android:textSize="8dp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -312,82 +326,82 @@
                         android:layout_marginVertical="40dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
+
                         <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/registerQrBtn"
-                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
-                            android:layout_marginTop="14dp"
                             android:layout_marginHorizontal="35dp"
-                            app:mypage_item_text ="내 QR전화번호판"
-                            app:mypage_item_text_color="@color/colorPrimary"
-                            app:mypage_item_image_src="@drawable/ic_right_arrow_primary"
-                            android:elevation="3dp"
+                            android:layout_marginTop="14dp"
                             android:background="@drawable/roundrect_white_background"
-                           />
+                            android:elevation="3dp"
+                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_primary"
+                            app:mypage_item_text="내 QR전화번호판"
+                            app:mypage_item_text_color="@color/colorPrimary" />
+
                         <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/editUserInfoBtn"
-                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
-                            android:layout_marginTop="14dp"
                             android:layout_marginHorizontal="35dp"
-                            app:mypage_item_text ="내 정보 수정"
-                            app:mypage_item_text_color="@color/colorPrimary"
-                            app:mypage_item_image_src="@drawable/ic_right_arrow_primary"
-                            android:elevation="3dp"
+                            android:layout_marginTop="14dp"
                             android:background="@drawable/roundrect_white_background"
-                            />
+                            android:elevation="3dp"
+                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_primary"
+                            app:mypage_item_text="내 정보 수정"
+                            app:mypage_item_text_color="@color/colorPrimary" />
+
                         <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/notiSettingBtn"
-                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
-                            android:layout_marginTop="14dp"
                             android:layout_marginHorizontal="35dp"
-                            app:mypage_item_text ="푸시알림 설정"
-                            app:mypage_item_text_color="@color/colorSemiBlack"
-                            app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
-                            android:elevation="3dp"
+                            android:layout_marginTop="14dp"
                             android:background="@drawable/roundrect_white_background"
-                            />
+                            android:elevation="3dp"
+                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
+                            app:mypage_item_text="푸시알림 설정"
+                            app:mypage_item_text_color="@color/colorSemiBlack" />
+
                         <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/customerServiceBtn"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
-                            android:layout_marginTop="14dp"
                             android:layout_marginHorizontal="35dp"
-                            app:mypage_item_text ="고객센터"
-                            app:mypage_item_text_color="@color/colorSemiBlack"
-                            app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
-                            android:elevation="3dp"
+                            android:layout_marginTop="14dp"
                             android:background="@drawable/roundrect_white_background"
-                            />
+                            android:elevation="3dp"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
+                            app:mypage_item_text="고객센터"
+                            app:mypage_item_text_color="@color/colorSemiBlack" />
+
                         <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/appInfoBtn"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
-                            android:layout_marginVertical="14dp"
                             android:layout_marginHorizontal="35dp"
-                            app:mypage_item_text ="앱 정보 확인"
-                            app:mypage_item_text_color="@color/colorSemiBlack"
-                            app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
-                            android:elevation="3dp"
+                            android:layout_marginVertical="14dp"
                             android:background="@drawable/roundrect_white_background"
-                            />
+                            android:elevation="3dp"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_gray"
+                            app:mypage_item_text="앱 정보 확인"
+                            app:mypage_item_text_color="@color/colorSemiBlack" />
+
                         <com.egongil.numva_android_app.src.mypage.model.CustomViewMyPageListItem
                             android:id="@+id/logoutBtn"
-                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="53dp"
-                            android:layout_marginBottom="14dp"
                             android:layout_marginHorizontal="35dp"
-                            app:mypage_item_text ="로그아웃"
-                            app:mypage_item_text_color="@color/colorErrorRed"
-                            app:mypage_item_image_src="@drawable/ic_right_arrow_red"
-                            android:elevation="3dp"
+                            android:layout_marginBottom="14dp"
                             android:background="@drawable/roundrect_white_background"
-                            />
+                            android:elevation="3dp"
+                            android:visibility="@{viewModel.loginState? View.VISIBLE : View.GONE}"
+                            app:mypage_item_image_src="@drawable/ic_right_arrow_red"
+                            app:mypage_item_text="로그아웃"
+                            app:mypage_item_text_color="@color/colorErrorRed" />
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>

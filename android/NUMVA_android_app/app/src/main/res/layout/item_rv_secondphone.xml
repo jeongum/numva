@@ -1,46 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <CheckBox
-        android:id="@+id/secondphone_rv_checkbox"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:background="@drawable/ic_checkbox_custom"
-        android:button="@null"
-        android:visibility="gone"
-        android:includeFontPadding="false"
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewmodel"
+            type="com.egongil.numva_android_app.src.second_phone.viewmodel.SecondPhoneViewModel" />
+    </data>
 
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="12dp"
-        app:layout_constraintTop_toTopOf="@+id/secondphone_rv_phone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/secondphone_rv_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/font_demilight"
-        android:includeFontPadding="false"
-        android:textSize="17dp"
-        android:text="010-0000-0000"
-
-        android:layout_marginTop="11dp"
-        android:layout_marginLeft="9dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/secondphone_rv_checkbox"/>
-
-    <View
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#EFEFEF"
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
-        android:layout_marginTop="11dp"
-        app:layout_constraintTop_toBottomOf="@id/secondphone_rv_phone"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        <CheckBox
+            android:id="@+id/secondphone_checkbox"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/ic_checkbox_custom"
+            android:button="@null"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:includeFontPadding="false"
+            android:visibility="visible"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/secondphone_tv_phone" />
+
+        <TextView
+            android:id="@+id/secondphone_tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/font_demilight"
+            android:includeFontPadding="false"
+
+            android:text="010-0000-0000"
+            android:textSize="17dp"
+            app:layout_constraintLeft_toRightOf="@+id/secondphone_checkbox"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="11dp"
+
+            android:background="#EFEFEF"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/secondphone_tv_phone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

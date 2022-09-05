@@ -92,9 +92,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         initSafetyInfo();
 
         //safetyInfo 변경되면 recyclerView update해줌
-        if (mQrManagementViewModel.mSafetyInfo == null) {
-            mQrManagementViewModel.getSafetyInfoData(); //null체크
-        }
+        mQrManagementViewModel.getSafetyInfoData(); //null방지
         mQrManagementViewModel.mSafetyInfo.observe(this, safetyInfos -> {
                     mQrRvAdapter.notifyDataSetChanged();
                     putIntentSafetyInfo();

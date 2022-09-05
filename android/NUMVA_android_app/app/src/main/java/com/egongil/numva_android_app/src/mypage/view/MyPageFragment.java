@@ -38,6 +38,7 @@ import com.egongil.numva_android_app.src.second_phone.view.SecondPhoneActivity;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.EDIT_USERINFO_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_MANAGEMENT_ACTIVITY;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.SECONDPHONE_REGISTER_ACTIVITY;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.X_ACCESS_TOKEN;
 import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedPreferences;
 
@@ -46,8 +47,6 @@ import java.util.ArrayList;
 public class MyPageFragment extends BaseFragment implements MyPageFragmentContract {
     FragmentMypageBinding binding;
     MainViewModel mMainViewModel;
-
-    public Callback mGetPhoneInfoCallback;
 
     ActivityResultLauncher<Intent> mActivityResultLauncher;
 
@@ -90,6 +89,11 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
                     UserInfo info = (UserInfo)editIntent.getSerializableExtra("user_info");
                     mMainViewModel.setUserData(info);
                     break;
+                case SECONDPHONE_REGISTER_ACTIVITY:
+                    Intent secondIntent = result.getData();
+                    String second_phone = secondIntent.getStringExtra("second_phone");
+                    mMainViewModel.setSecondPhone(second_phone);
+                    break;
             }
         });
 
@@ -117,8 +121,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         binding.editSecondPhoneBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
-                startActivity(intent);
+                launchSecondPhoneActivity();
             }
         });
 
@@ -126,8 +129,7 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         binding.secondPhoneTv.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
-                startActivity(intent);
+                launchSecondPhoneActivity();
             }
         });
 
@@ -135,11 +137,11 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
         binding.registerSecondphone.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
-                startActivity(intent);
+                launchSecondPhoneActivity();
             }
         });
 
+        //비로그인상태 Greeting
         binding.nonLoginGreeting.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
@@ -212,26 +214,9 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
             }
         });
 
-        mGetPhoneInfoCallback = () -> setSecondPhoneData();
-
         setHasOptionsMenu(true);
 
         return root;
-    }
-
-    public void setSecondPhoneData() {
-        //data mapping
-        if (((MainActivity) getActivity()).userInfo != null) {
-            if (mMainViewModel.getUserData().getValue().getSecond_phone().equals("")) {
-                binding.secondPhoneTv.setVisibility(View.VISIBLE);  //2차전화번호 TextView
-                binding.editSecondPhoneBtn.setVisibility(View.VISIBLE); //2차전화번호 연필아이콘
-                binding.registerSecondphone.setVisibility(View.GONE);  //2차전화번호 등록버튼
-            } else {
-                binding.secondPhoneTv.setVisibility(View.GONE);  //2차전화번호 TextView
-                binding.editSecondPhoneBtn.setVisibility(View.GONE);  //2차전화번호 연필아이콘
-                binding.registerSecondphone.setVisibility(View.VISIBLE);  //2차전화번호 등록버튼
-            }
-        }
     }
 
     public void logout() {
@@ -264,6 +249,11 @@ public class MyPageFragment extends BaseFragment implements MyPageFragmentContra
     private void launchEditUserInfoActivity() {
         Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
         intent.putExtra("user_info", mMainViewModel.getUserData().getValue());
+        mActivityResultLauncher.launch(intent);
+    }
+
+    private void launchSecondPhoneActivity(){
+        Intent intent = new Intent(getActivity(), SecondPhoneActivity.class);
         mActivityResultLauncher.launch(intent);
     }
 }

@@ -1,16 +1,19 @@
 package com.egongil.numva_android_app.src.second_phone.view;
 
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.SECONDPHONE_REGISTER_ACTIVITY;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.egongil.numva_android_app.R;
+import com.egongil.numva_android_app.databinding.ActivitySecondPhoneBinding;
 import com.egongil.numva_android_app.src.config.ApplicationClass;
 import com.egongil.numva_android_app.src.config.view.BaseActivity;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
@@ -26,154 +29,150 @@ import com.egongil.numva_android_app.src.config.models.response.DeleteSecondPhon
 import com.egongil.numva_android_app.src.config.models.response.GetSecondPhoneResponse;
 import com.egongil.numva_android_app.src.config.models.request.RepSecondPhoneRequest;
 import com.egongil.numva_android_app.src.config.models.response.RepSecondPhoneResponse;
+import com.egongil.numva_android_app.src.second_phone.viewmodel.SecondPhoneViewModel;
+import com.egongil.numva_android_app.src.second_phone.viewmodel.SecondPhoneViewModelFactory;
 
 import java.util.ArrayList;
 
 public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActivityContract, ConnectionReceiver.ConnectionReceiverListener {
-    private ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList;
-    SecondPhoneRecyclerAdapter mAdapter;
+//    private ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList;
+//    public static boolean isEditState = false;
+//
+    private SecondPhoneRecyclerAdapter mRvAdapter;
 
-    TextView mTvEmpty;
-    Button mBtnAdd, mBtnEdit;
-    ImageView mIvExit;
-    RecyclerView mRvSecondPhone;
-
-    public static boolean isEditState = false;
-
+    private ActivityResultLauncher<Intent> mActivityResultLauncher;
+    private ActivitySecondPhoneBinding binding;
+    private SecondPhoneViewModel mSecondPhoneViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_phone);
         checkConnection(); //네트워크 연결 확인
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_second_phone);
 
-        isEditState = false;
+        //viewModel setting
+        mSecondPhoneViewModel = new ViewModelProvider(this,
+                new SecondPhoneViewModelFactory(this))
+                .get(SecondPhoneViewModel.class);
 
-        mSecondPhoneList = new ArrayList<>();
-
-        mBtnAdd = findViewById(R.id.secondphone_btn_add); //추가버튼
-        mBtnEdit = findViewById(R.id.secondphone_btn_edit); //편집버튼
-        mIvExit = findViewById(R.id.secondphone_iv_crossbtn); //취소버튼(X)
-        mTvEmpty = findViewById(R.id.secondphone_tv_empty); //리스트 없을 때
-        mRvSecondPhone = findViewById(R.id.secondphone_rv); //리스트 있을 때
+        binding.setLifecycleOwner(this);
+        binding.setViewModel(mSecondPhoneViewModel);
 
         getSecondPhone(); //2차 전화번호 불러오기
 
+        mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if(result.getResultCode() == SECONDPHONE_REGISTER_ACTIVITY){
+                getSecondPhone();
+            }
+        });
+
         /////////recyclerview//////
-        initializeSecondPhoneList();
         LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        mRvSecondPhone.setLayoutManager(manager);
-        // Adapter 객체 지정
-        mAdapter = new SecondPhoneRecyclerAdapter(mSecondPhoneList);
-        mRvSecondPhone.setAdapter(mAdapter);
+        binding.secondphoneRv.setLayoutManager(manager);
+        mRvAdapter = new SecondPhoneRecyclerAdapter(mSecondPhoneViewModel);
+        binding.secondphoneRv.setAdapter(mRvAdapter);
+
+        //ViewModel observe 설정
+        mSecondPhoneViewModel.getSecondPhone();
+        mSecondPhoneViewModel.getSelectedPos();
+        mSecondPhoneViewModel.setEditState(false);
+        mSecondPhoneViewModel.mEditState.observe(this, state ->{
+           mRvAdapter.notifyDataSetChanged();
+        });
+        mSecondPhoneViewModel.mSecondPhone.observe(this, secondPhoneRecyclerItems -> {
+            mRvAdapter.notifyDataSetChanged();
+        });
+        mSecondPhoneViewModel.mSelectedPos.observe(this, pos -> {
+            if(pos!=null){
+                putSecondPhoneData(mSecondPhoneViewModel.getSecondPhone().getValue()
+                        .get(pos).getSecondphone());
+            }
+            mRvAdapter.notifyDataSetChanged();
+        });
 
         //x버튼
-        mIvExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
+        binding.secondphoneIvCrossbtn.setOnClickListener(v -> finish());
 
         //추가버튼
-        mBtnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isEditState==false) {
-                    //추가 버튼
-                    if (mSecondPhoneList.size() < 5) {
-                        Intent intent = new Intent(getApplicationContext(), SecondPhoneRegisterActivity.class);
-                        startActivity(intent);
-                    } else {
-                        showCustomToast("2차전화번호는 최대 5개까지 저장 가능합니다.");
-                    }
-                }
-                else if(isEditState==true){
-//                    //삭제 버튼
-                    String strId = "";
-
-                    for(int i=0; i<mAdapter.getItemCount();i++){
-                        if(mSecondPhoneList.get(i).getSelected()==true){
-                            strId += " "+mSecondPhoneList.get(i).getId();
-                        }
-                    }
-                    delSecondPhone(strId);
-                }
+        binding.secondphoneBtnAdd.setOnClickListener(v -> {
+            //추가 버튼
+            if (mSecondPhoneViewModel.getSecondPhone().getValue().size() < 5) {
+                Intent intent = new Intent(getApplicationContext(), SecondPhoneRegisterActivity.class);
+                startActivity(intent);
+            } else {
+                showCustomToast("2차전화번호는 최대 5개까지 저장 가능합니다.");
             }
         });
-
-
-
 
         //편집버튼
-        mBtnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isEditState==false){
-                    //편집 버튼
-                    isEditState=true;
-                    setisEditState();
-
-                    //기존 체크했던 항목 해제
-                    for(int i=0; i<mAdapter.getItemCount();i++){
-                        if(mSecondPhoneList.get(i).getSelected()==true){
-                            mSecondPhoneList.get(i).setSelected(false);
-                        }
-                    }
-
+        binding.secondphoneBtnEdit.setOnClickListener(v -> {
+            //기존 체크했던 항목 해제
+            for(int i = 0; i< mRvAdapter.getItemCount(); i++){
+                if(mSecondPhoneViewModel.getSecondPhone().getValue().get(i).getSelected()){
+                    mSecondPhoneViewModel.getSecondPhone().getValue().get(i).setSelected(false);
                 }
-                else if(isEditState==true){
-                    //취소 버튼
-                    isEditState=false;
-                    setisEditState();
-                }
-                mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
             }
+            mSecondPhoneViewModel.setEditState(true);
+            mRvAdapter.notifyItemRangeChanged(0, mRvAdapter.getItemCount());
         });
 
-        mAdapter.setOnItemClickListener(new SecondPhoneRecyclerAdapter.OnItemClickListener(){
-            @Override
-            public void onItemClick(View v, int position) {
+        binding.secondphoneBtnDelete.setOnClickListener(v -> {
+            //삭제 버튼
+            String strId = "";
+            for(int i = 0; i< mRvAdapter.getItemCount(); i++){
+                if(mSecondPhoneViewModel.getSecondPhone().getValue().get(i).getSelected()){
+                    strId += " "+mSecondPhoneViewModel.getSecondPhone().getValue().get(i).getId();
+                }
+            }
+            delSecondPhone(strId);
+            mSecondPhoneViewModel.setEditState(false);
+        });
+
+        binding.secondphoneBtnCancel.setOnClickListener(v -> {
+            //취소 버튼
+            mSecondPhoneViewModel.setEditState(false);
+        });
+
+        mRvAdapter.setOnItemClickListener((v, position) -> {
+            if(!mSecondPhoneViewModel.getEditState().getValue()){
                 TwoButtonDialog setRepDialog = new TwoButtonDialog(SecondPhoneActivity.this);
                 setRepDialog.showDialog();
-                setRepDialog.setContextText("해당 2차전화번호를 등록하시겠습니까?");
+                setRepDialog.setContextText("이 번호를 2차전화번호로 등록하시겠습니까?");
                 setRepDialog.setSelectText("취소", "확인");
-                setRepDialog.mBtnLeft.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setRepDialog.dismiss();
-                    }
-                });
-                setRepDialog.mBtnRight.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        setRepDialog.dismiss();
-                        repSecondPhone(mSecondPhoneList.get(position).getId());
-                    }
+                setRepDialog.mBtnLeft.setOnClickListener(v12 -> setRepDialog.dismiss());
+                setRepDialog.mBtnRight.setOnClickListener(v1 -> {
+                    setRepDialog.dismiss();
+                    repSecondPhone(mSecondPhoneViewModel.getSecondPhone().getValue().get(position).getId());
+                    mSecondPhoneViewModel.setSelectedPos(position);
                 });
             }
         });
-
     }
 
+    //2차전화번호 불러오기
+    public void getSecondPhone(){
+        SecondPhoneService secondPhoneService = new SecondPhoneService(this);
+        secondPhoneService.getSecondPhone();
+    }
 
     //2차전화번호 불러오기 성공
     @Override
     public void getSecondPhoneSuccess(GetSecondPhoneResponse getSecondPhoneResponse, ErrorResponse errorResponse) {
         if(getSecondPhoneResponse != null){
             if(getSecondPhoneResponse.getCode()==200 && getSecondPhoneResponse.isSuccess()){
-                mSecondPhoneList = getSecondPhoneResponse.getResult();
-                initializeSecondPhoneList();
-                ((SecondPhoneRecyclerAdapter)mRvSecondPhone.getAdapter()).updateData(mSecondPhoneList);
+                ArrayList<SecondPhoneRecyclerItem> mSecondPhoneList = getSecondPhoneResponse.getResult();
+                mSecondPhoneViewModel.setSecondPhone(mSecondPhoneList); //viewmodel 데이터 변경
+
                 if(getSecondPhoneResponse.getResult().isEmpty()){
                     //배열 비어있을 때
-                    mTvEmpty.setVisibility(View.VISIBLE);
-                    mRvSecondPhone.setVisibility(View.GONE);
+                    binding.secondphoneTvEmpty.setVisibility(View.VISIBLE);
+                    binding.secondphoneRv.setVisibility(View.GONE);
                 }
             }
             else if (errorResponse != null){
                 //리스트 비어있을 때
+                showCustomToast(getString(R.string.network_error));
             }
         }
     }
@@ -181,7 +180,15 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
     //2차전화번호 불러오기 실패
     @Override
     public void getSecondPhoneFailure() {
+        showCustomToast(getString(R.string.network_error));
+    }
 
+    //대표번호로 설정하기
+    public void repSecondPhone(int id){
+        SecondPhoneService secondPhoneService = new SecondPhoneService(this);
+        RepSecondPhoneRequest repSecondPhoneRequest = new RepSecondPhoneRequest();
+        repSecondPhoneRequest.setId(id);
+        secondPhoneService.repSecondPhone(repSecondPhoneRequest);
     }
 
     //2차전화번호 대표번호 설정 성공
@@ -191,13 +198,12 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
             if(repSecondPhoneResponse.getCode()==200 && repSecondPhoneResponse.isSuccess()){
                 System.out.println("TOKEN : "+repSecondPhoneResponse.getMessage());
 
-                showCustomToast("2차전화번호 대표번호가 설정되었습니다.");
-                ((MainActivity)MainActivity.mContext).callGetUser();
-
+                showCustomToast("2차전화번호가 설정되었습니다.");
                 finish();
                 }
             else if(errorResponse != null){
                 //매칭된 데이터 없음
+                showCustomToast(getString(R.string.secondphone_invalid_error));
             }
         }
     }
@@ -205,7 +211,15 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
     //2차전화번호 대표번호 설정 실패
     @Override
     public void repSecondPhoneFailure() {
+        showCustomToast(getString(R.string.network_error));
+    }
 
+    //2차전화번호 삭제
+    public void delSecondPhone(String id){
+        SecondPhoneService secondPhoneService = new SecondPhoneService(this);
+        DeleteSecondPhoneRequest deleteSecondPhoneRequest = new DeleteSecondPhoneRequest();
+        deleteSecondPhoneRequest.setId(id);
+        secondPhoneService.deleteSecondPhone(deleteSecondPhoneRequest);
     }
 
     //2차전화번호 삭제 성공
@@ -214,14 +228,11 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
         if(deleteSecondPhoneResponse != null){
             if(deleteSecondPhoneResponse.getCode()==200 && deleteSecondPhoneResponse.isSuccess()){
                 System.out.println("TOKEN : "+deleteSecondPhoneResponse.getMessage());
-                showCustomToast("해당 전화번호가 삭제되었습니다.");
-                ((MainActivity)MainActivity.mContext).callGetUser();
-                Intent intent = new Intent(SecondPhoneActivity.this, SecondPhoneActivity.class);
-                finish();
-                startActivity(intent);
+                showCustomToast("선택하신 전화번호가 삭제되었습니다.");
+                mSecondPhoneViewModel.setSecondPhone(deleteSecondPhoneResponse.getResult());
             }
             else if(errorResponse != null){
-
+                showCustomToast(getString(R.string.secondphone_invalid_error));
             }
         }
     }
@@ -229,43 +240,7 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
     //2차전화번호 삭제 실패
     @Override
     public void deleteSecondPhoneFailure() {
-
-    }
-
-    public void initializeSecondPhoneList(){
-        for(int i=0;i<mSecondPhoneList.size(); i++){
-            mSecondPhoneList.get(i).getSecondphone();
-        }
-    }
-
-    public void getSecondPhone(){
-        SecondPhoneService secondPhoneService = new SecondPhoneService(this);
-        secondPhoneService.getSecondPhone();
-    }
-
-    public void repSecondPhone(int id){
-        SecondPhoneService secondPhoneService = new SecondPhoneService(this);
-        RepSecondPhoneRequest repSecondPhoneRequest = new RepSecondPhoneRequest();
-        repSecondPhoneRequest.setId(id);
-        secondPhoneService.repSecondPhone(repSecondPhoneRequest);
-    }
-
-    public void delSecondPhone(String id){
-        SecondPhoneService secondPhoneService = new SecondPhoneService(this);
-        DeleteSecondPhoneRequest deleteSecondPhoneRequest = new DeleteSecondPhoneRequest();
-        deleteSecondPhoneRequest.setId(id);
-        secondPhoneService.deleteSecondPhone(deleteSecondPhoneRequest);
-    }
-
-    private void setisEditState(){
-        if (isEditState == false){
-            mBtnAdd.setText("추가");
-            mBtnEdit.setText("편집");
-        }
-        else if(isEditState == true){
-            mBtnAdd.setText("삭제");
-            mBtnEdit.setText("취소");
-        }
+        showCustomToast(getString(R.string.network_error));
     }
 
     @Override
@@ -294,5 +269,12 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
             Intent intent = new Intent(this, NetworkFailureActivity.class);
             startActivity(intent);
         }
+    }
+
+    private void putSecondPhoneData(String second_phone){
+        //MyPageFragment에 전달될 intent에 값 put
+        Intent finish_intent = new Intent(getApplicationContext(), MainActivity.class);
+        finish_intent.putExtra("second_phone", second_phone);
+        setResult(SECONDPHONE_REGISTER_ACTIVITY, finish_intent);
     }
 }

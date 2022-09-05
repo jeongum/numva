@@ -49,7 +49,7 @@ public class QrScanResultActivity extends BaseActivity implements QrScanResultAc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qr_scan_result_register);
+        setContentView(R.layout.activity_qr_scan_result_register);  //??
 
         ImageView mIvCrossBtn = findViewById(R.id.qr_result_iv_closebtn);
 
@@ -89,7 +89,8 @@ public class QrScanResultActivity extends BaseActivity implements QrScanResultAc
     }
 
     public boolean checkUrl(String url){
-        String form = "http://numva.co.kr/qr/";
+//        String form = "http://numva.co.kr/qr/";
+        String form = "http://211.37.147.142/qr/";
 
           if(url.contains(form)){
               return true;
@@ -97,7 +98,8 @@ public class QrScanResultActivity extends BaseActivity implements QrScanResultAc
           return false;
     }
     public String splitQrId(String url){
-        String form = "http://numva.co.kr/qr/";
+//        String form = "http://numva.co.kr/qr/";
+        String form = "http://211.37.147.142/qr/";
         String[] qr_id;
         qr_id = url.split(form);
         return qr_id[1];

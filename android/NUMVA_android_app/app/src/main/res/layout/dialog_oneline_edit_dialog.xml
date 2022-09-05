@@ -61,6 +61,7 @@
 
             android:background="@color/colorGrayMemoBackground"
             android:textCursorDrawable="@drawable/theme_edittext_cursor"
+            android:singleLine="true"
             android:maxLines="1"
 
             android:fontFamily="@font/font_regular"

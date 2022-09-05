@@ -115,6 +115,9 @@
 
     <!--SecondPhone Activity-->
     <string name="secondphone_empty">등록된 2차 전화번호가 없습니다.</string>
+    <string name="secondphone_invalid_error">유효하지 않은 요청입니다.</string>
+    <string name="secondphone_">등록된 2차 전화번호가 없습니다.</string>
+
 
     <!--Naver Login-->
     <string name="naver_client_name">넘바</string>
