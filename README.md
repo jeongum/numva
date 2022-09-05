@@ -1,25 +1,30 @@
-# numva
+# 차주를 위한 QR 전화번호서비스, 넘바
 
-- Branch
-```
-└ master
-    └ develop
-        ├ feature/server/login
-        └ feature/android/login
-```
-- Commit
-``` bash
-<feat>: <subject>
+![graphic_image](https://user-images.githubusercontent.com/37799862/188370980-e2a1567a-95cb-4a9b-bd75-d01a00644b77.png)
 
-################
-# feat : 새로운 기능 추가
-# fix : 버그 수정
-# docs : 문서 수정
-# test : 테스트 코드 추가
-# refactor : 코드 리팩토링
-# style : 코드 의미에 영향을 주지 않는 변경사항
-# chore : 빌드 부분 혹은 패키지 매니저 수정사항
-################
+>QR코드를 스캔하면 차주의 안심번호를 확인할 수 있습니다. 해당 안심번호는 매 시간 자동으로 변경됩니다. 
+>
+> 앱에서 QR을 스캔하면, 차주의 연락처를 앱에서 확인할 수 있고, 앱 내 통화와 채팅도 지원합니다. 기본 카메라로 QR을 스캔한 사용자는 웹으로 차주의 연락처를 확인할 수 있습니다.
 
-<body>
-``` 
+<br>
+<br>
+
+### 기획 배경
+- 예비창업패키지에 선정되어 진행한 프로젝트로, 차주를 위한 개인정보 보호 서비스입니다. 
+- 차량에 배치하는 휴대전화번호가 개인정보보호의 사각지대라고 생각했고, 그 해결법으로 QR코드 전화번호판을 생각했습니다. 
+
+<br>
+
+###목차
+- 팀원 소개
+- 주요 기능
+
+<br>
+
+# 팀원 소개
+| 이정음                |      양수진       |       오혜린        |             박미주 |
+| :--------------------: | :---------------: | :-----------------: | :-----------------: |
+| BackEnd & Web         |      Android      |       Android       |             Design |
+| aldlswjddma@naver.com | aoghksj@naver.com | gpfls0506@gmail.com | kws04192@naver.com |
+
+<br>
