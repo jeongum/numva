@@ -41,7 +41,8 @@ import com.mesibo.messaging.Utils;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDialog.BottomSheetListener, Mesibo.MessageListener, Mesibo.ConnectionListener, Mesibo.SyncListener, MessageViewHolder.ClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, MesiboProfile.Listener, MessageAdapter.MessagingAdapterListener, MessagingActivityListener, MesiboMessagingFragment.FragmentListener {
+//public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDialog.BottomSheetListener, Mesibo.MessageListener, Mesibo.ConnectionListener, Mesibo.SyncListener, MessageViewHolder.ClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, MesiboProfile.Listener, MessageAdapter.MessagingAdapterListener, MessagingActivityListener, MesiboMessagingFragment.FragmentListener {
+public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDialog.BottomSheetListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, MessageAdapter.MessagingAdapterListener{
     private static long ACTIVITY_DISPLAY_DURATION = 10000;
 //    private ArrayList<ChatDataItem> mChatList;
     private ArrayList<String> mSimpleMessageList;
@@ -53,11 +54,11 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
     private EditText mEtMessage;
     private boolean isSimpleVisible = false;
     private RecyclerView mRvChat;
-
-    //mesibo
-    MesiboProfile mRemoteProfile;
-    Mesibo.MessageParams mRemoteParams;
-    Mesibo.ReadDbSession mReadSession;
+//
+//    //mesibo
+//    MesiboProfile mRemoteProfile;
+//    Mesibo.MessageParams mRemoteParams;
+//    Mesibo.ReadDbSession mReadSession;
 
     //Messaging Activity clone
     private WeakReference<MesiboMessagingFragment.FragmentListener> mListener = null;
@@ -134,7 +135,7 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
         mTvSendBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                onSendMessage(mRemoteParams, mEtMessage.getText().toString());
+                onSendMessage(mEtMessage.getText().toString());
                 mEtMessage.setText("");
             }
         });
@@ -171,7 +172,7 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
             this.mUser = Mesibo.getProfile(this.mPeer);
 
 
-            this.mUser.addListener(this);
+//            this.mUser.addListener(this);
 
             if (Mesibo.isReady() && null != this.mUser) {
                 if (null == this.mUser.other) {
@@ -180,7 +181,7 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
 
                 this.mUserData = (UserData) this.mUser.other;
 
-                this.mAdapter = new ChatAdapter(this, this, this.mMessageList, this);
+                this.mAdapter = new ChatAdapter(this, this, this.mMessageList);
 
                 MesiboImages.init(this);
                 this.mFirstRTMessage = true;
@@ -229,8 +230,8 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
     }
     private void initData(){
         //보내기 위
-        mRemoteParams = new Mesibo.MessageParams(mPeer, FLAG_DEFAULT);
-        Mesibo.setAppInForeground(this, 0, true);
+//        mRemoteParams = new Mesibo.MessageParams(mPeer, FLAG_DEFAULT);
+//        Mesibo.setAppInForeground(this, 0, true);
 
 //        mChatList = new ArrayList<>();
 //        mChatList.add(new ChatDataItem("21.11.01(월)", null, true, ApplicationClass.ViewType.CHAT_CENTER));
@@ -263,18 +264,18 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
     }
 
     //Mesibo message 전송 메소드
-    public void onSendMessage(Mesibo.MessageParams param, String message){
+    public void onSendMessage(String message){
 //        mRemoteProfile.sendMessage(Mesibo.random(), message);
-        int rv = Mesibo.sendMessage(param, Mesibo.random(), message);
-        if(Mesibo.RESULT_OK == rv){
-            Log.d("onSendMessage", "Message sent");
-        }else{
-            Log.d("onSendMessage", "Message failed: "+ rv);
-        }
+//        int rv = Mesibo.sendMessage(param, Mesibo.random(), message);
+//        if(Mesibo.RESULT_OK == rv){
+//            Log.d("onSendMessage", "Message sent");
+//        }else{
+//            Log.d("onSendMessage", "Message failed: "+ rv);
+//        }
 //        this.mAdapter.addRow();
 //        this.mAdapter.notifyItemInserted(this.mMessageList.size());
 //        this.mRvChat.smoothScrollToPosition(this.mAdapter.getItemCount() - 1);
-        MessageData messageData = new MessageData(param, getMessageId(), null, mName, message, Mesibo.getTimestamp(), MSGSTATUS_OUTBOX, mGroupId);
+        MessageData messageData = new MessageData(getMessageId(), null, mName, message, Mesibo.getTimestamp(), MSGSTATUS_OUTBOX, mGroupId);
         addMessage(mParameter,messageData);
     }
 
@@ -293,22 +294,6 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
         return this.mLastMessageId;
     }
 
-    public void onStop(){
-        if (null != this.mUserData && null != this.mReadSession) {
-            this.mReadSession.enableReadReceipt(false);
-        }
-
-        super.onStop();
-    }
-
-    public void onDestroy() {
-        if (null != this.mReadSession) {
-            this.mReadSession.stop();
-        }
-
-        super.onDestroy();
-    }
-
     public void onResume() {
         super.onResume();
         Utils.showServicesSuspendedAlert(this);
@@ -318,14 +303,14 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
         Mesibo.addListener(this);
 
         if (null != this.mUserData) {
-            if (null == this.mReadSession) {
-                this.mReadSession = new Mesibo.ReadDbSession(this.mUserData.getPeer(), this.mUserData.getGroupId(), (String)null, this);
-                this.mReadSession.enableReadReceipt(true);
-                this.mReadSession.enableMissedCalls(this.mShowMissedCalls);
-                this.mReadSession.start();
-            } else {
-                this.mReadSession.enableReadReceipt(true);
-            }
+//            if (null == this.mReadSession) {
+//                this.mReadSession = new Mesibo.ReadDbSession(this.mUserData.getPeer(), this.mUserData.getGroupId(), (String)null, this);
+//                this.mReadSession.enableReadReceipt(true);
+//                this.mReadSession.enableMissedCalls(this.mShowMissedCalls);
+//                this.mReadSession.start();
+//            } else {
+//                this.mReadSession.enableReadReceipt(true);
+//            }
 
             if (!this.read_flag) {
                 if (null != this.mCustomViewListener) {
@@ -354,28 +339,28 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
         this.mLastMessageCount = this.mMessageList.size();
         this.showLoadMore = false;
         this.mFirstDBMessage = true;
-        this.mLastReadCount = this.mReadSession.read(count);
-        if (this.mLastReadCount == count) {
-            this.showLoadMore = true;
-        } else {
-            this.mReadSession.sync(count, this);
-        }
+//        this.mLastReadCount = this.mReadSession.read(count);
+//        if (this.mLastReadCount == count) {
+//            this.showLoadMore = true;
+//        } else {
+//            this.mReadSession.sync(count, this);
+//        }
 
     }
 
-    @Override
-    public void Mesibo_onSync(int count) {
-        final int c = count;
-        if(count > 0) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    loadFromDB(c);
-                }
-            });
-
-        }
-    }
+//    @Override
+//    public void Mesibo_onSync(int count) {
+//        final int c = count;
+//        if(count > 0) {
+//            new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    loadFromDB(c);
+//                }
+//            });
+//
+//        }
+//    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -392,10 +377,10 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
 
     }
 
-    @Override
-    public void Mesibo_onConnectionStatus(int i) {
-
-    }
+//    @Override
+//    public void Mesibo_onConnectionStatus(int i) {
+//
+//    }
 
     public void updateUiIfLastMessage(Mesibo.MessageParams params) {
         if(!params.isLastMessage()) return;
@@ -418,29 +403,29 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
 
     }
 
-    @Override
-    public boolean Mesibo_onMessage(Mesibo.MessageParams params, byte[] data) {
-        Log.d("NumvatalkActivity", "Mesibo_onMessage");
-
-        if(MSGSTATUS_CALLINCOMING == params.getStatus() || MSGSTATUS_CALLOUTGOING == params.getStatus()) {
-            return true;
-        }
-
-
-        String str = "";
-        try {
-            str = new String(data, "UTF-8");
-        } catch (Exception e) {
-            return false;
-        }
-
-        MessageData cm = new MessageData(params, params.mid, params.peer, params.profile.getName(), str, params.ts,  params.getStatus() , mGroupId);
-
-        addMessage(params, cm);
-
-        updateUiIfLastMessage(params);
-        return false;
-    }
+//    @Override
+//    public boolean Mesibo_onMessage(Mesibo.MessageParams params, byte[] data) {
+//        Log.d("NumvatalkActivity", "Mesibo_onMessage");
+//
+//        if(MSGSTATUS_CALLINCOMING == params.getStatus() || MSGSTATUS_CALLOUTGOING == params.getStatus()) {
+//            return true;
+//        }
+//
+//
+//        String str = "";
+//        try {
+//            str = new String(data, "UTF-8");
+//        } catch (Exception e) {
+//            return false;
+//        }
+//
+//        MessageData cm = new MessageData(params, params.mid, params.peer, params.profile.getName(), str, params.ts,  params.getStatus() , mGroupId);
+//
+//        addMessage(params, cm);
+//
+//        updateUiIfLastMessage(params);
+//        return false;
+//    }
     private void addMessage(Mesibo.MessageParams params, MessageData m) {
         if (Mesibo.ORIGIN_DBMESSAGE == params.origin) {
             this.addTimestamp(m, false);
@@ -504,30 +489,30 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
 
     }
 
-    @Override
-    public void Mesibo_onMessageStatus(Mesibo.MessageParams messageParams) {
-
-    }
-
-    @Override
-    public void Mesibo_onActivity(Mesibo.MessageParams messageParams, int i) {
-
-    }
-
-    @Override
-    public void Mesibo_onLocation(Mesibo.MessageParams messageParams, Mesibo.Location location) {
-
-    }
-
-    @Override
-    public void Mesibo_onFile(Mesibo.MessageParams messageParams, Mesibo.FileInfo fileInfo) {
-
-    }
-
-    @Override
-    public void MesiboProfile_onUpdate(MesiboProfile mesiboProfile) {
-
-    }
+//    @Override
+//    public void Mesibo_onMessageStatus(Mesibo.MessageParams messageParams) {
+//
+//    }
+//
+//    @Override
+//    public void Mesibo_onActivity(Mesibo.MessageParams messageParams, int i) {
+//
+//    }
+//
+//    @Override
+//    public void Mesibo_onLocation(Mesibo.MessageParams messageParams, Mesibo.Location location) {
+//
+//    }
+//
+//    @Override
+//    public void Mesibo_onFile(Mesibo.MessageParams messageParams, Mesibo.FileInfo fileInfo) {
+//
+//    }
+//
+//    @Override
+//    public void MesiboProfile_onUpdate(MesiboProfile mesiboProfile) {
+//
+//    }
 
     @Override
     public boolean isMoreMessage() {
@@ -544,72 +529,72 @@ public class NumvatalkActivity extends BaseActivity implements NumvatalkBottomDi
 
     }
 
-    @Override
-    public void onItemClicked(int position) {
-
-    }
-
-    @Override
-    public boolean onItemLongClicked(int position) {
-        return false;
-    }
-
-    @Override
-    public void Mesibo_onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
-    }
-
-    @Override
-    public boolean Mesibo_onActivityResult(int requestCode, int resultCode, Intent data) {
-        return false;
-    }
-
-    @Override
-    public int Mesibo_onGetEnabledActionItems() {
-        return 0;
-    }
-
-    @Override
-    public boolean Mesibo_onActionItemClicked(int item) {
-        return false;
-    }
-
-    @Override
-    public void Mesibo_onInContextUserInterfaceClosed() {
-
-    }
-
-    @Override
-    public boolean Mesibo_onBackPressed() {
-        return false;
-    }
-
-    @Override
-    public void Mesibo_onUpdateUserPicture(MesiboProfile profile, Bitmap thumbnail, String picturePath) {
-
-    }
-
-    @Override
-    public void Mesibo_onUpdateUserOnlineStatus(MesiboProfile profile, String status) {
-    }
-
-    @Override
-    public void Mesibo_onShowInContextUserInterface() {
-
-    }
-
-    @Override
-    public void Mesibo_onHideInContextUserInterface() {
-
-    }
-
-    @Override
-    public void Mesibo_onContextUserInterfaceCount(int count) {
-
-    }
-
-    @Override
-    public void Mesibo_onError(int type, String title, String message) {
-        Utils.showAlert(this, title, message);
-    }
+//    @Override
+//    public void onItemClicked(int position) {
+//
+//    }
+//
+//    @Override
+//    public boolean onItemLongClicked(int position) {
+//        return false;
+//    }
+//
+//    @Override
+//    public void Mesibo_onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//
+//    }
+//
+//    @Override
+//    public boolean Mesibo_onActivityResult(int requestCode, int resultCode, Intent data) {
+//        return false;
+//    }
+//
+//    @Override
+//    public int Mesibo_onGetEnabledActionItems() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public boolean Mesibo_onActionItemClicked(int item) {
+//        return false;
+//    }
+//
+//    @Override
+//    public void Mesibo_onInContextUserInterfaceClosed() {
+//
+//    }
+//
+//    @Override
+//    public boolean Mesibo_onBackPressed() {
+//        return false;
+//    }
+//
+//    @Override
+//    public void Mesibo_onUpdateUserPicture(MesiboProfile profile, Bitmap thumbnail, String picturePath) {
+//
+//    }
+//
+//    @Override
+//    public void Mesibo_onUpdateUserOnlineStatus(MesiboProfile profile, String status) {
+//    }
+//
+//    @Override
+//    public void Mesibo_onShowInContextUserInterface() {
+//
+//    }
+//
+//    @Override
+//    public void Mesibo_onHideInContextUserInterface() {
+//
+//    }
+//
+//    @Override
+//    public void Mesibo_onContextUserInterfaceCount(int count) {
+//
+//    }
+//
+//    @Override
+//    public void Mesibo_onError(int type, String title, String message) {
+//        Utils.showAlert(this, title, message);
+//    }
 }

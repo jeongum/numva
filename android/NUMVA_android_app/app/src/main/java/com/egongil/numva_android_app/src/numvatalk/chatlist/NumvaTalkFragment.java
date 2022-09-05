@@ -47,9 +47,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
-public class NumvaTalkFragment extends Fragment implements Mesibo.MessageListener, Mesibo.ConnectionListener,
-Mesibo.ProfileListener, Mesibo.SyncListener{
+public class NumvaTalkFragment extends Fragment{
     public static final int MESIBO_INTITIAL_READ_USERLIST = 100 ;
 
 //    private ArrayList<TalkListItem> mTalkList;
@@ -61,9 +61,9 @@ Mesibo.ProfileListener, Mesibo.SyncListener{
     //mesibo
     public long mForwardId = 0L;
     private int mTotalUnread = 0;
-    private Mesibo.ReadDbSession mDbSession = null;
+//    private Mesibo.ReadDbSession mDbSession = null;
     private String mReadQuery = null;
-    private WeakReference<MesiboUserListFragment.FragmentListener> mListener = null;
+//    private WeakReference<MesiboUserListFragment.FragmentListener> mListener = null;
 
     private ArrayList<MesiboProfile> mUserProfiles = null;
     private ArrayList<MesiboProfile> mAdhocUserList = null;
@@ -131,8 +131,7 @@ Mesibo.ProfileListener, Mesibo.SyncListener{
     }
 
     public void setInitialLoginState() {
-        if (sSharedPreferences.getString(X_ACCESS_TOKEN, "") == ""
-        ||sSharedPreferences.getString(MESIBO_TOKEN, "")==""){
+        if (Objects.equals(sSharedPreferences.getString(X_ACCESS_TOKEN, ""), "")){
             setNonLoginState();
         }else{
             setLoginState();
@@ -167,16 +166,16 @@ Mesibo.ProfileListener, Mesibo.SyncListener{
         Mesibo.ReadDbSession.endAllSessions();
 
 
-        mDbSession = new Mesibo.ReadDbSession(null, 0, mReadQuery, this);
-        mDbSession.enableSummary(true);
-        mDbSession.enableReadReceipt(false);
+//        mDbSession = new Mesibo.ReadDbSession(null, 0, mReadQuery, this);
+//        mDbSession.enableSummary(true);
+//        mDbSession.enableReadReceipt(false);
+//
+//        int rcount = mDbSession.read(readCount);
+//        if(rcount<readCount){
+//            mDbSession.sync(readCount - rcount, this);
+//        }
 
-        int rcount = mDbSession.read(readCount);
-        if(rcount<readCount){
-            mDbSession.sync(readCount - rcount, this);
-        }
-
-        mUserProfiles.addAll(Mesibo.getSortedUserProfiles());
+//        mUserProfiles.addAll(Mesibo.getSortedUserProfiles());
 
         if(mUserProfiles.size() > 0){
             mRvTalkList.setVisibility(View.VISIBLE);
@@ -212,7 +211,7 @@ Mesibo.ProfileListener, Mesibo.SyncListener{
         super.onResume();
 
         showUserList(MESIBO_INTITIAL_READ_USERLIST);
-        Mesibo_onConnectionStatus(Mesibo.getConnectionStatus());
+//        Mesibo_onConnectionStatus(Mesibo.getConnectionStatus());
 
         Utils.showServicesSuspendedAlert(getActivity());
     }
@@ -223,30 +222,30 @@ Mesibo.ProfileListener, Mesibo.SyncListener{
 
         Mesibo.removeListener(this);
     }
-    @Override
-    public void Mesibo_onConnectionStatus(int status) {
-        //updateSubTitle이 기존 메시보 Ui모듈에서 메시보 액티비티의 텍스트를 바꾸는 함수였는데,
-        // 넘바는 굳이 필요없지만 connectionStatus에 따라 다른 행동을 시켜야할수도있어서 일단 주석처리해둠
-        if(status == Mesibo.STATUS_ONLINE){
-//            updateSubTitle(mMesiboUIOptions.onlineIndicationTitle);
-        }
-        else if(status == Mesibo.STATUS_CONNECTING){
-//            updateSubTitle(mMesiboUIOptions.connectingIndicationTitle);
-        }
-        else if(status == Mesibo.STATUS_SUSPENDED) {
-//            updateSubTitle(mMesiboUIOptions.suspendIndicationTitle);
-            Utils.showServicesSuspendedAlert(getActivity());
-        }
-        else if(status == Mesibo.STATUS_NONETWORK){
-//            updateSubTitle(mMesiboUIOptions.noNetworkIndicationTitle);
-        }
-        else if(status == Mesibo.STATUS_SHUTDOWN) {
-            getActivity().finish();
-        }
-        else{
-//            updateSubTitle(mMesiboUIOptions.offlineIndicationTitle);
-        }
-    }
+//    @Override
+//    public void Mesibo_onConnectionStatus(int status) {
+//        //updateSubTitle이 기존 메시보 Ui모듈에서 메시보 액티비티의 텍스트를 바꾸는 함수였는데,
+//        // 넘바는 굳이 필요없지만 connectionStatus에 따라 다른 행동을 시켜야할수도있어서 일단 주석처리해둠
+//        if(status == Mesibo.STATUS_ONLINE){
+////            updateSubTitle(mMesiboUIOptions.onlineIndicationTitle);
+//        }
+//        else if(status == Mesibo.STATUS_CONNECTING){
+////            updateSubTitle(mMesiboUIOptions.connectingIndicationTitle);
+//        }
+//        else if(status == Mesibo.STATUS_SUSPENDED) {
+////            updateSubTitle(mMesiboUIOptions.suspendIndicationTitle);
+//            Utils.showServicesSuspendedAlert(getActivity());
+//        }
+//        else if(status == Mesibo.STATUS_NONETWORK){
+////            updateSubTitle(mMesiboUIOptions.noNetworkIndicationTitle);
+//        }
+//        else if(status == Mesibo.STATUS_SHUTDOWN) {
+//            getActivity().finish();
+//        }
+//        else{
+////            updateSubTitle(mMesiboUIOptions.offlineIndicationTitle);
+//        }
+//    }
 
     private String appendNameToMessage(Mesibo.MessageParams params, String msg) {
         String name = params.peer;
@@ -280,137 +279,137 @@ Mesibo.ProfileListener, Mesibo.SyncListener{
         }
     }
 
-    @Override
-    public boolean Mesibo_onMessage(Mesibo.MessageParams params, byte[] data) {
-        // This we will only get for real-time origin, we filter this in DB
-        if(MSGSTATUS_CALLINCOMING == params.getStatus() || MSGSTATUS_CALLOUTGOING == params.getStatus()) {
-            updateUiIfLastMessage(params); //?? required
-            return true;
-        }
-
-        if(params.groupid > 0 && null == params.groupProfile) {
-            updateUiIfLastMessage(params);
-            return true;
-        }
-
-        String str = "";
-        try {
-            str = new String(data, "UTF-8");
-        } catch (Exception e) {
-            str = "";
-        }
-
-        if(params.isDeleted()) {
-            str = MESSAGE_DELETED_STRING;
-        }
-
-        if(params.groupid > 0 && params.isIncoming()) {
-            str = appendNameToMessage(params, str);
-        }
-
-        if(Mesibo.MSGSTATUS_CALLMISSED == params.getStatus()) {
-            str = MISSED_VIDEO_CALL;
-            if((params.getType()&1) == 0)
-                str = MISSED_VOICE_CALL;
-        }
-
-        addNewMessage(params, str);
-        updateUiIfLastMessage(params);
-        return true;
-    }
-
-    @Override
-    public void Mesibo_onMessageStatus(Mesibo.MessageParams params) {
-        if(params.isRealtimeMessage() && params.isMessageStatusInProgress()) return;
-
-//        for(int i=0; i< mUserProfiles.size(); i++) {
-//            UserData mcd = ((UserData)mUserProfiles.get(i).other);
+//    @Override
+//    public boolean Mesibo_onMessage(Mesibo.MessageParams params, byte[] data) {
+//        // This we will only get for real-time origin, we filter this in DB
+//        if(MSGSTATUS_CALLINCOMING == params.getStatus() || MSGSTATUS_CALLOUTGOING == params.getStatus()) {
+//            updateUiIfLastMessage(params); //?? required
+//            return true;
+//        }
 //
-//            if (mcd.getmid() != 0 && mcd.getmid() == params.mid) {
-//                mcd.setStatus(params.getStatus());
-//                if(params.isDeleted()) {
-//                    mcd.setMessage(MESSAGE_DELETED_STRING);
-//                    mcd.setDeletedMessage(true);
+//        if(params.groupid > 0 && null == params.groupProfile) {
+//            updateUiIfLastMessage(params);
+//            return true;
+//        }
+//
+//        String str = "";
+//        try {
+//            str = new String(data, "UTF-8");
+//        } catch (Exception e) {
+//            str = "";
+//        }
+//
+//        if(params.isDeleted()) {
+//            str = MESSAGE_DELETED_STRING;
+//        }
+//
+//        if(params.groupid > 0 && params.isIncoming()) {
+//            str = appendNameToMessage(params, str);
+//        }
+//
+//        if(Mesibo.MSGSTATUS_CALLMISSED == params.getStatus()) {
+//            str = MISSED_VIDEO_CALL;
+//            if((params.getType()&1) == 0)
+//                str = MISSED_VOICE_CALL;
+//        }
+//
+////        addNewMessage(params, str);
+//        updateUiIfLastMessage(params);
+//        return true;
+//    }
+//
+//    @Override
+//    public void Mesibo_onMessageStatus(Mesibo.MessageParams params) {
+//        if(params.isRealtimeMessage() && params.isMessageStatusInProgress()) return;
+//
+////        for(int i=0; i< mUserProfiles.size(); i++) {
+////            UserData mcd = ((UserData)mUserProfiles.get(i).other);
+////
+////            if (mcd.getmid() != 0 && mcd.getmid() == params.mid) {
+////                mcd.setStatus(params.getStatus());
+////                if(params.isDeleted()) {
+////                    mcd.setMessage(MESSAGE_DELETED_STRING);
+////                    mcd.setDeletedMessage(true);
+////                }
+////                mAdapter.notifyItemChanged(i);
+////            }
+////        }
+//    }
+
+//    public void setListener(MesiboUserListFragment.FragmentListener listener) {
+//        this.mListener = new WeakReference(listener);
+//    }
+//
+//    public MesiboUserListFragment.FragmentListener getListener() {
+//        return null == this.mListener ? null : (MesiboUserListFragment.FragmentListener)this.mListener.get();
+//    }
+
+//    public boolean onClickUser(String address, long groupid, long forwardid) {
+//        MesiboUserListFragment.FragmentListener l = this.getListener();
+//        return null == l ? false : l.Mesibo_onClickUser(address, groupid, forwardid);
+//    }
+
+//    public synchronized void addNewMessage(Mesibo.MessageParams params, String message) {
+//        if (params.groupid <= 0L || null != params.groupProfile) {
+////            MesiboUserListFragment.FragmentListener l = this.getListener();
+//            if (null == l || !l.Mesibo_onUserListFilter(params)) {
+//                UserData data = UserData.getUserData(params);
+//                MesiboProfile user;
+//                int i;
+//
+//                user = params.profile;
+//                if (params.groupProfile != null) {
+//                    user = params.groupProfile;
 //                }
-//                mAdapter.notifyItemChanged(i);
+//
+//                if (null == user) {
+//                    Log.d("MesiboMainActivity", "Should not happen");
+//                }
+//
+//                if (null == user.other) {
+//                    user.other = new UserData(user);
+//                }
+//
+//                data = (UserData)user.other;
+//                data.setMessage(params.mid, this.getDate(params.ts), params.getStatus(), params.isDeleted(), message);
+//                this.mTotalUnread -= data.getUnreadCount();
+//                if (this.mTotalUnread < 0) {
+//                    this.mTotalUnread = 0;
+//                }
+//
+//                if (Mesibo.isReading(params)) {
+//                    data.setUnreadCount(0);
+//                } else if (2 != params.origin && 1 != params.origin) {
+//                    data.setUnreadCount(data.getUnreadCount() + 1);
+//                } else {
+//                    data.setUnreadCount(user.unread);
+//                }
+//
+//                this.mTotalUnread += data.getUnreadCount();
+//                if (0 == params.origin) {
+//                    //TODO: noti배지
+////                    this.updateNotificationBadge();
+//                }
+//
+//                for(i = 0; i < this.mAdhocUserList.size(); ++i) {
+//                    UserData mcd = (UserData)((MesiboProfile)this.mAdhocUserList.get(i)).other;
+//                    if (null != mcd && params.compare(mcd.getPeer(), mcd.getGroupId())) {
+//                        this.mAdhocUserList.remove(i);
+//                        break;
+//                    }
+//                }
+//
+//                if (2 != params.origin && 1 != params.origin) {
+//                    this.mAdhocUserList.add(0, user);
+//                } else {
+//                    this.mAdhocUserList.add(user);
+//                }
 //            }
 //        }
-    }
-
-    public void setListener(MesiboUserListFragment.FragmentListener listener) {
-        this.mListener = new WeakReference(listener);
-    }
-
-    public MesiboUserListFragment.FragmentListener getListener() {
-        return null == this.mListener ? null : (MesiboUserListFragment.FragmentListener)this.mListener.get();
-    }
-
-    public boolean onClickUser(String address, long groupid, long forwardid) {
-        MesiboUserListFragment.FragmentListener l = this.getListener();
-        return null == l ? false : l.Mesibo_onClickUser(address, groupid, forwardid);
-    }
-
-    public synchronized void addNewMessage(Mesibo.MessageParams params, String message) {
-        if (params.groupid <= 0L || null != params.groupProfile) {
-            MesiboUserListFragment.FragmentListener l = this.getListener();
-            if (null == l || !l.Mesibo_onUserListFilter(params)) {
-                UserData data = UserData.getUserData(params);
-                MesiboProfile user;
-                int i;
-
-                user = params.profile;
-                if (params.groupProfile != null) {
-                    user = params.groupProfile;
-                }
-
-                if (null == user) {
-                    Log.d("MesiboMainActivity", "Should not happen");
-                }
-
-                if (null == user.other) {
-                    user.other = new UserData(user);
-                }
-
-                data = (UserData)user.other;
-                data.setMessage(params.mid, this.getDate(params.ts), params.getStatus(), params.isDeleted(), message);
-                this.mTotalUnread -= data.getUnreadCount();
-                if (this.mTotalUnread < 0) {
-                    this.mTotalUnread = 0;
-                }
-
-                if (Mesibo.isReading(params)) {
-                    data.setUnreadCount(0);
-                } else if (2 != params.origin && 1 != params.origin) {
-                    data.setUnreadCount(data.getUnreadCount() + 1);
-                } else {
-                    data.setUnreadCount(user.unread);
-                }
-
-                this.mTotalUnread += data.getUnreadCount();
-                if (0 == params.origin) {
-                    //TODO: noti배지
-//                    this.updateNotificationBadge();
-                }
-
-                for(i = 0; i < this.mAdhocUserList.size(); ++i) {
-                    UserData mcd = (UserData)((MesiboProfile)this.mAdhocUserList.get(i)).other;
-                    if (null != mcd && params.compare(mcd.getPeer(), mcd.getGroupId())) {
-                        this.mAdhocUserList.remove(i);
-                        break;
-                    }
-                }
-
-                if (2 != params.origin && 1 != params.origin) {
-                    this.mAdhocUserList.add(0, user);
-                } else {
-                    this.mAdhocUserList.add(user);
-                }
-            }
-        }
-        for(int i = 0; i<this.mUserProfiles.size(); ++i){
-            this.mAdapter.notifyItemChanged(i);
-        }
-    }
+//        for(int i = 0; i<this.mUserProfiles.size(); ++i){
+//            this.mAdapter.notifyItemChanged(i);
+//        }
+//    }
     private String getDate(long time) {
         int days = Mesibo.daysElapsed(time);
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
@@ -428,86 +427,86 @@ Mesibo.ProfileListener, Mesibo.SyncListener{
 
         return date;
     }
-    @Override
-    public void Mesibo_onActivity(Mesibo.MessageParams params, int activity) {
-        if (3 == activity || 4 == activity || 11 == activity) {
-            if (null != params && null != params.profile) {
-                if (params.groupid <= 0L || null != params.groupProfile) {
-                    MesiboProfile profile = params.profile;
-                    if (params.groupid > 0L) {
-                        profile = Mesibo.getProfile(params.groupid);
-                        if (null == profile) {
-                            return;
-                        }
-                    }
+//    @Override
+//    public void Mesibo_onActivity(Mesibo.MessageParams params, int activity) {
+//        if (3 == activity || 4 == activity || 11 == activity) {
+//            if (null != params && null != params.profile) {
+//                if (params.groupid <= 0L || null != params.groupProfile) {
+//                    MesiboProfile profile = params.profile;
+//                    if (params.groupid > 0L) {
+//                        profile = Mesibo.getProfile(params.groupid);
+//                        if (null == profile) {
+//                            return;
+//                        }
+//                    }
+//
+//                    UserData data = UserData.getUserData(profile);
+//                    int position = data.getUserListPosition();
+//                    if (position >= 0) {
+//                        if (this.mAdhocUserList.size() > position) {
+//                            if (3 == activity && params.groupid > 0L) {
+//                                data.setTypingUser(params.profile);
+//                            }
+//
+//                            try {
+//                                if (profile != this.mAdhocUserList.get(position)) {
+//                                    return;
+//                                }
+//                            } catch (Exception var7) {
+//                                return;
+//                            }
+//
+//                            this.mAdapter.notifyItemChanged(position);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-                    UserData data = UserData.getUserData(profile);
-                    int position = data.getUserListPosition();
-                    if (position >= 0) {
-                        if (this.mAdhocUserList.size() > position) {
-                            if (3 == activity && params.groupid > 0L) {
-                                data.setTypingUser(params.profile);
-                            }
-
-                            try {
-                                if (profile != this.mAdhocUserList.get(position)) {
-                                    return;
-                                }
-                            } catch (Exception var7) {
-                                return;
-                            }
-
-                            this.mAdapter.notifyItemChanged(position);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
-    public void Mesibo_onLocation(Mesibo.MessageParams params, Mesibo.Location location) {
-        this.addNewMessage(params, "Location");
-        this.updateUiIfLastMessage(params);
-    }
-
-    @Override
-    public void Mesibo_onFile(Mesibo.MessageParams messageParams, Mesibo.FileInfo fileInfo) {
-
-    }
-
-    @Override
-    public void Mesibo_onProfileUpdated(MesiboProfile userProfile) {
-        if (null == userProfile || null != userProfile.other) {
-            if (Mesibo.isUiThread()) {
-                this.updateContacts(userProfile);
-            } else {
-                (new Handler(Looper.getMainLooper())).post(new Runnable() {
-                    public void run() {
-                        NumvaTalkFragment.this.updateContacts(userProfile);
-                    }
-                });
-            }
-        }
-    }
-
-    @Override
-    public boolean Mesibo_onGetProfile(MesiboProfile mesiboProfile) {
-        return false;
-    }
-
-    @Override
-    public void Mesibo_onSync(int count) {
-        final int c = count;
-        if(count > 0) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    showUserList(MESIBO_INTITIAL_READ_USERLIST);
-                }
-            });
-        }
-    }
+//    @Override
+//    public void Mesibo_onLocation(Mesibo.MessageParams params, Mesibo.Location location) {
+//        this.addNewMessage(params, "Location");
+//        this.updateUiIfLastMessage(params);
+//    }
+//
+//    @Override
+//    public void Mesibo_onFile(Mesibo.MessageParams messageParams, Mesibo.FileInfo fileInfo) {
+//
+//    }
+//
+//    @Override
+//    public void Mesibo_onProfileUpdated(MesiboProfile userProfile) {
+//        if (null == userProfile || null != userProfile.other) {
+//            if (Mesibo.isUiThread()) {
+//                this.updateContacts(userProfile);
+//            } else {
+//                (new Handler(Looper.getMainLooper())).post(new Runnable() {
+//                    public void run() {
+//                        NumvaTalkFragment.this.updateContacts(userProfile);
+//                    }
+//                });
+//            }
+//        }
+//    }
+//
+//    @Override
+//    public boolean Mesibo_onGetProfile(MesiboProfile mesiboProfile) {
+//        return false;
+//    }
+//
+//    @Override
+//    public void Mesibo_onSync(int count) {
+//        final int c = count;
+//        if(count > 0) {
+//            new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    showUserList(MESIBO_INTITIAL_READ_USERLIST);
+//                }
+//            });
+//        }
+//    }
 
     class TalkListAdapter extends RecyclerView.Adapter {
         Context mContext;
@@ -573,26 +572,26 @@ Mesibo.ProfileListener, Mesibo.SyncListener{
                 ((TalkListAdapter.TalkListViewHolder) holder).mTvMessageNum.setVisibility(View.GONE);
             }
 
-            ((TalkListAdapter.TalkListViewHolder) holder).mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    userdata.clearUnreadCount();
+//            ((TalkListAdapter.TalkListViewHolder) holder).mView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    userdata.clearUnreadCount();
 
-                    boolean handledByApp = NumvaTalkFragment.this.onClickUser(user.address, user.groupid, NumvaTalkFragment.TalkListAdapter.this.mHost.mForwardId);
-                    if (!handledByApp) {
-//                        MesiboUIManager.launchMessagingActivity(NumvaTalkFragment.this.getActivity(), NumvaTalkFragment.TalkListAdapter.this.mHost.mForwardId, user.address, user.groupid);
-                        Intent intent = new Intent(getActivity(), NumvatalkActivity.class);
-                        intent.putExtra("peer", user.address);
-                        intent.putExtra("groupid", user.groupid);
-                        intent.putExtra("mid", NumvaTalkFragment.TalkListAdapter.this.mHost.mForwardId);
-                        startActivity(intent);
-
-                        NumvaTalkFragment.TalkListAdapter.this.mHost.mForwardId = 0L;
-                    } else {
-                        NumvaTalkFragment.TalkListAdapter.this.mHost.mForwardId = 0L;
-                    }
-                }
-            });
+//                    boolean handledByApp = NumvaTalkFragment.this.onClickUser(user.address, user.groupid, NumvaTalkFragment.TalkListAdapter.this.mHost.mForwardId);
+//                    if (!handledByApp) {
+////                        MesiboUIManager.launchMessagingActivity(NumvaTalkFragment.this.getActivity(), NumvaTalkFragment.TalkListAdapter.this.mHost.mForwardId, user.address, user.groupid);
+//                        Intent intent = new Intent(getActivity(), NumvatalkActivity.class);
+//                        intent.putExtra("peer", user.address);
+//                        intent.putExtra("groupid", user.groupid);
+//                        intent.putExtra("mid", NumvaTalkFragment.TalkListAdapter.this.mHost.mForwardId);
+//                        startActivity(intent);
+//
+//                        NumvaTalkFragment.TalkListAdapter.this.mHost.mForwardId = 0L;
+//                    } else {
+//                        NumvaTalkFragment.TalkListAdapter.this.mHost.mForwardId = 0L;
+//                    }
+//                }
+//            });
         }
 
         @Override

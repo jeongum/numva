@@ -11,7 +11,7 @@ public class ScanQrResponse extends RetrofitResponse {
         String nickname;
         String memo;
         SafetyNumber safetyNumber;
-        String mesibo_address;
+//        String mesibo_address;
 
         public String getNickname() {
             return nickname;
@@ -25,9 +25,9 @@ public class ScanQrResponse extends RetrofitResponse {
             return safetyNumber;
         }
 
-        public String getMesibo_address() {
-            return mesibo_address;
-        }
+//        public String getMesibo_address() {
+//            return mesibo_address;
+//        }
     }
 
     public class SafetyNumber{

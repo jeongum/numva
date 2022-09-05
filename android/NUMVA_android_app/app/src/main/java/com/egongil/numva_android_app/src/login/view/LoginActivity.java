@@ -327,12 +327,12 @@ public class LoginActivity extends BaseActivity implements LoginActivityContract
             if (loginResponse.getCode() == 200 && loginResponse.isSuccess()) {
                 SharedPreferences.Editor editor = sSharedPreferences.edit();
                 editor.putString(X_ACCESS_TOKEN, loginResponse.getAccessToken());
-                editor.putString(MESIBO_TOKEN, loginResponse.getMesiboToken());
+//                editor.putString(MESIBO_TOKEN, loginResponse.getMesiboToken());
                 editor.commit();
 
                 System.out.println("TOKEN: " + loginResponse.getAccessToken());
                 System.out.println("SHARED_TOKEN: " + sSharedPreferences.getString(X_ACCESS_TOKEN, "NULL"));
-                System.out.println("MESIBO_TOKEN: " + sSharedPreferences.getString(MESIBO_TOKEN, "NULL"));
+//                System.out.println("MESIBO_TOKEN: " + sSharedPreferences.getString(MESIBO_TOKEN, "NULL"));
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -409,12 +409,12 @@ public class LoginActivity extends BaseActivity implements LoginActivityContract
                 //토큰 저장
                 SharedPreferences.Editor editor = sSharedPreferences.edit();
                 editor.putString(X_ACCESS_TOKEN, socialLoginResponse.getAccessToken());
-                editor.putString(MESIBO_TOKEN, socialLoginResponse.getMesiboToken());
+//                editor.putString(MESIBO_TOKEN, socialLoginResponse.getMesiboToken());
                 editor.commit();
 
                 System.out.println("TOKEN: " + socialLoginResponse.getAccessToken());
                 System.out.println("SHARED_TOKEN: " + sSharedPreferences.getString(X_ACCESS_TOKEN, "NULL"));
-                System.out.println("MESIBO_TOKEN: " + sSharedPreferences.getString(MESIBO_TOKEN, "NULL"));
+//                System.out.println("MESIBO_TOKEN: " + sSharedPreferences.getString(MESIBO_TOKEN, "NULL"));
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

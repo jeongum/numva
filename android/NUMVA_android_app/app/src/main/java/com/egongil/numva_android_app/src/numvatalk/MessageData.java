@@ -38,18 +38,15 @@ public class MessageData {
     private boolean mDeleted = false;
     private Mesibo.MessageListener mMessageListener = null;
 
-    MessageData(Mesibo.MessageParams params, long mid, String peer, String username, String message, long ts, int status, long gid) {
+    MessageData(long mid, String peer, String username, String message, long ts, int status, long gid) {
         this.mMsg = new Mesibo.MesiboMessage();
         this.mMsg.message = message;
         this.mMsg.status = status;
         this.mMsg.mid = mid;
-        this.mMsg.type = params.type;
         this.mUserName = username;
         this.mPNG = false;
         this.mGroupId = gid;
         this.mPeer = peer;
-        this.mParams = params;
-        this.mDeleted = params.isDeleted();
         this.mType = 1;
         if (0L == ts) {
             ts = Mesibo.getTimestamp();

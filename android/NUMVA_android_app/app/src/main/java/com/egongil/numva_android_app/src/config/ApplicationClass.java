@@ -31,7 +31,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApplicationClass extends Application implements MesiboCall.IncomingListener{
+//public class ApplicationClass extends Application implements MesiboCall.IncomingListener{
+public class ApplicationClass extends Application{
     //서버 주소
     public static String BASE_URL = "http://211.37.147.142/api/";
 
@@ -221,40 +222,40 @@ public class ApplicationClass extends Application implements MesiboCall.Incoming
         public static final String NONE_STATE = "NONE";
     }
 
-    @Override
-    public MesiboCall.CallProperties MesiboCall_OnIncoming(MesiboProfile userProfile, boolean video) {
-        MesiboCall.CallProperties cc = MesiboCall.getInstance().createCallProperties(video);
-        cc.parent = getApplicationContext();
-        cc.user = userProfile;
-        return cc;
-    }
-
-    @Override
-    public boolean MesiboCall_OnShowUserInterface(MesiboCall.Call call, MesiboCall.CallProperties callProperties) {
-        return false;
-    }
-
-    @Override
-    public void MesiboCall_OnError(MesiboCall.CallProperties callProperties, int i) {
-
-    }
-
-    @Override
-    public boolean MesiboCall_onNotify(int type, MesiboProfile profile, boolean video) {
-        String subject = null, message = null;
-
-        if(true)
-            return false;
-
-        if(MesiboCall.MESIBOCALL_NOTIFY_INCOMING == type) {
-
-        } else if(MesiboCall.MESIBOCALL_NOTIFY_MISSED == type) {
-            subject = "Mesibo Missed Call";
-            message = "You missed a mesibo " + (video?"video ":"") + "call from " + profile.getName();
-
-        }
-        return true;
-    }
+//    @Override
+//    public MesiboCall.CallProperties MesiboCall_OnIncoming(MesiboProfile userProfile, boolean video) {
+//        MesiboCall.CallProperties cc = MesiboCall.getInstance().createCallProperties(video);
+//        cc.parent = getApplicationContext();
+//        cc.user = userProfile;
+//        return cc;
+//    }
+//
+//    @Override
+//    public boolean MesiboCall_OnShowUserInterface(MesiboCall.Call call, MesiboCall.CallProperties callProperties) {
+//        return false;
+//    }
+//
+//    @Override
+//    public void MesiboCall_OnError(MesiboCall.CallProperties callProperties, int i) {
+//
+//    }
+//
+//    @Override
+//    public boolean MesiboCall_onNotify(int type, MesiboProfile profile, boolean video) {
+//        String subject = null, message = null;
+//
+//        if(true)
+//            return false;
+//
+//        if(MesiboCall.MESIBOCALL_NOTIFY_INCOMING == type) {
+//
+//        } else if(MesiboCall.MESIBOCALL_NOTIFY_MISSED == type) {
+//            subject = "Mesibo Missed Call";
+//            message = "You missed a mesibo " + (video?"video ":"") + "call from " + profile.getName();
+//
+//        }
+//        return true;
+//    }
 }
 
 

@@ -49,8 +49,7 @@ import static com.egongil.numva_android_app.src.config.ApplicationClass.sSharedP
 import com.mesibo.api.Mesibo;
 import com.mesibo.calls.api.MesiboCall;
 
-public class MainActivity extends BaseActivity implements MainContract, ConnectionReceiver.ConnectionReceiverListener,
-Mesibo.MessageListener, Mesibo.ConnectionListener{
+public class MainActivity extends BaseActivity implements MainContract, ConnectionReceiver.ConnectionReceiverListener{
     public static String TAG = "MAIN_ACTIVITY";
     private ActivityMainBinding binding;
     private MainViewModel viewModel;
@@ -108,7 +107,7 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
             }
         });
 
-        mesiboInit();
+//        mesiboInit();
 
     }
     public boolean isLogin(){
@@ -121,20 +120,20 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
         else viewModel.setLoginState(false);
     }
 
-    public void mesiboInit(){
-        Mesibo api = Mesibo.getInstance();
-        api.init(getApplicationContext());
-
-        //this user
-        Mesibo.addListener(this);
-        Mesibo.setSecureConnection(true);
-
-        Mesibo.setAccessToken(sSharedPreferences.getString(MESIBO_TOKEN, null));
-        Log.d("MESIBO_TOKEN", sSharedPreferences.getString(MESIBO_TOKEN, "null"));
-        Mesibo.start();
-
-        MesiboCall.getInstance().init(this);
-    }
+//    public void mesiboInit(){
+//        Mesibo api = Mesibo.getInstance();
+//        api.init(getApplicationContext());
+//
+//        //this user
+//        Mesibo.addListener(this);
+//        Mesibo.setSecureConnection(true);
+//
+////        Mesibo.setAccessToken(sSharedPreferences.getString(MESIBO_TOKEN, null));
+////        Log.d("MESIBO_TOKEN", sSharedPreferences.getString(MESIBO_TOKEN, "null"));
+//        Mesibo.start();
+//
+//        MesiboCall.getInstance().init(this);
+//    }
     public void getUser(){
 //        MainService mainService = new MainService(this);
         viewModel.getUser();
@@ -274,44 +273,44 @@ Mesibo.MessageListener, Mesibo.ConnectionListener{
             startActivity(intent);
         }
     }
-
-    @Override
-    public void Mesibo_onConnectionStatus(int status) {
-        // You will receive the connection status here
-        Log.d(TAG, "on Mesibo Connection: " + status);
-    }
-
-    @Override
-    public boolean Mesibo_onMessage(Mesibo.MessageParams messageParams, byte[] data) {
-        // You will receive messages here
-        try {
-            String message = new String(data, "UTF-8");
-//            showCustomToast("You have got a message: " + message);
-        } catch (Exception e) {
-        }
-
-        return true;
-    }
-
-    @Override
-    public void Mesibo_onMessageStatus(Mesibo.MessageParams messageParams) {
-        // You will receive status of sent messages here
-    }
-
-    @Override
-    public void Mesibo_onActivity(Mesibo.MessageParams messageParams, int i) {
-
-    }
-
-    @Override
-    public void Mesibo_onLocation(Mesibo.MessageParams messageParams, Mesibo.Location location) {
-
-    }
-
-    @Override
-    public void Mesibo_onFile(Mesibo.MessageParams messageParams, Mesibo.FileInfo fileInfo) {
-
-    }
+//
+//    @Override
+//    public void Mesibo_onConnectionStatus(int status) {
+//        // You will receive the connection status here
+//        Log.d(TAG, "on Mesibo Connection: " + status);
+//    }
+//
+//    @Override
+//    public boolean Mesibo_onMessage(Mesibo.MessageParams messageParams, byte[] data) {
+//        // You will receive messages here
+//        try {
+//            String message = new String(data, "UTF-8");
+////            showCustomToast("You have got a message: " + message);
+//        } catch (Exception e) {
+//        }
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public void Mesibo_onMessageStatus(Mesibo.MessageParams messageParams) {
+//        // You will receive status of sent messages here
+//    }
+//
+//    @Override
+//    public void Mesibo_onActivity(Mesibo.MessageParams messageParams, int i) {
+//
+//    }
+//
+//    @Override
+//    public void Mesibo_onLocation(Mesibo.MessageParams messageParams, Mesibo.Location location) {
+//
+//    }
+//
+//    @Override
+//    public void Mesibo_onFile(Mesibo.MessageParams messageParams, Mesibo.FileInfo fileInfo) {
+//
+//    }
 
 
 }

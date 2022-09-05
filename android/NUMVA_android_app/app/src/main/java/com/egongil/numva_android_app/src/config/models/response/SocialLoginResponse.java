@@ -10,12 +10,12 @@ public class SocialLoginResponse extends RetrofitResponse {
     public String getAccessToken() {
         return result.accessToken;
     }
-    public String getMesiboToken() {
-        return result.mesiboToken;
-    }
+//    public String getMesiboToken() {
+//        return result.mesiboToken;
+//    }
 
     public class Result{
         String accessToken;
-        String mesiboToken;
+//        String mesiboToken;
     }
 }

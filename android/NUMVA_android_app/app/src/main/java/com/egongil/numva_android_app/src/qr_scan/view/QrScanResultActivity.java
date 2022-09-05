@@ -41,7 +41,7 @@ public class QrScanResultActivity extends BaseActivity implements QrScanResultAc
 
     private String first_phone, second_phone;
     private String qrId;
-    private String mesiboAddress;
+//    private String mesiboAddress;
 
     TextView mTvMemo, mTvNick, mTvPhone;
     LinearLayout mLlNumvaGuide;
@@ -136,27 +136,27 @@ public class QrScanResultActivity extends BaseActivity implements QrScanResultAc
         mLlNumvaCall.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                if(mesiboAddress!=null){
-                    if(!MesiboCall.getInstance().callUi(QrScanResultActivity.this, mesiboAddress, false))
-                        MesiboCall.getInstance().callUiForExistingCall(QrScanResultActivity.this);
-
-                }else{
-                    showCustomToast(getResources().getString(R.string.alert_not_prepared));
-                }
+//                if(mesiboAddress!=null){
+//                    if(!MesiboCall.getInstance().callUi(QrScanResultActivity.this, mesiboAddress, false))
+//                        MesiboCall.getInstance().callUiForExistingCall(QrScanResultActivity.this);
+//
+//                }else{
+//                    showCustomToast(getResources().getString(R.string.alert_not_prepared));
+//                }
             }
         });
         mLlNumvaTalk.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                if(mesiboAddress!=null){
-                    Intent intent = new Intent(QrScanResultActivity.this, NumvatalkActivity.class);
-                    intent.putExtra("peer", mesiboAddress);
-                    intent.putExtra("groupid", 0L);
-                    intent.putExtra("mid", 0L);
-                    startActivity(intent);
-                }else{
-                    showCustomToast(getResources().getString(R.string.alert_not_prepared));
-                }
+//                if(mesiboAddress!=null){
+//                    Intent intent = new Intent(QrScanResultActivity.this, NumvatalkActivity.class);
+//                    intent.putExtra("peer", mesiboAddress);
+//                    intent.putExtra("groupid", 0L);
+//                    intent.putExtra("mid", 0L);
+//                    startActivity(intent);
+//                }else{
+//                    showCustomToast(getResources().getString(R.string.alert_not_prepared));
+//                }
             }
         });
 
@@ -271,7 +271,7 @@ public class QrScanResultActivity extends BaseActivity implements QrScanResultAc
 
                     first_phone = scanQrResponse.getResult().getSafetyNumber().getFirst();
                     second_phone = scanQrResponse.getResult().getSafetyNumber().getSecond();
-                    mesiboAddress = scanQrResponse.getResult().getMesibo_address();
+//                    mesiboAddress = scanQrResponse.getResult().getMesibo_address();
 
                     mTvNick.setText(scanQrResponse.getResult().getNickname());
                     mTvMemo.setText(scanQrResponse.getResult().getMemo());

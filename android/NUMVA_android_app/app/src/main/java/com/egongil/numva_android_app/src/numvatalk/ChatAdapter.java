@@ -54,11 +54,10 @@ private List<MessageData> mChatList = null;
     private Context mContext = null;
     private MessageViewHolder.ClickListener clickListener = null;
 
-    public ChatAdapter(Context context, MessageAdapter.MessagingAdapterListener listener, List<MessageData> ChatList, MessageViewHolder.ClickListener cl1) {
+    public ChatAdapter(Context context, MessageAdapter.MessagingAdapterListener listener, List<MessageData> ChatList) {
         this.mContext = context;
         this.mChatList = ChatList;
         this.mListener = listener;
-        this.clickListener = cl1;
         this.mDisplayMsgCnt = 30;
         this.mDateCoin = "";
         this.mTotalMessages = this.mChatList.size();
