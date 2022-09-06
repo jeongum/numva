@@ -1,4 +1,4 @@
-# 🚙 차주를 위한 QR 전화번호서비스, 넘바
+# 🚘 차주를 위한 QR 전화번호서비스, 넘바 🚘
 
 ![graphic_image](https://user-images.githubusercontent.com/37799862/188370980-e2a1567a-95cb-4a9b-bd75-d01a00644b77.png)
 
@@ -37,7 +37,7 @@
 
 <br>
 
-# 🚙 주요 기능
+# 🚘 주요 기능 🚘
 ## 1. 로그인
    | 1-1. 앱 내 가입으로 만든 계정을 통해 일반 로그인을 할 수 있습니다. | 1-2. 네이버, 카카오 소셜 로그인을 할 수 있습니다.|
    |---|---|
@@ -76,7 +76,7 @@
 
 <br>
 
-# 🚙 개발 환경
+# 🚘 개발 환경 🚘
 ### Android
 - android studio chipmunk 2021.2.1 patch 1
 - minSdkVersion : 24
