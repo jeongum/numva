@@ -8,6 +8,7 @@ import android.util.Log;
 import com.egongil.numva_android_app.src.config.models.base.ErrorResponse;
 import com.egongil.numva_android_app.src.config.models.request.RegisterQrRequest;
 import com.egongil.numva_android_app.src.config.models.response.RegisterQrResponse;
+import com.egongil.numva_android_app.src.qr_scan.interfaces.QrScanActivityContract;
 import com.egongil.numva_android_app.src.qr_scan.interfaces.QrScanResultActivityContract;
 import com.egongil.numva_android_app.src.config.models.request.ScanQrRequest;
 import com.egongil.numva_android_app.src.config.models.response.ScanQrResponse;
@@ -16,11 +17,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class QrScanResultService {
-    private final QrScanResultActivityContract mQrScanResultActivityContract;
+public class QrScanService {
+    private final QrScanActivityContract mQrScanActivityContract;
 
-    public QrScanResultService(QrScanResultActivityContract mQrScanResultActivityContract) {
-        this.mQrScanResultActivityContract = mQrScanResultActivityContract;
+    public QrScanService(QrScanActivityContract mQrScanActivityContract) {
+        this.mQrScanActivityContract = mQrScanActivityContract;
     }
     public void scanQr(ScanQrRequest scanQrRequest){
         getRetrofitService().scanQr(scanQrRequest).enqueue(new Callback<ScanQrResponse>() {
@@ -33,36 +34,13 @@ public class QrScanResultService {
                 } else{
                     errorResponse = convertErrorResponse(response);
                 }
-                mQrScanResultActivityContract.scanQrSuccess(scanQrResponse, errorResponse);
+                mQrScanActivityContract.scanQrSuccess(scanQrResponse, errorResponse);
             }
 
             @Override
             public void onFailure(Call<ScanQrResponse> call, Throwable t) {
                 t.printStackTrace();
-                mQrScanResultActivityContract.scanQrFailure();
-            }
-        });
-    }
-
-    public void registerQr(RegisterQrRequest registerQrRequest){
-        getRetrofitService().registerQr(registerQrRequest).enqueue(new retrofit2.Callback<RegisterQrResponse>(){
-            @Override
-            public void onResponse(Call<RegisterQrResponse> call, Response<RegisterQrResponse> response) {
-                Log.e("response.code()", String.valueOf(response.code()));
-                RegisterQrResponse registerQrResponse = null;
-                ErrorResponse errorResponse = null;
-                if(response.body()!=null){
-                    registerQrResponse = response.body();
-                } else{
-                    errorResponse = convertErrorResponse(response);
-                }
-                mQrScanResultActivityContract.registerQrSuccess(registerQrResponse, errorResponse);
-            }
-
-            @Override
-            public void onFailure(Call<RegisterQrResponse> call, Throwable t) {
-                t.printStackTrace();
-                mQrScanResultActivityContract.registerQrFailure();
+                mQrScanActivityContract.scanQrFailure();
             }
         });
     }
