@@ -74,8 +74,10 @@
 |---|---|
 |![4-1](https://user-images.githubusercontent.com/37799862/188640665-53cb0643-7ab9-4057-8be0-23878ed24be6.gif)|![4-2](https://user-images.githubusercontent.com/37799862/188640662-fd729cce-9ac1-4f1f-b682-00ec04f55efa.gif)|
 
+<br>
+
 # 개발 환경
-### Android
+## Android
 - android studio chipmunk 2021.2.1 patch 1
 - minSdkVersion : 24
 - targetSdkVersion : 30
