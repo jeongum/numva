@@ -26,6 +26,10 @@
 ### 목차
 - [팀원 소개](https://github.com/jeongum/numva/blob/develop/README.md#-팀원-소개-)
 - [주요 기능](https://github.com/jeongum/numva/blob/develop/README.md#-주요-기능-)
+  - [로그인](https://github.com/jeongum/numva/blob/develop/README.md#1-로그인)
+  - [홈 화면 및 주차 메모](https://github.com/jeongum/numva/blob/develop/README.md#2-홈-화면-및-주차-메모)
+  - [QR스캔으로 유저 안심번호 확인하기](https://github.com/jeongum/numva/blob/develop/README.md#3-qr스캔으로-유저-안심번호-확인하기)
+  - [사용자 정보 관리](https://github.com/jeongum/numva/blob/develop/README.md#4-사용자-정보-관리)
 - [개발 환경](https://github.com/jeongum/numva/blob/develop/README.md#-개발-환경-)
 
 <br>
