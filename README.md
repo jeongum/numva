@@ -24,8 +24,8 @@
 <br>
 
 ### 목차
-- [팀원 소개](https://github.com/jeongum/numva/edit/develop/README.md#-%ED%8C%80%EC%9B%90-%EC%86%8C%EA%B0%9C-)
-- [주요 기능](https://github.com/jeongum/numva/edit/develop/README.md#-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-)
+- [팀원 소개](https://github.com/jeongum/numva/blob/develop/README.md#-팀원-소개-)
+- [주요 기능](https://github.com/jeongum/numva/blob/develop/README.md#-주요-기능-)
 
 <br>
 
