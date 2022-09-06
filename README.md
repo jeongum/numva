@@ -41,7 +41,7 @@
 ## 1. 로그인
    | 1-1. 앱 내 가입으로 만든 계정을 통해 일반 로그인을 할 수 있습니다. | 1-2. 네이버, 카카오 소셜 로그인을 할 수 있습니다.|
    |---|---|
-   |![login](https://user-images.githubusercontent.com/37799862/188399615-207057d3-96eb-4e51-824d-b9d6e97fd7b1.jpeg)|![login_gif](https://user-images.githubusercontent.com/37799862/188399275-3b606668-bd4e-420d-8384-8efcb969b579.gif)
+   |![1-1](https://user-images.githubusercontent.com/37799862/188640668-7d17b85e-50be-443c-b643-8c10d434d3a0.gif)|![login_gif](https://user-images.githubusercontent.com/37799862/188399275-3b606668-bd4e-420d-8384-8efcb969b579.gif)
    
 <br>
 
@@ -63,13 +63,13 @@
 ## 3. QR스캔으로 유저 안심번호 확인하기
 |3-1. QR코드를 스캔하여 사용자의 연락처를 확인할 수 있습니다. | 3-2. 사용자의 안심번호로 전화, 문자를 전송할 수 있습니다.
 |---|---|
-|<center>추가예정</center>|<center>추가예정</center>|
+|![3-1](https://user-images.githubusercontent.com/37799862/188645116-143830a9-9e0f-47fc-9ceb-cb46e4dcafe9.gif)|![3-2](https://user-images.githubusercontent.com/37799862/188645706-1b6d43f2-936a-4fd7-b047-fef04e981446.gif)|
 
-|3-3. 넘바톡(앱 내 채팅)으로 연락할 수 있으며, 간편 답장이 가능합니다.| 3-4. 넘바콜(앱 내 통화)로 연락 가능합니다.|
+|3-3. 넘바톡(앱 내 채팅)으로 연락할 수 있으며, 간편 답장이 가능합니다.<br>(* 유료 api 만료로 인해 다이얼로그 발생하는 점 양해 부탁드립니다)| 3-4. 넘바콜(앱 내 통화)로 연락 가능합니다.|
 |---|---|
-|<center>추가예정</center>|<center>추가예정</center>|
+|![3-3](https://user-images.githubusercontent.com/37799862/188648183-40dec0f7-ddd4-465e-a556-9400e32b716d.gif)|![3-4 중간](https://user-images.githubusercontent.com/37799862/188648542-5bbc1a9e-7b83-4a8f-a48d-7d545fe526e2.jpeg)|
 
 ## 4. 사용자 정보 관리
 |4-1. 2차 전화번호를 설정해 연락이 안 될 경우를 대비할 수 있습니다. | 4-2. 이름 대신 닉네임을 사용할 수 있으며, 랜덤으로도 설정할 수 있습니다.
 |---|---|
-|<center>추가예정</center>|<center>추가예정</center>|
+|![4-1](https://user-images.githubusercontent.com/37799862/188640665-53cb0643-7ab9-4057-8be0-23878ed24be6.gif)|![4-2](https://user-images.githubusercontent.com/37799862/188640662-fd729cce-9ac1-4f1f-b682-00ec04f55efa.gif)|
