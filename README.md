@@ -77,7 +77,7 @@
 <br>
 
 # 개발 환경
-## Android
+### Android
 - android studio chipmunk 2021.2.1 patch 1
 - minSdkVersion : 24
 - targetSdkVersion : 30
