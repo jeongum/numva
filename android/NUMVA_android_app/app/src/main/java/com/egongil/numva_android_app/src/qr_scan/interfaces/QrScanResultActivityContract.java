@@ -5,9 +5,6 @@ import com.egongil.numva_android_app.src.config.models.response.RegisterQrRespon
 import com.egongil.numva_android_app.src.config.models.response.ScanQrResponse;
 
 public interface QrScanResultActivityContract {
-    void scanQrSuccess(ScanQrResponse scanQrResponse, ErrorResponse errorResponse);
-    void scanQrFailure();
-
     void registerQrSuccess(RegisterQrResponse registerQrResponse, ErrorResponse errorResponse);
     void registerQrFailure();
 }
