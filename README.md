@@ -15,7 +15,7 @@
 <br>
 
 ### Google Play
-[Google Play에서 넘바 보기](https://play.google.com/store/apps/details?id=com.egongil.numva_android_app)
+[🔗 Google Play에서 넘바 보기](https://play.google.com/store/apps/details?id=com.egongil.numva_android_app)
 
 |![description_1](https://user-images.githubusercontent.com/37799862/188404488-c11a637a-c087-40a4-9031-6a302de68005.jpeg) | ![description_2](https://user-images.githubusercontent.com/37799862/188404491-35a5e9ae-eabd-43b7-8399-dbad7d57abe4.jpeg) | ![description_3](https://user-images.githubusercontent.com/37799862/188404493-2ef983e3-3d87-4def-a5b7-8888381134ba.jpeg) | ![description_4](https://user-images.githubusercontent.com/37799862/188406120-ab72b26f-90f9-43fd-9cae-7a4a65b3a51a.jpeg) |
 |--|--|--|--|
@@ -24,8 +24,8 @@
 <br>
 
 ### 목차
-- 팀원 소개
-- 주요 기능
+- [팀원 소개](https://github.com/jeongum/numva/edit/develop/README.md#-%ED%8C%80%EC%9B%90-%EC%86%8C%EA%B0%9C-)
+- [주요 기능](https://github.com/jeongum/numva/edit/develop/README.md#-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-)
 
 <br>
 
