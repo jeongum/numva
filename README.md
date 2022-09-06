@@ -48,15 +48,15 @@
 ## 2. 홈 화면 및 주차 메모
 | 2-1. 로그인 후 홈 화면에서 QR전화번호판을 관리할 수 있습니다. |
 |---|
-|<center>추가예정</center>|
+|![2-1](https://user-images.githubusercontent.com/37799862/188631429-23d0c4d4-b7f9-4ea7-ac7f-7a8cf9495889.gif)|
 
-| 2-2. QR을 등록하는 법은 "직접 입력", 그리고 "QR코드 스캔"으로 두 가지 방법이 있습니다. | 2-3. 등록된 QR은 직접 별명을 설정하고 관리할 수 있습니다.|
+| 2-2. QR을 등록하는 법은 "직접 입력", <br>그리고 "QR코드 스캔"으로 두 가지 방법이 있습니다. | 2-3. 등록된 QR은 직접 별명을 설정하고 관리할 수 있습니다.|
 |---|---|
-|<center>추가예정</center>|<center>추가예정</center>|
+|![2-2](https://user-images.githubusercontent.com/37799862/188632314-cbc4b0f7-1492-42cc-b2e4-65e2cb6c9371.gif)|![2-3](https://user-images.githubusercontent.com/37799862/188636020-69db87d4-7de5-4cf4-a239-532e07c5e8ed.gif)|
 
 |2-4. QR번호판을 터치하면, 주차 번호판을 수정할 수 있습니다.| 2-5. 간편 메모를 통해 자주 이용하는 메모로 변경할 수 있습니다.|
 |---|---|
-|<center>추가예정</center>|<center>추가예정</center>|
+|![2-4](https://user-images.githubusercontent.com/37799862/188636017-c444ff34-7930-4e3a-933d-b0bcdbbedaad.gif)|![2-5](https://user-images.githubusercontent.com/37799862/188636011-423602f6-f3f7-4ba7-ab4d-f8ba3ce0033e.gif)|
 
 <br>
 
