@@ -47,10 +47,6 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
     private QrManagementViewModel mQrManagementViewModel;
     private QrRecyclerAdapter mQrRvAdapter;
 
-//    private OneLineEditDialog directRegisterDialog;
-//    private TwoButtonDialog deleteDialog;
-//    private OneLineEditDialog editDialog;
-
     ActivityResultLauncher<Intent> mActivityResultLauncher;
 
     @Override
@@ -269,14 +265,10 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
             if (errorResponse.getCode() == -102) {
                 //이미 등록된 qr
                 showCustomToast("이미 등록된 일련번호입니다. 다시 한 번 확인해주세요.");
-//                directRegisterDialog.setGuideText("이미 등록된 일련번호입니다. 다시 한 번 확인해주세요.");
-//                directRegisterDialog.setGuideColor(getColor(R.color.colorErrorRed));
 
             } else if (errorResponse.getCode() == -103) {
                 //유효하지 않은 일련번호
                 showCustomToast("유효하지 않은 일련번호입니다. 다시 한 번 확인해주세요.");
-//                directRegisterDialog.setGuideText("유효하지 않은 일련번호입니다. 다시 한 번 확인해주세요.");
-//                directRegisterDialog.setGuideColor(getColor(R.color.colorErrorRed));
             } else {
                 showCustomToast(getResources().getString(R.string.network_error));
             }

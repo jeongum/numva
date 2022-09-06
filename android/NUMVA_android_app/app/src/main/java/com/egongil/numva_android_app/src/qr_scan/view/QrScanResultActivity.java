@@ -40,19 +40,6 @@ public class QrScanResultActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_scan_result);
 
-        //url에서 qr_id 추출
-//        Intent intent = getIntent();
-//        String scan_result = intent.getStringExtra("scan_result");
-//        if(checkUrl(scan_result)){
-//            //넘바 URL일 경우
-//            qrId = splitQrId(scan_result);
-//            scanQr(qrId);
-//        }else{
-//            //넘바 URL이 아닐 경우
-//            showCustomToast(getString(R.string.qrscan_result_invalid_qr));
-//            finish();
-//        }
-
         ImageView mIvIcon = findViewById(R.id.qrscan_result_iv_icon);
         mTvNick = findViewById(R.id.qrscan_result_tv_nickname);
         LinearLayout mLlNumvaCall = findViewById(R.id.qrscan_result_ll_numvacall);
@@ -165,13 +152,6 @@ public class QrScanResultActivity extends BaseActivity{
         iconDrawable.setStroke(8, Color.rgb(r-20,g-20,b-20));
     }
 
-
-//
-//    public void setContentLayout(){
-//        setContentView(R.layout.activity_qr_scan_result);
-//
-//
-//    }
     public void showNumvaGuideTooltip(){
         Balloon balloon = new Balloon.Builder(this)
                 .setArrowSize(10)
