@@ -73,3 +73,9 @@
 |4-1. 2차 전화번호를 설정해 연락이 안 될 경우를 대비할 수 있습니다. | 4-2. 이름 대신 닉네임을 사용할 수 있으며, 랜덤으로도 설정할 수 있습니다.
 |---|---|
 |![4-1](https://user-images.githubusercontent.com/37799862/188640665-53cb0643-7ab9-4057-8be0-23878ed24be6.gif)|![4-2](https://user-images.githubusercontent.com/37799862/188640662-fd729cce-9ac1-4f1f-b682-00ec04f55efa.gif)|
+
+# 개발 환경
+### Android
+- android studio chipmunk 2021.2.1 patch 1
+- minSdkVersion : 24
+- targetSdkVersion : 30
