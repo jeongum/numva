@@ -1,7 +1,10 @@
 package com.egongil.numva_android_app.src.qr_management.view;
 
 import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_MANAGEMENT_ACTIVITY;
+import static com.egongil.numva_android_app.src.config.ApplicationClass.ActivityType.QR_SCAN_ACTIVITY;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -44,9 +47,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
     private QrManagementViewModel mQrManagementViewModel;
     private QrRecyclerAdapter mQrRvAdapter;
 
-    private OneLineEditDialog directRegisterDialog;
-    private TwoButtonDialog deleteDialog;
-    private OneLineEditDialog editDialog;
+    ActivityResultLauncher<Intent> mActivityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +105,17 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                 finish();
             }
         });
+
+        mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == QR_SCAN_ACTIVITY) {
+                Intent intent = result.getData();
+                String qrId = intent.getStringExtra("qr_id");
+                //qr_id가 null이 아니면 registerQR
+                if(qrId != null){
+                    registerQr(qrId);
+                }
+            }
+        });
     }
 
     public int checkQrNameValidity(String name) {
@@ -145,15 +157,14 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
             public void onSingleClick(View v) {
                 //qr스캔 카메라 연결
                 Intent intent = new Intent(QrManagementActivity.this, QrScanActivity.class);
-                startActivity(intent);
                 registerDialog.dismiss();
-                finish();
+                mActivityResultLauncher.launch(intent);
             }
         });
     }
 
     public void showDirectRegisterDialog() {
-        directRegisterDialog = new OneLineEditDialog(QrManagementActivity.this);
+        OneLineEditDialog directRegisterDialog = new OneLineEditDialog(QrManagementActivity.this);
         directRegisterDialog.showDialog();
 
         directRegisterDialog.setTitleText("제품 일련번호 등록");
@@ -164,12 +175,13 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
             @Override
             public void onSingleClick(View v) {
                 registerQr(directRegisterDialog.getTextOfEdit());
+                directRegisterDialog.dismiss();
             }
         });
     }
 
     public void showEditDialog(int position) {
-        editDialog = new OneLineEditDialog(QrManagementActivity.this);
+        OneLineEditDialog editDialog = new OneLineEditDialog(QrManagementActivity.this);
         editDialog.showDialog();
 
         editDialog.setTitleText("QR 별명 설정");    //타이틀 text 설정
@@ -194,6 +206,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
                     mQrManagementViewModel.setSafetyInfoData(mListQR);
 
                     setQrName(mListQR.get(position).getId(), strEdit);  //api
+                    editDialog.dismiss();
                 } else if (isQrNameValid == QRNAME_EMPTY) {
                     editDialog.setGuideText("한 글자 이상 입력해주세요.");
                     editDialog.setGuideColor(getColor(R.color.colorErrorRed));
@@ -206,7 +219,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
     }
 
     public void showDeleteDialog(int position) {
-        deleteDialog = new TwoButtonDialog(QrManagementActivity.this);
+        TwoButtonDialog deleteDialog = new TwoButtonDialog(QrManagementActivity.this);
         deleteDialog.showDialog();
         deleteDialog.setContextText("이 QR을 삭제할까요?");
         deleteDialog.setSelectText("취소", "확인");
@@ -241,7 +254,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
     public void registerQrSuccess(RegisterQrResponse registerQrResponse, ErrorResponse errorResponse) {
         if (registerQrResponse != null) {
             if (registerQrResponse.getCode() == 200 && registerQrResponse.isSuccess()) {
-                directRegisterDialog.dismiss();
+//                directRegisterDialog.dismiss();
 
                 showCustomToast(getString(R.string.qr_manage_register_success));
                 ArrayList<SafetyInfo> mListQR = registerQrResponse.getResult();
@@ -251,13 +264,11 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
             //에러 시 동작
             if (errorResponse.getCode() == -102) {
                 //이미 등록된 qr
-                directRegisterDialog.setGuideText("이미 등록된 일련번호입니다. 다시 한 번 확인해주세요.");
-                directRegisterDialog.setGuideColor(getColor(R.color.colorErrorRed));
+                showCustomToast("이미 등록된 일련번호입니다. 다시 한 번 확인해주세요.");
 
             } else if (errorResponse.getCode() == -103) {
                 //유효하지 않은 일련번호
-                directRegisterDialog.setGuideText("유효하지 않은 일련번호입니다. 다시 한 번 확인해주세요.");
-                directRegisterDialog.setGuideColor(getColor(R.color.colorErrorRed));
+                showCustomToast("유효하지 않은 일련번호입니다. 다시 한 번 확인해주세요.");
             } else {
                 showCustomToast(getResources().getString(R.string.network_error));
             }
@@ -280,7 +291,7 @@ public class QrManagementActivity extends BaseActivity implements QrManagementAc
         if (setQrNameResponse != null) {
             if (setQrNameResponse.getCode() == 200 && setQrNameResponse.isSuccess()) {
                 showCustomToast(getResources().getString(R.string.qr_manage_edit_success));
-                editDialog.dismiss();
+//                editDialog.dismiss();
             }
         } else if (errorResponse != null) {
             //에러 시 동작
