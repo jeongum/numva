@@ -93,3 +93,7 @@
   - Retrofit2
   - zxing
   - mesibo
+
+# 🚘 리팩토링 🚘
+### Android
+- [리팩토링 일지](https://github.com/jeongum/numva/blob/develop/refactor_log.md#android-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81)
