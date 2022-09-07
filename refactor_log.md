@@ -35,8 +35,7 @@
 | 22.03.17 | MainViewModel | - MainActivity의 UserData를 ViewModel로 변경 <br> - 각 Fragment에서 필요한 api 및 공유 데이터 MainViewModel에 구현 |
 |  | HomeFragment, MyPageFragment | FIndViewById → DataBinding |
 | 22.08.19 | MainViewModel | - HomeFragment에 MainViewModel 공유 <br> - HomeFragment의 callback구현→ viewModel data로 변경 <br> - MainViewModel에 LoginState 추가, 각 Fragment에서 비로그인/로그인 상태에 따라 다르게 표시되어야 하는 부분들의 visibility 양방향바인딩 처리 |
-| 22.08.25 | MVVM | MainActivityView → MainContract
-(단순 인터페이스명 변경) |
+| 22.08.25 | MVVM | MainActivityView → MainContract <br> (단순 인터페이스명 변경) |
 | 22.08.26 | 중복코드제거 | - RetrofitResponse를 부모클래스로 생성하여 상속하는 방식으로 Response POJO클래스들의 중복 코드 제거<br> - ErrorConverter를 ApplicationClass에 메소드화하여 중복 코드 제거<br> - 화면별로 분리되어있던 패키지 구조를 일부 통합하여, api Response, Request model class들을 하나의 패키지에 모음(같은 model을 사용하는 api끼리 공유하는 경우 중복코드 제거하며 코드 관리 수월해짐) |
 |  | Clean Code | - ApplicationClass의 retrofit변수 private화, getRetrofit()으로 접근 |
 |  | MVVM | - home, main, mypage의 패키지 구조 정리 |
