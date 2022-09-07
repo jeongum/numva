@@ -9,6 +9,8 @@
 <br>
 
 ### 목차
+- [기획 배경](https://github.com/jeongum/numva/blob/develop/README.md#기획-배경)
+- [Google Play](https://github.com/jeongum/numva/blob/develop/README.md#google-play)
 - [팀원 소개](https://github.com/jeongum/numva/blob/develop/README.md#-팀원-소개-)
 - [주요 기능](https://github.com/jeongum/numva/blob/develop/README.md#-주요-기능-)
   - [로그인](https://github.com/jeongum/numva/blob/develop/README.md#1-로그인)
@@ -87,3 +89,7 @@
 - android studio chipmunk 2021.2.1 patch 1
 - minSdkVersion : 24
 - targetSdkVersion : 30
+- Skill & Library
+  - Retrofit2
+  - zxing
+  - mesibo
