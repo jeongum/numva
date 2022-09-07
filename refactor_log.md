@@ -54,8 +54,7 @@
 |  | UI/UX 개선 | - HomeFragment QR등록버튼 비로그인상태 시 비활성화<br> - QrManagement RegisterDialog EditText 줄바꿈 금지<br> - ParkingMemoActivity 내용 비어있을 때 저장알림Dialog 나오는 현상 해결 |
 |  | Clean code | - Lambda 적극 활용 |
 | 22.09.01 | fix | - repSecondPhone api error 해결 |
-|  | MVVM
-(SecondPhoneViewModel) | SecondPhoneActivity ViewModel 생성 |
+|  | MVVM<br>(SecondPhoneViewModel) | SecondPhoneActivity ViewModel 생성 |
 | 22.09.02 | UI/UX 개선 | - SecondPhoneActivity delete 개선<br> - SecondPhoneRegisteAcitivity crossbtn 삭제<br> - SecondPhoneActivity EditState에서 setRep 제한 |
 | 22.09.05 | MVVM | - SecondPhoneRegisterActivity binding|
 |  | fix | - SecondPhoneActivity PhoneNum 유효성 검사 추가, Spinner 삭제<br> - numva.co.kr 도메인 만료 → ip주소로 수정 |
