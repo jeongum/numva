@@ -8,6 +8,17 @@
 
 <br>
 
+### 목차
+- [팀원 소개](https://github.com/jeongum/numva/blob/develop/README.md#-팀원-소개-)
+- [주요 기능](https://github.com/jeongum/numva/blob/develop/README.md#-주요-기능-)
+  - [로그인](https://github.com/jeongum/numva/blob/develop/README.md#1-로그인)
+  - [홈 화면 및 주차 메모](https://github.com/jeongum/numva/blob/develop/README.md#2-홈-화면-및-주차-메모)
+  - [QR스캔으로 유저 안심번호 확인하기](https://github.com/jeongum/numva/blob/develop/README.md#3-qr스캔으로-유저-안심번호-확인하기)
+  - [사용자 정보 관리](https://github.com/jeongum/numva/blob/develop/README.md#4-사용자-정보-관리)
+- [개발 환경](https://github.com/jeongum/numva/blob/develop/README.md#-개발-환경-)
+
+<br>
+
 ### 기획 배경
 - 예비창업패키지에 선정되어 진행한 프로젝트로, 차주를 위한 개인정보 보호 서비스입니다. 
 - 차량에 비치하는 휴대전화번호가 개인정보보호의 사각지대라고 생각했고, 그 해결법으로 QR코드 전화번호판을 생각했습니다. 
@@ -21,16 +32,6 @@
 |--|--|--|--|
 | ![description_5](https://user-images.githubusercontent.com/37799862/188404500-753c9085-c2a6-4e87-a23c-8879318b22a2.jpeg) | ![description_6](https://user-images.githubusercontent.com/37799862/188404502-164db9d2-e22c-4631-be60-b25bc1d5b9bf.jpeg) | ![description_7](https://user-images.githubusercontent.com/37799862/188404504-098893e6-8b37-4070-b3a4-d71e4f29c508.jpeg) | ![description_8](https://user-images.githubusercontent.com/37799862/188404509-77fe2014-bcb9-4b29-8875-03a22d2d99cc.jpeg) | 
 
-<br>
-
-### 목차
-- [팀원 소개](https://github.com/jeongum/numva/blob/develop/README.md#-팀원-소개-)
-- [주요 기능](https://github.com/jeongum/numva/blob/develop/README.md#-주요-기능-)
-  - [로그인](https://github.com/jeongum/numva/blob/develop/README.md#1-로그인)
-  - [홈 화면 및 주차 메모](https://github.com/jeongum/numva/blob/develop/README.md#2-홈-화면-및-주차-메모)
-  - [QR스캔으로 유저 안심번호 확인하기](https://github.com/jeongum/numva/blob/develop/README.md#3-qr스캔으로-유저-안심번호-확인하기)
-  - [사용자 정보 관리](https://github.com/jeongum/numva/blob/develop/README.md#4-사용자-정보-관리)
-- [개발 환경](https://github.com/jeongum/numva/blob/develop/README.md#-개발-환경-)
 
 <br>
 
