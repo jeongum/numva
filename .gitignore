@@ -19,6 +19,13 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,android
 
 ### Android ###
+
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
 # Gradle files
 .gradle/
 build/

@@ -18,6 +18,7 @@
   - [QR스캔으로 유저 안심번호 확인하기](https://github.com/jeongum/numva/blob/develop/README.md#3-qr스캔으로-유저-안심번호-확인하기)
   - [사용자 정보 관리](https://github.com/jeongum/numva/blob/develop/README.md#4-사용자-정보-관리)
 - [개발 환경](https://github.com/jeongum/numva/blob/develop/README.md#-개발-환경-)
+- [리팩토링](https://github.com/jeongum/numva/blob/develop/README.md#-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-) 
 
 <br>
 
@@ -93,3 +94,7 @@
   - Retrofit2
   - zxing
   - mesibo
+
+# 🚘 리팩토링 🚘
+### Android
+- [리팩토링 일지](https://github.com/jeongum/numva/blob/develop/refactor_log.md#android-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81)

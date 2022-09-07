@@ -1,6 +1,6 @@
 # Android 리팩토링
 
-## 프로젝트 구조
+## 📌 프로젝트 구조
 (리팩토링과 관련 없는 View는 차트에서 제외함)
 <img width="897" alt="스크린샷 2022-09-07 오전 2 52 37" src="https://user-images.githubusercontent.com/37799862/188825075-5ab6b6d7-c7ac-47e2-93c1-dda057dd352d.png">
 
@@ -13,7 +13,7 @@
   - `MainViewModel`을 구현하여, HomeFragment, MyPageFragment, QrScanFragment가 공유하도록 하였다. 양방향으로 데이터바인딩하고있기 때문에, 어느 한 Fragment에서 MainViewModel의 데이터를 변경하면 모든 프래그먼트의 값이 변경된다.
   - 그 외 다른 Activity에서 observe되어야하는 데이터가 존재할 경우, 그 액티비티의 ViewModel을 구현해주었다. 액티비티 간에는 뷰모델을 공유할 수 없기 때문이다.
 
-# 주요 리팩토링 내용
+## 📌 주요 리팩토링 내용
 
 - Fragment간 공유데이터 수정 시 UI 변경 보완(Activity와 Fragment들 간 데이터 효율적으로 공유)
     - 기존) Callback으로 구현
@@ -28,15 +28,14 @@
 
 <br>
 
-# 리팩토링 일지
+## 📌 리팩토링 일지
 | <div sytle="width:150px">Date</div> | <div sytle="width:150px">Which Part</div> | <div sytle="width:600px">Description</div> |
 | --- | --- | --- |
 | 22.03.16 | init | DataBinding을 위한 setting |
 | 22.03.17 | MainViewModel | - MainActivity의 UserData를 ViewModel로 변경 <br> - 각 Fragment에서 필요한 api 및 공유 데이터 MainViewModel에 구현 |
 |  | HomeFragment, MyPageFragment | FIndViewById → DataBinding |
 | 22.08.19 | MainViewModel | - HomeFragment에 MainViewModel 공유 <br> - HomeFragment의 callback구현→ viewModel data로 변경 <br> - MainViewModel에 LoginState 추가, 각 Fragment에서 비로그인/로그인 상태에 따라 다르게 표시되어야 하는 부분들의 visibility 양방향바인딩 처리 |
-| 22.08.25 | MVVM | MainActivityView → MainContract
-(단순 인터페이스명 변경) |
+| 22.08.25 | MVVM | MainActivityView → MainContract <br> (단순 인터페이스명 변경) |
 | 22.08.26 | 중복코드제거 | - RetrofitResponse를 부모클래스로 생성하여 상속하는 방식으로 Response POJO클래스들의 중복 코드 제거<br> - ErrorConverter를 ApplicationClass에 메소드화하여 중복 코드 제거<br> - 화면별로 분리되어있던 패키지 구조를 일부 통합하여, api Response, Request model class들을 하나의 패키지에 모음(같은 model을 사용하는 api끼리 공유하는 경우 중복코드 제거하며 코드 관리 수월해짐) |
 |  | Clean Code | - ApplicationClass의 retrofit변수 private화, getRetrofit()으로 접근 |
 |  | MVVM | - home, main, mypage의 패키지 구조 정리 |
@@ -54,8 +53,7 @@
 |  | UI/UX 개선 | - HomeFragment QR등록버튼 비로그인상태 시 비활성화<br> - QrManagement RegisterDialog EditText 줄바꿈 금지<br> - ParkingMemoActivity 내용 비어있을 때 저장알림Dialog 나오는 현상 해결 |
 |  | Clean code | - Lambda 적극 활용 |
 | 22.09.01 | fix | - repSecondPhone api error 해결 |
-|  | MVVM
-(SecondPhoneViewModel) | SecondPhoneActivity ViewModel 생성 |
+|  | MVVM<br>(SecondPhoneViewModel) | SecondPhoneActivity ViewModel 생성 |
 | 22.09.02 | UI/UX 개선 | - SecondPhoneActivity delete 개선<br> - SecondPhoneRegisteAcitivity crossbtn 삭제<br> - SecondPhoneActivity EditState에서 setRep 제한 |
 | 22.09.05 | MVVM | - SecondPhoneRegisterActivity binding|
 |  | fix | - SecondPhoneActivity PhoneNum 유효성 검사 추가, Spinner 삭제<br> - numva.co.kr 도메인 만료 → ip주소로 수정 |
