@@ -1,6 +1,6 @@
 # Android 리팩토링
 
-## 프로젝트 구조
+## 📌 프로젝트 구조
 (리팩토링과 관련 없는 View는 차트에서 제외함)
 <img width="897" alt="스크린샷 2022-09-07 오전 2 52 37" src="https://user-images.githubusercontent.com/37799862/188825075-5ab6b6d7-c7ac-47e2-93c1-dda057dd352d.png">
 
@@ -13,7 +13,7 @@
   - `MainViewModel`을 구현하여, HomeFragment, MyPageFragment, QrScanFragment가 공유하도록 하였다. 양방향으로 데이터바인딩하고있기 때문에, 어느 한 Fragment에서 MainViewModel의 데이터를 변경하면 모든 프래그먼트의 값이 변경된다.
   - 그 외 다른 Activity에서 observe되어야하는 데이터가 존재할 경우, 그 액티비티의 ViewModel을 구현해주었다. 액티비티 간에는 뷰모델을 공유할 수 없기 때문이다.
 
-# 주요 리팩토링 내용
+## 📌 주요 리팩토링 내용
 
 - Fragment간 공유데이터 수정 시 UI 변경 보완(Activity와 Fragment들 간 데이터 효율적으로 공유)
     - 기존) Callback으로 구현
@@ -28,7 +28,7 @@
 
 <br>
 
-# 리팩토링 일지
+## 📌 리팩토링 일지
 | <div sytle="width:150px">Date</div> | <div sytle="width:150px">Which Part</div> | <div sytle="width:600px">Description</div> |
 | --- | --- | --- |
 | 22.03.16 | init | DataBinding을 위한 setting |
