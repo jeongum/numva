@@ -22,14 +22,24 @@
 
 <br>
 
-### 기획 배경
+### 기획 의도 및 설명
 - 예비창업패키지에 선정되어 진행한 프로젝트로, 차주를 위한 개인정보 보호 서비스입니다. 
 - 차량에 비치하는 휴대전화번호가 개인정보보호의 사각지대라고 생각했고, 그 해결법으로 QR코드 전화번호판을 생각했습니다. 
+- 아래와 같은 QR주차전화번호판을 판매하여, 전화번호 대신 QR코드를 배치할 수 있도록 합니다.
+<img src=https://user-images.githubusercontent.com/37799862/189526500-1cb5de6f-3fcc-43aa-a409-6ba9a108a5d5.png width="300"/>
+
+
   
 <br>
 
 ### Google Play
 [🔗 Google Play에서 넘바 보기](https://play.google.com/store/apps/details?id=com.egongil.numva_android_app)
+
+**테스트 계정**
+- ID: test4@test.com
+- PW: 12345678
+
+> 현재 유료 api 토큰 만료로 인해, 앱내채팅/앱내통화가 제한됩니다.
 
 |![description_1](https://user-images.githubusercontent.com/37799862/188404488-c11a637a-c087-40a4-9031-6a302de68005.jpeg) | ![description_2](https://user-images.githubusercontent.com/37799862/188404491-35a5e9ae-eabd-43b7-8399-dbad7d57abe4.jpeg) | ![description_3](https://user-images.githubusercontent.com/37799862/188404493-2ef983e3-3d87-4def-a5b7-8888381134ba.jpeg) | ![description_4](https://user-images.githubusercontent.com/37799862/188406120-ab72b26f-90f9-43fd-9cae-7a4a65b3a51a.jpeg) |
 |--|--|--|--|
