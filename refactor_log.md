@@ -9,6 +9,7 @@
 
 - 문제 인식
   - Data가 변경되었을 때, Callback으로 그 데이터를 사용하는 모든 View를 일일히 수정해주어야 했다.
+  - 구현 파트가 늘어남에 따라 Callback 코드도 점점 늘어났고, 스파게티 코드가 되었다.
 - 해결  
   - `MainViewModel`을 구현하여, HomeFragment, MyPageFragment, QrScanFragment가 공유하도록 하였다. 양방향으로 데이터바인딩하고있기 때문에, 어느 한 Fragment에서 MainViewModel의 데이터를 변경하면 모든 프래그먼트의 값이 변경된다.
   - 그 외 다른 Activity에서 observe되어야하는 데이터가 존재할 경우, 그 액티비티의 ViewModel을 구현해주었다. 액티비티 간에는 뷰모델을 공유할 수 없기 때문이다.
