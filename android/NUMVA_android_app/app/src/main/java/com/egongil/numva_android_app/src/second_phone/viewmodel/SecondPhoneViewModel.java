@@ -10,9 +10,9 @@ import com.egongil.numva_android_app.src.second_phone.models.SecondPhoneRecycler
 import java.util.ArrayList;
 
 public class SecondPhoneViewModel extends ViewModel {
-    public MutableListLiveData<SecondPhoneRecyclerItem> mSecondPhone;
-    public  MutableLiveData<Boolean> mEditState;
-    public MutableLiveData<Integer> mSelectedPos;
+    private MutableListLiveData<SecondPhoneRecyclerItem> mSecondPhone;
+    private  MutableLiveData<Boolean> mEditState;
+    private MutableLiveData<Integer> mSelectedPos;
 
     private SecondPhoneActivityContract mSecondPhoneActivityContract;
 

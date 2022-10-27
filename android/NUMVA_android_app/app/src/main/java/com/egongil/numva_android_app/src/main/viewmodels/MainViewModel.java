@@ -32,8 +32,8 @@ import retrofit2.Response;
 public class MainViewModel extends ViewModel {
     private MutableLiveData<Boolean> mLoginState;
     private MutableLiveData<UserInfo> mUserData;
-    //observe 등록 위해 public
-    public MutableListLiveData<SafetyInfo> mSafetyInfo;
+
+    private MutableListLiveData<SafetyInfo> mSafetyInfo;
 
     private final MainContract mMainContract;
 

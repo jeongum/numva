@@ -74,16 +74,14 @@ public class SecondPhoneActivity extends BaseActivity implements SecondPhoneActi
         binding.secondphoneRv.setAdapter(mRvAdapter);
 
         //ViewModel observe 설정
-        mSecondPhoneViewModel.getSecondPhone();
-        mSecondPhoneViewModel.getSelectedPos();
         mSecondPhoneViewModel.setEditState(false);
-        mSecondPhoneViewModel.mEditState.observe(this, state ->{
+        mSecondPhoneViewModel.getEditState().observe(this, state ->{
            mRvAdapter.notifyDataSetChanged();
         });
-        mSecondPhoneViewModel.mSecondPhone.observe(this, secondPhoneRecyclerItems -> {
+        mSecondPhoneViewModel.getSecondPhone().observe(this, secondPhoneRecyclerItems -> {
             mRvAdapter.notifyDataSetChanged();
         });
-        mSecondPhoneViewModel.mSelectedPos.observe(this, pos -> {
+        mSecondPhoneViewModel.getSelectedPos().observe(this, pos -> {
             if(pos!=null){
                 putSecondPhoneData(mSecondPhoneViewModel.getSecondPhone().getValue()
                         .get(pos).getSecondphone());
