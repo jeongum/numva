@@ -132,10 +132,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract {
         });
 
         //safetyInfo가 변경되면 updateViewPager 해줌
-        if(mMainViewModel.mSafetyInfo == null){
-            mMainViewModel.getSafetyInfoData(); //null체크
-        }
-        mMainViewModel.mSafetyInfo.observe(getViewLifecycleOwner(), safetyInfos -> updateViewPager());
+        mMainViewModel.getSafetyInfoData().observe(getViewLifecycleOwner(), safetyInfos -> updateViewPager());
 
         //ViewPager margin, Transform
         setViewPagerStyle();

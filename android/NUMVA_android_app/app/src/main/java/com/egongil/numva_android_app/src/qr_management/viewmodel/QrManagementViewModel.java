@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class QrManagementViewModel extends ViewModel {
-    public MutableListLiveData<SafetyInfo> mSafetyInfo;
+    private MutableListLiveData<SafetyInfo> mSafetyInfo;
 
     private final QrManagementActivityContract mQrManagementActivityContract;
 
