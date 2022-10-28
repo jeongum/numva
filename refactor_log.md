@@ -59,3 +59,4 @@
 | 22.09.05 | MVVM | - SecondPhoneRegisterActivity binding|
 |  | fix | - SecondPhoneActivity PhoneNum 유효성 검사 추가, Spinner 삭제<br> - numva.co.kr 도메인 만료 → ip주소로 수정 |
 | 22.09.06 | fix | - qrscan으로 register시 발생 오류 해결 |
+| 22.10.27 | fix | - viewmodel observe되는 변수 private으로 변경(캡슐화)<br> - parkingmemoActivity item padding 추가 |
